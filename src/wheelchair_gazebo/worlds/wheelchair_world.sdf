@@ -116,7 +116,7 @@
       </link>
     </model>
 
-    <!-- 경사로: 연석 끊긴 자리(횡단보도)에만 배치 -->
+        <!-- 경사로: 연석 끊긴 자리(횡단보도)에만 배치 -->
     <model name="curb_ramp_left">
       <static>true</static><pose>-3.1 0 0.1 0 0.5 0</pose>
       <link name="link">
@@ -409,6 +409,12 @@
           <material><ambient>0.1 0.1 0.1 1</ambient><diffuse>0.1 0.1 0.1 1</diffuse></material></visual>
       </link>
     </model>
+
+    <include>
+      <uri>model://wheelchair</uri>
+      <name>wheelchair</name>
+      <pose>0 0 0.30 0 0 0</pose>
+    </include>
 
   </world>
 </sdf>
