@@ -92,9 +92,9 @@ def generate_launch_description():
         arguments=[
             '--x', '0.50',
             '--y', '0.0',
-            '--z', '0.12',
+            '--z', '0.10',
             '--roll', '0.0',
-            '--pitch', '0.0',
+            '--pitch', '-0.1047',
             '--yaw', '0.0',
             '--frame-id', 'base_link',
             '--child-frame-id', 'wheelchair/lidar_link/lidar_sensor',
