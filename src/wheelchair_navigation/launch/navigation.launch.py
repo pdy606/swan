@@ -8,7 +8,7 @@ from launch_ros.actions import Node
 
 
 def generate_launch_description():
-    package_share = get_package_share_directory("wheelchair_gazebo")
+    package_share = get_package_share_directory("wheelchair_navigation")
 
     default_params_file = os.path.join(
         package_share,
