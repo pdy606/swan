@@ -1,0 +1,32 @@
+scan_to_scan_filter_chain:
+  ros__parameters:
+    filter1:
+      name: remove_wheelchair_body
+      type: laser_filters/LaserScanBoxFilter
+      params:
+        box_frame: base_link
+
+        min_x: -0.44
+        max_x: 0.44
+        min_y: -0.39
+        max_y: 0.39
+        min_z: -0.20
+        max_z: 1.20
+
+        invert: false
+
+    filter2:
+      name: remove_rear_left
+      type: laser_filters/LaserScanAngularBoundsFilterInPlace
+      params:
+        lower_angle: 2.0944
+        upper_angle: 3.1416
+        replace_with_nan: true
+
+    filter3:
+      name: remove_rear_right
+      type: laser_filters/LaserScanAngularBoundsFilterInPlace
+      params:
+        lower_angle: -3.1416
+        upper_angle: -2.0944
+        replace_with_nan: true
