@@ -26,7 +26,7 @@ class YoloDetectorNode(Node):
         self.bridge = CvBridge()
         
         # 3. 모델 로드 (best.pt가 없을 땐 기본 yolov8n.pt로 자동 테스트)
-        model_path = os.path.join(os.path.dirname(__file__), 'best.pt')
+        model_path = '/home/userpdy606/swan/src/wheelchair_vision/wheelchair_vision/best.pt'
         if os.path.exists(model_path):
             self.get_logger().info(f'Loading custom model: {model_path}')
             self.model = YOLO(model_path)
