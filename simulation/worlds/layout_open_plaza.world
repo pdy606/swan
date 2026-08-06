@@ -1,0 +1,257 @@
+<?xml version="1.0" ?>
+<sdf version="1.9">
+  <world name="open_plaza">
+    <physics name="1ms" type="ignore">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+    </physics>
+    <plugin filename="gz-sim-physics-system" name="gz::sim::systems::Physics"/>
+    <plugin filename="gz-sim-scene-broadcaster-system" name="gz::sim::systems::SceneBroadcaster"/>
+    <plugin filename="gz-sim-sensors-system" name="gz::sim::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+    <plugin filename="gz-sim-user-commands-system" name="gz::sim::systems::UserCommands"/>
+
+    <light type="directional" name="sun">
+      <cast_shadows>true</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <attenuation><range>1000</range><constant>0.9</constant><linear>0.01</linear><quadratic>0.001</quadratic></attenuation>
+      <direction>-0.5 0.1 -0.9</direction>
+    </light>
+
+    <!-- 레이아웃 4: 개방 광장형 -->
+
+    <model name="ground_plane_visual">
+      <static>true</static>
+      <pose>0 0 -0.01 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>60.0 60.0 0.02</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>60.0 60.0 0.02</size></box></geometry>
+          <material><ambient>0.3 0.5 0.2 1</ambient><diffuse>0.3 0.5 0.2 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="plaza_floor">
+      <static>true</static>
+      <pose>0 0 0.01 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>18.0 18.0 0.02</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>18.0 18.0 0.02</size></box></geometry>
+          <material><ambient>0.6 0.6 0.6 1</ambient><diffuse>0.6 0.6 0.6 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="plaza_obstacle_0">
+      <static>true</static>
+      <pose>-3.35 6.55 0.12 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><sphere><radius>0.10307016297971282</radius></sphere></geometry></collision>
+        <visual name="visual"><geometry><sphere><radius>0.10307016297971282</radius></sphere></geometry>
+          <material><ambient>0.4 0.35 0.3 1</ambient><diffuse>0.4 0.35 0.3 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="plaza_obstacle_1">
+      <static>true</static>
+      <pose>2.66 5.91 0.12 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><sphere><radius>0.09743350085385759</radius></sphere></geometry></collision>
+        <visual name="visual"><geometry><sphere><radius>0.09743350085385759</radius></sphere></geometry>
+          <material><ambient>0.4 0.35 0.3 1</ambient><diffuse>0.4 0.35 0.3 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="plaza_obstacle_2">
+      <static>true</static>
+      <pose>-6.87 5.53 0.12 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><sphere><radius>0.10106422599638243</radius></sphere></geometry></collision>
+        <visual name="visual"><geometry><sphere><radius>0.10106422599638243</radius></sphere></geometry>
+          <material><ambient>0.4 0.35 0.3 1</ambient><diffuse>0.4 0.35 0.3 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="plaza_obstacle_3">
+      <static>true</static>
+      <pose>-5.98 2.95 0.13 0 0 1.31</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>0.22 0.22 0.22</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>0.22 0.22 0.22</size></box></geometry>
+          <material><ambient>0.6 0.5 0.2 1</ambient><diffuse>0.6 0.5 0.2 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="plaza_obstacle_4">
+      <static>true</static>
+      <pose>5.94 4.96 0.12 0 0 1.17</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>0.21 0.21 0.21</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>0.21 0.21 0.21</size></box></geometry>
+          <material><ambient>0.6 0.5 0.2 1</ambient><diffuse>0.6 0.5 0.2 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="plaza_obstacle_5">
+      <static>true</static>
+      <pose>4.70 -3.89 0.12 0 0 1.41</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>0.21 0.21 0.21</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>0.21 0.21 0.21</size></box></geometry>
+          <material><ambient>0.6 0.5 0.2 1</ambient><diffuse>0.6 0.5 0.2 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="plaza_obstacle_6">
+      <static>true</static>
+      <pose>2.73 6.22 0.12 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><cylinder><radius>0.09735256259129679</radius><length>0.19470512518259359</length></cylinder></geometry></collision>
+        <visual name="visual"><geometry><cylinder><radius>0.09735256259129679</radius><length>0.19470512518259359</length></cylinder></geometry>
+          <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.5 0.5 0.5 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="plaza_obstacle_7">
+      <static>true</static>
+      <pose>-2.46 1.51 0.12 0 0 1.08</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>0.19 0.19 0.19</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>0.19 0.19 0.19</size></box></geometry>
+          <material><ambient>0.6 0.5 0.2 1</ambient><diffuse>0.6 0.5 0.2 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="plaza_obstacle_8">
+      <static>true</static>
+      <pose>-0.95 3.66 0.11 0 0 0.32</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>0.19 0.19 0.19</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>0.19 0.19 0.19</size></box></geometry>
+          <material><ambient>0.6 0.5 0.2 1</ambient><diffuse>0.6 0.5 0.2 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="plaza_obstacle_9">
+      <static>true</static>
+      <pose>-3.95 -0.65 0.12 0 0 1.40</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>0.19 0.19 0.19</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>0.19 0.19 0.19</size></box></geometry>
+          <material><ambient>0.6 0.5 0.2 1</ambient><diffuse>0.6 0.5 0.2 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="plaza_obstacle_10">
+      <static>true</static>
+      <pose>0.80 1.05 0.13 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><cylinder><radius>0.10603174151335965</radius><length>0.2120634830267193</length></cylinder></geometry></collision>
+        <visual name="visual"><geometry><cylinder><radius>0.10603174151335965</radius><length>0.2120634830267193</length></cylinder></geometry>
+          <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.5 0.5 0.5 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="plaza_obstacle_11">
+      <static>true</static>
+      <pose>-5.90 -1.11 0.12 0 0 0.61</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>0.19 0.19 0.19</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>0.19 0.19 0.19</size></box></geometry>
+          <material><ambient>0.6 0.5 0.2 1</ambient><diffuse>0.6 0.5 0.2 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="plaza_obstacle_12">
+      <static>true</static>
+      <pose>6.93 -7.31 0.10 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><cylinder><radius>0.0799610947253626</radius><length>0.1599221894507252</length></cylinder></geometry></collision>
+        <visual name="visual"><geometry><cylinder><radius>0.0799610947253626</radius><length>0.1599221894507252</length></cylinder></geometry>
+          <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.5 0.5 0.5 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="plaza_obstacle_13">
+      <static>true</static>
+      <pose>2.22 -5.44 0.11 0 0 1.39</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>0.18 0.18 0.18</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>0.18 0.18 0.18</size></box></geometry>
+          <material><ambient>0.6 0.5 0.2 1</ambient><diffuse>0.6 0.5 0.2 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="plaza_obstacle_14">
+      <static>true</static>
+      <pose>-4.75 5.66 0.11 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><cylinder><radius>0.08811646851310402</radius><length>0.17623293702620804</length></cylinder></geometry></collision>
+        <visual name="visual"><geometry><cylinder><radius>0.08811646851310402</radius><length>0.17623293702620804</length></cylinder></geometry>
+          <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.5 0.5 0.5 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="plaza_obstacle_15">
+      <static>true</static>
+      <pose>6.42 3.26 0.10 0 0 0.33</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>0.17 0.17 0.17</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>0.17 0.17 0.17</size></box></geometry>
+          <material><ambient>0.6 0.5 0.2 1</ambient><diffuse>0.6 0.5 0.2 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="plaza_obstacle_16">
+      <static>true</static>
+      <pose>1.29 1.46 0.11 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><cylinder><radius>0.08757728990469785</radius><length>0.1751545798093957</length></cylinder></geometry></collision>
+        <visual name="visual"><geometry><cylinder><radius>0.08757728990469785</radius><length>0.1751545798093957</length></cylinder></geometry>
+          <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.5 0.5 0.5 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="plaza_obstacle_17">
+      <static>true</static>
+      <pose>-5.09 -4.91 0.12 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><cylinder><radius>0.10255905102149468</radius><length>0.20511810204298936</length></cylinder></geometry></collision>
+        <visual name="visual"><geometry><cylinder><radius>0.10255905102149468</radius><length>0.20511810204298936</length></cylinder></geometry>
+          <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.5 0.5 0.5 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="plaza_pedestrian_static_0">
+      <static>true</static>
+      <pose>6.41 -5.32 0.85 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><cylinder><radius>0.22</radius><length>1.7</length></cylinder></geometry></collision>
+        <visual name="visual"><geometry><cylinder><radius>0.22</radius><length>1.7</length></cylinder></geometry>
+          <material><ambient>0.35 0.35 0.4 1</ambient><diffuse>0.35 0.35 0.4 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="plaza_pedestrian_static_1">
+      <static>true</static>
+      <pose>2.30 0.90 0.85 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><cylinder><radius>0.22</radius><length>1.7</length></cylinder></geometry></collision>
+        <visual name="visual"><geometry><cylinder><radius>0.22</radius><length>1.7</length></cylinder></geometry>
+          <material><ambient>0.35 0.35 0.4 1</ambient><diffuse>0.35 0.35 0.4 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="plaza_pedestrian_dynamic_0">
+      <static>false</static>
+      <pose>7.54 5.21 0.85 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><cylinder><radius>0.22</radius><length>1.7</length></cylinder></geometry></collision>
+        <visual name="visual"><geometry><cylinder><radius>0.22</radius><length>1.7</length></cylinder></geometry>
+          <material><ambient>0.6 0.3 0.3 1</ambient><diffuse>0.6 0.3 0.3 1</diffuse></material></visual>
+      </link>
+    </model>
+
+  </world>
+</sdf>

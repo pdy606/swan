@@ -1,0 +1,587 @@
+<?xml version="1.0" ?>
+<sdf version="1.9">
+  <world name="s_curve">
+    <physics name="1ms" type="ignore">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+    </physics>
+    <plugin filename="gz-sim-physics-system" name="gz::sim::systems::Physics"/>
+    <plugin filename="gz-sim-scene-broadcaster-system" name="gz::sim::systems::SceneBroadcaster"/>
+    <plugin filename="gz-sim-sensors-system" name="gz::sim::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+    <plugin filename="gz-sim-user-commands-system" name="gz::sim::systems::UserCommands"/>
+
+    <light type="directional" name="sun">
+      <cast_shadows>true</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <attenuation><range>1000</range><constant>0.9</constant><linear>0.01</linear><quadratic>0.001</quadratic></attenuation>
+      <direction>-0.5 0.1 -0.9</direction>
+    </light>
+
+    <!-- 레이아웃 5: S자 커브형 -->
+
+    <model name="ground_plane_visual">
+      <static>true</static>
+      <pose>0 0 -0.01 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>60.0 60.0 0.02</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>60.0 60.0 0.02</size></box></geometry>
+          <material><ambient>0.3 0.5 0.2 1</ambient><diffuse>0.3 0.5 0.2 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_tile_0">
+      <static>true</static>
+      <pose>2.465 -11.700 0.010 0 0 0.1146</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>2.4 0.634 0.02</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>2.4 0.634 0.02</size></box></geometry>
+          <material><ambient>0.55 0.55 0.55 1</ambient><diffuse>0.55 0.55 0.55 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_tile_1">
+      <static>true</static>
+      <pose>2.329 -11.100 0.010 0 0 0.3269</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>2.4 0.665 0.02</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>2.4 0.665 0.02</size></box></geometry>
+          <material><ambient>0.55 0.55 0.55 1</ambient><diffuse>0.55 0.55 0.55 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_tile_2">
+      <static>true</static>
+      <pose>2.064 -10.500 0.010 0 0 0.4984</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>2.4 0.717 0.02</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>2.4 0.717 0.02</size></box></geometry>
+          <material><ambient>0.55 0.55 0.55 1</ambient><diffuse>0.55 0.55 0.55 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_tile_3">
+      <static>true</static>
+      <pose>1.685 -9.900 0.010 0 0 0.6235</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>2.4 0.776 0.02</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>2.4 0.776 0.02</size></box></geometry>
+          <material><ambient>0.55 0.55 0.55 1</ambient><diffuse>0.55 0.55 0.55 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_tile_4">
+      <static>true</static>
+      <pose>1.213 -9.300 0.010 0 0 0.7072</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>2.4 0.829 0.02</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>2.4 0.829 0.02</size></box></geometry>
+          <material><ambient>0.55 0.55 0.55 1</ambient><diffuse>0.55 0.55 0.55 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_tile_5">
+      <static>true</static>
+      <pose>0.674 -8.700 0.010 0 0 0.7559</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>2.4 0.866 0.02</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>2.4 0.866 0.02</size></box></geometry>
+          <material><ambient>0.55 0.55 0.55 1</ambient><diffuse>0.55 0.55 0.55 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_tile_6">
+      <static>true</static>
+      <pose>0.097 -8.100 0.010 0 0 0.7746</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>2.4 0.882 0.02</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>2.4 0.882 0.02</size></box></geometry>
+          <material><ambient>0.55 0.55 0.55 1</ambient><diffuse>0.55 0.55 0.55 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_tile_7">
+      <static>true</static>
+      <pose>-0.484 -7.500 0.010 0 0 0.7653</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>2.4 0.874 0.02</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>2.4 0.874 0.02</size></box></geometry>
+          <material><ambient>0.55 0.55 0.55 1</ambient><diffuse>0.55 0.55 0.55 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_tile_8">
+      <static>true</static>
+      <pose>-1.039 -6.900 0.010 0 0 0.7270</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>2.4 0.843 0.02</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>2.4 0.843 0.02</size></box></geometry>
+          <material><ambient>0.55 0.55 0.55 1</ambient><diffuse>0.55 0.55 0.55 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_tile_9">
+      <static>true</static>
+      <pose>-1.537 -6.300 0.010 0 0 0.6557</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>2.4 0.795 0.02</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>2.4 0.795 0.02</size></box></geometry>
+          <material><ambient>0.55 0.55 0.55 1</ambient><diffuse>0.55 0.55 0.55 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_tile_10">
+      <static>true</static>
+      <pose>-1.950 -5.700 0.010 0 0 0.5451</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>2.4 0.737 0.02</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>2.4 0.737 0.02</size></box></geometry>
+          <material><ambient>0.55 0.55 0.55 1</ambient><diffuse>0.55 0.55 0.55 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_tile_11">
+      <static>true</static>
+      <pose>-2.255 -5.100 0.010 0 0 0.3892</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>2.4 0.681 0.02</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>2.4 0.681 0.02</size></box></geometry>
+          <material><ambient>0.55 0.55 0.55 1</ambient><diffuse>0.55 0.55 0.55 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_tile_12">
+      <static>true</static>
+      <pose>-2.435 -4.500 0.010 0 0 0.1888</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>2.4 0.641 0.02</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>2.4 0.641 0.02</size></box></geometry>
+          <material><ambient>0.55 0.55 0.55 1</ambient><diffuse>0.55 0.55 0.55 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_tile_13">
+      <static>true</static>
+      <pose>-2.481 -3.900 0.010 0 0 -0.0384</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>2.4 0.630 0.02</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>2.4 0.630 0.02</size></box></geometry>
+          <material><ambient>0.55 0.55 0.55 1</ambient><diffuse>0.55 0.55 0.55 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_tile_14">
+      <static>true</static>
+      <pose>-2.389 -3.300 0.010 0 0 -0.2599</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>2.4 0.652 0.02</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>2.4 0.652 0.02</size></box></geometry>
+          <material><ambient>0.55 0.55 0.55 1</ambient><diffuse>0.55 0.55 0.55 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_tile_15">
+      <static>true</static>
+      <pose>-2.166 -2.700 0.010 0 0 -0.4464</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>2.4 0.698 0.02</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>2.4 0.698 0.02</size></box></geometry>
+          <material><ambient>0.55 0.55 0.55 1</ambient><diffuse>0.55 0.55 0.55 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_tile_16">
+      <static>true</static>
+      <pose>-1.823 -2.100 0.010 0 0 -0.5868</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>2.4 0.757 0.02</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>2.4 0.757 0.02</size></box></geometry>
+          <material><ambient>0.55 0.55 0.55 1</ambient><diffuse>0.55 0.55 0.55 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_tile_17">
+      <static>true</static>
+      <pose>-1.379 -1.500 0.010 0 0 -0.6835</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>2.4 0.812 0.02</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>2.4 0.812 0.02</size></box></geometry>
+          <material><ambient>0.55 0.55 0.55 1</ambient><diffuse>0.55 0.55 0.55 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_tile_18">
+      <static>true</static>
+      <pose>-0.859 -0.900 0.010 0 0 -0.7432</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>2.4 0.856 0.02</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>2.4 0.856 0.02</size></box></geometry>
+          <material><ambient>0.55 0.55 0.55 1</ambient><diffuse>0.55 0.55 0.55 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_tile_19">
+      <static>true</static>
+      <pose>-0.292 -0.300 0.010 0 0 -0.7716</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>2.4 0.879 0.02</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>2.4 0.879 0.02</size></box></geometry>
+          <material><ambient>0.55 0.55 0.55 1</ambient><diffuse>0.55 0.55 0.55 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_tile_20">
+      <static>true</static>
+      <pose>0.292 0.300 0.010 0 0 -0.7716</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>2.4 0.879 0.02</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>2.4 0.879 0.02</size></box></geometry>
+          <material><ambient>0.55 0.55 0.55 1</ambient><diffuse>0.55 0.55 0.55 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_tile_21">
+      <static>true</static>
+      <pose>0.859 0.900 0.010 0 0 -0.7432</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>2.4 0.856 0.02</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>2.4 0.856 0.02</size></box></geometry>
+          <material><ambient>0.55 0.55 0.55 1</ambient><diffuse>0.55 0.55 0.55 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_tile_22">
+      <static>true</static>
+      <pose>1.379 1.500 0.010 0 0 -0.6835</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>2.4 0.812 0.02</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>2.4 0.812 0.02</size></box></geometry>
+          <material><ambient>0.55 0.55 0.55 1</ambient><diffuse>0.55 0.55 0.55 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_tile_23">
+      <static>true</static>
+      <pose>1.823 2.100 0.010 0 0 -0.5868</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>2.4 0.757 0.02</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>2.4 0.757 0.02</size></box></geometry>
+          <material><ambient>0.55 0.55 0.55 1</ambient><diffuse>0.55 0.55 0.55 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_tile_24">
+      <static>true</static>
+      <pose>2.166 2.700 0.010 0 0 -0.4464</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>2.4 0.698 0.02</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>2.4 0.698 0.02</size></box></geometry>
+          <material><ambient>0.55 0.55 0.55 1</ambient><diffuse>0.55 0.55 0.55 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_tile_25">
+      <static>true</static>
+      <pose>2.389 3.300 0.010 0 0 -0.2599</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>2.4 0.652 0.02</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>2.4 0.652 0.02</size></box></geometry>
+          <material><ambient>0.55 0.55 0.55 1</ambient><diffuse>0.55 0.55 0.55 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_tile_26">
+      <static>true</static>
+      <pose>2.481 3.900 0.010 0 0 -0.0384</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>2.4 0.630 0.02</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>2.4 0.630 0.02</size></box></geometry>
+          <material><ambient>0.55 0.55 0.55 1</ambient><diffuse>0.55 0.55 0.55 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_tile_27">
+      <static>true</static>
+      <pose>2.435 4.500 0.010 0 0 0.1888</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>2.4 0.641 0.02</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>2.4 0.641 0.02</size></box></geometry>
+          <material><ambient>0.55 0.55 0.55 1</ambient><diffuse>0.55 0.55 0.55 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_tile_28">
+      <static>true</static>
+      <pose>2.255 5.100 0.010 0 0 0.3892</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>2.4 0.681 0.02</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>2.4 0.681 0.02</size></box></geometry>
+          <material><ambient>0.55 0.55 0.55 1</ambient><diffuse>0.55 0.55 0.55 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_tile_29">
+      <static>true</static>
+      <pose>1.950 5.700 0.010 0 0 0.5451</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>2.4 0.737 0.02</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>2.4 0.737 0.02</size></box></geometry>
+          <material><ambient>0.55 0.55 0.55 1</ambient><diffuse>0.55 0.55 0.55 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_tile_30">
+      <static>true</static>
+      <pose>1.537 6.300 0.010 0 0 0.6557</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>2.4 0.795 0.02</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>2.4 0.795 0.02</size></box></geometry>
+          <material><ambient>0.55 0.55 0.55 1</ambient><diffuse>0.55 0.55 0.55 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_tile_31">
+      <static>true</static>
+      <pose>1.039 6.900 0.010 0 0 0.7270</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>2.4 0.843 0.02</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>2.4 0.843 0.02</size></box></geometry>
+          <material><ambient>0.55 0.55 0.55 1</ambient><diffuse>0.55 0.55 0.55 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_tile_32">
+      <static>true</static>
+      <pose>0.484 7.500 0.010 0 0 0.7653</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>2.4 0.874 0.02</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>2.4 0.874 0.02</size></box></geometry>
+          <material><ambient>0.55 0.55 0.55 1</ambient><diffuse>0.55 0.55 0.55 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_tile_33">
+      <static>true</static>
+      <pose>-0.097 8.100 0.010 0 0 0.7746</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>2.4 0.882 0.02</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>2.4 0.882 0.02</size></box></geometry>
+          <material><ambient>0.55 0.55 0.55 1</ambient><diffuse>0.55 0.55 0.55 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_tile_34">
+      <static>true</static>
+      <pose>-0.674 8.700 0.010 0 0 0.7559</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>2.4 0.866 0.02</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>2.4 0.866 0.02</size></box></geometry>
+          <material><ambient>0.55 0.55 0.55 1</ambient><diffuse>0.55 0.55 0.55 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_tile_35">
+      <static>true</static>
+      <pose>-1.213 9.300 0.010 0 0 0.7072</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>2.4 0.829 0.02</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>2.4 0.829 0.02</size></box></geometry>
+          <material><ambient>0.55 0.55 0.55 1</ambient><diffuse>0.55 0.55 0.55 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_tile_36">
+      <static>true</static>
+      <pose>-1.685 9.900 0.010 0 0 0.6235</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>2.4 0.776 0.02</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>2.4 0.776 0.02</size></box></geometry>
+          <material><ambient>0.55 0.55 0.55 1</ambient><diffuse>0.55 0.55 0.55 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_tile_37">
+      <static>true</static>
+      <pose>-2.064 10.500 0.010 0 0 0.4984</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>2.4 0.717 0.02</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>2.4 0.717 0.02</size></box></geometry>
+          <material><ambient>0.55 0.55 0.55 1</ambient><diffuse>0.55 0.55 0.55 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_tile_38">
+      <static>true</static>
+      <pose>-2.329 11.100 0.010 0 0 0.3269</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>2.4 0.665 0.02</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>2.4 0.665 0.02</size></box></geometry>
+          <material><ambient>0.55 0.55 0.55 1</ambient><diffuse>0.55 0.55 0.55 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_tile_39">
+      <static>true</static>
+      <pose>-2.465 11.700 0.010 0 0 0.1146</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>2.4 0.634 0.02</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>2.4 0.634 0.02</size></box></geometry>
+          <material><ambient>0.55 0.55 0.55 1</ambient><diffuse>0.55 0.55 0.55 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_obstacle_0">
+      <static>true</static>
+      <pose>0.35 -8.91 0.12 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><sphere><radius>0.09782147071099964</radius></sphere></geometry></collision>
+        <visual name="visual"><geometry><sphere><radius>0.09782147071099964</radius></sphere></geometry>
+          <material><ambient>0.4 0.35 0.3 1</ambient><diffuse>0.4 0.35 0.3 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_obstacle_1">
+      <static>true</static>
+      <pose>-1.86 -4.87 0.12 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><cylinder><radius>0.10069207774506439</radius><length>0.20138415549012878</length></cylinder></geometry></collision>
+        <visual name="visual"><geometry><cylinder><radius>0.10069207774506439</radius><length>0.20138415549012878</length></cylinder></geometry>
+          <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.5 0.5 0.5 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_obstacle_2">
+      <static>true</static>
+      <pose>-1.00 -1.15 0.13 0 0 1.22</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>0.21 0.21 0.21</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>0.21 0.21 0.21</size></box></geometry>
+          <material><ambient>0.6 0.5 0.2 1</ambient><diffuse>0.6 0.5 0.2 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_obstacle_3">
+      <static>true</static>
+      <pose>0.76 -8.03 0.13 0 0 1.27</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>0.21 0.21 0.21</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>0.21 0.21 0.21</size></box></geometry>
+          <material><ambient>0.6 0.5 0.2 1</ambient><diffuse>0.6 0.5 0.2 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_obstacle_4">
+      <static>true</static>
+      <pose>-2.57 -2.98 0.11 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><sphere><radius>0.09306940455168206</radius></sphere></geometry></collision>
+        <visual name="visual"><geometry><sphere><radius>0.09306940455168206</radius></sphere></geometry>
+          <material><ambient>0.4 0.35 0.3 1</ambient><diffuse>0.4 0.35 0.3 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_obstacle_5">
+      <static>true</static>
+      <pose>0.84 1.34 0.10 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><cylinder><radius>0.08077318866082418</radius><length>0.16154637732164837</length></cylinder></geometry></collision>
+        <visual name="visual"><geometry><cylinder><radius>0.08077318866082418</radius><length>0.16154637732164837</length></cylinder></geometry>
+          <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.5 0.5 0.5 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_obstacle_6">
+      <static>true</static>
+      <pose>1.22 -9.58 0.10 0 0 0.32</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>0.15 0.15 0.15</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>0.15 0.15 0.15</size></box></geometry>
+          <material><ambient>0.6 0.5 0.2 1</ambient><diffuse>0.6 0.5 0.2 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_obstacle_7">
+      <static>true</static>
+      <pose>-1.93 10.60 0.13 0 0 1.41</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>0.22 0.22 0.22</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>0.22 0.22 0.22</size></box></geometry>
+          <material><ambient>0.6 0.5 0.2 1</ambient><diffuse>0.6 0.5 0.2 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_obstacle_8">
+      <static>true</static>
+      <pose>0.69 -9.10 0.13 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><cylinder><radius>0.10601542118119896</radius><length>0.21203084236239791</length></cylinder></geometry></collision>
+        <visual name="visual"><geometry><cylinder><radius>0.10601542118119896</radius><length>0.21203084236239791</length></cylinder></geometry>
+          <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.5 0.5 0.5 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_obstacle_9">
+      <static>true</static>
+      <pose>1.53 2.11 0.10 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><sphere><radius>0.08134193130038424</radius></sphere></geometry></collision>
+        <visual name="visual"><geometry><sphere><radius>0.08134193130038424</radius></sphere></geometry>
+          <material><ambient>0.4 0.35 0.3 1</ambient><diffuse>0.4 0.35 0.3 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_obstacle_10">
+      <static>true</static>
+      <pose>2.14 5.45 0.12 0 0 0.71</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>0.20 0.20 0.20</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>0.20 0.20 0.20</size></box></geometry>
+          <material><ambient>0.6 0.5 0.2 1</ambient><diffuse>0.6 0.5 0.2 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_obstacle_11">
+      <static>true</static>
+      <pose>-2.08 -6.54 0.11 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><sphere><radius>0.09251680436664605</radius></sphere></geometry></collision>
+        <visual name="visual"><geometry><sphere><radius>0.09251680436664605</radius></sphere></geometry>
+          <material><ambient>0.4 0.35 0.3 1</ambient><diffuse>0.4 0.35 0.3 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_ped_static_0">
+      <static>true</static>
+      <pose>-0.72 -8.62 0.85 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><cylinder><radius>0.22</radius><length>1.7</length></cylinder></geometry></collision>
+        <visual name="visual"><geometry><cylinder><radius>0.22</radius><length>1.7</length></cylinder></geometry>
+          <material><ambient>0.35 0.35 0.4 1</ambient><diffuse>0.35 0.35 0.4 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_ped_static_1">
+      <static>true</static>
+      <pose>-1.72 -4.47 0.85 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><cylinder><radius>0.22</radius><length>1.7</length></cylinder></geometry></collision>
+        <visual name="visual"><geometry><cylinder><radius>0.22</radius><length>1.7</length></cylinder></geometry>
+          <material><ambient>0.35 0.35 0.4 1</ambient><diffuse>0.35 0.35 0.4 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="scurve_ped_dynamic_0">
+      <static>false</static>
+      <pose>-0.74 -6.99 0.85 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><cylinder><radius>0.22</radius><length>1.7</length></cylinder></geometry></collision>
+        <visual name="visual"><geometry><cylinder><radius>0.22</radius><length>1.7</length></cylinder></geometry>
+          <material><ambient>0.6 0.3 0.3 1</ambient><diffuse>0.6 0.3 0.3 1</diffuse></material></visual>
+      </link>
+    </model>
+
+  </world>
+</sdf>

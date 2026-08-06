@@ -1,0 +1,217 @@
+<?xml version="1.0" ?>
+<sdf version="1.9">
+  <world name="t_junction">
+    <physics name="1ms" type="ignore">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+    </physics>
+    <plugin filename="gz-sim-physics-system" name="gz::sim::systems::Physics"/>
+    <plugin filename="gz-sim-scene-broadcaster-system" name="gz::sim::systems::SceneBroadcaster"/>
+    <plugin filename="gz-sim-sensors-system" name="gz::sim::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+    <plugin filename="gz-sim-user-commands-system" name="gz::sim::systems::UserCommands"/>
+
+    <light type="directional" name="sun">
+      <cast_shadows>true</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <attenuation><range>1000</range><constant>0.9</constant><linear>0.01</linear><quadratic>0.001</quadratic></attenuation>
+      <direction>-0.5 0.1 -0.9</direction>
+    </light>
+
+    <!-- 레이아웃 2: T자 교차형 -->
+
+    <model name="ground_plane_visual">
+      <static>true</static>
+      <pose>0 0 -0.01 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>60.0 60.0 0.02</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>60.0 60.0 0.02</size></box></geometry>
+          <material><ambient>0.3 0.5 0.2 1</ambient><diffuse>0.3 0.5 0.2 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="main_path">
+      <static>true</static>
+      <pose>0 0 0.01 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>2.6 24.0 0.02</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>2.6 24.0 0.02</size></box></geometry>
+          <material><ambient>0.55 0.55 0.55 1</ambient><diffuse>0.55 0.55 0.55 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="branch_path">
+      <static>true</static>
+      <pose>7.3 0 0.01 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>12.0 2.6 0.02</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>12.0 2.6 0.02</size></box></geometry>
+          <material><ambient>0.55 0.55 0.55 1</ambient><diffuse>0.55 0.55 0.55 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="junction_marker">
+      <static>true</static>
+      <pose>0 0 0.015 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>2.6 2.6 0.005</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>2.6 2.6 0.005</size></box></geometry>
+          <material><ambient>0.65 0.6 0.3 1</ambient><diffuse>0.65 0.6 0.3 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="tjunc_obstacle_0">
+      <static>true</static>
+      <pose>10.86 0.79 0.12 0 0 0.80</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>0.20 0.20 0.20</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>0.20 0.20 0.20</size></box></geometry>
+          <material><ambient>0.6 0.5 0.2 1</ambient><diffuse>0.6 0.5 0.2 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="tjunc_obstacle_1">
+      <static>true</static>
+      <pose>-0.69 -5.94 0.12 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><sphere><radius>0.09704589520758806</radius></sphere></geometry></collision>
+        <visual name="visual"><geometry><sphere><radius>0.09704589520758806</radius></sphere></geometry>
+          <material><ambient>0.4 0.35 0.3 1</ambient><diffuse>0.4 0.35 0.3 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="tjunc_obstacle_2">
+      <static>true</static>
+      <pose>-0.12 -9.24 0.11 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><cylinder><radius>0.09385427280021874</radius><length>0.18770854560043748</length></cylinder></geometry></collision>
+        <visual name="visual"><geometry><cylinder><radius>0.09385427280021874</radius><length>0.18770854560043748</length></cylinder></geometry>
+          <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.5 0.5 0.5 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="tjunc_obstacle_3">
+      <static>true</static>
+      <pose>0.21 -6.97 0.11 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><cylinder><radius>0.09085482029532856</radius><length>0.1817096405906571</length></cylinder></geometry></collision>
+        <visual name="visual"><geometry><cylinder><radius>0.09085482029532856</radius><length>0.1817096405906571</length></cylinder></geometry>
+          <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.5 0.5 0.5 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="tjunc_obstacle_4">
+      <static>true</static>
+      <pose>0.27 -3.10 0.10 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><sphere><radius>0.07721077220204688</radius></sphere></geometry></collision>
+        <visual name="visual"><geometry><sphere><radius>0.07721077220204688</radius></sphere></geometry>
+          <material><ambient>0.4 0.35 0.3 1</ambient><diffuse>0.4 0.35 0.3 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="tjunc_obstacle_5">
+      <static>true</static>
+      <pose>0.84 -5.16 0.12 0 0 0.69</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>0.20 0.20 0.20</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>0.20 0.20 0.20</size></box></geometry>
+          <material><ambient>0.6 0.5 0.2 1</ambient><diffuse>0.6 0.5 0.2 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="tjunc_obstacle_6">
+      <static>true</static>
+      <pose>0.04 -4.80 0.11 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><cylinder><radius>0.09249206032723771</radius><length>0.18498412065447542</length></cylinder></geometry></collision>
+        <visual name="visual"><geometry><cylinder><radius>0.09249206032723771</radius><length>0.18498412065447542</length></cylinder></geometry>
+          <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.5 0.5 0.5 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="tjunc_obstacle_7">
+      <static>true</static>
+      <pose>-0.09 -8.02 0.13 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><sphere><radius>0.10991796701620796</radius></sphere></geometry></collision>
+        <visual name="visual"><geometry><sphere><radius>0.10991796701620796</radius></sphere></geometry>
+          <material><ambient>0.4 0.35 0.3 1</ambient><diffuse>0.4 0.35 0.3 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="tjunc_obstacle_8">
+      <static>true</static>
+      <pose>4.97 -0.59 0.11 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><sphere><radius>0.08511639815599707</radius></sphere></geometry></collision>
+        <visual name="visual"><geometry><sphere><radius>0.08511639815599707</radius></sphere></geometry>
+          <material><ambient>0.4 0.35 0.3 1</ambient><diffuse>0.4 0.35 0.3 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="tjunc_obstacle_9">
+      <static>true</static>
+      <pose>-0.22 -2.97 0.11 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><sphere><radius>0.08852797360970771</radius></sphere></geometry></collision>
+        <visual name="visual"><geometry><sphere><radius>0.08852797360970771</radius></sphere></geometry>
+          <material><ambient>0.4 0.35 0.3 1</ambient><diffuse>0.4 0.35 0.3 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="tjunc_obstacle_10">
+      <static>true</static>
+      <pose>-0.63 -2.25 0.10 0 0 1.54</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>0.15 0.15 0.15</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>0.15 0.15 0.15</size></box></geometry>
+          <material><ambient>0.6 0.5 0.2 1</ambient><diffuse>0.6 0.5 0.2 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="tjunc_obstacle_11">
+      <static>true</static>
+      <pose>6.09 0.15 0.10 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><cylinder><radius>0.08194715468025118</radius><length>0.16389430936050237</length></cylinder></geometry></collision>
+        <visual name="visual"><geometry><cylinder><radius>0.08194715468025118</radius><length>0.16389430936050237</length></cylinder></geometry>
+          <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.5 0.5 0.5 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="tjunc_pedestrian_static_0">
+      <static>true</static>
+      <pose>5.20 -0.42 0.85 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><cylinder><radius>0.22</radius><length>1.7</length></cylinder></geometry></collision>
+        <visual name="visual"><geometry><cylinder><radius>0.22</radius><length>1.7</length></cylinder></geometry>
+          <material><ambient>0.35 0.35 0.4 1</ambient><diffuse>0.35 0.35 0.4 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="tjunc_pedestrian_static_1">
+      <static>true</static>
+      <pose>1.02 -3.75 0.85 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><cylinder><radius>0.22</radius><length>1.7</length></cylinder></geometry></collision>
+        <visual name="visual"><geometry><cylinder><radius>0.22</radius><length>1.7</length></cylinder></geometry>
+          <material><ambient>0.35 0.35 0.4 1</ambient><diffuse>0.35 0.35 0.4 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="tjunc_pedestrian_dynamic_0">
+      <static>false</static>
+      <pose>-0.80 -4.21 0.85 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><cylinder><radius>0.22</radius><length>1.7</length></cylinder></geometry></collision>
+        <visual name="visual"><geometry><cylinder><radius>0.22</radius><length>1.7</length></cylinder></geometry>
+          <material><ambient>0.6 0.3 0.3 1</ambient><diffuse>0.6 0.3 0.3 1</diffuse></material></visual>
+      </link>
+    </model>
+
+  </world>
+</sdf>
