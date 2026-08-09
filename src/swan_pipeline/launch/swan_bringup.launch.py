@@ -43,9 +43,13 @@ def launch_setup(context, *args, **kwargs):
     sy = LaunchConfiguration('spawn_y').perform(context)
     syaw = LaunchConfiguration('spawn_yaw').perform(context)
 
-    # 1) 팀 월드 로드
-    gz = ExecuteProcess(
-        cmd=['gz', 'sim', '-r', '-v', '3', world_path], output='screen')
+    # 1) 팀 월드 로드 (headless=true 면 GUI 없이 서버만 + SW렌더 — VM/CI용)
+    headless = LaunchConfiguration('headless').perform(context) in ('true', 'True', '1')
+    gz_cmd = ['gz', 'sim', '-r', '-v', '3']
+    if headless:
+        gz_cmd += ['-s', '--headless-rendering']
+    gz_cmd.append(world_path)
+    gz = ExecuteProcess(cmd=gz_cmd, output='screen')
 
     # 2) 휠체어(내 모델) 스폰
     spawn = Node(package='ros_gz_sim', executable='create', output='screen',
@@ -96,6 +100,8 @@ def generate_launch_description():
                               description='팀 simulation/worlds 절대경로 (미지정 시 $SWAN_WORLDS_DIR)'),
         DeclareLaunchArgument('use_camera', default_value='true'),
         DeclareLaunchArgument('use_teleop', default_value='false'),
+        DeclareLaunchArgument('headless', default_value='false',
+                              description='true=GUI 없이 서버+SW렌더 (VM/CI)'),
         DeclareLaunchArgument('spawn_x', default_value='-3.0'),   # 인도 중앙(도로 왼쪽)
         DeclareLaunchArgument('spawn_y', default_value='-13.0'),  # 30m 도로 시작부
         DeclareLaunchArgument('spawn_yaw', default_value='1.5708'),  # +Y 방향
