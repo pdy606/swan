@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>SWAN 휠체어</title>
+<style>
+  :root{ --bg:#0f1115; --card:#191d24; --line:#2a2f3a; --tx:#e8ecf2; --sub:#9aa4b2;
+         --ok:#2ecc71; --warn:#f39c12; --danger:#e74c3c; --accent:#3b82f6; }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+  body{margin:0;background:var(--bg);color:var(--tx);
+       font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif;
+       padding:12px; user-select:none}
+  h1{font-size:17px;margin:0 0 10px;font-weight:600;display:flex;justify-content:space-between;align-items:center}
+  .dot{width:9px;height:9px;border-radius:50%;background:var(--danger);display:inline-block;margin-right:6px}
+  .dot.on{background:var(--ok)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:10px}
+  .state{font-size:26px;font-weight:700;text-align:center;padding:14px;border-radius:10px;
+         background:#20252e;transition:.2s}
+  .state.intervene{background:var(--warn);color:#000}
+  .state.auto{background:var(--danger);color:#fff}
+  .sub{font-size:12px;color:var(--sub);text-align:center;margin-top:6px}
+  .row{display:flex;gap:10px}
+  .row .card{flex:1;margin-bottom:0}
+  .lbl{font-size:11px;color:var(--sub);margin-bottom:4px}
+  .val{font-size:24px;font-weight:700;font-variant-numeric:tabular-nums}
+  .unit{font-size:12px;color:var(--sub);font-weight:400}
+  .bar{height:6px;background:#2a2f3a;border-radius:3px;overflow:hidden;margin-top:6px}
+  .bar>i{display:block;height:100%;background:var(--accent);width:0;transition:.1s}
+  .bar>i.real{background:var(--ok)}
+  #pad{position:relative;height:190px;background:#161a21;border:1px solid var(--line);
+       border-radius:12px;margin-top:4px;touch-action:none;overflow:hidden}
+  #knob{position:absolute;width:62px;height:62px;border-radius:50%;background:var(--accent);
+        left:50%;top:50%;transform:translate(-50%,-50%);box-shadow:0 3px 12px rgba(0,0,0,.5)}
+  #pad .cross{position:absolute;background:#242a34}
+  #stop{width:100%;padding:16px;font-size:18px;font-weight:700;border:0;border-radius:12px;
+        background:var(--danger);color:#fff;margin-top:10px}
+  #stop:active{opacity:.7}
+  .hint{font-size:11px;color:var(--sub);text-align:center;margin-top:8px;line-height:1.5}
+</style>
+</head>
+<body>
+<h1>
+  <span>SWAN 휠체어</span>
+  <span style="font-size:12px;font-weight:400;color:var(--sub)"><i class="dot" id="dot"></i><span id="conn">연결중…</span></span>
+</h1>
+
+<div class="card">
+  <div class="state" id="state">—</div>
+  <div class="sub" id="stateSub">시스템 상태</div>
+</div>
+
+<div class="row" style="margin-bottom:10px">
+  <div class="card">
+    <div class="lbl">내 요청</div>
+    <div class="val"><span id="reqV">0.00</span><span class="unit"> m/s</span></div>
+    <div class="bar"><i id="reqBar"></i></div>
+  </div>
+  <div class="card">
+    <div class="lbl">실제 속도</div>
+    <div class="val"><span id="actV">0.00</span><span class="unit"> m/s</span></div>
+    <div class="bar"><i id="actBar" class="real"></i></div>
+  </div>
+  <div class="card">
+    <div class="lbl">장애물</div>
+    <div class="val"><span id="obs">—</span><span class="unit"> m</span></div>
+    <div class="bar"><i id="obsBar"></i></div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="lbl">조종 (드래그) — 손을 떼면 정지</div>
+  <div id="pad">
+    <div class="cross" style="left:0;right:0;top:50%;height:1px"></div>
+    <div class="cross" style="top:0;bottom:0;left:50%;width:1px"></div>
+    <div id="knob"></div>
+  </div>
+  <button id="stop">■ 정지</button>
+  <div class="hint">
+    위=전진 · 좌우=조향 · 최고 1.67 m/s (6 km/h 법정)<br>
+    주황/빨강으로 바뀌면 <b>시스템이 개입한 것</b>입니다
+  </div>
+</div>
+
+<script src="roslib.min.js"></script>
+<script>
+const V_MAX = 1.67, W_MAX = 1.0;
+let ros=null, cmdPub=null, v=0, w=0, active=false, connected=false;
+
+const $ = id => document.getElementById(id);
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+
+// ── ROS 연결 ──
+function connect(){
+  ros = new ROSLIB.Ros({ url: 'ws://' + location.hostname + ':9090' });
+  ros.on('connection', ()=>{ connected=true; $('dot').classList.add('on'); $('conn').textContent='연결됨'; });
+  ros.on('close', ()=>{ connected=false; $('dot').classList.remove('on'); $('conn').textContent='끊김';
+                        setTimeout(connect, 1500); });
+  ros.on('error', ()=>{ $('conn').textContent='오류'; });
+
+  cmdPub = new ROSLIB.Topic({ ros, name:'/cmd_vel_user', messageType:'geometry_msgs/msg/Twist' });
+
+  new ROSLIB.Topic({ros, name:'/swan/state', messageType:'std_msgs/msg/String'})
+    .subscribe(m => setState(m.data));
+
+  new ROSLIB.Topic({ros, name:'/odom', messageType:'nav_msgs/msg/Odometry'})
+    .subscribe(m => {
+      const a = Math.abs(m.twist.twist.linear.x);
+      $('actV').textContent = a.toFixed(2);
+      $('actBar').style.width = (a/V_MAX*100)+'%';
+    });
+
+  new ROSLIB.Topic({ros, name:'/swan/detections', messageType:'swan_interfaces/msg/DetectionArray'})
+    .subscribe(m => {
+      if(!m.detections.length){ $('obs').textContent='—'; $('obsBar').style.width='0%'; return; }
+      const d = Math.min(...m.detections.map(x=>x.distance_m));
+      $('obs').textContent = d.toFixed(2);
+      const p = clamp((1 - d/4)*100, 0, 100);
+      $('obsBar').style.width = p+'%';
+      $('obsBar').style.background = d<1.5 ? 'var(--danger)' : (d<3 ? 'var(--warn)' : 'var(--accent)');
+    });
+}
+
+function setState(s){
+  const el=$('state'); el.textContent=s; el.className='state';
+  if(s==='감속개입'||s==='경로복귀'){ el.classList.add('intervene'); $('stateSub').textContent='시스템이 개입 중입니다'; }
+  else if(s==='자율회피'){ el.classList.add('auto'); $('stateSub').textContent='제어권을 시스템이 가져갔습니다'; }
+  else if(s==='제어권반환'){ el.classList.add('intervene'); $('stateSub').textContent='제어권을 돌려드립니다'; }
+  else { $('stateSub').textContent='내가 조종 중'; }
+}
+
+// ── 가상 조이스틱 ──
+const pad=$('pad'), knob=$('knob');
+function setKnob(dx,dy){ knob.style.left=(pad.clientWidth/2+dx)+'px'; knob.style.top=(pad.clientHeight/2+dy)+'px'; }
+function fromEvent(e){
+  const r=pad.getBoundingClientRect();
+  const t=e.touches? e.touches[0]: e;
+  const dx=clamp(t.clientX-r.left-r.width/2, -r.width/2+31, r.width/2-31);
+  const dy=clamp(t.clientY-r.top-r.height/2, -r.height/2+31, r.height/2-31);
+  setKnob(dx,dy);
+  v = clamp(-dy/(r.height/2-31), -1, 1) * V_MAX;   // 위로 = 전진
+  if(v<0) v=0;                                     // 후진은 막음(안전)
+  w = clamp(-dx/(r.width/2-31), -1, 1) * W_MAX;    // 왼쪽 = +
+  $('reqV').textContent=v.toFixed(2);
+  $('reqBar').style.width=(v/V_MAX*100)+'%';
+}
+function release(){ active=false; v=0; w=0; setKnob(0,0);
+  $('reqV').textContent='0.00'; $('reqBar').style.width='0%'; }
+
+['touchstart','mousedown'].forEach(t=>pad.addEventListener(t,e=>{active=true;fromEvent(e);e.preventDefault();}));
+['touchmove','mousemove'].forEach(t=>pad.addEventListener(t,e=>{if(active){fromEvent(e);e.preventDefault();}}));
+['touchend','touchcancel','mouseup','mouseleave'].forEach(t=>pad.addEventListener(t,release));
+$('stop').addEventListener('click', release);
+
+// ── 20Hz 송신 (손 떼면 0 → 데드맨) ──
+setInterval(()=>{
+  if(!connected || !cmdPub) return;
+  cmdPub.publish(new ROSLIB.Message({
+    linear:{x:v,y:0,z:0}, angular:{x:0,y:0,z:w}
+  }));
+}, 50);
+
+connect();
+</script>
+</body>
+</html>

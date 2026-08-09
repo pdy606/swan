@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!-- 불법주차 차량 (정적 장애물) — 기획 핵심 시나리오. 팀 월드에 런타임 스폰 -->
+<sdf version="1.10">
+  <model name="illegal_car">
+    <static>true</static>
+    <link name="body">
+      <collision name="collision">
+        <geometry><box><size>2.2 1.0 1.4</size></box></geometry>
+      </collision>
+      <visual name="visual">
+        <geometry><box><size>2.2 1.0 1.4</size></box></geometry>
+        <material><ambient>0.15 0.35 0.75 1</ambient><diffuse>0.15 0.35 0.75 1</diffuse></material>
+      </visual>
+    </link>
+    <!-- 창문 느낌 (시각용) -->
+    <link name="cabin">
+      <pose>0 0 1.0 0 0 0</pose>
+      <visual name="v"><geometry><box><size>1.2 0.9 0.5</size></box></geometry>
+        <material><ambient>0.3 0.5 0.85 1</ambient><diffuse>0.3 0.5 0.85 1</diffuse></material></visual>
+    </link>
+    <joint name="cabin_j" type="fixed"><parent>body</parent><child>cabin</child></joint>
+  </model>
+</sdf>

@@ -1,0 +1,53 @@
+# SWAN 제어/판단 파라미터 — 코드 수정 없이 여기서 튜닝
+# 사용: ros2 run swan_pipeline control_node --ros-args --params-file <이 파일>
+
+control_node:
+  ros__parameters:
+    rate_hz: 50.0
+    # ── 승차감 핵심 (Jerk 최소화) ──
+    a_max: 1.5            # 최대 가/감속 [m/s^2]
+    j_max: 2.5            # 최대 jerk [m/s^3]  ← 낮출수록 부드럽지만 정지거리 증가
+    omega_rate: 2.0       # 각속도 변화 제한 [rad/s^2]
+    # ── 다단 제동: brake_level(0~3) 이 올라갈수록 한계 완화 ──
+    brake_a_gain: 0.7     # a_max *= (1 + 0.7*level)
+    brake_j_gain: 1.0     # j_max *= (1 + 1.0*level)
+    # ── 통합 모드 ──
+    # drive_target : assist_node 출력 사용
+    # twist        : Nav2 등 외부 Twist 를 받아 스무딩만 (Nav2 통합 시)
+    input_mode: "drive_target"
+    input_topic: "/swan/drive_target"
+    output_topic: "/cmd_vel"
+
+# ※ 판단 로직은 assist_node 로 일원화됨 (구 decision_node 통합·삭제).
+
+assist_node:
+  ros__parameters:
+    # ── 개입 거리 (인지가 주는 '표면 여유거리' 기준) ──
+    # 실험 근거(param_sweep.sh, 사용자 1.67m/s 돌진):
+    #   2.0/0.8 → 표면여유 0.09m (스침) ❌
+    #   3.0/1.5 → 표면여유 0.94m (안전) ✅  ← 채택
+    #   3.0/1.5(ω1.2) → 3.07m (과회피, 보도에서 크게 휘청) ❌
+    d_decel: 3.0        # 감속 개입 시작
+    d_takeover: 1.5     # 자율 회피 전환 (실측 정지거리 1.28m 보다 커야 함)
+    d_clear: 2.0        # 회피 해제
+    front_angle: 0.9    # 인지 FOV 와 일치 (상태 튐 방지)
+    v_max: 1.67         # 보도 법정 6km/h
+    avoid_v: 0.8
+    avoid_omega: 0.8      # 조향 각속도 '상한' (고정값 아님)
+    # ── 비례 회피: '필요한 만큼만' 조향 → 자연스러운 스침 ──
+    # 고정 각속도로 무작정 돌면 필요 이상 크게 피해 부자연스러움.
+    # safe_lateral = 충돌한계 0.56(휠체어 반폭0.31 + 박스 반폭0.25) + 안전여유 0.40
+    # 검증(final_check.sh 3회): 표면여유 0.30~0.84m / 회피 옆이탈 0.19~0.64m ✅
+    safe_lateral: 0.96
+    avoid_kp: 2.0
+    geom_offset: 0.66     # clearance → 중심거리 보정 (반길이0.41 + 박스반폭0.25)
+    return_hold: 1.0
+    lost_hold: 0.7
+    # ── 경로복귀 ──
+    xtrack_kp: 0.8
+    yaw_kp: 1.5
+    # 복귀 완료 판정은 빡빡해야 함! 0.15rad(8.6도) 로 두면 그 각도로 계속 직진해
+    # 78m 가는 동안 옆으로 12m 밀림. 0.03rad(1.7도) 로 조이니 2m 로 감소.
+    ret_xt_tol: 0.12
+    ret_yaw_tol: 0.03
+    ret_timeout: 8.0
