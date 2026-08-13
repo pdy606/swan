@@ -487,6 +487,71 @@
     </joint>
 
     <!-- ================================================== -->
+    <!-- 카메라 센서 (RGB)                                  -->
+    <!-- ================================================== -->
+    <link name="camera_link">
+      
+      <!-- 카메라 위치: 휠체어 앞부분 위쪽 (x: 0.45, z: 0.85) -->
+      <pose>0.45 0 0.85 0 0 0</pose>
+
+      <inertial>
+        <mass>0.1</mass>
+        <inertia>
+          <ixx>0.0001</ixx>
+          <iyy>0.0001</iyy>
+          <izz>0.0001</izz>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyz>0.0</iyz>
+        </inertia>
+      </inertial>
+
+      <visual name="camera_visual">
+        <geometry>
+          <box>
+            <size>0.05 0.05 0.05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.1 0.1 0.1 1</ambient>
+          <diffuse>0.2 0.2 0.2 1</diffuse>
+        </material>
+      </visual>
+
+      <sensor name="camera_sensor" type="camera">
+        
+        <topic>/camera</topic>
+        
+        <always_on>true</always_on>
+        <!-- 1. 프레임 낮추기 (부하 방지) -->
+        <update_rate>10.0</update_rate> 
+        <!-- 2. 시각화 마커 끄기 (에러의 100% 핵심 원인!) -->
+        <visualize>false</visualize> 
+
+        <camera>
+          <horizontal_fov>1.047</horizontal_fov>
+          <image>
+            <!-- 3. 해상도 낮추기 (부하 방지) -->
+            <width>320</width> 
+            <height>240</height> 
+            <format>R8G8B8</format>
+          </image>
+          <clip>
+            <near>0.1</near>
+            <far>100</far>
+          </clip>
+        </camera>
+      </sensor>
+
+    </link>
+
+    <joint name="camera_joint" type="fixed">
+      <parent>base_link</parent>
+      <child>camera_link</child>
+    </joint>
+
+
+    <!-- ================================================== -->
     <!-- Gazebo DiffDrive 플러그인                            -->
     <!-- ================================================== -->
 

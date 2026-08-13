@@ -14,7 +14,7 @@ class YoloDetectorNode(Node):
         # 1. 카메라 영상 구독 (Topic)
         self.subscription = self.create_subscription(
             Image,
-            '/camera/image_raw',
+            '/camera',
             self.image_callback,
             10
         )
