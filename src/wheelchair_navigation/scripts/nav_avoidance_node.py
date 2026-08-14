@@ -12,11 +12,11 @@ from nav_msgs.msg import Odometry
 from rclpy.action import ActionClient
 from rclpy.node import Node
 from sensor_msgs.msg import LaserScan
+from std_msgs.msg import String
 
 
 class DrivingState(Enum):
     MANUAL = "MANUAL"
-    SLOWDOWN = "SLOWDOWN"
     STOPPED = "STOPPED"
     WAITING_FOR_NAV = "WAITING_FOR_NAV"
     AVOIDING = "AVOIDING"
@@ -24,16 +24,14 @@ class DrivingState(Enum):
     BLOCKED = "BLOCKED"
 
 
-class DrivingSupervisor(Node):
+class NavAvoidanceNode(Node):
     def __init__(self) -> None:
-        super().__init__("driving_supervisor")
+        super().__init__("nav_avoidance_node")
 
         # --------------------------------------------------------------
         # 일반 주행 안전 거리
         # --------------------------------------------------------------
 
-        # 장애물 접근 감속 시작
-        self.slowdown_distance = 1.00
 
         # 장애물 접근 정지 및 자동 회피 시작
         self.stop_distance = 0.55
@@ -41,9 +39,6 @@ class DrivingSupervisor(Node):
         # 상태가 거리 경계에서 반복 전환되는 현상 방지
         self.hysteresis = 0.12
 
-        # 감속 시 원래 속도의 최소 비율
-        # 정지 직전까지 지나치게 느리게 기어가지 않도록 한다.
-        self.minimum_slowdown_ratio = 0.50
 
         # STOPPED 진입 후 Nav2 회피 시작까지 대기
         self.avoidance_start_delay = 0.10
@@ -120,6 +115,7 @@ class DrivingSupervisor(Node):
         # --------------------------------------------------------------
 
         self.state = DrivingState.MANUAL
+        self.c_avoidance_requested = False
 
         # 필터링 후 Supervisor가 사용하는 전방 거리
         self.front_distance = math.inf
@@ -199,6 +195,13 @@ class DrivingSupervisor(Node):
             10,
         )
 
+        self.situation_subscription = self.create_subscription(
+            String,
+            "/driving_situation",
+            self.situation_callback,
+            10,
+        )
+
         self.user_cmd_subscription = self.create_subscription(
             Twist,
             "/cmd_vel_user",
@@ -224,6 +227,12 @@ class DrivingSupervisor(Node):
         self.cmd_vel_publisher = self.create_publisher(
             Twist,
             "/model/wheelchair/cmd_vel",
+            10,
+        )
+
+        self.avoidance_status_publisher = self.create_publisher(
+            String,
+            "/avoidance_status",
             10,
         )
 
@@ -257,6 +266,28 @@ class DrivingSupervisor(Node):
     # 입력 콜백
     # ==============================================================
 
+    def situation_callback(self, msg: String) -> None:
+        situation = msg.data.strip().upper()
+
+        if situation != "C":
+            return
+
+        if self.state in (
+            DrivingState.STOPPED,
+            DrivingState.WAITING_FOR_NAV,
+            DrivingState.AVOIDING,
+            DrivingState.REPLANNING,
+            DrivingState.BLOCKED,
+        ):
+            return
+
+        self.get_logger().info(
+            "C situation received - starting avoidance"
+        )
+
+        self.c_avoidance_requested = True
+        self.enter_stopped_state()
+    
     def user_cmd_callback(self, msg: Twist) -> None:
         self.latest_user_cmd = self.copy_twist(msg)
         self.last_user_cmd_time = self.get_clock().now()
@@ -315,12 +346,6 @@ class DrivingSupervisor(Node):
 
         self.front_distance = self.get_stabilized_front_distance()
 
-        if self.state in (
-            DrivingState.MANUAL,
-            DrivingState.SLOWDOWN,
-            DrivingState.STOPPED,
-        ):
-            self.update_manual_state()
 
     # ==============================================================
     # LiDAR 처리
@@ -413,47 +438,7 @@ class DrivingSupervisor(Node):
     # 일반 주행 상태
     # ==============================================================
 
-    def update_manual_state(self) -> None:
-        previous_state = self.state
-        distance = self.front_distance
 
-        if self.state == DrivingState.MANUAL:
-            if distance <= self.stop_distance:
-                self.enter_stopped_state()
-
-            elif distance <= self.slowdown_distance:
-                self.state = DrivingState.SLOWDOWN
-
-        elif self.state == DrivingState.SLOWDOWN:
-            if distance <= self.stop_distance:
-                self.enter_stopped_state()
-
-            elif distance > (
-                self.slowdown_distance + self.hysteresis
-            ):
-                self.state = DrivingState.MANUAL
-
-        elif self.state == DrivingState.STOPPED:
-            # STOPPED에서 전진 시도 중이면 자동 회피 준비 상태를 유지한다.
-            if self.is_forward_command_active():
-                return
-
-            # 사용자가 전진하지 않고 장애물도 충분히 멀어졌을 때만 해제한다.
-            if distance > (
-                self.stop_distance + self.hysteresis
-            ):
-                self.reset_avoidance_session()
-
-                if distance <= self.slowdown_distance:
-                    self.state = DrivingState.SLOWDOWN
-                else:
-                    self.state = DrivingState.MANUAL
-
-        if previous_state != self.state:
-            self.log_state_change(
-                previous_state,
-                self.state,
-            )
 
     def enter_stopped_state(self) -> None:
         if self.state != DrivingState.STOPPED:
@@ -473,7 +458,7 @@ class DrivingSupervisor(Node):
             self.clear_condition_since = None
             self.emergency_condition_since = None
 
-        self.state = DrivingState.STOPPED
+        self.change_state(DrivingState.STOPPED)
 
     # ==============================================================
     # Supervisor
@@ -494,7 +479,7 @@ class DrivingSupervisor(Node):
             self.stopped_since = self.get_clock().now()
             return
 
-        if not self.is_forward_command_active():
+        if not self.c_avoidance_requested:
             return
 
         if not self.is_odom_fresh():
@@ -933,6 +918,8 @@ class DrivingSupervisor(Node):
             "Avoidance completed successfully"
         )
 
+        self.publish_avoidance_status("COMPLETED")
+
         # 회피 전 teleop 명령이 다시 적용되지 않도록 초기화한다.
         self.latest_user_cmd = Twist()
         self.last_user_cmd_time = None
@@ -940,6 +927,7 @@ class DrivingSupervisor(Node):
         self.latest_nav_cmd = Twist()
         self.last_nav_cmd_time = None
 
+        self.c_avoidance_requested = False
         self.reset_avoidance_session()
         self.change_state(DrivingState.MANUAL)
 
@@ -994,18 +982,6 @@ class DrivingSupervisor(Node):
             )
             return
 
-        if self.state == DrivingState.SLOWDOWN:
-            if not self.is_user_cmd_fresh():
-                self.publish_stop()
-                return
-
-            self.cmd_vel_publisher.publish(
-                self.make_slowdown_cmd(
-                    self.latest_user_cmd
-                )
-            )
-            return
-
         if self.state == DrivingState.STOPPED:
             if not self.is_user_cmd_fresh():
                 self.publish_stop()
@@ -1045,46 +1021,7 @@ class DrivingSupervisor(Node):
         # WAITING_FOR_NAV와 REPLANNING에서는 완전 정지
         self.publish_stop()
 
-    def make_slowdown_cmd(
-        self,
-        user_cmd: Twist,
-    ) -> Twist:
-        output_cmd = self.copy_twist(user_cmd)
 
-        # 후진은 감속하지 않는다.
-        if user_cmd.linear.x <= 0.0:
-            return output_cmd
-
-        distance_range = (
-            self.slowdown_distance
-            - self.stop_distance
-        )
-
-        if distance_range <= 0.0:
-            progress = 1.0
-        else:
-            progress = (
-                self.slowdown_distance
-                - self.front_distance
-            ) / distance_range
-
-        progress = max(
-            0.0,
-            min(1.0, progress),
-        )
-
-        slowdown_ratio = (
-            1.0
-            - (
-                1.0 - self.minimum_slowdown_ratio
-            ) * progress
-        )
-
-        output_cmd.linear.x = (
-            user_cmd.linear.x * slowdown_ratio
-        )
-
-        return output_cmd
 
     def make_recovery_cmd(
         self,
@@ -1103,12 +1040,6 @@ class DrivingSupervisor(Node):
     # ==============================================================
     # 상태 확인
     # ==============================================================
-
-    def is_forward_command_active(self) -> bool:
-        return (
-            self.is_user_cmd_fresh()
-            and self.latest_user_cmd.linear.x > 0.05
-        )
 
     def is_scan_fresh(self) -> bool:
         if self.last_scan_time is None:
@@ -1233,6 +1164,15 @@ class DrivingSupervisor(Node):
             - self.last_logged_distance
         ) >= 0.10
 
+    def publish_avoidance_status(self, status: str) -> None:
+        msg = String()
+        msg.data = status
+        self.avoidance_status_publisher.publish(msg)
+
+        self.get_logger().info(
+            f"AVOIDANCE STATUS: {status}"
+        )
+
     def change_state(
         self,
         new_state: DrivingState,
@@ -1247,6 +1187,17 @@ class DrivingSupervisor(Node):
             previous_state,
             new_state,
         )
+
+        if new_state in (
+            DrivingState.STOPPED,
+            DrivingState.WAITING_FOR_NAV,
+            DrivingState.AVOIDING,
+            DrivingState.REPLANNING,
+            DrivingState.BLOCKED,
+        ):
+            self.publish_avoidance_status(
+                new_state.value
+            )
 
     def log_state_change(
         self,
@@ -1286,7 +1237,7 @@ class DrivingSupervisor(Node):
 def main(args=None) -> None:
     rclpy.init(args=args)
 
-    node = DrivingSupervisor()
+    node = NavAvoidanceNode()
 
     try:
         rclpy.spin(node)
