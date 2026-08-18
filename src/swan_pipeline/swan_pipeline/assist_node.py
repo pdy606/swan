@@ -79,6 +79,12 @@ class AssistNode(Node):
         self.declare_parameter('return_hold', 1.0)   # 반환 상태 유지 시간(s)
         self.declare_parameter('lost_hold', 0.7)     # 장애물 놓쳐도 이 시간은 유지(히스테리시스)
         self.declare_parameter('d_stop', 1.2)        # 양보: 사람 앞 이 거리에서 정지
+        # ── 팀 통합 모드 (cmd_vel arbiter = gyuwon nav_avoidance_node) ──
+        #   회피가 필요한 상황이면 스스로 조향하지 않고 /driving_situation="C" 를 발행해
+        #   Nav2 회피를 gyuwon 노드에 위임하고, /avoidance_status="COMPLETED" 를 기다린다.
+        self.declare_parameter('team_mode', False)
+        self.declare_parameter('situation_topic', '/driving_situation')
+        self.declare_parameter('avoidance_status_topic', '/avoidance_status')
 
         g = lambda n: self.get_parameter(n).value
         self.d_decel, self.d_take, self.d_clear = g('d_decel'), g('d_takeover'), g('d_clear')
@@ -106,11 +112,22 @@ class AssistNode(Node):
         self.red_seen = None
         self.obs_beh = 'avoid'
 
+        self.team_mode = g('team_mode')
+        self.nav_active = False       # 팀모드: 지금 Nav2 회피 위임 중인가
+
         self.create_subscription(Twist, '/cmd_vel_user', self.on_user, 10)
         self.create_subscription(DetectionArray, '/swan/detections', self.on_det, 10)
         self.create_subscription(Odometry, '/odom', self.on_odom, 10)
         self.pub = self.create_publisher(DriveTarget, '/swan/drive_target', 10)
         self.state_pub = self.create_publisher(String, '/swan/state', 10)
+        # 팀 통합 계약: 상황 발행 + 회피완료 수신
+        self.sit_pub = self.create_publisher(String, g('situation_topic'), 10)
+        if self.team_mode:
+            self.create_subscription(String, g('avoidance_status_topic'),
+                                     self.on_avoid_status, 10)
+            self.get_logger().info(
+                '팀 통합 모드: 회피는 /driving_situation="C" 로 Nav2(gyuwon) 위임, '
+                '/avoidance_status 대기 (cmd_vel arbiter=gyuwon)')
 
         self.user_v = self.user_w = 0.0
         self.obs_d, self.obs_a, self.has_obs = 99.0, 0.0, False
@@ -182,8 +199,37 @@ class AssistNode(Node):
             if s in (MANUAL, RETURN):
                 self.avoid_dir = 0.0      # 회피 끝나면 방향 고정 해제
 
+    # ── 팀 통합 계약 핸들러 ──
+    def on_avoid_status(self, m: String):
+        if m.data.strip().upper() == 'COMPLETED' and self.nav_active:
+            self.nav_active = False
+            self.set_state(MANUAL)
+            self.get_logger().info('avoidance COMPLETED 수신 → 정상주행 재개')
+
+    def _publish_situation(self, letter):
+        s = String(); s.data = letter; self.sit_pub.publish(s)
+
+    def loop_team(self, d):
+        """팀모드: 스스로 조향/제어하지 않고 상황만 판단해 발행.
+        회피 필요(정적물체 근접) → 'C' 발행하고 Nav2(gyuwon) 위임, 완료까지 대기."""
+        need_avoid = self.has_obs and self.obs_beh == 'avoid' and d < self.d_take
+        if need_avoid and not self.nav_active:
+            self._publish_situation('C')          # gyuwon: 'C' 만 회피 트리거
+            self.nav_active = True
+            self.set_state(AUTO_AVOID)
+            self.get_logger().info(f'C 상황 발행 → Nav2 회피 위임 (장애물 {d:.2f}m)')
+        elif not self.nav_active:
+            self._publish_situation('A')          # 정상(비회피) 상황
+            self.set_state(MANUAL)
+        s = String(); s.data = NAMES[self.state]; self.state_pub.publish(s)
+
     def loop(self):
         d = self.obs_d if self.has_obs else 99.0
+
+        # ── 팀 통합 모드: cmd_vel 은 gyuwon 이 담당 → 상황만 발행 ──
+        if self.team_mode:
+            self.loop_team(d)
+            return
 
         # ── 신호등 빨강 = 최우선 정지 (카메라) ──
         if self.red_light:

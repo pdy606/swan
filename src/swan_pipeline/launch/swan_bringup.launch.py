@@ -43,20 +43,50 @@ def launch_setup(context, *args, **kwargs):
     sy = LaunchConfiguration('spawn_y').perform(context)
     syaw = LaunchConfiguration('spawn_yaw').perform(context)
 
-    # 1) 팀 월드 로드 (headless=true 면 GUI 없이 서버만 + SW렌더 — VM/CI용)
+    # 팀 통합 모드: sim·브리지·scan_filter·Nav2·arbiter(gyuwon)는 팀이 제공.
+    #   → 내 인지·판단만 띄우고, LiDAR 는 /scan_filtered, 회피는 Nav2 위임.
+    team_mode = LaunchConfiguration('team_mode').perform(context) in ('true', 'True', '1')
+    scan_topic = '/scan_filtered' if team_mode else '/scan'
+
+    # 인지·판단 (공통)
+    pl = [
+        Node(package='swan_pipeline', executable='lidar_perception_node', output='screen',
+             parameters=[st, {'scan_topic': scan_topic, 'out_topic': '/swan/lidar_detections'}]),
+        Node(package='swan_pipeline', executable='camera_perception_node', output='screen',
+             parameters=[st, {'image_topic': '/wheelchair/camera/image'}],
+             condition=IfCondition(use_camera)),
+        Node(package='swan_pipeline', executable='fusion_node', output='screen',
+             parameters=[st], condition=IfCondition(use_camera)),
+        # 카메라 끄면 LiDAR 검출을 바로 판단으로 (fusion 우회)
+        Node(package='swan_pipeline', executable='lidar_perception_node', output='screen',
+             parameters=[st, {'scan_topic': scan_topic, 'out_topic': '/swan/detections'}],
+             name='lidar_direct', condition=UnlessCondition(use_camera)),
+        Node(package='swan_pipeline', executable='assist_node', output='screen',
+             parameters=[st, {'team_mode': team_mode}]),
+    ]
+    if not team_mode:
+        # 독립 모드에서만 내가 cmd_vel 을 최종 출력 (팀모드는 gyuwon 이 arbiter)
+        pl += [
+            Node(package='swan_pipeline', executable='control_node', output='screen',
+                 parameters=[st, {'output_topic': CMD_VEL}]),
+            Node(package='swan_pipeline', executable='virtual_user', output='screen',
+                 parameters=[st], condition=UnlessCondition(use_teleop)),
+        ]
+    pipeline = TimerAction(period=6.0, actions=pl)
+
+    if team_mode:
+        return [pipeline]        # sim/브리지/제어 없음 — 팀 시스템에 얹힘
+
+    # ── 독립 모드: 내 sim + 스폰 + 브리지까지 다 띄움 ──
     headless = LaunchConfiguration('headless').perform(context) in ('true', 'True', '1')
     gz_cmd = ['gz', 'sim', '-r', '-v', '3']
     if headless:
         gz_cmd += ['-s', '--headless-rendering']
     gz_cmd.append(world_path)
     gz = ExecuteProcess(cmd=gz_cmd, output='screen')
-
-    # 2) 휠체어(내 모델) 스폰
     spawn = Node(package='ros_gz_sim', executable='create', output='screen',
                  arguments=['-file', wheelchair_sdf, '-name', 'wheelchair',
                             '-x', sx, '-y', sy, '-z', '0.05', '-Y', syaw])
-
-    # 3) gz↔ROS 브리지
     bridge = Node(
         package='ros_gz_bridge', executable='parameter_bridge', output='screen',
         arguments=[
@@ -68,27 +98,6 @@ def launch_setup(context, *args, **kwargs):
         ],
         remappings=[('/model/wheelchair/scan', '/scan'),
                     ('/model/wheelchair/odometry', '/odom')])
-
-    # 4) 파이프라인 (센서 뜬 뒤 시작)
-    pipeline = TimerAction(period=6.0, actions=[
-        Node(package='swan_pipeline', executable='lidar_perception_node', output='screen',
-             parameters=[st, {'out_topic': '/swan/lidar_detections'}]),
-        Node(package='swan_pipeline', executable='camera_perception_node', output='screen',
-             parameters=[st, {'image_topic': '/wheelchair/camera/image'}],
-             condition=IfCondition(use_camera)),
-        Node(package='swan_pipeline', executable='fusion_node', output='screen',
-             parameters=[st], condition=IfCondition(use_camera)),
-        # 카메라 끄면 LiDAR 검출을 바로 판단으로 (fusion 우회)
-        Node(package='swan_pipeline', executable='lidar_perception_node', output='screen',
-             parameters=[st, {'out_topic': '/swan/detections'}], name='lidar_direct',
-             condition=UnlessCondition(use_camera)),
-        Node(package='swan_pipeline', executable='assist_node', output='screen', parameters=[st]),
-        Node(package='swan_pipeline', executable='control_node', output='screen',
-             parameters=[st, {'output_topic': CMD_VEL}]),
-        Node(package='swan_pipeline', executable='virtual_user', output='screen',
-             parameters=[st], condition=UnlessCondition(use_teleop)),
-    ])
-
     return [gz, TimerAction(period=3.0, actions=[spawn]), bridge, pipeline]
 
 
@@ -102,6 +111,9 @@ def generate_launch_description():
         DeclareLaunchArgument('use_teleop', default_value='false'),
         DeclareLaunchArgument('headless', default_value='false',
                               description='true=GUI 없이 서버+SW렌더 (VM/CI)'),
+        DeclareLaunchArgument('team_mode', default_value='false',
+                              description='true=팀통합: 내 인지·판단만, /scan_filtered 사용, '
+                                          '회피는 Nav2(gyuwon) 위임, cmd_vel arbiter=gyuwon'),
         DeclareLaunchArgument('spawn_x', default_value='-3.0'),   # 인도 중앙(도로 왼쪽)
         DeclareLaunchArgument('spawn_y', default_value='-13.0'),  # 30m 도로 시작부
         DeclareLaunchArgument('spawn_yaw', default_value='1.5708'),  # +Y 방향
