@@ -37,6 +37,7 @@ setup(
             'hw_bridge_node = swan_pipeline.hw_bridge_node:main',
             'camera_perception_node = swan_pipeline.camera_perception_node:main',
             'fusion_node = swan_pipeline.fusion_node:main',
+            'yolo_adapter_node = swan_pipeline.yolo_adapter_node:main',
             'scenario_logger = swan_pipeline.scenario_logger:main',
             'jerk_logger = swan_pipeline.jerk_logger:main',
             'brake_test = swan_pipeline.brake_test:main',

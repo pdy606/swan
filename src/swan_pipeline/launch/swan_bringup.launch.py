@@ -48,22 +48,33 @@ def launch_setup(context, *args, **kwargs):
     team_mode = LaunchConfiguration('team_mode').perform(context) in ('true', 'True', '1')
     scan_topic = '/scan_filtered' if team_mode else '/scan'
 
-    # 인지·판단 (공통)
+    # 비전 소스: color=내 HSV camera_perception / yolo=dayoung YOLO 어댑터
+    use_cam = LaunchConfiguration('use_camera').perform(context) in ('true', 'True', '1')
+    vision = LaunchConfiguration('vision').perform(context)
+
+    # 인지·판단
     pl = [
         Node(package='swan_pipeline', executable='lidar_perception_node', output='screen',
              parameters=[st, {'scan_topic': scan_topic, 'out_topic': '/swan/lidar_detections'}]),
-        Node(package='swan_pipeline', executable='camera_perception_node', output='screen',
-             parameters=[st, {'image_topic': '/wheelchair/camera/image'}],
-             condition=IfCondition(use_camera)),
-        Node(package='swan_pipeline', executable='fusion_node', output='screen',
-             parameters=[st], condition=IfCondition(use_camera)),
-        # 카메라 끄면 LiDAR 검출을 바로 판단으로 (fusion 우회)
-        Node(package='swan_pipeline', executable='lidar_perception_node', output='screen',
-             parameters=[st, {'scan_topic': scan_topic, 'out_topic': '/swan/detections'}],
-             name='lidar_direct', condition=UnlessCondition(use_camera)),
-        Node(package='swan_pipeline', executable='assist_node', output='screen',
-             parameters=[st, {'team_mode': team_mode}]),
     ]
+    if use_cam:
+        if vision == 'yolo':
+            # dayoung /yolo/detected_objects → /swan/cam_detections (LiDAR 각도 부여)
+            pl.append(Node(package='swan_pipeline', executable='yolo_adapter_node',
+                           output='screen', parameters=[st]))
+        else:
+            pl.append(Node(package='swan_pipeline', executable='camera_perception_node',
+                           output='screen',
+                           parameters=[st, {'image_topic': '/wheelchair/camera/image'}]))
+        pl.append(Node(package='swan_pipeline', executable='fusion_node', output='screen',
+                       parameters=[st]))
+    else:
+        # 카메라 끄면 LiDAR 검출을 바로 판단으로 (fusion 우회)
+        pl.append(Node(package='swan_pipeline', executable='lidar_perception_node',
+                       output='screen', name='lidar_direct',
+                       parameters=[st, {'scan_topic': scan_topic, 'out_topic': '/swan/detections'}]))
+    pl.append(Node(package='swan_pipeline', executable='assist_node', output='screen',
+                   parameters=[st, {'team_mode': team_mode}]))
     if not team_mode:
         # 독립 모드에서만 내가 cmd_vel 을 최종 출력 (팀모드는 gyuwon 이 arbiter)
         pl += [
@@ -108,6 +119,8 @@ def generate_launch_description():
         DeclareLaunchArgument('worlds_dir', default_value='',
                               description='팀 simulation/worlds 절대경로 (미지정 시 $SWAN_WORLDS_DIR)'),
         DeclareLaunchArgument('use_camera', default_value='true'),
+        DeclareLaunchArgument('vision', default_value='color',
+                              description='color=내 HSV camera_perception / yolo=dayoung YOLO 어댑터'),
         DeclareLaunchArgument('use_teleop', default_value='false'),
         DeclareLaunchArgument('headless', default_value='false',
                               description='true=GUI 없이 서버+SW렌더 (VM/CI)'),
