@@ -5,13 +5,13 @@ from std_msgs.msg import String
 from cv_bridge import CvBridge
 import cv2
 import os
+import numpy as np
 from ultralytics import YOLO
 
 class YoloDetectorNode(Node):
     def __init__(self):
         super().__init__('yolo_detector_node')
         
-        # 1. 카메라 영상 구독 (Topic)
         self.subscription = self.create_subscription(
             Image,
             '/camera',
@@ -19,13 +19,12 @@ class YoloDetectorNode(Node):
             10
         )
         
-        # 2. 결과 발행 (Topic)
         self.image_pub = self.create_publisher(Image, '/yolo/image_raw', 10)
         self.label_pub = self.create_publisher(String, '/yolo/detected_objects', 10)
         
         self.bridge = CvBridge()
         
-        # 3. 모델 로드 (best.pt가 없을 땐 기본 yolov8n.pt로 자동 테스트)
+        # 3. 다영이가 직접 학습시킨 커스텀 모델(best.pt) 로드!
         model_path = '/home/userpdy606/swan/src/wheelchair_vision/wheelchair_vision/best.pt'
         if os.path.exists(model_path):
             self.get_logger().info(f'Loading custom model: {model_path}')
@@ -37,11 +36,14 @@ class YoloDetectorNode(Node):
     def image_callback(self, msg):
         try:
             cv_image = self.bridge.imgmsg_to_cv2(msg, desired_encoding='bgr8')
-            results = self.model(cv_image, conf=0.5)
+            
+            # 가제보 화면(도메인 갭)을 이겨내기 위해 conf=0.1로 낮게 유지
+            results = self.model(cv_image, conf=0.35)
             
             detected_classes = []
+            annotated_frame = results[0].plot()
+            
             for r in results:
-                cv_image = r.plot()
                 for box in r.boxes:
                     cls_id = int(box.cls[0])
                     class_name = self.model.names[cls_id]
@@ -52,7 +54,16 @@ class YoloDetectorNode(Node):
                 msg_str.data = f"Detected: {', '.join(set(detected_classes))}"
                 self.label_pub.publish(msg_str)
             
-            annotated_msg = self.bridge.cv2_to_imgmsg(cv_image, encoding='bgr8')
+            # 🌟 통역사(cv_bridge) 대신 직접 수동 포장! (에러 16 철벽 방어)
+            annotated_msg = Image()
+            annotated_msg.header = msg.header
+            annotated_msg.height = annotated_frame.shape[0]
+            annotated_msg.width = annotated_frame.shape[1]
+            annotated_msg.encoding = 'bgr8'
+            annotated_msg.is_bigendian = 0
+            annotated_msg.step = annotated_frame.shape[1] * 3
+            annotated_msg.data = np.ascontiguousarray(annotated_frame).tobytes()
+            
             self.image_pub.publish(annotated_msg)
 
         except Exception as e:
