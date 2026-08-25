@@ -1,4 +1,5 @@
 import rclpy
+from ament_index_python.packages import get_package_share_directory
 from rclpy.node import Node
 from sensor_msgs.msg import Image
 from std_msgs.msg import String
@@ -25,7 +26,13 @@ class YoloDetectorNode(Node):
         self.bridge = CvBridge()
         
         # 3. 다영이가 직접 학습시킨 커스텀 모델(best.pt) 로드!
-        model_path = '/home/userpdy606/swan/src/wheelchair_vision/wheelchair_vision/best.pt'
+        package_share = get_package_share_directory('wheelchair_vision')
+
+        model_path = os.path.join(
+            package_share,
+            'wheelchair_vision',
+            'best.pt'
+        )
         if os.path.exists(model_path):
             self.get_logger().info(f'Loading custom model: {model_path}')
             self.model = YOLO(model_path)
