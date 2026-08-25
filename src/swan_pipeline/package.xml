@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>swan_pipeline</name>
+  <version>0.0.1</version>
+  <description>SWAN 인지-판단-제어 파이프라인 스켈레톤 노드</description>
+  <maintainer email="swan@swan.local">swan</maintainer>
+  <license>MIT</license>
+
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>swan_interfaces</exec_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>
