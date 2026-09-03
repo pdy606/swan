@@ -17,7 +17,7 @@ class YoloDetectorNode(Node):
             Image,
             '/camera',
             self.image_callback,
-            10
+            1
         )
         
         self.image_pub = self.create_publisher(Image, '/yolo/image_raw', 10)
