@@ -93,8 +93,8 @@ class NavAvoidanceNode(Node):
         # 현재 위치 기준 목표 거리 후보
         # 첫 후보 실패 시 다른 거리로 다시 시도한다.
         self.goal_distance_candidates = [
-            2.0,
-            1.6,
+            2.8,
+            3.2,
             2.4,
         ]
 

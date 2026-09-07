@@ -2,7 +2,7 @@
 <package format="3">
   <name>swan_interfaces</name>
   <version>0.0.1</version>
-  <description>SWAN 인터페이스 계약: Detection, DriveTarget 메시지</description>
+  <description>SWAN vision and driving interface messages</description>
   <maintainer email="swan@swan.local">swan</maintainer>
   <license>MIT</license>
 
