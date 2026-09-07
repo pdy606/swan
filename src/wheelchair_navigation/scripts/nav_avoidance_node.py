@@ -43,6 +43,9 @@ class NavAvoidanceNode(Node):
         # STOPPED 진입 후 Nav2 회피 시작까지 대기
         self.avoidance_start_delay = 0.10
 
+        # 빨간 신호등 정지 명령 1회 요청
+        self.traffic_stop_requested = False
+
         # --------------------------------------------------------------
         # LiDAR 장애물 감지 설정
         # --------------------------------------------------------------
@@ -62,6 +65,8 @@ class NavAvoidanceNode(Node):
         # 장애물이 한두 프레임 사라져도 마지막 값을 잠시 유지한다.
         # 회전 중 장애물이 통로 밖으로 순간 이탈하며 CLEAR가 되는 문제를 방지한다.
         self.obstacle_hold_duration = 0.60
+
+
 
         # --------------------------------------------------------------
         # 회피 중 새 장애물 판단 설정
@@ -268,6 +273,29 @@ class NavAvoidanceNode(Node):
 
     def situation_callback(self, msg: String) -> None:
         situation = msg.data.strip().upper()
+
+        # --------------------------------------------------------------
+        # 빨간 신호등
+        # --------------------------------------------------------------
+
+        if situation == "RED":
+            # 일반 수동 주행 중일 때만 정지 명령을 1회 요청한다.
+            if self.state == DrivingState.MANUAL:
+                self.traffic_stop_requested = True
+
+                self.get_logger().info(
+                    "Traffic light RED - one-time stop"
+                )
+
+            return
+
+        # 초록불은 제어에 개입하지 않는다.
+        if situation == "GREEN":
+            return
+
+        # --------------------------------------------------------------
+        # 기존 장애물 C 처리
+        # --------------------------------------------------------------
 
         if situation != "C":
             return
@@ -970,6 +998,12 @@ class NavAvoidanceNode(Node):
     def output_callback(self) -> None:
         if not self.is_scan_fresh():
             self.publish_stop()
+            return
+
+            # 빨간 신호등 정지 요청은 한 번만 실행한다.
+        if self.traffic_stop_requested:
+            self.publish_stop()
+            self.traffic_stop_requested = False
             return
 
         if self.state == DrivingState.MANUAL:

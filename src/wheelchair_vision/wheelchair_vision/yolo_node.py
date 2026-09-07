@@ -55,6 +55,7 @@ class YoloDetectorNode(Node):
                     cls_id = int(box.cls[0])
                     class_name = self.model.names[cls_id]
                     detected_classes.append(class_name)
+            
             if detected_classes:
                 msg_str = String()
                 msg_str.data = f"Detected: {', '.join(set(detected_classes))}"

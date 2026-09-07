@@ -61,6 +61,13 @@ class SituationNode(Node):
         # 같은 장애물에 C를 반복 발행하지 않도록 사용
         self.c_active = False
 
+        # 마지막으로 확인한 신호등 상태
+        self.last_traffic_state = None
+
+        # 최근 횡단보도 감지 여부
+        self.last_crosswalk_seen_time = None
+        self.crosswalk_hold_duration = 2.0
+
         # --------------------------------------------------------------
         # ROS 통신
         # --------------------------------------------------------------
@@ -69,6 +76,13 @@ class SituationNode(Node):
             LaserScan,
             "/scan_filtered",
             self.scan_callback,
+            10,
+        )
+
+        self.yolo_subscription = self.create_subscription(
+            String,
+            "/yolo/detected_objects",
+            self.yolo_callback,
             10,
         )
 
@@ -82,6 +96,58 @@ class SituationNode(Node):
             "Situation node started: "
             "stable LiDAR detection -> driving situation"
         )
+
+
+    def yolo_callback(self, msg: String) -> None:
+        detected = msg.data.strip().lower()
+        now = self.get_clock().now()
+
+        crosswalk_detected = (
+            "faded_crosswalk" in detected
+            or "intact_crosswalk" in detected
+            or "zebra crossing" in detected
+        )
+
+        if crosswalk_detected:
+            self.last_crosswalk_seen_time = now
+
+        # 최근 2초 이내 횡단보도를 봤는지 확인
+        crosswalk_active = False
+
+        if self.last_crosswalk_seen_time is not None:
+            crosswalk_age = (
+                now - self.last_crosswalk_seen_time
+            ).nanoseconds / 1_000_000_000.0
+
+            crosswalk_active = (
+                crosswalk_age <= self.crosswalk_hold_duration
+            )
+
+        # 횡단보도 주변이 아니면 신호등 무시
+        if not crosswalk_active:
+            return
+
+        # 빨간불 우선
+        if "traffic light red" in detected:
+            traffic_state = "RED"
+
+        elif "traffic light green" in detected:
+            traffic_state = "GREEN"
+
+        else:
+            return
+
+        if traffic_state == self.last_traffic_state:
+            return
+
+        self.last_traffic_state = traffic_state
+        self.publish_situation(traffic_state)
+
+        self.get_logger().info(
+            "Crosswalk traffic light -> "
+            f"{traffic_state}"
+        )
+
 
     # ==============================================================
     # LiDAR 입력
