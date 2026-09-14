@@ -43,10 +43,15 @@ def generate_launch_description():
         name='wheelchair_bridge',
         output='screen',
         arguments=[
-            # ROS 2 -> Gazebo
-            '/model/wheelchair/cmd_vel'
-            '@geometry_msgs/msg/Twist'
-            '@gz.msgs.Twist',
+            # ROS 2 -> Gazebo : SWAN drive wheel
+            '/model/wheelchair/front_drive/cmd_vel'
+            '@std_msgs/msg/Float64'
+            '@gz.msgs.Double',
+
+            # ROS 2 -> Gazebo : SWAN steering
+            '/model/wheelchair/front_steering/cmd_pos'
+            '@std_msgs/msg/Float64'
+            '@gz.msgs.Double',
 
             # Gazebo -> ROS 2 odometry
             '/model/wheelchair/odometry'
@@ -89,17 +94,24 @@ def generate_launch_description():
         ]
     )
 
+    swan_drive_controller = Node(
+        package='wheelchair_gazebo',
+        executable='swan_drive_controller.py',
+        name='swan_drive_controller',
+        output='screen',
+    )
+
     lidar_static_tf = Node(
         package='tf2_ros',
         executable='static_transform_publisher',
         name='lidar_static_tf',
         output='screen',
         arguments=[
-            '--x', '0.50',
+            '--x', '1.07',
             '--y', '0.0',
             '--z', '0.10',
             '--roll', '0.0',
-            '--pitch', '-0.1047',
+            '--pitch', '0.0',
             '--yaw', '0.0',
             '--frame-id', 'base_link',
             '--child-frame-id', 'wheelchair/lidar_link/lidar_sensor',
@@ -115,4 +127,5 @@ def generate_launch_description():
         gazebo_launch,
         bridge,
         lidar_static_tf,
+        swan_drive_controller,
     ])

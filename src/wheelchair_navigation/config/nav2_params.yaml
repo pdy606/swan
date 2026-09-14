@@ -85,8 +85,7 @@ controller_server:
     general_goal_checker:
       stateful: True
       plugin: "nav2_controller::SimpleGoalChecker"
-      xy_goal_tolerance: 0.25
-      yaw_goal_tolerance: 0.25
+      xy_goal_tolerance: 0.40
     FollowPath:
       plugin: "nav2_mppi_controller::MPPIController"
       time_steps: 56
@@ -109,7 +108,7 @@ controller_server:
       transform_tolerance: 0.1
       temperature: 0.3
       gamma: 0.015
-      motion_model: "DiffDrive"
+      motion_model: "Ackermann"
       visualize: true
       regenerate_noises: true
       TrajectoryVisualizer:
@@ -189,7 +188,16 @@ local_costmap:
       width: 5
       height: 5
       resolution: 0.05
-      footprint: "[[0.44, 0.39], [0.44, -0.39], [-0.46, -0.39], [-0.46, 0.39]]"
+      footprint: "[[1.14, 0.08],
+                  [0.95, 0.23],
+                  [0.30, 0.23],
+                  [0.18, 0.40],
+                  [-0.46, 0.40],
+                  [-0.46, -0.40],
+                  [0.18, -0.40],
+                  [0.30, -0.23],
+                  [0.95, -0.23],
+                  [1.14, -0.08]]"
       plugins: ["voxel_layer", "inflation_layer"]
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
@@ -233,7 +241,16 @@ global_costmap:
       height: 6
       resolution: 0.05
 
-      footprint: "[[0.44, 0.39], [0.44, -0.39], [-0.46, -0.39], [-0.46, 0.39]]"
+      footprint: "[[1.14, 0.08],
+                  [0.95, 0.23],
+                  [0.30, 0.23],
+                  [0.18, 0.40],
+                  [-0.46, 0.40],
+                  [-0.46, -0.40],
+                  [0.18, -0.40],
+                  [0.30, -0.23],
+                  [0.95, -0.23],
+                  [1.14, -0.08]]"
 
       track_unknown_space: false
 
