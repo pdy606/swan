@@ -1,0 +1,19 @@
+{
+  "world_version": 3,
+  "world_sha256": "c16065a3b5ee15bbdeeb13b231f59e3cce4ee8c8382440752492b9fbcaff99b0",
+  "environment": "SWAN-Jazzy / ROS2 Jazzy / Gazebo Harmonic / llvmpipe",
+  "gz_sdf_check": "Valid.",
+  "build": "swan_market passed",
+  "crosswalk_driving_result": "pass",
+  "driving_evidence": "driving/crosswalk_run1/result.json",
+  "camera": "driving/crosswalk_run1/initial_stop.png",
+  "distance_m": 6.89523472570285,
+  "final_linear_speed": 0.0,
+  "final_angular_speed": 0.0,
+  "simulation_paused": true,
+  "limitations": [
+    "Ground-truth test controller, not Nav2",
+    "No signals or moving traffic",
+    "Only added entrance section driven in v3; prior full v2 test archived"
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "measured_at_utc": "2026-09-14T04:40:08.398610+00:00",
+  "mode": "stationary sensor snapshots after simulation pose changes; no navigation test",
+  "views": {
+    "entrance": {
+      "x": -1,
+      "camera": [
+        640,
+        480,
+        "rgb8"
+      ],
+      "scan_samples": 720,
+      "finite_ranges": 699,
+      "minimum_range_m": 0.33675962686538696,
+      "pose_service": "data: true"
+    },
+    "bottleneck": {
+      "x": 8,
+      "camera": [
+        640,
+        480,
+        "rgb8"
+      ],
+      "scan_samples": 720,
+      "finite_ranges": 688,
+      "minimum_range_m": 0.3317740261554718,
+      "pose_service": "data: true"
+    },
+    "unloading": {
+      "x": 16,
+      "y": -0.4,
+      "camera": [
+        640,
+        480,
+        "rgb8"
+      ],
+      "scan_samples": 720,
+      "finite_ranges": 684,
+      "minimum_range_m": 0.33753928542137146,
+      "pose_service": "data: true"
+    }
+  },
+  "world_version": 2,
+  "world_sha256": "dfe5eafe33179ed461becee99d247c6f8da4e487af44b71f2d647dc786c7633b",
+  "environment": "SWAN-Jazzy / ROS2 Jazzy / Gazebo Harmonic / llvmpipe",
+  "gz_sdf_check": "Valid.",
+  "limitations": [
+    "All people and motorcycles are static",
+    "No contact sensor, dynamic avoidance, Nav2, YOLO or side shopping-stop approach tests"
+  ],
+  "previous_build_evidence": "archive_v1/runtime_build.log",
+  "driving_result": "pass",
+  "driving_evidence": "driving/run1/result.json"
+}

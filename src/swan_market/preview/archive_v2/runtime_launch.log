@@ -1,0 +1,29 @@
+[INFO] [launch]: All log files can be found below /home/swan/.ros/log/2026-09-14-13-40-01-117394-swan-QEMU-Virtual-Machine-6791
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [gz-1]: process started with pid [6797]
+[INFO] [create-2]: process started with pid [6798]
+[INFO] [parameter_bridge-3]: process started with pid [6799]
+[INFO] [static_transform_publisher-4]: process started with pid [6800]
+[INFO] [static_transform_publisher-5]: process started with pid [6801]
+[static_transform_publisher-4] [INFO] [1789360801.189160630] [market_lidar_mount_tf]: Spinning until stopped - publishing transform
+[static_transform_publisher-4] translation: ('0.680000', '0.000000', '0.120000')
+[static_transform_publisher-4] rotation: ('0.000000', '0.000000', '0.000000', '1.000000')
+[static_transform_publisher-4] from 'base_link' to 'market_lidar_mount'
+[static_transform_publisher-5] [INFO] [1789360801.198779282] [market_lidar_sensor_tf]: Spinning until stopped - publishing transform
+[static_transform_publisher-5] translation: ('0.000000', '0.000000', '0.030000')
+[static_transform_publisher-5] rotation: ('0.000000', '0.000000', '0.000000', '1.000000')
+[static_transform_publisher-5] from 'market_lidar_mount' to 'wheelchair/lidar_link/lidar_sensor'
+[parameter_bridge-3] [INFO] [1789360801.218122389] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/clock (gz.msgs.Clock) -> /clock (rosgraph_msgs/msg/Clock)] (Lazy 0)
+[parameter_bridge-3] [INFO] [1789360801.218964138] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/wheelchair/cmd_vel (geometry_msgs/msg/Twist) -> /model/wheelchair/cmd_vel (gz.msgs.Twist)] (Lazy 0)
+[parameter_bridge-3] [INFO] [1789360801.220372693] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/model/wheelchair/odometry (gz.msgs.Odometry) -> /model/wheelchair/odometry (nav_msgs/msg/Odometry)] (Lazy 0)
+[parameter_bridge-3] [INFO] [1789360801.221418212] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/model/wheelchair/tf (gz.msgs.Pose_V) -> /model/wheelchair/tf (tf2_msgs/msg/TFMessage)] (Lazy 0)
+[parameter_bridge-3] [INFO] [1789360801.222342970] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/model/wheelchair/scan (gz.msgs.LaserScan) -> /model/wheelchair/scan (sensor_msgs/msg/LaserScan)] (Lazy 0)
+[parameter_bridge-3] [INFO] [1789360801.223399240] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/wheelchair/camera/image (gz.msgs.Image) -> /wheelchair/camera/image (sensor_msgs/msg/Image)] (Lazy 0)
+[create-2] [INFO] [1789360802.049012171] [ros_gz_sim]: Entity creation successful.
+[INFO] [create-2]: process has finished cleanly [pid 6798]
+[gz-1] libEGL warning: egl: failed to create dri2 screen
+[gz-1] libEGL warning: NEEDS EXTENSION: falling back to kms_swrast
+[gz-1] Warning [Utils.cc:132] [/sdf/model[@name="wheelchair"]/link[@name="camera_link"]/sensor[@name="front_camera"]/gz_frame_id:///home/swan/market_verify_ws/install/wheelchair_gazebo/share/wheelchair_gazebo/models/wheelchair/model.sdf:L539]: XML Element[gz_frame_id], child of element[sensor], not defined in SDF. Copying[gz_frame_id] as children of [sensor].
+[gz-1] libEGL warning: egl: failed to create dri2 screen
+[gz-1] libEGL warning: NEEDS EXTENSION: falling back to kms_swrast
+[gz-1] Warning [Utils.cc:132] [/sdf/model[@name="wheelchair"]/link[@name="camera_link"]/sensor[@name="front_camera"]/gz_frame_id:<data-string>:L448]: XML Element[gz_frame_id], child of element[sensor], not defined in SDF. Copying[gz_frame_id] as children of [sensor].

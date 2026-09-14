@@ -1,0 +1,204 @@
+{
+  "world": "swan_market",
+  "version": 4,
+  "units": "metres",
+  "dynamic_actors": true,
+  "spawn": {
+    "x": -6.2,
+    "y": 0,
+    "z": 0.03,
+    "yaw": 0
+  },
+  "main_aisle_nominal_width": 4.76,
+  "shopping_stops": [
+    {
+      "name": "과일 구매",
+      "x": 8.2,
+      "y": 1.2,
+      "yaw": 1.5707963267948966
+    },
+    {
+      "name": "반찬 구매",
+      "x": 27,
+      "y": 1.0,
+      "yaw": 1.5707963267948966
+    },
+    {
+      "name": "출구 대기",
+      "x": 33,
+      "y": 0,
+      "yaw": 0
+    }
+  ],
+  "stalls": [
+    {
+      "name": "싱싱 과일",
+      "x": 6,
+      "y": 4.45
+    },
+    {
+      "name": "우리 채소",
+      "x": 12,
+      "y": 4.45
+    },
+    {
+      "name": "바다 생선",
+      "x": 22,
+      "y": 4.45
+    },
+    {
+      "name": "엄마 반찬",
+      "x": 28,
+      "y": 4.45
+    },
+    {
+      "name": "고소한 떡집",
+      "x": 6,
+      "y": -4.45
+    },
+    {
+      "name": "시장 분식",
+      "x": 12,
+      "y": -4.45
+    },
+    {
+      "name": "생활 잡화",
+      "x": 22,
+      "y": -4.45
+    },
+    {
+      "name": "동네 꽃집",
+      "x": 28,
+      "y": -4.45
+    }
+  ],
+  "route": [
+    [
+      -6.2,
+      0
+    ],
+    [
+      -5.6,
+      0
+    ],
+    [
+      0.8,
+      0
+    ],
+    [
+      8,
+      0
+    ],
+    [
+      10,
+      0
+    ],
+    [
+      12,
+      0
+    ],
+    [
+      14,
+      0
+    ],
+    [
+      16,
+      -0.4
+    ],
+    [
+      18,
+      0
+    ],
+    [
+      20,
+      0
+    ],
+    [
+      23,
+      0
+    ],
+    [
+      25.5,
+      -0.25
+    ],
+    [
+      28,
+      0
+    ],
+    [
+      33,
+      0
+    ]
+  ],
+  "crosswalk": {
+    "road_x_min": -4.8,
+    "road_x_max": -0.6,
+    "crossing_length_m": 4.2,
+    "walking_width_m": 2.8,
+    "curb_opening_width_m": 3.2,
+    "step_free": true,
+    "traffic_signals": false,
+    "moving_traffic": true
+  },
+  "traffic": {
+    "cycle_seconds": 32.0,
+    "bike_move_seconds": 15.0,
+    "pedestrian_start": 17.0,
+    "pedestrian_duration": 10.0,
+    "road_center_x": -2.7,
+    "lane_radius": 1.05,
+    "road_straight_half_length": 5.8,
+    "pedestrian_west_x": -5.7,
+    "pedestrian_east_x": 0.5,
+    "pedestrian_names": [
+      "crossing_pedestrian_1",
+      "crossing_pedestrian_2"
+    ],
+    "motorcycle_names": [
+      "traffic_motorcycle_1",
+      "traffic_motorcycle_2"
+    ],
+    "motion": "scripted kinematic poses; not vehicle dynamics or robot avoidance"
+  },
+  "moving_models": [
+    "crossing_pedestrian_1",
+    "crossing_pedestrian_2",
+    "traffic_motorcycle_1",
+    "traffic_motorcycle_2"
+  ],
+  "congestion_zones": [
+    {
+      "name": "돌출 좌판 병목",
+      "x_min": 9.2,
+      "x_max": 10.8,
+      "measured_gap_m": 1.8
+    },
+    {
+      "name": "쇼핑객 교차 구간",
+      "x_min": 15.5,
+      "x_max": 18.5
+    },
+    {
+      "name": "오토바이 하역 구간",
+      "x_min": 18.5,
+      "x_max": 20.8
+    }
+  ],
+  "encounters": [
+    {
+      "name": "쇼핑객",
+      "x": 16.6,
+      "y": 1.0
+    },
+    {
+      "name": "배달 오토바이",
+      "x": 13.7,
+      "y": -1.65
+    },
+    {
+      "name": "주차 오토바이",
+      "x": 25.4,
+      "y": 1.65
+    }
+  ]
+}

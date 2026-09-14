@@ -1,0 +1,8 @@
+{
+  "scope": "2 cycles at 0.05 simulation second intervals; 2D collision footprints; excludes wheelchair and contact physics",
+  "sample_count": 1281,
+  "result": "pass",
+  "minimum_actor_static_clearance_m": 0.3849999999999995,
+  "minimum_actor_pair_clearance_m": 0.57,
+  "maximum_position_step_m": 0.0496622409542411
+}

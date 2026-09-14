@@ -1,0 +1,34 @@
+{
+  "counts": {
+    "camera": 108,
+    "scan": 277,
+    "yolo": 75
+  },
+  "age_seconds": {
+    "camera": 0.23,
+    "scan": 0.18,
+    "yolo": 0.14
+  },
+  "state": "Inference active",
+  "detections": [
+    "intact_crosswalk"
+  ],
+  "inference_ms": 340.34890100019766,
+  "classes": {
+    "0": "faded_crosswalk",
+    "1": "intact_crosswalk",
+    "2": "blind tracks",
+    "3": "curb ramp",
+    "4": "zebra crossing",
+    "5": "Astrid",
+    "6": "Delivery",
+    "7": "Person",
+    "8": "Rena",
+    "9": "Rusty",
+    "10": "Stacy",
+    "11": "Trish",
+    "12": "Wendy",
+    "13": "Traffic light green"
+  },
+  "model": "/home/swan/integration_ws/src/wheelchair_vision/wheelchair_vision/best.pt"
+}

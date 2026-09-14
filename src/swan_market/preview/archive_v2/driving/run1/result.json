@@ -1,0 +1,266 @@
+{
+  "tested_at_utc": "2026-09-14T04:49:41.729986+00:00",
+  "result": "pass",
+  "error": null,
+  "controller": "Gazebo ground-truth waypoint feedback via ROS cmd_vel; NOT Nav2",
+  "teleports_during_test": 0,
+  "distance_m": 34.838162079913985,
+  "minimum_0_75m_circle_margin_m": 0.1499999997174477,
+  "nearest_model": "aisle_display_-1",
+  "peak_odom_linear_speed_m_s": 0.2799999999957947,
+  "max_abs_roll_pitch_rad": 0.0450151073513591,
+  "wall_duration_s": 292.5990127570001,
+  "sensor_message_counts": {
+    "odom": 4717,
+    "scan": 1606,
+    "camera": 994
+  },
+  "events": [
+    {
+      "test": "initial_stop",
+      "sim_s": 65.501,
+      "position": [
+        -0.9906081674369733,
+        8.497525938872686e-10
+      ],
+      "linear_speed": 0.0,
+      "angular_speed": 0.0
+    },
+    {
+      "test": "waypoint",
+      "index": 1,
+      "target": [
+        8,
+        0
+      ],
+      "actual": [
+        7.902346967956974,
+        -4.6513241488752306e-10
+      ],
+      "sim_s": 98.37
+    },
+    {
+      "test": "stop_x8",
+      "sim_s": 99.889,
+      "position": [
+        7.902957785320223,
+        -4.64779481900365e-10
+      ],
+      "linear_speed": 0.0,
+      "angular_speed": 0.0
+    },
+    {
+      "test": "waypoint",
+      "index": 2,
+      "target": [
+        10,
+        0
+      ],
+      "actual": [
+        9.901800596023406,
+        -1.4689521519193218e-10
+      ],
+      "sim_s": 108.096
+    },
+    {
+      "test": "waypoint",
+      "index": 3,
+      "target": [
+        12,
+        0
+      ],
+      "actual": [
+        11.900500940730183,
+        1.191674271124788e-10
+      ],
+      "sim_s": 116.201
+    },
+    {
+      "test": "stop_x12",
+      "sim_s": 117.707,
+      "position": [
+        11.90152610181133,
+        1.19287448226124e-10
+      ],
+      "linear_speed": 0.0,
+      "angular_speed": 0.0
+    },
+    {
+      "test": "waypoint",
+      "index": 4,
+      "target": [
+        14,
+        0
+      ],
+      "actual": [
+        13.901561204795945,
+        -4.9615518942412814e-11
+      ],
+      "sim_s": 125.94
+    },
+    {
+      "test": "waypoint",
+      "index": 5,
+      "target": [
+        16,
+        -0.4
+      ],
+      "actual": [
+        15.902815698945902,
+        -0.38158269419518226
+      ],
+      "sim_s": 134.228
+    },
+    {
+      "test": "waypoint",
+      "index": 6,
+      "target": [
+        18,
+        0
+      ],
+      "actual": [
+        17.90455702636919,
+        -0.018127600835541408
+      ],
+      "sim_s": 142.49
+    },
+    {
+      "test": "waypoint",
+      "index": 7,
+      "target": [
+        20,
+        0
+      ],
+      "actual": [
+        19.90239522986323,
+        -0.000906301017729561
+      ],
+      "sim_s": 150.593
+    },
+    {
+      "test": "stop_x20",
+      "sim_s": 152.101,
+      "position": [
+        19.903066929640683,
+        -0.0009030371641161146
+      ],
+      "linear_speed": 0.0,
+      "angular_speed": 0.0
+    },
+    {
+      "test": "waypoint",
+      "index": 8,
+      "target": [
+        23,
+        0
+      ],
+      "actual": [
+        22.902230598985188,
+        -3.6201140698084213e-05
+      ],
+      "sim_s": 163.894
+    },
+    {
+      "test": "waypoint",
+      "index": 9,
+      "target": [
+        25.5,
+        -0.25
+      ],
+      "actual": [
+        25.401025045960324,
+        -0.24052619060141403
+      ],
+      "sim_s": 173.838
+    },
+    {
+      "test": "waypoint",
+      "index": 10,
+      "target": [
+        28,
+        0
+      ],
+      "actual": [
+        27.900636229751186,
+        -0.009247612221447434
+      ],
+      "sim_s": 183.797
+    },
+    {
+      "test": "waypoint",
+      "index": 11,
+      "target": [
+        33,
+        0
+      ],
+      "actual": [
+        32.900115046237005,
+        -0.00020322542157221184
+      ],
+      "sim_s": 202.627
+    },
+    {
+      "test": "stop_x33",
+      "sim_s": 204.159,
+      "position": [
+        32.90094319532195,
+        -0.00020221033736019122
+      ],
+      "linear_speed": 0.0,
+      "angular_speed": 0.0
+    },
+    {
+      "test": "turn_left_90_stop",
+      "sim_s": 210.63,
+      "position": [
+        32.771744498775895,
+        0.1435946891804618
+      ],
+      "linear_speed": 0.0,
+      "angular_speed": 0.0,
+      "target_yaw": 1.5707963267948966,
+      "actual_yaw": 1.546124360563711
+    },
+    {
+      "test": "return_forward_stop",
+      "sim_s": 217.095,
+      "position": [
+        32.89989296379096,
+        0.0022651715878435306
+      ],
+      "linear_speed": 0.0,
+      "angular_speed": 0.0,
+      "target_yaw": 0,
+      "actual_yaw": 0.024010133586784044
+    },
+    {
+      "test": "reverse_stop",
+      "sim_s": 221.377,
+      "position": [
+        32.48433250034921,
+        -0.00776701611971915
+      ],
+      "linear_speed": 0.0,
+      "angular_speed": 0.0,
+      "reverse_distance_m": 0.4156815410456926
+    }
+  ],
+  "simulation_paused": true,
+  "contact_sensor_used": false,
+  "limits": "Clearance from sampled actual pose and static SDF footprints; not contact sensor evidence or dynamic obstacle avoidance.",
+  "final_pose": [
+    224.351,
+    32.48433250034921,
+    -0.00776701611971915,
+    0.006132877149604084,
+    0.024060110760413138,
+    1.4448531744581779e-09,
+    -0.04500919001554953
+  ],
+  "final_linear_speed": 0.0,
+  "final_angular_speed": 0.0,
+  "relative_odom_position_error_at_last_sample_m": 0.04927554001299044,
+  "world_sha256": "dfe5eafe33179ed461becee99d247c6f8da4e487af44b71f2d647dc786c7633b",
+  "script_sha256": "1b1b45c7d61a91ae53be7771b21f034daff3254882872e83c1087a2e907c0b01",
+  "geometry_sha256": "16c2f3228913a8a31c6d43bec2593ee555bc997d0552f48aa22021443b22103d"
+}

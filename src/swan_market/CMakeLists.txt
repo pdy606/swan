@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 3.8)
+project(swan_market)
+find_package(ament_cmake REQUIRED)
+install(DIRECTORY launch worlds models config tools DESTINATION share/${PROJECT_NAME} PATTERN "__pycache__" EXCLUDE)
+ament_package()
