@@ -1,5 +1,29 @@
 # SWAN 시뮬레이션
 
+## 월드 파일 바로 찾기
+
+**우리 시장 맵 → [market_shopping.sdf](src/swan_market/worlds/market_shopping.sdf)**
+
+아래 파일명을 누르면 실제 월드 파일이 열린다. 저장 폴더는
+[시장 월드](src/swan_market/worlds/)와 [기존 팀 월드](src/wheelchair_gazebo/worlds/) 두 곳이다.
+
+| 월드 | 실제 파일 바로가기 | 실행 시 `world:=` 값 |
+|---|---|---|
+| 시장·횡단보도·이동 교통 | [market_shopping.sdf](src/swan_market/worlds/market_shopping.sdf) | `market` |
+| 기본 도시 | [wheelchair_world.sdf](src/wheelchair_gazebo/worlds/wheelchair_world.sdf) | `wheelchair_world.sdf` |
+| 좁은 골목 | [layout_narrow_alley.world](src/wheelchair_gazebo/worlds/layout_narrow_alley.world) | `layout_narrow_alley.world` |
+| 직선 통로 | [layout_straight.world](src/wheelchair_gazebo/worlds/layout_straight.world) | `layout_straight.world` |
+| T자 교차로 | [layout_t_junction.world](src/wheelchair_gazebo/worlds/layout_t_junction.world) | `layout_t_junction.world` |
+| 넓은 광장 | [layout_open_plaza.world](src/wheelchair_gazebo/worlds/layout_open_plaza.world) | `layout_open_plaza.world` |
+| S자 통로 | [layout_s_curve.world](src/wheelchair_gazebo/worlds/layout_s_curve.world) | `layout_s_curve.world` |
+| 1단계 기본 | [level1_basic.world](src/wheelchair_gazebo/worlds/level1_basic.world) | `level1_basic.world` |
+| 2단계 표준 | [level2_standard.world](src/wheelchair_gazebo/worlds/level2_standard.world) | `level2_standard.world` |
+| 3단계 고난도 | [level3_challenge.world](src/wheelchair_gazebo/worlds/level3_challenge.world) | `level3_challenge.world` |
+| 4단계 평가 | [level4_unseen_eval.world](src/wheelchair_gazebo/worlds/level4_unseen_eval.world) | `level4_unseen_eval.world` |
+
+`worlds/`에는 환경 맵이 있고, `models/`의 `model.sdf`는 휠체어·자산 정의다.
+월드 파일은 원래 위치에 한 벌만 유지한다.
+
 ## 시작
 
 ROS2 Jazzy / Gazebo Harmonic 환경의 워크스페이스 루트에서 실행한다.
@@ -24,8 +48,10 @@ UTM에서는 `software_rendering:=true`를 추가한다. 기존 실행을 종료
 
 ```text
 src/
-  wheelchair_gazebo/  공통 실행·휠체어 모델·기존 팀 월드
-  swan_market/        시장 월드·간판 자산·이동 교통
+  wheelchair_gazebo/  공통 실행·휠체어 모델
+    worlds/          기존 팀 월드 10개
+  swan_market/        시장 자산·이동 교통
+    worlds/          시장 월드 + 실행 설정
   swan_interfaces/    공용 메시지
   swan_pipeline/      판단 파이프라인
   swan_webui/         웹 화면
