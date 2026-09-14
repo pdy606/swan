@@ -63,7 +63,8 @@ def main():
     from gz.msgs10.boolean_pb2 import Boolean
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--layout',required=True);parser.add_argument('--status',default='/tmp/market-traffic-status.json')
-    args=parser.parse_args();layout=json.loads(Path(args.layout).read_text());cfg=layout['traffic'];world=layout['world']
+    parser.add_argument('--world', help='Override the target world name')
+    args=parser.parse_args();layout=json.loads(Path(args.layout).read_text());cfg=layout['traffic'];world=args.world or layout['world']
     node=Node();lock=threading.Lock();clock=[None];observed={};running=[True]
     names=set(cfg['pedestrian_names']+cfg['motorcycle_names'])
     def on_clock(m):

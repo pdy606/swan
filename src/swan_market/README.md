@@ -46,6 +46,23 @@ Gazebo를 일시정지하면 이동 시간도 정지한다.
 기존 정적 장애물 주행 시험기는 이동 교통을 고려하지 않으므로 v4에서 실행을 거부한다.
 동적 장애물 회피 성능을 시험하려면 별도의 판단·제어와 접촉 검증이 필요하다.
 
+## 팀 공통 실행 방식
+
+다른 월드와 같은 `wheelchair_gazebo simulation.launch.py`에서 `world`만 바꾼다.
+
+```bash
+ros2 launch wheelchair_gazebo simulation.launch.py world:=market
+ros2 launch wheelchair_gazebo simulation.launch.py world:=layout_narrow_alley.world
+ros2 launch wheelchair_gazebo simulation.launch.py world:=level1_basic.world
+```
+
+`market`은 `swan_market/worlds/market_shopping.sdf`의 별칭이다.
+`world_package:=swan_market world:=market_shopping.sdf`로도 선택할 수 있다.
+기존 `ros2 launch swan_market market.launch.py` 역시 공통 런처로 연결된다.
+공통 옵션은 `headless`, `software_rendering`, `moving_traffic`, `spawn_x/y/z/yaw`다.
+시장 선택 시에만 이동 교통 런처를 연결한다.
+새 월드 추가 규칙과 센서 토픽 계약은 [공통 실행 안내](../wheelchair_gazebo/README.md)에 있다.
+
 ## ROS 없이 맵만 열기
 
 Gazebo Harmonic이 설치된 Ubuntu에서 아래 경로를 이 패키지의 실제 경로로 바꾼다.
@@ -172,9 +189,11 @@ python3 tools/generate_market.py --font /path/to/KoreanFont.ttf
 기하학적 여유를 확인했다(이동 객체 제외). 로컬 휠체어의 충돌 형상 외접 반경은 약 0.73m이며,
 반경 0.75m 원으로 경로를 검사하면 최소 여유는 0.15m다(양쪽 좌판 사이 1.80m, 검사 원 지름 1.50m). 정차 지점 3곳도
 같은 원과 장애물이 겹치지 않는다. 근거는 `preview/validation.json`이다.
-v4는 UTM `SWAN-Jazzy`의 ROS2 Jazzy / Gazebo Harmonic에서 다시 빌드하고 SDF를 검사했다.
+v4 장면은 공통 런처로 개편하기 전 UTM `SWAN-Jazzy`의 ROS2 Jazzy / Gazebo Harmonic에서 빌드·실행하고 SDF를 검사했다.
 반복 이동의 실제 Gazebo 위치와 카메라·LiDAR 수신 결과는 `preview/traffic/`에 저장했다.
-현재 실행 요약은 `preview/runtime_validation.json`에 있다.
+당시 실행 요약은 `preview/runtime_validation.json`에 있다.
+공통 런처 개편 후에는 오프라인 월드 선택·생성·브리지 설정 테스트를 수행했다.
+VM이 꺼져 있어 새 공통 런처의 Gazebo 실행은 아직 재검증하지 않았다.
 `tools/check_crosswalk_traffic.py`로 2주기를 0.05초 간격으로 검사했으며,
 이동 인물·오토바이 상호 간 및 기존 장애물과의 2D 형상 겹침이 없었다.
 이 검사는 휠체어를 제외한다. 정적 예시 경로의 여유 검사 역시 이동 교통을 제외하므로,
