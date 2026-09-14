@@ -1,0 +1,205 @@
+<?xml version="1.0" ?>
+<sdf version="1.9">
+  <world name="apartment_entrance">
+    
+    <!-- ============================= -->
+    <!-- Gazebo 필수 플러그인 & 자연광 세팅 -->
+    <!-- ============================= -->
+    <physics name="1ms" type="ignore">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+    </physics>
+    <plugin filename="gz-sim-physics-system" name="gz::sim::systems::Physics"/>
+    <plugin filename="gz-sim-scene-broadcaster-system" name="gz::sim::systems::SceneBroadcaster"/>
+    <plugin filename="gz-sim-sensors-system" name="gz::sim::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+    <plugin filename="gz-sim-user-commands-system" name="gz::sim::systems::UserCommands"/>
+
+    <light type="directional" name="sun">
+      <cast_shadows>true</cast_shadows>
+      <pose>0 0 20 0 0 0</pose>
+      <diffuse>0.95 0.95 0.9 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <direction>-0.5 0.3 -0.9</direction>
+    </light>
+
+    <!-- ============================= -->
+    <!-- 1. 아파트 단지 화단 (초록색 잔디밭) -->
+    <!-- ============================= -->
+    <model name="ground_plane">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision"><geometry><plane><normal>0 0 1</normal><size>100 100</size></plane></geometry></collision>
+        <visual name="visual">
+          <geometry><plane><normal>0 0 1</normal><size>100 100</size></plane></geometry>
+          <material><ambient>0.25 0.45 0.20 1</ambient><diffuse>0.25 0.45 0.20 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ============================= -->
+    <!-- 2. 단지 내 차도 (짙은 아스팔트 & 노란 중앙선) -->
+    <!-- ============================= -->
+    <model name="road_plane">
+      <static>true</static>
+      <pose>-3.0 0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>6.0 20.0 0.02</size></box></geometry>
+          <material><ambient>0.12 0.12 0.12 1</ambient><diffuse>0.12 0.12 0.12 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <model name="road_center_line">
+      <static>true</static>
+      <pose>-3.0 0 0.025 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>0.15 20.0 0.005</size></box></geometry>
+          <material><ambient>0.9 0.7 0.1 1</ambient><diffuse>0.9 0.7 0.1 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ============================= -->
+    <!-- 3. 넓은 보도블록 인도 (높이 15cm) -->
+    <!-- ============================= -->
+    <model name="sidewalk">
+      <static>true</static>
+      <pose>1.5 0 0.075 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>3.0 20.0 0.15</size></box></geometry></collision>
+        <visual name="visual">
+          <geometry><box><size>3.0 20.0 0.15</size></box></geometry>
+          <material><ambient>0.65 0.65 0.65 1</ambient><diffuse>0.65 0.65 0.65 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ============================= -->
+    <!-- 4. 웅장한 아파트 건물 (바닥 높이 65cm, 층고 8m) -->
+    <!-- ============================= -->
+    <model name="building_floor">
+      <static>true</static>
+      <pose>5.0 0 0.325 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>4.0 15.0 0.65</size></box></geometry></collision>
+        <visual name="visual">
+          <geometry><box><size>4.0 15.0 0.65</size></box></geometry>
+          <material><ambient>0.8 0.8 0.75 1</ambient><diffuse>0.8 0.8 0.75 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="apartment_walls">
+      <static>true</static>
+      <link name="back_wall">
+        <pose>6.9 0 4.65 0 0 0</pose>
+        <visual name="visual"><geometry><box><size>0.2 15.0 8.0</size></box></geometry>
+        <material><ambient>0.8 0.8 0.75 1</ambient><diffuse>0.8 0.8 0.75 1</diffuse></material></visual>
+        <collision name="collision"><geometry><box><size>0.2 15.0 8.0</size></box></geometry></collision>
+      </link>
+      <link name="front_wall_left">
+        <pose>3.1 4.25 4.65 0 0 0</pose>
+        <visual name="visual"><geometry><box><size>0.2 6.5 8.0</size></box></geometry>
+        <material><ambient>0.8 0.8 0.75 1</ambient><diffuse>0.8 0.8 0.75 1</diffuse></material></visual>
+        <collision name="collision"><geometry><box><size>0.2 6.5 8.0</size></box></geometry></collision>
+      </link>
+      <link name="front_wall_right">
+        <pose>3.1 -4.25 4.65 0 0 0</pose>
+        <visual name="visual"><geometry><box><size>0.2 6.5 8.0</size></box></geometry>
+        <material><ambient>0.8 0.8 0.75 1</ambient><diffuse>0.8 0.8 0.75 1</diffuse></material></visual>
+        <collision name="collision"><geometry><box><size>0.2 6.5 8.0</size></box></geometry></collision>
+      </link>
+      <link name="front_wall_top">
+        <pose>3.1 0 6.15 0 0 0</pose>
+        <visual name="visual"><geometry><box><size>0.2 2.0 5.0</size></box></geometry>
+        <material><ambient>0.8 0.8 0.75 1</ambient><diffuse>0.8 0.8 0.75 1</diffuse></material></visual>
+        <collision name="collision"><geometry><box><size>0.2 2.0 5.0</size></box></geometry></collision>
+      </link>
+    </model>
+
+    <!-- ============================= -->
+    <!-- 5. 3m 높이의 거대한 공동현관문 & 캐노피 -->
+    <!-- ============================= -->
+    <model name="entrance_door">
+      <static>true</static>
+      <link name="glass_left">
+        <pose>3.1 0.9 2.15 0 0 0</pose>
+        <visual name="visual"><geometry><box><size>0.05 1.0 3.0</size></box></geometry>
+        <material><ambient>0.05 0.1 0.15 0.8</ambient><diffuse>0.05 0.1 0.15 0.8</diffuse></material></visual>
+      </link>
+      <link name="glass_right">
+        <pose>3.1 -0.9 2.15 0 0 0</pose>
+        <visual name="visual"><geometry><box><size>0.05 1.0 3.0</size></box></geometry>
+        <material><ambient>0.05 0.1 0.15 0.8</ambient><diffuse>0.05 0.1 0.15 0.8</diffuse></material></visual>
+      </link>
+      <link name="canopy">
+        <pose>2.3 0 3.8 0 0 0</pose>
+        <visual name="visual"><geometry><box><size>1.6 3.5 0.3</size></box></geometry>
+        <material><ambient>0.4 0.35 0.3 1</ambient><diffuse>0.4 0.35 0.3 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <!-- ============================= -->
+    <!-- 6. 5단 계단 & 완벽하게 맞닿은 휠체어 경사로 -->
+    <!-- ============================= -->
+    <model name="stairs_and_ramp">
+      <static>true</static>
+      
+      <!-- 계단부 (5칸) -->
+      <link name="step1">
+        <pose>1.2 1.0 0.125 0 0 0</pose>
+        <collision name="collision"><geometry><box><size>0.4 1.5 0.25</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>0.4 1.5 0.25</size></box></geometry>
+        <material><ambient>0.7 0.7 0.7 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material></visual>
+      </link>
+      <link name="step2">
+        <pose>1.6 1.0 0.175 0 0 0</pose>
+        <collision name="collision"><geometry><box><size>0.4 1.5 0.35</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>0.4 1.5 0.35</size></box></geometry>
+        <material><ambient>0.7 0.7 0.7 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material></visual>
+      </link>
+      <link name="step3">
+        <pose>2.0 1.0 0.225 0 0 0</pose>
+        <collision name="collision"><geometry><box><size>0.4 1.5 0.45</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>0.4 1.5 0.45</size></box></geometry>
+        <material><ambient>0.7 0.7 0.7 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material></visual>
+      </link>
+      <link name="step4">
+        <pose>2.4 1.0 0.275 0 0 0</pose>
+        <collision name="collision"><geometry><box><size>0.4 1.5 0.55</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>0.4 1.5 0.55</size></box></geometry>
+        <material><ambient>0.7 0.7 0.7 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material></visual>
+      </link>
+      <link name="step5">
+        <pose>2.8 1.0 0.325 0 0 0</pose>
+        <collision name="collision"><geometry><box><size>0.4 1.5 0.65</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>0.4 1.5 0.65</size></box></geometry>
+        <material><ambient>0.7 0.7 0.7 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material></visual>
+      </link>
+
+      <!-- 경사로부 -->
+      <link name="ramp_floor">
+        <pose>2.0 -0.5 0.4 0 -0.245 0</pose>
+        <collision name="collision"><geometry><box><size>2.06 1.5 0.1</size></box></geometry></collision>
+        <visual name="visual">
+          <geometry><box><size>2.06 1.5 0.1</size></box></geometry>
+          <material><ambient>0.65 0.65 0.65 1</ambient><diffuse>0.65 0.65 0.65 1</diffuse></material>
+        </visual>
+      </link>
+      
+      <!-- 경사로 난간 -->
+      <link name="ramp_handrail">
+        <pose>2.0 -1.2 0.9 0 -0.245 0</pose>
+        <collision name="collision"><geometry><box><size>2.06 0.05 0.05</size></box></geometry></collision>
+        <visual name="visual">
+          <geometry><box><size>2.06 0.05 0.05</size></box></geometry>
+          <material><ambient>0.85 0.85 0.9 1</ambient><diffuse>0.85 0.85 0.9 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+  </world>
+</sdf>
