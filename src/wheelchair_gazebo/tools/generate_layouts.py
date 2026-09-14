@@ -340,7 +340,7 @@ def build_layout_world(layout_name, density):
 
 def main():
     import os
-    out_dir = os.path.dirname(os.path.abspath(__file__))
+    out_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "worlds")
     for layout_name in LAYOUT_BUILDERS:
         content = build_layout_world(layout_name, STANDARD_DENSITY)
         out_path = os.path.join(out_dir, f"layout_{layout_name}.world")

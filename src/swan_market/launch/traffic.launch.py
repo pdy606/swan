@@ -13,7 +13,7 @@ def generate_launch_description():
     return LaunchDescription([
         DeclareLaunchArgument('moving_traffic', default_value='true'),
         DeclareLaunchArgument('world_name', default_value='swan_market'),
-        ExecuteProcess(cmd=[sys.executable, str(share/'tools/animate_crosswalk.py'),
+        ExecuteProcess(cmd=[sys.executable, str(share/'scripts/animate_crosswalk.py'),
             '--layout', str(share/'config/market_layout.json'), '--world', LaunchConfiguration('world_name')],
             condition=IfCondition(LaunchConfiguration('moving_traffic')), output='screen'),
     ])

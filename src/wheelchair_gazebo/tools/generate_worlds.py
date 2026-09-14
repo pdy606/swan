@@ -11,7 +11,7 @@ Level 1(기본) ~ Level 4(미확인 검증 환경)까지, 장애물 밀도 / 통
 
 사용법:
     python3 generate_worlds.py
-    (스크립트와 같은 디렉토리에 생성된 .world 파일이 저장됩니다)
+    (패키지의 worlds/ 디렉토리에 생성된 .world 파일이 저장됩니다)
 """
 
 import random
@@ -334,7 +334,7 @@ def build_world(cfg: LevelConfig) -> str:
 
 def main():
     import os
-    out_dir = os.path.dirname(os.path.abspath(__file__))
+    out_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "worlds")
     for cfg in LEVELS:
         content = build_world(cfg)
         out_path = os.path.join(out_dir, f"{cfg.name}.world")

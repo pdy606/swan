@@ -2,13 +2,14 @@
 """Sample one outbound and one return traffic cycle against SDF footprints.
 Authoring dependencies match inspect_market.py. This excludes the wheelchair.
 """
-import copy,json,math
+import copy,json,math,sys
 from pathlib import Path
 import xml.etree.ElementTree as ET
 from shapely.geometry import MultiPoint
 from shapely.ops import unary_union
 from shapely.affinity import rotate,translate
 from inspect_market import shapes
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
 from animate_crosswalk import traffic_poses
 
 root=Path(__file__).resolve().parents[1]
@@ -40,5 +41,6 @@ assert max_jump<.06,f'Teleport between successive trajectory positions: {max_jum
 report={'scope':'2 cycles at 0.05 simulation second intervals; 2D collision footprints; excludes wheelchair and contact physics',
         'sample_count':1281,'result':'pass','minimum_actor_static_clearance_m':minimum_static,
         'minimum_actor_pair_clearance_m':minimum_pair,'maximum_position_step_m':max_jump}
+(root/'preview').mkdir(exist_ok=True)
 (root/'preview/traffic_geometry_validation.json').write_text(json.dumps(report,indent=2)+'\n')
 print(json.dumps(report,indent=2))

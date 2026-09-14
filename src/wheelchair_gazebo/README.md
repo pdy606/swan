@@ -45,7 +45,7 @@ ros2 launch wheelchair_gazebo simulation.launch.py world_package:=swan_market wo
 ## 월드 추가 규칙
 
 1. `<sdf><world name="고유이름">...</world></sdf>` 파일을 패키지의 `worlds/`에 둔다.
-   기존 팀 월드 9개와 생성기는 `simulation/worlds/`에서 이 패키지의 `worlds/`로 이동했다.
+   기존 팀 월드 9개는 이 패키지의 `worlds/`, 생성기는 `tools/`에 둔다.
    이는 `main` 브랜치의 월드 위치와 같다.
 2. 신규 월드는 환경만 담고 휠체어는 공통 런처가 생성하도록 권장한다.
    기존 월드의 `model://wheelchair` include 또는 `model name="wheelchair"`는 유지해도 된다.
@@ -95,4 +95,5 @@ python3 -m unittest discover -s src/wheelchair_gazebo/test -v
 잘못된 파일·초기 위치 처리, headless 설정을 검사했다.
 ROS launch 객체는 테스트 대역을 사용하므로 실제 Gazebo 실행 검증을 대체하지 않는다.
 공통 런처 개편 시점에는 VM이 꺼져 있어 실제 실행 재검증은 아직 하지 않았다.
-시장 장면의 이전 실행 검증 자료는 `../swan_market/preview/`에 있다.
+시장 장면의 검증 요약과 사진은 [docs/market](../../docs/market/README.md)에 있다.
+원시 로그·이전 주행 기록은 해당 문서에 연결된 Git 이력에서 찾을 수 있다.
