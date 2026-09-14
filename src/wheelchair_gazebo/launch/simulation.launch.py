@@ -22,7 +22,10 @@ def setup(context):
     spec = _support.resolve_world(value('world'), value('world_package'), get_package_share_directory)
     pose = _support.spawn_pose(spec, {key:value('spawn_' + key) for key in ('x','y','z','yaw')})
     robot_share, share = spec['robot_share'], spec['share']
-    resources = [str(share / 'models'), str(robot_share / 'models'), str(spec['path'].parent)]
+    scenario_package = spec['options'].get('scenario_package')
+    scenario_share = Path(get_package_share_directory(scenario_package)) if scenario_package else share
+    resources = list(dict.fromkeys([str(share / 'models'), str(robot_share / 'models'),
+                                    str(scenario_share / 'models'), str(spec['path'].parent)]))
     if os.environ.get('GZ_SIM_RESOURCE_PATH'):
         resources.append(os.environ['GZ_SIM_RESOURCE_PATH'])
     actions = []
@@ -71,7 +74,7 @@ def setup(context):
                         arguments=arguments, remappings=remappings, parameters=[{'use_sim_time':True}], output='screen'))
     extra = spec['options'].get('scenario_launch')
     if extra:
-        scenario = share / extra
+        scenario = scenario_share / extra
         if not scenario.is_file():
             raise ValueError(f'Scenario launch not found: {scenario}')
         actions.append(IncludeLaunchDescription(PythonLaunchDescriptionSource(str(scenario)),

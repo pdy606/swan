@@ -29,7 +29,7 @@ ros2 launch wheelchair_gazebo simulation.launch.py world:=level1_basic.world
 | 옵션 | 기본값 / 동작 |
 |---|---|
 | `world` | `wheelchair_world.sdf`; 파일명, 절대 경로 또는 등록 별칭 |
-| `world_package` | 파일명 검색 패키지. 생략 시 `wheelchair_gazebo`; `market` 별칭은 `swan_market` |
+| `world_package` | 파일명 검색 패키지. 생략 시 `wheelchair_gazebo`; 시장 파일도 이 패키지에 있음 |
 | `headless` | `false`; `true`이면 GUI 없이 실행 |
 | `software_rendering` | `false`; UTM에서는 `true`로 llvmpipe 사용 |
 | `moving_traffic` | `true`; 시장 이동 교통에 적용 |
@@ -39,13 +39,14 @@ ros2 launch wheelchair_gazebo simulation.launch.py world:=level1_basic.world
 ros2 launch wheelchair_gazebo simulation.launch.py world:=market software_rendering:=true
 ros2 launch wheelchair_gazebo simulation.launch.py world:=market moving_traffic:=false
 ros2 launch wheelchair_gazebo simulation.launch.py world:=/absolute/path/custom.world spawn_x:=0 spawn_y:=-5 spawn_yaw:=1.57
-ros2 launch wheelchair_gazebo simulation.launch.py world_package:=swan_market world:=market_shopping.sdf
+ros2 launch wheelchair_gazebo simulation.launch.py world:=market_shopping.world
 ```
 
 ## 월드 추가 규칙
 
 1. `<sdf><world name="고유이름">...</world></sdf>` 파일을 패키지의 `worlds/`에 둔다.
-   기존 팀 월드 9개는 이 패키지의 `worlds/`, 생성기는 `tools/`에 둔다.
+   시장을 포함한 모든 팀 월드는 이 패키지의 `worlds/` 한 곳에 둔다.
+   기존 월드 생성기는 `tools/`, 시장 생성기는 `swan_market/tools/`에 둔다.
    이는 `main` 브랜치의 월드 위치와 같다.
 2. 신규 월드는 환경만 담고 휠체어는 공통 런처가 생성하도록 권장한다.
    기존 월드의 `model://wheelchair` include 또는 `model name="wheelchair"`는 유지해도 된다.
@@ -57,14 +58,16 @@ ros2 launch wheelchair_gazebo simulation.launch.py world_package:=swan_market wo
 ```json
 {
   "spawn": {"x": -6.2, "y": 0, "z": 0.03, "yaw": 0},
-  "scenario_launch": "launch/traffic.launch.py"
+  "scenario_launch": "launch/traffic.launch.py",
+  "scenario_package": "swan_market"
 }
 ```
 
 `spawn`과 `scenario_launch`는 모두 선택 사항이다. 메타데이터가 없는 환경 전용 월드의
 초기 위치는 `(0, 0, 0.3, 0)`이다. 각 월드의 장애물·지형에 맞춰 초기 위치를 정해야 하며,
 기존 월드 9개의 기본 위치에서 충돌 없이 주행하는지는 이 변경에서 검증하지 않았다.
-`scenario_launch`는 `world_package` 기준 경로이며, `world_name`과 `moving_traffic` 인자를 받는다.
+`scenario_launch`는 `scenario_package` 기준 경로이며, 이를 생략하면 월드 패키지를 사용한다.
+해당 패키지의 `models/`도 자산 경로에 추가한다. 추가 런처는 `world_name`과 `moving_traffic` 인자를 받는다.
 정적 월드는 이를 생략한다. 절대 경로의 파일도 같은 이름의 sidecar를 읽는다.
 다른 패키지의 자산·시나리오를 쓸 경우 `world_package`도 지정한다.
 

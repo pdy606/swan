@@ -77,7 +77,7 @@ class WorldSelectionTest(unittest.TestCase):
         self.assertTrue(any('wheelchair_world.sdf' in str(a.kwargs.get('cmd')) for a in actions))
 
     def test_nine_team_worlds_are_selectable_with_one_spawn(self):
-        files = sorted((ROOT / 'worlds').glob('*.world'))
+        files = sorted(p for p in (ROOT / 'worlds').glob('*.world') if p.name != 'market_shopping.world')
         self.assertEqual(len(files), 9)
         for path in files:
             with self.subTest(world=path.name):
@@ -96,11 +96,14 @@ class WorldSelectionTest(unittest.TestCase):
         extra = next(a for a in actions if type(a).__name__ == 'IncludeLaunchDescription')
         self.assertEqual(dict(extra.kwargs['launch_arguments']), {'moving_traffic':'false', 'world_name':'swan_market'})
         self.assertIn('swan_market/models', str(actions[0].args))
+        self.assertIn(str(SRC/'swan_market/launch/traffic.launch.py'), str(extra.args[0].args))
 
     def test_explicit_package_matches_alias(self):
         a = support.resolve_world('market', '', share)
-        b = support.resolve_world('market_shopping.sdf', 'swan_market', share)
+        b = support.resolve_world('market_shopping.world', 'wheelchair_gazebo', share)
         self.assertEqual(a['path'], b['path'])
+        self.assertEqual(a['path'], ROOT/'worlds/market_shopping.world')
+        self.assertFalse((SRC/'swan_market/worlds/market_shopping.sdf').exists())
 
     def test_absolute_path_and_spawn_override(self):
         path = ROOT / 'worlds/layout_narrow_alley.world'

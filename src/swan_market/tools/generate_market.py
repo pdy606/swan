@@ -293,14 +293,15 @@ def build(font):
                                     dict(name='쇼핑객 교차 구간',x_min=15.5,x_max=18.5),
                                     dict(name='오토바이 하역 구간',x_min=18.5,x_max=20.8)],
                   encounters=[dict(name='쇼핑객',x=16.6,y=1.0),dict(name='배달 오토바이',x=13.7,y=-1.65),dict(name='주차 오토바이',x=25.4,y=1.65)])
-    (ROOT/'worlds').mkdir(exist_ok=True);(ROOT/'config').mkdir(exist_ok=True)
-    ET.indent(sdf,space='  ');ET.ElementTree(sdf).write(ROOT/'worlds/market_shopping.sdf',encoding='utf-8',xml_declaration=True)
+    world_dir = ROOT.parent/'wheelchair_gazebo/worlds'
+    world_dir.mkdir(parents=True,exist_ok=True);(ROOT/'config').mkdir(exist_ok=True)
+    ET.indent(sdf,space='  ');ET.ElementTree(sdf).write(world_dir/'market_shopping.world',encoding='utf-8',xml_declaration=True)
     (ROOT/'config/market_layout.json').write_text(json.dumps(metadata,ensure_ascii=False,indent=2)+'\n')
-    (ROOT/'worlds/market_shopping.launch.json').write_text(json.dumps(
-        {'spawn':metadata['spawn'], 'scenario_launch':'launch/traffic.launch.py'},indent=2)+'\n')
+    (world_dir/'market_shopping.launch.json').write_text(json.dumps(
+        {'spawn':metadata['spawn'], 'scenario_launch':'launch/traffic.launch.py', 'scenario_package':'swan_market'},indent=2)+'\n')
     (ASSET/'model.config').write_text('<?xml version="1.0"?><model><name>swan_market_assets</name><version>1.0</version><sdf version="1.10">model.sdf</sdf><description>Local Korean market signage assets</description></model>')
     (ASSET/'model.sdf').write_text('<?xml version="1.0"?><sdf version="1.10"><model name="swan_market_assets"><static>true</static><link name="assets"/></model></sdf>')
-    print(f'Generated {len(w.findall("model"))} models: {ROOT / "worlds/market_shopping.sdf"}')
+    print(f'Generated {len(w.findall("model"))} models: {world_dir / "market_shopping.world"}')
 
 
 if __name__=='__main__':

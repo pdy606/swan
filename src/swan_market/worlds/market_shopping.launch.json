@@ -1,9 +1,0 @@
-{
-  "spawn": {
-    "x": -6.2,
-    "y": 0,
-    "z": 0.03,
-    "yaw": 0
-  },
-  "scenario_launch": "launch/traffic.launch.py"
-}

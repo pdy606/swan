@@ -2,14 +2,14 @@
 
 ## 월드 파일 바로 찾기
 
-**우리 시장 맵 → [market_shopping.sdf](src/swan_market/worlds/market_shopping.sdf)**
+**우리 시장 맵 → [market_shopping.world](src/wheelchair_gazebo/worlds/market_shopping.world)**
 
-아래 파일명을 누르면 실제 월드 파일이 열린다. 저장 폴더는
-[시장 월드](src/swan_market/worlds/)와 [기존 팀 월드](src/wheelchair_gazebo/worlds/) 두 곳이다.
+모든 월드 파일은 **`src/wheelchair_gazebo/worlds/` 한 폴더**에 있다.
+시장 월드도 다른 브랜치의 팀 월드와 같은 경로·`.world` 확장자로 맞췄다.
 
 | 월드 | 실제 파일 바로가기 | 실행 시 `world:=` 값 |
 |---|---|---|
-| 시장·횡단보도·이동 교통 | [market_shopping.sdf](src/swan_market/worlds/market_shopping.sdf) | `market` |
+| 시장·횡단보도·이동 교통 | [market_shopping.world](src/wheelchair_gazebo/worlds/market_shopping.world) | `market` |
 | 기본 도시 | [wheelchair_world.sdf](src/wheelchair_gazebo/worlds/wheelchair_world.sdf) | `wheelchair_world.sdf` |
 | 좁은 골목 | [layout_narrow_alley.world](src/wheelchair_gazebo/worlds/layout_narrow_alley.world) | `layout_narrow_alley.world` |
 | 직선 통로 | [layout_straight.world](src/wheelchair_gazebo/worlds/layout_straight.world) | `layout_straight.world` |
@@ -49,9 +49,8 @@ UTM에서는 `software_rendering:=true`를 추가한다. 기존 실행을 종료
 ```text
 src/
   wheelchair_gazebo/  공통 실행·휠체어 모델
-    worlds/          기존 팀 월드 10개
+    worlds/          시장 포함 전체 월드 11개
   swan_market/        시장 자산·이동 교통
-    worlds/          시장 월드 + 실행 설정
   swan_interfaces/    공용 메시지
   swan_pipeline/      판단 파이프라인
   swan_webui/         웹 화면

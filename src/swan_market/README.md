@@ -1,5 +1,8 @@
 # 시장 월드
 
+실제 월드 파일: **`src/wheelchair_gazebo/worlds/market_shopping.world`**.
+다른 팀 월드와 같은 폴더에 저장하며, 이 패키지는 시장 자산·이동 제어·생성 도구를 제공한다.
+
 가게 8개, 고정 인물 21명, 주정차 오토바이 3대가 있는 전통시장이다.
 입구 횡단보도에는 왕복 보행자 2명과 운전자가 탄 오토바이 2대를 추가했다.
 전체 바닥은 46 × 24m, 가장 좁은 통로는 1.8m다. 횡단보도 진입부는 단차 없이 비웠다.
@@ -40,7 +43,7 @@ ros2 launch wheelchair_gazebo simulation.launch.py world:=market moving_traffic:
 
 | 폴더 | 내용 |
 |---|---|
-| `worlds/` | 실제 SDF 월드와 초기 위치·추가 런처 설정 |
+| `../wheelchair_gazebo/worlds/` | 실제 시장 월드와 초기 위치·추가 런처 설정 |
 | `models/` | 월드가 참조하는 간판 메시·텍스처 |
 | `launch/` | 시장 단축 명령과 이동 교통 런처 |
 | `config/` | 배치·경로·이동 주기 데이터 |

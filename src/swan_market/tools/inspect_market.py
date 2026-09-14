@@ -70,7 +70,7 @@ def shapes(world,kind):
 
 
 def main():
-    world=ET.parse(ROOT/'worlds/market_shopping.sdf').getroot().find('world')
+    world=ET.parse(ROOT.parent/'wheelchair_gazebo/worlds/market_shopping.world').getroot().find('world')
     config=json.loads((ROOT/'config/market_layout.json').read_text())
     preview=ROOT/'preview';preview.mkdir(exist_ok=True)
     for p in ROOT.rglob('*.py'):ast.parse(p.read_text())

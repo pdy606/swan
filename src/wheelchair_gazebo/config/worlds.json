@@ -1,6 +1,6 @@
 {
   "market": {
-    "package": "swan_market",
-    "world": "market_shopping.sdf"
+    "package": "wheelchair_gazebo",
+    "world": "market_shopping.world"
   }
 }

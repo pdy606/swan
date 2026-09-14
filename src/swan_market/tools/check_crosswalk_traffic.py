@@ -14,7 +14,7 @@ from animate_crosswalk import traffic_poses
 
 root=Path(__file__).resolve().parents[1]
 layout=json.loads((root/'config/market_layout.json').read_text());cfg=layout['traffic'];names=layout['moving_models']
-w=ET.parse(root/'worlds/market_shopping.sdf').getroot().find('world')
+w=ET.parse(root.parent/'wheelchair_gazebo/worlds/market_shopping.world').getroot().find('world')
 static=[]
 for name,part,v,_,_ in shapes(w,'collision'):
     if name=='ground' or name in names or v[:,2].min()>1.8:continue
