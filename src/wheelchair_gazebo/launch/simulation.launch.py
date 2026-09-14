@@ -63,6 +63,11 @@ def generate_launch_description():
             '@sensor_msgs/msg/LaserScan'
             '[gz.msgs.LaserScan',
 
+            # Gazebo -> ROS 2 Camera
+            '/camera'
+            '@sensor_msgs/msg/Image'
+            '[gz.msgs.Image',
+
             # Gazebo -> ROS 2 simulation clock
             '/clock'
             '@rosgraph_msgs/msg/Clock'

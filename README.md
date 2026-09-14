@@ -10,7 +10,7 @@
 | 월드 | 실제 파일 바로가기 | 실행 시 `world:=` 값 |
 |---|---|---|
 | 시장·횡단보도·이동 교통 | [market_shopping.world](src/wheelchair_gazebo/worlds/market_shopping.world) | `market` |
-| 기본 도시 | [wheelchair_world.sdf](src/wheelchair_gazebo/worlds/wheelchair_world.sdf) | `wheelchair_world.sdf` |
+| integration 기본 시험 월드 | [wheelchair_world.sdf](src/wheelchair_gazebo/worlds/wheelchair_world.sdf) | `wheelchair_world.sdf` |
 | 좁은 골목 | [layout_narrow_alley.world](src/wheelchair_gazebo/worlds/layout_narrow_alley.world) | `layout_narrow_alley.world` |
 | 직선 통로 | [layout_straight.world](src/wheelchair_gazebo/worlds/layout_straight.world) | `layout_straight.world` |
 | T자 교차로 | [layout_t_junction.world](src/wheelchair_gazebo/worlds/layout_t_junction.world) | `layout_t_junction.world` |
@@ -46,43 +46,44 @@ UTM에서는 `software_rendering:=true`를 추가한다. 기존 실행을 종료
 - [검증 요약·실제 장면 사진](docs/market/README.md)
 - [기존 판단 파이프라인](src/swan_pipeline/README.md)
 
-```text
-src/
-  wheelchair_gazebo/  팀 원본 Gazebo 실행·휠체어 모델
-    worlds/          시장 포함 전체 월드 11개
-  wheelchair_navigation/  팀 내비게이션
-  swan_market/        월드 선택·시장 자산·이동 교통
-  swan_interfaces/    공용 메시지
-  swan_pipeline/      판단 파이프라인
-  swan_webui/         웹 화면
-docs/market/          검증 요약과 대표 사진 2장
-```
+
 
 원시 검증 기록은 Git 이력에 보관하며 새 `preview/` 출력은 커밋하지 않는다.
 
-## 브랜치 합치기 위한 구조
+## integration 기준 구조
 
-- `wheelchair_gazebo`의 기존 빌드·런처·모델·도시 월드는 `dayeong`/`yeonho` 공통 파일과 동일하게 유지한다.
-- 기존 월드와 생성기는 `main`의 `wheelchair_gazebo/worlds/` 위치·내용을 유지한다.
-- 내비게이션은 팀 원래 경로인 `wheelchair_navigation`으로 복원했다. 공통 기준 버전(dayeong)의 코드를
-  그대로 사용해, gyuwon/integration의 후속 변경이 merge될 수 있게 했다. 시장 실행에서 자동으로 구동하지 않는다.
-- 시장 전용 선택 런처·별칭·검사는 `swan_market`에 둔다. 시장 월드 파일은 공용 `worlds/`에 추가한다.
-- `wheelchair_gazebo simulation.launch.py world:=market` 대신
-  **`swan_market world.launch.py world:=market`**을 사용한다. 공용 런처는 팀 원본으로 복원했다.
-  `ros2 launch swan_market market.launch.py` 단축 명령은 계속 사용할 수 있다.
+`integration`의 `ff1df55`를 seunghyun에 병합했다. 기본 Gazebo 런처·휠체어 모델·시험 월드,
+`swan_bringup`, `wheelchair_navigation`, `wheelchair_vision`의 기존 파일은 integration과 동일하다.
+그 위에 시장 패키지와 추가 월드 파일을 유지한다.
 
-2026-09-14 원격 HEAD 기준 `git merge-tree --write-tree` 모의 merge 결과:
+```text
+src/
+  swan_bringup/          integration 통합 실행
+  wheelchair_gazebo/    integration 원본 + worlds/시장·팀 월드
+  wheelchair_navigation/ integration 내비게이션·회피
+  wheelchair_vision/    integration YOLO 노드·모델
+  swan_interfaces/      VisionStatus + 기존 Detection/DriveTarget 메시지
+  swan_pipeline/        integration 기본 판단 + 별도 보존한 기존 3노드 구성
+  swan_market/          시장 선택·이동 교통·자산·검사
+  swan_webui/           기존 웹 화면
+```
 
-| 대상 | 대상 커밋 | 변경 전 충돌 메시지 | 변경 후 |
-|---|---|---:|---:|
-| main | `6c6ee04` | 2 | 0 |
-| dayeong | `f9a0e33` | 5 | 0 |
-| gyuwon | `e67f016` | 5 | 0 |
-| yeonho | `7adea9e` | 5 | 0 |
-| integration | `ff1df55` | 13 | 6 |
+- 기본 `situation_node`는 integration 버전이다.
+- 기존 C 전용 판단은 `situation_c_node`로 보존하고, 기존 `swan_integration.launch.py`에서만 선택한다.
+- `VisionStatus`, `Detection`, `DetectionArray`, `DriveTarget` 메시지 4종을 모두 빌드한다.
+- 기본 통합 실행과 기존 3노드 판단 런치를 동시에 실행하지 않는다. 같은 판단 토픽에 발행한다.
+- `integration` 브랜치 자체는 변경하지 않았다. 이 병합은 seunghyun에 반영했다.
 
-이는 Git 텍스트 병합 검사이며, 실제 merge나 통합 실행을 수행한 결과는 아니다.
-`integration`에 남은 충돌은 `swan_interfaces`의 CMake/package 2개,
-`swan_pipeline`의 package/setup/situation_node 3개, 기본 `wheelchair_world.sdf` 1개다.
-메시지·상황판단 로직과 기본 도시 선택은 팀 통합 시 검토해야 하므로 임의로 덮어쓰지 않았다.
-시장 장면의 과거 실행 기록은 모델을 팀 원본으로 맞추기 전 결과이며, 현재 조합의 실행 재검증은 남아 있다.
+통합 기능을 사용할 때는 해당 패키지까지 빌드한 뒤 팀 명령으로 실행한다.
+이 명령은 integration의 기본 시험 월드를 사용하며, 시장 장면 명령과 동시에 실행하지 않는다.
+
+```bash
+colcon build --packages-up-to swan_bringup --symlink-install
+source install/setup.bash
+ros2 launch swan_bringup swan.launch.py
+```
+
+시장 장면은 위의 `ros2 launch swan_market world.launch.py world:=market` 또는
+`ros2 launch swan_market market.launch.py`로 실행한다.
+시장 파일 경로는 계속 `src/wheelchair_gazebo/worlds/market_shopping.world`다.
+오프라인 테스트 13개는 통과했으며, 이 통합 조합의 실제 Gazebo·Nav2·YOLO 실행 검증은 남아 있다.

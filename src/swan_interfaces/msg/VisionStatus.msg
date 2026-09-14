@@ -1,0 +1,6 @@
+bool crosswalk_detected
+float32 crosswalk_distance_m
+float32 crosswalk_confidence
+
+string traffic_light_state
+float32 traffic_light_confidence

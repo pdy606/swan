@@ -1,7 +1,7 @@
 # 팀 월드 선택 실행
 
 시장 패키지가 제공하는 `world.launch.py`에서 월드를 선택한다.
-팀 공용 `wheelchair_gazebo/launch/simulation.launch.py`는 원본을 유지한다. `.world`와 `.sdf` 모두 SDF XML이다.
+팀 공용 `wheelchair_gazebo/launch/simulation.launch.py`는 integration 원본을 유지한다. `.world`와 `.sdf` 모두 SDF XML이다.
 기존 팀 월드는 SDF 1.9, 시장 월드는 SDF 1.10이다. 시장 파일 확장자는 팀 월드와 같은 `.world`를 사용한다.
 
 ## 빌드와 실행
@@ -14,7 +14,7 @@ rosdep install --from-paths src --ignore-src -r -y
 colcon build --packages-select wheelchair_gazebo swan_market --symlink-install
 source install/setup.bash
 
-# 기본 도시: 기존 실행 명령 유지
+# integration 기본 시험 월드: 기존 실행 명령 유지
 ros2 launch wheelchair_gazebo simulation.launch.py
 # 시장: 보행자 2명 + 오토바이 2대 이동 포함
 ros2 launch swan_market world.launch.py world:=market
@@ -26,7 +26,7 @@ ros2 launch swan_market world.launch.py world:=level1_basic.world
 기존 Gazebo 실행을 종료한 다음 월드를 바꾼다. 실행 중 월드를 교체하는 기능은 아니다.
 시장 단축 명령 `ros2 launch swan_market market.launch.py`도 계속 사용할 수 있다.
 이 문서의 `world.launch.py`는 `swan_market` 패키지가 필요하다.
-팀의 기존 기본 도시 실행은 `wheelchair_gazebo simulation.launch.py`로 독립 실행할 수 있다.
+팀의 기존 기본 시험 월드 실행은 `wheelchair_gazebo simulation.launch.py`로 독립 실행할 수 있다.
 
 | 옵션 | 기본값 / 동작 |
 |---|---|
@@ -95,9 +95,9 @@ ros2 launch swan_market world.launch.py world:=market_shopping.world
 python3 -m unittest discover -s src/swan_market/test -v
 ```
 
-12개 오프라인 테스트로 기존 월드 9개의 선택, 월드 이름에 맞는 로봇 생성,
+13개 오프라인 테스트로 기존 월드 9개의 선택, 월드 이름에 맞는 로봇 생성,
 기존 로봇 중복 생성 방지, 시장 초기 위치·선택적 교통 실행, 모델별 센서 토픽,
-잘못된 파일·초기 위치 처리, headless 설정을 검사했다.
+잘못된 파일·초기 위치 처리, headless 설정과 로봇 링크·조인트 중복 여부를 검사했다.
 ROS launch 객체는 테스트 대역을 사용하므로 실제 Gazebo 실행 검증을 대체하지 않는다.
 공통 런처 개편 시점에는 VM이 꺼져 있어 실제 실행 재검증은 아직 하지 않았다.
 시장 장면의 검증 요약과 사진은 [docs/market](../../docs/market/README.md)에 있다.

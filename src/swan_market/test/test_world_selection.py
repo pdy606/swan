@@ -146,6 +146,16 @@ class WorldSelectionTest(unittest.TestCase):
         self.assertIn('--headless-rendering', cmd)
         self.assertTrue(any(a.args == ('GALLIUM_DRIVER','llvmpipe') for a in actions))
 
+    def test_robot_links_joints_and_sensors_have_unique_names(self):
+        spec = support.resolve_world('market', '', share)
+        robot = spec['robot']
+        for tag in ('link', 'joint'):
+            names = [item.get('name') for item in robot.findall(tag)]
+            self.assertEqual(len(names), len(set(names)), f'duplicate {tag}')
+        for link in robot.findall('link'):
+            names = [sensor.get('name') for sensor in link.findall('sensor')]
+            self.assertEqual(len(names), len(set(names)), 'duplicate sensor')
+
     def test_market_generator_metadata_is_consistent(self):
         spec = support.resolve_world('market', '', share)
         layout = json.loads((SRC/'swan_market/config/market_layout.json').read_text())

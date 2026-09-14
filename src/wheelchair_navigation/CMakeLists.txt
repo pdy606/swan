@@ -16,7 +16,7 @@ install(
 
 install(
   PROGRAMS
-    scripts/driving_supervisor.py
+    scripts/nav_avoidance_node.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
