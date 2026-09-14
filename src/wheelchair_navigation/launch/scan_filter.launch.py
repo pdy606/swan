@@ -7,7 +7,7 @@ from launch_ros.actions import Node
 
 def generate_launch_description():
     config_file = os.path.join(
-        get_package_share_directory("wheelchair_gazebo"),
+        get_package_share_directory("wheelchair_navigation"),
         "config",
         "scan_filter.yaml",
     )

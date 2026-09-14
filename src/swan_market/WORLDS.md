@@ -1,7 +1,8 @@
-# 팀 공통 Gazebo 월드 실행
+# 팀 월드 선택 실행
 
-월드 선택만 바꾸고 같은 휠체어와 ROS 토픽을 사용한다. `.world`와 `.sdf` 모두 SDF XML이다.
-기존 팀 월드는 SDF 1.9, 시장 월드는 SDF 1.10이며, 파일 확장자를 바꾸거나 버전을 강제로 낮추지 않는다.
+시장 패키지가 제공하는 `world.launch.py`에서 월드를 선택한다.
+팀 공용 `wheelchair_gazebo/launch/simulation.launch.py`는 원본을 유지한다. `.world`와 `.sdf` 모두 SDF XML이다.
+기존 팀 월드는 SDF 1.9, 시장 월드는 SDF 1.10이다. 시장 파일 확장자는 팀 월드와 같은 `.world`를 사용한다.
 
 ## 빌드와 실행
 
@@ -16,15 +17,16 @@ source install/setup.bash
 # 기본 도시: 기존 실행 명령 유지
 ros2 launch wheelchair_gazebo simulation.launch.py
 # 시장: 보행자 2명 + 오토바이 2대 이동 포함
-ros2 launch wheelchair_gazebo simulation.launch.py world:=market
+ros2 launch swan_market world.launch.py world:=market
 # 기존 팀 월드
-ros2 launch wheelchair_gazebo simulation.launch.py world:=layout_narrow_alley.world
-ros2 launch wheelchair_gazebo simulation.launch.py world:=level1_basic.world
+ros2 launch swan_market world.launch.py world:=layout_narrow_alley.world
+ros2 launch swan_market world.launch.py world:=level1_basic.world
 ```
 
 기존 Gazebo 실행을 종료한 다음 월드를 바꾼다. 실행 중 월드를 교체하는 기능은 아니다.
 시장 단축 명령 `ros2 launch swan_market market.launch.py`도 계속 사용할 수 있다.
-`market` 선택에는 `swan_market` 패키지가 필요하며, 나머지 월드는 이를 요구하지 않는다.
+이 문서의 `world.launch.py`는 `swan_market` 패키지가 필요하다.
+팀의 기존 기본 도시 실행은 `wheelchair_gazebo simulation.launch.py`로 독립 실행할 수 있다.
 
 | 옵션 | 기본값 / 동작 |
 |---|---|
@@ -36,19 +38,19 @@ ros2 launch wheelchair_gazebo simulation.launch.py world:=level1_basic.world
 | `spawn_x`, `spawn_y`, `spawn_z`, `spawn_yaw` | 월드에 로봇이 없을 때 초기 위치 덮어쓰기. 단위 m / rad |
 
 ```bash
-ros2 launch wheelchair_gazebo simulation.launch.py world:=market software_rendering:=true
-ros2 launch wheelchair_gazebo simulation.launch.py world:=market moving_traffic:=false
-ros2 launch wheelchair_gazebo simulation.launch.py world:=/absolute/path/custom.world spawn_x:=0 spawn_y:=-5 spawn_yaw:=1.57
-ros2 launch wheelchair_gazebo simulation.launch.py world:=market_shopping.world
+ros2 launch swan_market world.launch.py world:=market software_rendering:=true
+ros2 launch swan_market world.launch.py world:=market moving_traffic:=false
+ros2 launch swan_market world.launch.py world:=/absolute/path/custom.world spawn_x:=0 spawn_y:=-5 spawn_yaw:=1.57
+ros2 launch swan_market world.launch.py world:=market_shopping.world
 ```
 
 ## 월드 추가 규칙
 
 1. `<sdf><world name="고유이름">...</world></sdf>` 파일을 패키지의 `worlds/`에 둔다.
-   시장을 포함한 모든 팀 월드는 이 패키지의 `worlds/` 한 곳에 둔다.
-   기존 월드 생성기는 `tools/`, 시장 생성기는 `swan_market/tools/`에 둔다.
+   시장을 포함한 모든 팀 월드는 `wheelchair_gazebo/worlds/` 한 곳에 둔다.
+   기존 월드 생성기는 main과 같은 `wheelchair_gazebo/worlds/`, 시장 생성기는 `swan_market/tools/`에 둔다.
    이는 `main` 브랜치의 월드 위치와 같다.
-2. 신규 월드는 환경만 담고 휠체어는 공통 런처가 생성하도록 권장한다.
+2. 신규 월드는 환경만 담고 휠체어는 `swan_market world.launch.py`가 생성하도록 권장한다.
    기존 월드의 `model://wheelchair` include 또는 `model name="wheelchair"`는 유지해도 된다.
    이 경우 추가 생성하지 않고 월드에 적힌 초기 위치를 사용한다. `spawn_*`를 지정하면
    무시하지 않고 설명과 함께 실패한다.
@@ -74,7 +76,7 @@ ros2 launch wheelchair_gazebo simulation.launch.py world:=market_shopping.world
 4. 자산은 해당 패키지의 `models/`에 넣고 `model://...`로 참조한다. 공통 런처는
    월드 패키지와 휠체어 패키지의 `models/`, 월드 파일의 디렉터리를 리소스 경로에 추가하고
    기존 `GZ_SIM_RESOURCE_PATH`도 보존한다. CMake에서 `worlds`, `models`, `launch`, `config`를 설치한다.
-5. 짧은 이름이 필요하면 `config/worlds.json`에 `{ "별칭": {"package":"패키지", "world":"파일명"} }`을 추가한다.
+5. 짧은 이름이 필요하면 `swan_market/config/worlds.json`에 `{ "별칭": {"package":"패키지", "world":"파일명"} }`을 추가한다.
 
 ## 휠체어·센서 계약
 
@@ -90,7 +92,7 @@ ros2 launch wheelchair_gazebo simulation.launch.py world:=market_shopping.world
 ## 검증
 
 ```bash
-python3 -m unittest discover -s src/wheelchair_gazebo/test -v
+python3 -m unittest discover -s src/swan_market/test -v
 ```
 
 12개 오프라인 테스트로 기존 월드 9개의 선택, 월드 이름에 맞는 로봇 생성,

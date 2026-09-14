@@ -7,7 +7,7 @@ import xml.etree.ElementTree as ET
 
 def resolve_world(selection, package, share_lookup):
     robot_share = Path(share_lookup('wheelchair_gazebo'))
-    aliases = json.loads((robot_share / 'config/worlds.json').read_text())
+    aliases = json.loads((Path(share_lookup('swan_market')) / 'config/worlds.json').read_text())
     if not package and selection in aliases:
         entry = aliases[selection]
         package, selection = entry['package'], entry['world']

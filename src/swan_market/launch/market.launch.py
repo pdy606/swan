@@ -7,6 +7,6 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 
 
 def generate_launch_description():
-    common = Path(get_package_share_directory('wheelchair_gazebo')) / 'launch/simulation.launch.py'
+    common = Path(get_package_share_directory('swan_market')) / 'launch/world.launch.py'
     return LaunchDescription([IncludeLaunchDescription(PythonLaunchDescriptionSource(str(common)),
         launch_arguments={'world':'market_shopping.world', 'world_package':'wheelchair_gazebo'}.items())])

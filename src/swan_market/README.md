@@ -10,14 +10,14 @@
 ## 실행
 
 워크스페이스를 빌드하고 `install/setup.bash`를 적용한 뒤 실행한다.
-빌드 방법·다른 월드 선택·공통 토픽은 [공통 실행 안내](../wheelchair_gazebo/README.md)에 있다.
+빌드 방법·다른 월드 선택·공통 토픽은 [공통 실행 안내](WORLDS.md)에 있다.
 
 ```bash
-ros2 launch wheelchair_gazebo simulation.launch.py world:=market
+ros2 launch swan_market world.launch.py world:=market
 # UTM 소프트웨어 렌더링
-ros2 launch wheelchair_gazebo simulation.launch.py world:=market software_rendering:=true
+ros2 launch swan_market world.launch.py world:=market software_rendering:=true
 # 이동 교통 끄기
-ros2 launch wheelchair_gazebo simulation.launch.py world:=market moving_traffic:=false
+ros2 launch swan_market world.launch.py world:=market moving_traffic:=false
 ```
 
 기존 `ros2 launch swan_market market.launch.py` 명령도 유지한다.

@@ -1,15 +1,15 @@
 <?xml version="1.0" ?>
 <sdf version="1.9">
   <world name="realistic_city">
+    <plugin filename="gz-sim-sensors-system" name="gz::sim::systems::Sensors">
+      <render_engine>ogre</render_engine>
+    </plugin>
     <physics name="1ms" type="ignore">
       <max_step_size>0.001</max_step_size>
       <real_time_factor>1.0</real_time_factor>
     </physics>
     <plugin filename="gz-sim-physics-system" name="gz::sim::systems::Physics"/>
     <plugin filename="gz-sim-scene-broadcaster-system" name="gz::sim::systems::SceneBroadcaster"/>
-    <plugin filename="gz-sim-sensors-system" name="gz::sim::systems::Sensors">
-      <render_engine>ogre2</render_engine>
-    </plugin>
     <plugin filename="gz-sim-user-commands-system" name="gz::sim::systems::UserCommands"/>
 
     <light type="directional" name="sun">
@@ -288,7 +288,7 @@
       <link name="link"><collision name="collision"><geometry><cylinder><radius>0.1</radius><length>0.2</length></cylinder></geometry></collision>
         <visual name="visual"><geometry><cylinder><radius>0.1</radius><length>0.2</length></cylinder></geometry><material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.5 0.5 0.5 1</diffuse></material></visual></link></model>
 
-
+  
     <!-- 신호등 (횡단보도 네 모서리) -->
     <model name="traffic_light_1">
       <static>true</static><pose>-3.6 -2 1.5 0 0 0</pose>
