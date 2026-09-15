@@ -34,7 +34,7 @@ class NavAvoidanceNode(Node):
 
 
         # 장애물 접근 정지 및 자동 회피 시작
-        self.stop_distance = 0.55
+        self.stop_distance = 0.75
 
         # 상태가 거리 경계에서 반복 전환되는 현상 방지
         self.hysteresis = 0.12

@@ -19,7 +19,7 @@ class SituationNode(Node):
         # --------------------------------------------------------------
 
         # 장애물 접근 시 C 상황 발생 거리
-        self.stop_distance = 0.90
+        self.stop_distance = 0.68
 
         # 거리 경계에서 C 상태가 반복되는 현상 방지
         self.hysteresis = 0.12
