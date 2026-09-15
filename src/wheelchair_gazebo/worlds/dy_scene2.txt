@@ -1,3 +1,5 @@
+볼 때만 잠깐 sdf 파일로 바꾸면 됨.
+
 <?xml version="1.0" ?>
 <sdf version="1.9">
   <world name="apartment_entrance">
