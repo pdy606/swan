@@ -183,9 +183,9 @@ def handcart(world, name, x, y, yaw=0):
 
 
 def crowded_details(world):
-    # Two low display tables create a measured 1.80 m pinch point.
+    # Two low display tables create a 2.10 m pinch point on the curved aisle.
     for side in (-1,1):
-        link=box(world,f'aisle_display_{side}',(10,side*1.5,.3),(1.6,1.2,.6),(.44,.30,.19))
+        link=box(world,f'aisle_display_{side}',(10,side*1.65,.3),(1.6,1.2,.6),(.44,.30,.19))
         for dx in (-.5,0,.5):
             shape(link,f'basket_{dx}','box',(.42,.65,.12),(dx,0,.36,0,0,0),(.66,.51,.29))
             for j in (-1,0,1):
@@ -231,6 +231,78 @@ def entrance_crosswalk(world, font):
     sign(world,'crosswalk','횡단보도',(-.048,2.1,2.15),1.2,-math.pi/2,(.10,.29,.60),font)
 
 
+def aisle_center(x):
+    """Two smooth opposing bends, with a straight crosswalk/entrance."""
+    if x <= 3 or x >= 33:
+        return 0.0, 0.0
+    a = 2 * math.pi * (x - 3) / 30
+    y = 2.2 * math.sin(a) ** 3
+    slope = 2.2 * 3 * math.sin(a) ** 2 * math.cos(a) * 2 * math.pi / 30
+    return y, math.atan(slope)
+
+
+def bend_point(x, y, yaw=0):
+    center, angle = aisle_center(x)
+    return x - y * math.sin(angle), center + y * math.cos(angle), yaw + angle
+
+
+def bend_market(world):
+    """Move shop groups and obstacles along the same centerline as the paving."""
+    fixed = ('ground', 'boundary_', 'entrance_', 'crosswalk_', 'road_', 'tactile_',
+             'crossing_', 'traffic_', 'ped_signal_', 'sign_crosswalk', 'sign_entrance')
+    for item in world.findall('model'):
+        if item.get('name').startswith(fixed):
+            continue
+        pose = [float(v) for v in item.findtext('pose').split()]
+        if item.get('name').startswith(('stall_', 'signboard_', 'sign_shop')):
+            # Preserve spacing between rigid shop buildings on the inside of bends.
+            pose[1] += aisle_center(pose[0])[0]
+        else:
+            pose[0], pose[1], pose[5] = bend_point(pose[0], pose[1], pose[5])
+        item.find('pose').text = vector(pose)
+
+
+def pedestrian_signals(world):
+    """Opaque two-lens housings with emissive standing/walking human silhouettes.
+
+    Each lit icon is a separate collision-free model. The animation puts an unlit
+    icon below the ground; the opaque dark lens remains in the housing.
+    """
+    signals = []
+    for side, x, y, yaw in [('west', -5.35, 1.95, math.pi/2),
+                            ('east', .10, -1.95, -math.pi/2)]:
+        base = model(world, f'ped_signal_{side}_housing', (x,y,0,0,0,yaw))
+        shape(base,'pole','cylinder',(.045,2.05),(0,0,1.025,0,0,0),(.23,.25,.27))
+        shape(base,'housing','box',(.48,.20,.99),(0,0,2.08,0,0,0),(.055,.065,.075))
+        for color,z in [('red',2.32),('green',1.84)]:
+            shape(base,f'{color}_lens','cylinder',(.205,.022),(0,-.113,z,math.pi/2,0,0),(.013,.018,.022),False)
+            shape(base,f'{color}_hood','box',(.47,.25,.04),(0,-.13,z+.225,0,0,0),(.07,.08,.09),False)
+            name=f'ped_signal_{side}_{color}'
+            icon=model(world,name,(x,y,0 if color=='red' else -5,0,0,yaw))
+            tint=(1.0,.025,.015) if color=='red' else (.025,1.0,.18)
+            head=(-.012,.137) if color=='red' else (.025,.137)
+            shape(icon,'head','cylinder',(.035,.010),(head[0],-.132,z+head[1],math.pi/2,0,0),tint,False)
+            # Rectangular strokes in the face's X/Z plane, thick enough for the camera.
+            if color=='red':
+                strokes=[((0,.095),(0,-.015),.064), ((-.046,.071),(-.066,-.035),.026),
+                         ((.046,.071),(.066,-.035),.026), ((-.021,-.01),(-.030,-.145),.032),
+                         ((.021,-.01),(.030,-.145),.032)]
+            else:
+                strokes=[((.012,.092),(-.020,-.020),.054), ((0,.068),(-.064,.018),.026),
+                         ((-.064,.018),(-.112,.035),.026), ((.020,.060),(.075,.004),.026),
+                         ((.075,.004),(.119,.013),.026), ((-.020,-.018),(-.084,-.142),.031),
+                         ((-.016,-.025),(.055,-.074),.031), ((.055,-.074),(.086,-.147),.031)]
+            for i,(a,b,width) in enumerate(strokes):
+                dx,dz=b[0]-a[0],b[1]-a[1]
+                shape(icon,f'stroke_{i}','box',(width,.010,math.hypot(dx,dz)+.012),
+                      ((a[0]+b[0])/2,-.132,z+(a[1]+b[1])/2,0,math.atan2(dx,dz),0),tint,False)
+            for visual in icon.findall('visual'):
+                element(visual.find('material'),'emissive',vector((*tint,1)))
+                element(visual,'cast_shadows','false')
+        signals.append(dict(red=f'ped_signal_{side}_red',green=f'ped_signal_{side}_green',x=x,y=y,yaw=yaw))
+    return signals
+
+
 def build(font):
     sdf=ET.Element('sdf',version='1.10'); w=element(sdf,'world',name='swan_market')
     physics=element(w,'physics',name='market_physics',type='ignored')
@@ -241,14 +313,17 @@ def build(font):
     scene=element(w,'scene');element(scene,'ambient','0.65 0.65 0.65 1');element(scene,'background','0.74 0.82 0.86 1');element(scene,'shadows','true')
     light=element(w,'light',name='sun',type='directional');element(light,'pose','0 0 15 0 0 0');element(light,'direction','-.3 -.5 -1');element(light,'diffuse','.85 .82 .75 1');element(light,'specular','.1 .1 .1 1');element(light,'cast_shadows','true')
     box(w,'ground',(15,0,-.10),(46,24,.2),(.64,.61,.55))
-    box(w,'market_paving',(16,0,.002),(36,5.2,.004),(.79,.76,.68),False)
-    # Painted joints, not physical bumps.
-    for x in range(-1,35):box(w,f'paving_joint_{x}',(x,0,.0045),(.025,5.2,.001),(.67,.64,.57),False)
-    for y in (-1.7,-.85,0,.85,1.7):box(w,f'paving_seam_{y}',(16,y,.0045),(36,.015,.001),(.68,.65,.58),False)
+    # Short overlapping tiles follow the bends without physical seams or steps.
+    for i in range(72):
+        x=-1.75+i*.5
+        box(w,f'market_paving_{i}',(x,0,.002),(.75,5.2,.004),(.79,.76,.68),False)
+        if i%2==0:
+            box(w,f'paving_joint_{i}',(x,0,.0045),(.025,5.2,.001),(.67,.64,.57),False)
     entrance_crosswalk(w,font)
+    signals=pedestrian_signals(w)
     box(w,'cross_aisle',(17,0,.006),(3.0,15,.002),(.72,.70,.65),False)
     for side in (-1,1):
-        box(w,f'boundary_{side}',(16,side*8,.5),(38,.15,1),(.65,.59,.49))
+        box(w,f'boundary_{side}',(16,side*10.5,.5),(38,.15,1),(.65,.59,.49))
         box(w,f'entrance_post_{side}',(1.5,side*3.25,1.8),(.28,.28,3.6),(.20,.29,.25))
     box(w,'entrance_header',(1.5,0,3.6),(.24,6.8,.82),(.20,.34,.28))
     sign(w,'entrance','스완 전통시장',(1.365,0,3.6),6.6,-math.pi/2,(.20,.34,.28),font)
@@ -273,26 +348,49 @@ def build(font):
     motorcycle(w,'traffic_motorcycle_1',-1.65,-5.8,math.pi/2,(.76,.19,.12),rider=True)
     motorcycle(w,'traffic_motorcycle_2',-3.75,5.8,-math.pi/2,(.19,.39,.70),rider=True)
     # Shopping stop and turning area markings are visual only.
-    stops=[dict(name='과일 구매',x=8.2,y=1.2,yaw=math.pi/2),dict(name='반찬 구매',x=27,y=1.0,yaw=math.pi/2),dict(name='출구 대기',x=33,y=0,yaw=0)]
+    stops=[dict(name='과일 구매',x=8.2,y=.6,yaw=math.pi/2),dict(name='반찬 구매',x=27.6,y=.7,yaw=math.pi/2),dict(name='출구 대기',x=33,y=0,yaw=0)]
     for i,s in enumerate(stops):
         for dx,dy,sx,sy in [(-.7,0,.04,1.2),(.7,0,.04,1.2),(0,-.6,1.4,.04),(0,.6,1.4,.04)]:
             box(w,f'stop_{i}_{dx}_{dy}',(s['x']+dx,s['y']+dy,.009),(sx,sy,.002),(.22,.52,.47),False)
-    metadata=dict(world='swan_market',version=4,units='metres',dynamic_actors=True,
+    metadata=dict(world='swan_market',version=5,units='metres',dynamic_actors=True,
                   spawn=dict(x=-6.2,y=0,z=.03,yaw=0),main_aisle_nominal_width=4.76,
                   shopping_stops=stops,stalls=stalls,
                   route=[[-6.2,0],[-5.6,0],[0.8,0],[8,0],[10,0],[12,0],[14,0],[16,-.4],[18,0],[20,0],[23,0],[25.5,-.25],[28,0],[33,0]],
-                  crosswalk=dict(road_x_min=-4.8,road_x_max=-.6,crossing_length_m=4.2,walking_width_m=2.8,curb_opening_width_m=3.2,step_free=True,traffic_signals=False,moving_traffic=True),
-                  traffic=dict(cycle_seconds=32.0,bike_move_seconds=15.0,pedestrian_start=17.0,pedestrian_duration=10.0,
+                  crosswalk=dict(road_x_min=-4.8,road_x_max=-.6,crossing_length_m=4.2,walking_width_m=2.8,curb_opening_width_m=3.2,step_free=True,traffic_signals=True,moving_traffic=True),
+                  traffic=dict(signals=signals,green_start=17.0,green_flash_start=24.0,green_end=27.0,blink_period=1.0,cycle_seconds=32.0,bike_move_seconds=15.0,pedestrian_start=17.0,pedestrian_duration=10.0,
                                road_center_x=-2.7,lane_radius=1.05,road_straight_half_length=5.8,
                                pedestrian_west_x=-5.7,pedestrian_east_x=.5,
                                pedestrian_names=['crossing_pedestrian_1','crossing_pedestrian_2'],
                                motorcycle_names=['traffic_motorcycle_1','traffic_motorcycle_2'],
                                motion='scripted kinematic poses; not vehicle dynamics or robot avoidance'),
                   moving_models=['crossing_pedestrian_1','crossing_pedestrian_2','traffic_motorcycle_1','traffic_motorcycle_2'],
-                  congestion_zones=[dict(name='돌출 좌판 병목',x_min=9.2,x_max=10.8,measured_gap_m=1.8),
+                  congestion_zones=[dict(name='돌출 좌판 병목',x_min=9.2,x_max=10.8,measured_gap_m=2.1),
                                     dict(name='쇼핑객 교차 구간',x_min=15.5,x_max=18.5),
                                     dict(name='오토바이 하역 구간',x_min=18.5,x_max=20.8)],
                   encounters=[dict(name='쇼핑객',x=16.6,y=1.0),dict(name='배달 오토바이',x=13.7,y=-1.65),dict(name='주차 오토바이',x=25.4,y=1.65)])
+    bend_market(w)
+    for collection in (metadata['stalls'],metadata['shopping_stops'],metadata['encounters']):
+        for item in collection:
+            if collection is metadata['stalls']:
+                x,y,yaw=item['x'],item['y']+aisle_center(item['x'])[0],0
+            else:
+                x,y,yaw=bend_point(item['x'],item['y'],item.get('yaw',0))
+            item.update(x=x,y=y)
+            if 'yaw' in item:item['yaw']=yaw
+    old_route=metadata['route']
+    route=[]
+    for a,b in zip(old_route,old_route[1:]):
+        steps=max(1,math.ceil((b[0]-a[0])/.2))
+        for i in range(steps):
+            t=i/steps;x=a[0]+(b[0]-a[0])*t;y=a[1]+(b[1]-a[1])*t
+            route.append(list(bend_point(x,y)[:2]))
+    route.append(list(bend_point(*old_route[-1])[:2]))
+    metadata['route']=route
+    metadata['aisle_centerline']=[list(bend_point(i*.25,0)[:2]) for i in range(137)]
+    metadata['aisle_shape']='S-shaped, smooth opposite bends with +/-2.2 m centerline offset'
+    for zone in metadata['congestion_zones']:
+        zone['center_y']=aisle_center((zone['x_min']+zone['x_max'])/2)[0]
+    metadata['pedestrian_signal_sequence']='red 0-17 s; green 17-24 s; flashing green 24-27 s (1 Hz); red 27-32 s'
     world_dir = ROOT.parent/'wheelchair_gazebo/worlds'
     world_dir.mkdir(parents=True,exist_ok=True);(ROOT/'config').mkdir(exist_ok=True)
     ET.indent(sdf,space='  ');ET.ElementTree(sdf).write(world_dir/'market_shopping.world',encoding='utf-8',xml_declaration=True)

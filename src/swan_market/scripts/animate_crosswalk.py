@@ -37,6 +37,23 @@ def traffic_poses(elapsed,cfg):
     return poses,stage,phase
 
 
+def signal_state(elapsed,cfg):
+    phase=max(elapsed,0)%cfg['cycle_seconds']
+    start=cfg.get('green_start',17.0);flash=cfg.get('green_flash_start',24.0);end=cfg.get('green_end',27.0)
+    if not start <= phase < end:
+        return 'red', True, False
+    if phase < flash:
+        return 'green', False, True
+    on=((phase-flash)%cfg.get('blink_period',1.0)) < cfg.get('blink_period',1.0)/2
+    return 'flashing_green', False, on
+
+
+def signal_poses(elapsed,cfg):
+    _,red,green=signal_state(elapsed,cfg)
+    return {signal[color]:(signal['x'],signal['y'],signal['yaw'],0.0 if on else -5.0)
+            for signal in cfg.get('signals',[]) for color,on in [('red',red),('green',green)]}
+
+
 def pose_sender(service, incoming, results):
     # Gazebo Python subscription callbacks can hold the transport dispatch thread
     # while a synchronous request holds the GIL. Isolate requests in a process
@@ -49,8 +66,9 @@ def pose_sender(service, incoming, results):
         poses=incoming.get()
         if poses is None:return
         request=Pose_V()
-        for name,(x,y,yaw) in poses.items():
-            p=request.pose.add();p.name=name;p.position.x=x;p.position.y=y;p.position.z=0
+        for name,values in poses.items():
+            x,y,yaw=values[:3];z=values[3] if len(values)>3 else 0.0
+            p=request.pose.add();p.name=name;p.position.x=x;p.position.y=y;p.position.z=z
             p.orientation.z=math.sin(yaw/2);p.orientation.w=math.cos(yaw/2)
         ok,response=node.request(service,request,Pose_V,Boolean,500)
         results.put(bool(ok and response.data))
@@ -90,6 +108,7 @@ def main():
         if start is None or now<last:start=now;last=-1.
         if now-last<.05:time.sleep(.01);continue
         elapsed=now-start;poses,stage,phase=traffic_poses(elapsed,cfg)
+        poses.update(signal_poses(elapsed,cfg))
         try:incoming.put_nowait(poses)
         except queue.Full:
             try:incoming.get_nowait()
@@ -105,7 +124,7 @@ def main():
                 if failures<5:print('Waiting for pose command service / model creation',flush=True)
         last=now
         if time.monotonic()-last_status>=1:
-            row={'elapsed_sim_s':elapsed,'phase':stage,'cycle_phase_s':phase,'commanded':poses,'observed':actual}
+            row={'elapsed_sim_s':elapsed,'phase':stage,'cycle_phase_s':phase,'signal_state':signal_state(elapsed,cfg),'commanded':poses,'observed':actual}
             trace.append(row);trace=trace[-180:]
             payload={**row,'successful_updates':success,'failed_updates':failures,'recent_samples':trace}
             temp=path.with_suffix('.tmp');temp.write_text(json.dumps(payload,indent=2));temp.replace(path)

@@ -88,6 +88,7 @@ ros2 launch swan_market world.launch.py world:=market_shopping.world
 - LiDAR 링크·센서의 부모 기준 pose를 TF에 반영한다. 현재는 rad 단위 Euler pose를 지원한다.
 - YOLO 추론 노드는 별도 실행이다. 월드 교체가 학습 모델이나 인식 성능을 바꾸지는 않는다.
 - 시장 이동은 스크립트 방식이며 휠체어를 감지한 양보·회피 기능은 없다.
+- v5 시장은 S자 통로와 사람 모양 보행신호등을 포함한다. 마지막 3초에 초록불이 점멸한다.
 
 ## 검증
 
@@ -95,7 +96,7 @@ ros2 launch swan_market world.launch.py world:=market_shopping.world
 python3 -m unittest discover -s src/swan_market/test -v
 ```
 
-13개 오프라인 테스트로 기존 월드 9개의 선택, 월드 이름에 맞는 로봇 생성,
+16개 오프라인 테스트로 기존 월드 9개의 선택, 월드 이름에 맞는 로봇 생성,
 기존 로봇 중복 생성 방지, 시장 초기 위치·선택적 교통 실행, 모델별 센서 토픽,
 잘못된 파일·초기 위치 처리, headless 설정과 로봇 링크·조인트 중복 여부를 검사했다.
 ROS launch 객체는 테스트 대역을 사용하므로 실제 Gazebo 실행 검증을 대체하지 않는다.

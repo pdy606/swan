@@ -9,7 +9,7 @@
 
 | 월드 | 실제 파일 바로가기 | 실행 시 `world:=` 값 |
 |---|---|---|
-| 시장·횡단보도·이동 교통 | [market_shopping.world](src/wheelchair_gazebo/worlds/market_shopping.world) | `market` |
+| S자 시장·사람 모양 보행신호·이동 교통 | [market_shopping.world](src/wheelchair_gazebo/worlds/market_shopping.world) | `market` |
 | integration 기본 시험 월드 | [wheelchair_world.sdf](src/wheelchair_gazebo/worlds/wheelchair_world.sdf) | `wheelchair_world.sdf` |
 | 좁은 골목 | [layout_narrow_alley.world](src/wheelchair_gazebo/worlds/layout_narrow_alley.world) | `layout_narrow_alley.world` |
 | 직선 통로 | [layout_straight.world](src/wheelchair_gazebo/worlds/layout_straight.world) | `layout_straight.world` |
@@ -86,4 +86,4 @@ ros2 launch swan_bringup swan.launch.py
 시장 장면은 위의 `ros2 launch swan_market world.launch.py world:=market` 또는
 `ros2 launch swan_market market.launch.py`로 실행한다.
 시장 파일 경로는 계속 `src/wheelchair_gazebo/worlds/market_shopping.world`다.
-오프라인 테스트 13개는 통과했으며, 이 통합 조합의 실제 Gazebo·Nav2·YOLO 실행 검증은 남아 있다.
+오프라인 테스트 16개는 통과했으며, 이 통합 조합의 실제 Gazebo·Nav2·YOLO 실행 검증은 남아 있다.

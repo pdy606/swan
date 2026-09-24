@@ -121,7 +121,7 @@ def main():
                 minimum_route_center_clearance_m=round(minimum[0],3),
                 nearest_model=minimum[1],remaining_radial_margin_m=round(minimum[0]-radius,3),
                 shopping_stop_collisions=stop_hits,
-                runtime_evidence='See runtime_validation.json; this script checks static geometry only')
+                runtime_evidence='v5 is offline geometry validation; see docs/market for historical v4 runtime evidence')
     (preview/'validation.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
     print(json.dumps(report,ensure_ascii=False,indent=2))
     font='/System/Library/Fonts/AppleSDGothicNeo.ttc'
@@ -132,7 +132,10 @@ def main():
     fig,ax=plt.subplots(figsize=(16,7.5),facecolor='#f6f2e9')
     ax.set_facecolor('#f6f2e9')
     # Floor first, then collision footprints for a readable engineering plan.
-    ax.add_patch(PatchPolygon([[-2,-2.6],[34,-2.6],[34,2.6],[-2,2.6]],facecolor='#ded7c7',edgecolor='none'))
+    for name,part,v,_,color in shapes(world,'visual'):
+        if name.startswith('market_paving'):
+            poly=MultiPoint(v[:,:2]).convex_hull
+            ax.add_patch(PatchPolygon(np.array(poly.exterior.coords),facecolor='#ded7c7',edgecolor='none'))
     for name,part,v,_,color in shapes(world,'visual'):
         if name=='ground' or name.startswith(('paving','market_paving','sign_','entrance_header','stop_')):continue
         if v[:,2].min()>2.0:continue
@@ -151,19 +154,19 @@ def main():
     for i,s in enumerate(config['shopping_stops'][:2]):
         ax.add_patch(Circle((s['x'],s['y']),.55,fill=False,edgecolor='#19796f',lw=1.7,zorder=9))
         ax.annotate(f"쇼핑 정차 {i+1}",(s['x'],s['y']),xytext=(s['x']+.4,1.9),fontsize=9,color='#16594f')
-    ax.annotate('배달 오토바이',(13.7,-1.65),xytext=(16,-6.5),ha='center',fontsize=11,
+    ax.annotate('배달 오토바이',(config['encounters'][1]['x'],config['encounters'][1]['y']),xytext=(16,-6.5),ha='center',fontsize=11,
                 arrowprops=dict(arrowstyle='-',color='#a7562e'),color='#a7562e')
-    ax.annotate('쇼핑객',(16.6,1.0),xytext=(17,6.3),ha='center',fontsize=11,
+    ax.annotate('쇼핑객',(config['encounters'][0]['x'],config['encounters'][0]['y']),xytext=(17,6.3),ha='center',fontsize=11,
                 arrowprops=dict(arrowstyle='-',color='#465e7e'),color='#465e7e')
-    ax.annotate('주차 오토바이',(25.4,1.65),xytext=(25.4,7),ha='center',fontsize=11,
+    ax.annotate('주차 오토바이',(config['encounters'][2]['x'],config['encounters'][2]['y']),xytext=(25.4,7),ha='center',fontsize=11,
                 arrowprops=dict(arrowstyle='-',color='#a7562e'),color='#a7562e')
-    ax.annotate('좌판 병목 1.80m',(10,0),xytext=(9,-7.5),ha='center',fontsize=11,
+    ax.annotate('좌판 병목 2.10m',(10,config['congestion_zones'][0]['center_y']),xytext=(9,-7.5),ha='center',fontsize=11,
                 arrowprops=dict(arrowstyle='-',color='#a7562e'),color='#a7562e')
-    ax.annotate('하역 오토바이 + 손수레',(19.6,-1.4),xytext=(20,-8),ha='center',fontsize=11,
+    ax.annotate('하역 오토바이 + 손수레',(19.6,config['congestion_zones'][2]['center_y']-1.4),xytext=(20,-8),ha='center',fontsize=11,
                 arrowprops=dict(arrowstyle='-',color='#a7562e'),color='#a7562e')
-    ax.set(xlim=(-8,36),ylim=(-8.8,8.8),xlabel='진행 방향 X (m)',ylabel='Y (m)')
+    ax.set(xlim=(-8,36),ylim=(-11,11),xlabel='진행 방향 X (m)',ylabel='Y (m)')
     ax.set_aspect('equal');ax.spines[['top','right']].set_visible(False)
-    fig.suptitle('SWAN · 시장 도착해서 쇼핑',x=.08,ha='left',fontsize=24,fontweight='bold',color='#253e36')
+    fig.suptitle('SWAN · 굽은 시장 통로 + 보행신호등',x=.08,ha='left',fontsize=24,fontweight='bold',color='#253e36')
     ax.set_title(f"가게 8개  /  사람 {report['static_person_count']}명  /  오토바이 {report['static_motorcycle_count']}대  ·  추가 이동: 보행자 2명 + 오토바이 2대  ·  점선은 정적 예시 경로",loc='left',fontsize=11,pad=20,color='#6b6b5d')
     fig.tight_layout(rect=(0,0,1,.92));fig.savefig(preview/'market_plan.png',dpi=160);plt.close(fig)
     fig=plt.figure(figsize=(16,9),facecolor='#f6f2e9');ax=fig.add_subplot(111,projection='3d',computed_zorder=False)
@@ -174,11 +177,28 @@ def main():
         for face in faces:
             faces_all.append(v[face]);colors.append(color)
     ax.add_collection3d(Poly3DCollection(faces_all,facecolors=colors,edgecolors=(.2,.2,.16,.10),linewidths=.1,zsort='average'))
-    ax.set(xlim=(-8,35),ylim=(-8.5,8.5),zlim=(0,4.3));ax.set_box_aspect((43,17,7))
+    ax.set(xlim=(-8,35),ylim=(-11,11),zlim=(0,4.3));ax.set_box_aspect((43,17,7))
     ax.view_init(elev=43,azim=-118);ax.set_axis_off()
     fig.suptitle('SWAN MARKET  /  시장 공간 초안',x=.08,ha='left',fontsize=24,color='#253e36')
     fig.text(.08,.89,'SDF 형상 기반 미리보기 · Gazebo 화면 아님 · 간판 텍스처는 실제 맵에 포함',fontsize=12,color='#6b6b5d')
     fig.subplots_adjust(left=0,right=1,bottom=0,top=.9);fig.savefig(preview/'market_isometric.png',dpi=150);plt.close(fig)
+    # Face-on projection of the actual SDF housing/icon geometry (not a Gazebo capture).
+    import copy
+    fig,axes=plt.subplots(1,3,figsize=(9,6),facecolor='#f6f2e9')
+    for ax,(state,label) in zip(axes,[('red','빨간불 · 대기'),('green','초록불 · 횡단'),('off','초록 점멸 · 꺼진 순간')]):
+        names=['ped_signal_east_housing']+([] if state=='off' else ['ped_signal_east_'+state])
+        local=ET.Element('world')
+        for name in names:
+            item=copy.deepcopy(world.find(f"model[@name='{name}']"));item.find('pose').text='0 0 0 0 0 0';local.append(item)
+        for name,part,v,_,color in shapes(local,'visual'):
+            poly=MultiPoint(v[:,[0,2]]).convex_hull
+            if poly.geom_type=='Polygon':
+                ax.add_patch(PatchPolygon(np.array(poly.exterior.coords),facecolor=color,edgecolor='none'))
+        ax.set(xlim=(-.30,.30),ylim=(1.52,2.65));ax.set_aspect('equal');ax.set_axis_off();ax.set_title(label,fontsize=12,pad=15)
+    fig.suptitle('사람 모양 보행신호등',fontsize=19,color='#253e36')
+    fig.text(.5,.03,'실제 SDF 형상의 정면 투영 · Gazebo 실행 화면 아님 · 초록 점멸 0.5초 켜짐 / 0.5초 꺼짐',ha='center',fontsize=10)
+    fig.savefig(preview/'pedestrian_signals.png',dpi=160);plt.close(fig)
+
 
 
 if __name__=='__main__':main()

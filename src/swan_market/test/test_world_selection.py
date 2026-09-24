@@ -162,5 +162,51 @@ class WorldSelectionTest(unittest.TestCase):
         self.assertEqual(spec['options']['spawn'], layout['spawn'])
 
 
+traffic = load(ROOT/'scripts/animate_crosswalk.py', 'traffic')
+
+
+class SignalCycleTest(unittest.TestCase):
+    def setUp(self):
+        self.layout=json.loads((ROOT/'config/market_layout.json').read_text())
+        self.cfg=self.layout['traffic']
+
+    def test_red_green_and_blink_boundaries(self):
+        for time,state,red,green in [(0,'red',True,False),(16.999,'red',True,False),
+              (17,'green',False,True),(23.999,'green',False,True),
+              (24,'flashing_green',False,True),(24.5,'flashing_green',False,False),
+              (25,'flashing_green',False,True),(26.5,'flashing_green',False,False),
+              (27,'red',True,False),(32,'red',True,False),(49,'green',False,True)]:
+            with self.subTest(time=time):
+                self.assertEqual(traffic.signal_state(time,self.cfg),(state,red,green))
+
+    def test_signals_do_not_show_green_during_motorcycle_motion(self):
+        for i in range(1280):
+            t=i*.05
+            _,stage,_=traffic.traffic_poses(t,self.cfg)
+            state,red,green=traffic.signal_state(t,self.cfg)
+            self.assertFalse(red and green)
+            if stage=='motorcycles':self.assertEqual(state,'red')
+            if stage=='pedestrians':self.assertNotEqual(state,'red')
+            lamps=traffic.signal_poses(t,self.cfg)
+            for signal in self.cfg['signals']:
+                self.assertEqual(lamps[signal['red']][3],0 if red else -5)
+                self.assertEqual(lamps[signal['green']][3],0 if green else -5)
+
+    def test_icons_are_collision_free_and_housed_on_both_banks(self):
+        import xml.etree.ElementTree as ET
+        world=ET.parse(GAZEBO/'worlds/market_shopping.world').getroot().find('world')
+        self.assertEqual(len(self.cfg['signals']),2)
+        for signal in self.cfg['signals']:
+            for color in ('red','green'):
+                icon=world.find(f"model[@name='{signal[color]}']")
+                self.assertIsNotNone(icon)
+                self.assertFalse(icon.findall('.//collision'))
+                self.assertGreater(len(icon.findall('.//emissive')),5)
+        ys=[p[1] for p in self.layout['aisle_centerline']]
+        self.assertGreater(max(ys),2.1)
+        self.assertLess(min(ys),-2.1)
+        self.assertEqual(self.layout['route'][0],[-6.2,0])
+
+
 if __name__ == '__main__':
     unittest.main()
