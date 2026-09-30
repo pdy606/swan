@@ -1407,241 +1407,86 @@
       <visual name="swan_logo_S_0">
         <pose>0.512 0.079 0.4716 0 0 -1.5708</pose>
         <geometry><box><size>0.040125 0.0075 0.0012</size></box></geometry>
-        <material><ambient>0.552 0.564 0.576 1</ambient><diffuse>0.92 0.94 0.96 1</diffuse><specular>0.3 0.3 0.3 1</specular></material>
+        <material><ambient>0.468 0.486 0.504 1</ambient><diffuse>0.78 0.81 0.84 1</diffuse><specular>0.3 0.3 0.3 1</specular></material>
       </visual>
       <visual name="swan_logo_S_1">
         <pose>0.535 0.079 0.4716 0 0 -1.5708</pose>
         <geometry><box><size>0.040125 0.0075 0.0012</size></box></geometry>
-        <material><ambient>0.552 0.564 0.576 1</ambient><diffuse>0.92 0.94 0.96 1</diffuse><specular>0.3 0.3 0.3 1</specular></material>
+        <material><ambient>0.468 0.486 0.504 1</ambient><diffuse>0.78 0.81 0.84 1</diffuse><specular>0.3 0.3 0.3 1</specular></material>
       </visual>
       <visual name="swan_logo_S_2">
         <pose>0.558 0.079 0.4716 0 0 -1.5708</pose>
         <geometry><box><size>0.040125 0.0075 0.0012</size></box></geometry>
-        <material><ambient>0.552 0.564 0.576 1</ambient><diffuse>0.92 0.94 0.96 1</diffuse><specular>0.3 0.3 0.3 1</specular></material>
+        <material><ambient>0.468 0.486 0.504 1</ambient><diffuse>0.78 0.81 0.84 1</diffuse><specular>0.3 0.3 0.3 1</specular></material>
       </visual>
       <visual name="swan_logo_S_3">
         <pose>0.5465 0.097 0.4716 0 0 0</pose>
         <geometry><box><size>0.027125 0.0075 0.0012</size></box></geometry>
-        <material><ambient>0.552 0.564 0.576 1</ambient><diffuse>0.92 0.94 0.96 1</diffuse><specular>0.3 0.3 0.3 1</specular></material>
+        <material><ambient>0.468 0.486 0.504 1</ambient><diffuse>0.78 0.81 0.84 1</diffuse><specular>0.3 0.3 0.3 1</specular></material>
       </visual>
       <visual name="swan_logo_S_4">
         <pose>0.5235 0.061 0.4716 0 0 0</pose>
         <geometry><box><size>0.027125 0.0075 0.0012</size></box></geometry>
-        <material><ambient>0.552 0.564 0.576 1</ambient><diffuse>0.92 0.94 0.96 1</diffuse><specular>0.3 0.3 0.3 1</specular></material>
+        <material><ambient>0.468 0.486 0.504 1</ambient><diffuse>0.78 0.81 0.84 1</diffuse><specular>0.3 0.3 0.3 1</specular></material>
       </visual>
       <visual name="swan_logo_W_0">
         <pose>0.535 0.0455 0.4716 0 0 -2.9484</pose>
         <geometry><box><size>0.050997 0.0075 0.0012</size></box></geometry>
-        <material><ambient>0.552 0.564 0.576 1</ambient><diffuse>0.92 0.94 0.96 1</diffuse><specular>0.3 0.3 0.3 1</specular></material>
+        <material><ambient>0.468 0.486 0.504 1</ambient><diffuse>0.78 0.81 0.84 1</diffuse><specular>0.3 0.3 0.3 1</specular></material>
       </visual>
       <visual name="swan_logo_W_1">
         <pose>0.52626 0.0365 0.4716 0 0 -0.30568</pose>
         <geometry><box><size>0.034031 0.0075 0.0012</size></box></geometry>
-        <material><ambient>0.552 0.564 0.576 1</ambient><diffuse>0.92 0.94 0.96 1</diffuse><specular>0.3 0.3 0.3 1</specular></material>
+        <material><ambient>0.468 0.486 0.504 1</ambient><diffuse>0.78 0.81 0.84 1</diffuse><specular>0.3 0.3 0.3 1</specular></material>
       </visual>
       <visual name="swan_logo_W_2">
         <pose>0.52626 0.0275 0.4716 0 0 -2.8359</pose>
         <geometry><box><size>0.034031 0.0075 0.0012</size></box></geometry>
-        <material><ambient>0.552 0.564 0.576 1</ambient><diffuse>0.92 0.94 0.96 1</diffuse><specular>0.3 0.3 0.3 1</specular></material>
+        <material><ambient>0.468 0.486 0.504 1</ambient><diffuse>0.78 0.81 0.84 1</diffuse><specular>0.3 0.3 0.3 1</specular></material>
       </visual>
       <visual name="swan_logo_W_3">
         <pose>0.535 0.0185 0.4716 0 0 -0.19321</pose>
         <geometry><box><size>0.050997 0.0075 0.0012</size></box></geometry>
-        <material><ambient>0.552 0.564 0.576 1</ambient><diffuse>0.92 0.94 0.96 1</diffuse><specular>0.3 0.3 0.3 1</specular></material>
+        <material><ambient>0.468 0.486 0.504 1</ambient><diffuse>0.78 0.81 0.84 1</diffuse><specular>0.3 0.3 0.3 1</specular></material>
       </visual>
       <visual name="swan_logo_A_0">
         <pose>0.535 -0.023 0.4716 0 0 -0.37299</pose>
         <geometry><box><size>0.053521 0.0075 0.0012</size></box></geometry>
-        <material><ambient>0.552 0.564 0.576 1</ambient><diffuse>0.92 0.94 0.96 1</diffuse><specular>0.3 0.3 0.3 1</specular></material>
+        <material><ambient>0.468 0.486 0.504 1</ambient><diffuse>0.78 0.81 0.84 1</diffuse><specular>0.3 0.3 0.3 1</specular></material>
       </visual>
       <visual name="swan_logo_A_1">
         <pose>0.535 -0.041 0.4716 0 0 -2.7686</pose>
         <geometry><box><size>0.053521 0.0075 0.0012</size></box></geometry>
-        <material><ambient>0.552 0.564 0.576 1</ambient><diffuse>0.92 0.94 0.96 1</diffuse><specular>0.3 0.3 0.3 1</specular></material>
+        <material><ambient>0.468 0.486 0.504 1</ambient><diffuse>0.78 0.81 0.84 1</diffuse><specular>0.3 0.3 0.3 1</specular></material>
       </visual>
       <visual name="swan_logo_A_2">
         <pose>0.52718 -0.032 0.4716 0 0 -1.5708</pose>
         <geometry><box><size>0.024285 0.0075 0.0012</size></box></geometry>
-        <material><ambient>0.552 0.564 0.576 1</ambient><diffuse>0.92 0.94 0.96 1</diffuse><specular>0.3 0.3 0.3 1</specular></material>
+        <material><ambient>0.468 0.486 0.504 1</ambient><diffuse>0.78 0.81 0.84 1</diffuse><specular>0.3 0.3 0.3 1</specular></material>
       </visual>
       <visual name="swan_logo_N_0">
         <pose>0.535 -0.061 0.4716 0 0 0</pose>
         <geometry><box><size>0.050125 0.0075 0.0012</size></box></geometry>
-        <material><ambient>0.552 0.564 0.576 1</ambient><diffuse>0.92 0.94 0.96 1</diffuse><specular>0.3 0.3 0.3 1</specular></material>
+        <material><ambient>0.468 0.486 0.504 1</ambient><diffuse>0.78 0.81 0.84 1</diffuse><specular>0.3 0.3 0.3 1</specular></material>
       </visual>
       <visual name="swan_logo_N_1">
         <pose>0.535 -0.097 0.4716 0 0 0</pose>
         <geometry><box><size>0.050125 0.0075 0.0012</size></box></geometry>
-        <material><ambient>0.552 0.564 0.576 1</ambient><diffuse>0.92 0.94 0.96 1</diffuse><specular>0.3 0.3 0.3 1</specular></material>
+        <material><ambient>0.468 0.486 0.504 1</ambient><diffuse>0.78 0.81 0.84 1</diffuse><specular>0.3 0.3 0.3 1</specular></material>
       </visual>
       <visual name="swan_logo_N_2">
         <pose>0.535 -0.079 0.4716 0 0 -2.4775</pose>
         <geometry><box><size>0.062537 0.0075 0.0012</size></box></geometry>
-        <material><ambient>0.552 0.564 0.576 1</ambient><diffuse>0.92 0.94 0.96 1</diffuse><specular>0.3 0.3 0.3 1</specular></material>
-      </visual>
-      <visual name="swan_logo_underline_left">
-        <pose>0.5 0.0585 0.4716 0 0 0</pose>
-        <geometry><box><size>0.004 0.082 0.0012</size></box></geometry>
-        <material><ambient>0.072 0.372 0.396 1</ambient><diffuse>0.12 0.62 0.66 1</diffuse><specular>0.2 0.2 0.2 1</specular><emissive>0.05 0.35 0.38 1</emissive></material>
-      </visual>
-      <visual name="swan_logo_underline_right">
-        <pose>0.5 -0.0585 0.4716 0 0 0</pose>
-        <geometry><box><size>0.004 0.082 0.0012</size></box></geometry>
-        <material><ambient>0.072 0.372 0.396 1</ambient><diffuse>0.12 0.62 0.66 1</diffuse><specular>0.2 0.2 0.2 1</specular><emissive>0.05 0.35 0.38 1</emissive></material>
+        <material><ambient>0.468 0.486 0.504 1</ambient><diffuse>0.78 0.81 0.84 1</diffuse><specular>0.3 0.3 0.3 1</specular></material>
       </visual>
       <visual name="camera_dock_recess">
         <pose>0.466 0 0.4714 0 0 0</pose>
         <geometry><box><size>0.056 0.076 0.0008</size></box></geometry>
         <material><ambient>0.021 0.0234 0.0264 1</ambient><diffuse>0.035 0.039 0.044 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
       </visual>
-      <visual name="camera_dock_rim_front">
-        <pose>0.4955 0 0.4716 0 0 0</pose>
-        <geometry><box><size>0.003 0.082 0.0012</size></box></geometry>
-        <material><ambient>0.384 0.408 0.426 1</ambient><diffuse>0.64 0.68 0.71 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
-      </visual>
-      <visual name="camera_dock_rim_rear">
-        <pose>0.4365 0 0.4716 0 0 0</pose>
-        <geometry><box><size>0.003 0.082 0.0012</size></box></geometry>
-        <material><ambient>0.384 0.408 0.426 1</ambient><diffuse>0.64 0.68 0.71 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
-      </visual>
       <visual name="camera_mast_slot">
         <pose>0.574 0 0.4714 0 0 0</pose>
         <geometry><box><size>0.16 0.021 0.0008</size></box></geometry>
-        <material><ambient>0.021 0.0234 0.0264 1</ambient><diffuse>0.035 0.039 0.044 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="battery_gauge_0">
-        <pose>0.418 0.088 0.4716 0 0 0</pose>
-        <geometry><box><size>0.007 0.022 0.0012</size></box></geometry>
-        <material><ambient>0.072 0.372 0.396 1</ambient><diffuse>0.12 0.62 0.66 1</diffuse><specular>0.2 0.2 0.2 1</specular><emissive>0.05 0.35 0.38 1</emissive></material>
-      </visual>
-      <visual name="battery_gauge_1">
-        <pose>0.4285 0.088 0.4716 0 0 0</pose>
-        <geometry><box><size>0.007 0.022 0.0012</size></box></geometry>
-        <material><ambient>0.072 0.372 0.396 1</ambient><diffuse>0.12 0.62 0.66 1</diffuse><specular>0.2 0.2 0.2 1</specular><emissive>0.05 0.35 0.38 1</emissive></material>
-      </visual>
-      <visual name="battery_gauge_2">
-        <pose>0.439 0.088 0.4716 0 0 0</pose>
-        <geometry><box><size>0.007 0.022 0.0012</size></box></geometry>
-        <material><ambient>0.072 0.372 0.396 1</ambient><diffuse>0.12 0.62 0.66 1</diffuse><specular>0.2 0.2 0.2 1</specular><emissive>0.05 0.35 0.38 1</emissive></material>
-      </visual>
-      <visual name="battery_gauge_3">
-        <pose>0.4495 0.088 0.4716 0 0 0</pose>
-        <geometry><box><size>0.007 0.022 0.0012</size></box></geometry>
-        <material><ambient>0.072 0.372 0.396 1</ambient><diffuse>0.12 0.62 0.66 1</diffuse><specular>0.2 0.2 0.2 1</specular><emissive>0.05 0.35 0.38 1</emissive></material>
-      </visual>
-      <visual name="battery_gauge_4">
-        <pose>0.46 0.088 0.4716 0 0 0</pose>
-        <geometry><box><size>0.007 0.022 0.0012</size></box></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="battery_gauge_bezel">
-        <pose>0.439 0.088 0.4714 0 0 0</pose>
-        <geometry><box><size>0.06 0.032 0.0008</size></box></geometry>
-        <material><ambient>0.021 0.0234 0.0264 1</ambient><diffuse>0.035 0.039 0.044 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="deck_vent_0">
-        <pose>0.415 -0.088 0.4714 0 0 0</pose>
-        <geometry><box><size>0.0035 0.05 0.0008</size></box></geometry>
-        <material><ambient>0.021 0.0234 0.0264 1</ambient><diffuse>0.035 0.039 0.044 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="deck_vent_1">
-        <pose>0.423 -0.088 0.4714 0 0 0</pose>
-        <geometry><box><size>0.0035 0.05 0.0008</size></box></geometry>
-        <material><ambient>0.021 0.0234 0.0264 1</ambient><diffuse>0.035 0.039 0.044 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="deck_vent_2">
-        <pose>0.431 -0.088 0.4714 0 0 0</pose>
-        <geometry><box><size>0.0035 0.05 0.0008</size></box></geometry>
-        <material><ambient>0.021 0.0234 0.0264 1</ambient><diffuse>0.035 0.039 0.044 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="deck_vent_3">
-        <pose>0.439 -0.088 0.4714 0 0 0</pose>
-        <geometry><box><size>0.0035 0.05 0.0008</size></box></geometry>
-        <material><ambient>0.021 0.0234 0.0264 1</ambient><diffuse>0.035 0.039 0.044 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="deck_vent_4">
-        <pose>0.447 -0.088 0.4714 0 0 0</pose>
-        <geometry><box><size>0.0035 0.05 0.0008</size></box></geometry>
-        <material><ambient>0.021 0.0234 0.0264 1</ambient><diffuse>0.035 0.039 0.044 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="deck_vent_5">
-        <pose>0.455 -0.088 0.4714 0 0 0</pose>
-        <geometry><box><size>0.0035 0.05 0.0008</size></box></geometry>
-        <material><ambient>0.021 0.0234 0.0264 1</ambient><diffuse>0.035 0.039 0.044 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="deck_vent_6">
-        <pose>0.463 -0.088 0.4714 0 0 0</pose>
-        <geometry><box><size>0.0035 0.05 0.0008</size></box></geometry>
-        <material><ambient>0.021 0.0234 0.0264 1</ambient><diffuse>0.035 0.039 0.044 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="estop_guard_ring">
-        <pose>0.648 -0.092 0.4715 0 0 0</pose>
-        <geometry><cylinder><radius>0.021</radius><length>0.001</length></cylinder></geometry>
-        <material><ambient>0.57 0.45 0.03 1</ambient><diffuse>0.95 0.75 0.05 1</diffuse><specular>0.1 0.1 0.1 1</specular></material>
-      </visual>
-      <visual name="estop_button">
-        <pose>0.648 -0.092 0.4717 0 0 0</pose>
-        <geometry><cylinder><radius>0.015</radius><length>0.0014</length></cylinder></geometry>
-        <material><ambient>0.468 0.036 0.03 1</ambient><diffuse>0.78 0.06 0.05 1</diffuse><specular>0.3 0.3 0.3 1</specular></material>
-      </visual>
-      <visual name="power_button_bezel">
-        <pose>0.648 0.092 0.4715 0 0 0</pose>
-        <geometry><cylinder><radius>0.013</radius><length>0.001</length></cylinder></geometry>
-        <material><ambient>0.384 0.408 0.426 1</ambient><diffuse>0.64 0.68 0.71 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
-      </visual>
-      <visual name="power_button">
-        <pose>0.648 0.092 0.4717 0 0 0</pose>
-        <geometry><cylinder><radius>0.009</radius><length>0.0014</length></cylinder></geometry>
-        <material><ambient>0.06 0.42 0.15 1</ambient><diffuse>0.1 0.7 0.25 1</diffuse><specular>0.2 0.2 0.2 1</specular><emissive>0.03 0.3 0.1 1</emissive></material>
-      </visual>
-      <visual name="deck_panel_seam_0">
-        <pose>0.555 0.112 0.4714 0 0 0</pose>
-        <geometry><box><size>0.19 0.002 0.0008</size></box></geometry>
-        <material><ambient>0.021 0.0234 0.0264 1</ambient><diffuse>0.035 0.039 0.044 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="deck_panel_seam_1">
-        <pose>0.555 -0.112 0.4714 0 0 0</pose>
-        <geometry><box><size>0.19 0.002 0.0008</size></box></geometry>
-        <material><ambient>0.021 0.0234 0.0264 1</ambient><diffuse>0.035 0.039 0.044 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="deck_latch_0">
-        <pose>0.405 0.112 0.4716 0 0 0</pose>
-        <geometry><cylinder><radius>0.0055</radius><length>0.0012</length></cylinder></geometry>
-        <material><ambient>0.384 0.408 0.426 1</ambient><diffuse>0.64 0.68 0.71 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
-      </visual>
-      <visual name="deck_latch_slot_0">
-        <pose>0.405 0.112 0.472 0 0 0.6</pose>
-        <geometry><box><size>0.008 0.0015 0.0008</size></box></geometry>
-        <material><ambient>0.021 0.0234 0.0264 1</ambient><diffuse>0.035 0.039 0.044 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="deck_latch_1">
-        <pose>0.405 -0.112 0.4716 0 0 0</pose>
-        <geometry><cylinder><radius>0.0055</radius><length>0.0012</length></cylinder></geometry>
-        <material><ambient>0.384 0.408 0.426 1</ambient><diffuse>0.64 0.68 0.71 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
-      </visual>
-      <visual name="deck_latch_slot_1">
-        <pose>0.405 -0.112 0.472 0 0 0.6</pose>
-        <geometry><box><size>0.008 0.0015 0.0008</size></box></geometry>
-        <material><ambient>0.021 0.0234 0.0264 1</ambient><diffuse>0.035 0.039 0.044 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="deck_latch_2">
-        <pose>0.675 0.112 0.4716 0 0 0</pose>
-        <geometry><cylinder><radius>0.0055</radius><length>0.0012</length></cylinder></geometry>
-        <material><ambient>0.384 0.408 0.426 1</ambient><diffuse>0.64 0.68 0.71 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
-      </visual>
-      <visual name="deck_latch_slot_2">
-        <pose>0.675 0.112 0.472 0 0 0.6</pose>
-        <geometry><box><size>0.008 0.0015 0.0008</size></box></geometry>
-        <material><ambient>0.021 0.0234 0.0264 1</ambient><diffuse>0.035 0.039 0.044 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="deck_latch_3">
-        <pose>0.675 -0.112 0.4716 0 0 0</pose>
-        <geometry><cylinder><radius>0.0055</radius><length>0.0012</length></cylinder></geometry>
-        <material><ambient>0.384 0.408 0.426 1</ambient><diffuse>0.64 0.68 0.71 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
-      </visual>
-      <visual name="deck_latch_slot_3">
-        <pose>0.675 -0.112 0.472 0 0 0.6</pose>
-        <geometry><box><size>0.008 0.0015 0.0008</size></box></geometry>
         <material><ambient>0.021 0.0234 0.0264 1</ambient><diffuse>0.035 0.039 0.044 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
       </visual>
       <visual name="headlight_housing">
@@ -1652,127 +1497,22 @@
       <visual name="headlight_bar">
         <pose>0.69 0 0.444 0 0 0</pose>
         <geometry><box><size>0.004 0.16 0.009</size></box></geometry>
-        <material><ambient>0.6 0.582 0.51 1</ambient><diffuse>1 0.97 0.85 1</diffuse><specular>0.4 0.4 0.4 1</specular><emissive>0.9 0.85 0.7 1</emissive></material>
-      </visual>
-      <visual name="proximity_sensor_left_bezel">
-        <pose>0.689 0.096 0.417 0 1.5708 0</pose>
-        <geometry><cylinder><radius>0.011</radius><length>0.005</length></cylinder></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="proximity_sensor_left">
-        <pose>0.691 0.096 0.417 0 1.5708 0</pose>
-        <geometry><cylinder><radius>0.007</radius><length>0.004</length></cylinder></geometry>
-        <material><ambient>0.021 0.06 0.078 1</ambient><diffuse>0.035 0.1 0.13 1</diffuse><specular>0.5 0.5 0.5 1</specular></material>
-      </visual>
-      <visual name="turn_signal_left">
-        <pose>0.69 0.108 0.444 0 0 0</pose>
-        <geometry><box><size>0.004 0.026 0.009</size></box></geometry>
-        <material><ambient>0.57 0.3 0.03 1</ambient><diffuse>0.95 0.5 0.05 1</diffuse><specular>0.3 0.3 0.3 1</specular></material>
-      </visual>
-      <visual name="proximity_sensor_right_bezel">
-        <pose>0.689 -0.096 0.417 0 1.5708 0</pose>
-        <geometry><cylinder><radius>0.011</radius><length>0.005</length></cylinder></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="proximity_sensor_right">
-        <pose>0.691 -0.096 0.417 0 1.5708 0</pose>
-        <geometry><cylinder><radius>0.007</radius><length>0.004</length></cylinder></geometry>
-        <material><ambient>0.021 0.06 0.078 1</ambient><diffuse>0.035 0.1 0.13 1</diffuse><specular>0.5 0.5 0.5 1</specular></material>
-      </visual>
-      <visual name="turn_signal_right">
-        <pose>0.69 -0.108 0.444 0 0 0</pose>
-        <geometry><box><size>0.004 0.026 0.009</size></box></geometry>
-        <material><ambient>0.57 0.3 0.03 1</ambient><diffuse>0.95 0.5 0.05 1</diffuse><specular>0.3 0.3 0.3 1</specular></material>
-      </visual>
-      <visual name="nose_badge_plate">
-        <pose>0.689 0 0.418 0 0 0</pose>
-        <geometry><box><size>0.004 0.07 0.014</size></box></geometry>
-        <material><ambient>0.384 0.408 0.426 1</ambient><diffuse>0.64 0.68 0.71 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
-      </visual>
-      <visual name="nose_badge_accent">
-        <pose>0.691 0 0.418 0 0 0</pose>
-        <geometry><box><size>0.003 0.05 0.004</size></box></geometry>
-        <material><ambient>0.072 0.372 0.396 1</ambient><diffuse>0.12 0.62 0.66 1</diffuse><specular>0.2 0.2 0.2 1</specular><emissive>0.05 0.35 0.38 1</emissive></material>
+        <material><ambient>0.51 0.522 0.54 1</ambient><diffuse>0.85 0.87 0.9 1</diffuse><specular>0.4 0.4 0.4 1</specular><emissive>0.45 0.46 0.48 1</emissive></material>
       </visual>
       <visual name="tail_light_bar">
         <pose>0.3905 0 0.4655 0 0 0</pose>
         <geometry><box><size>0.004 0.17 0.006</size></box></geometry>
-        <material><ambient>0.51 0.03 0.024 1</ambient><diffuse>0.85 0.05 0.04 1</diffuse><specular>0.3 0.3 0.3 1</specular><emissive>0.6 0.02 0.02 1</emissive></material>
-      </visual>
-      <visual name="runner_mount_left_0">
-        <pose>0.47 0.137 0.43 0 0 0</pose>
-        <geometry><box><size>0.026 0.007 0.024</size></box></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="runner_mount_left_0_bolt">
-        <pose>0.47 0.1462 0.43 1.5708 0 0</pose>
-        <geometry><cylinder><radius>0.0035</radius><length>0.002</length></cylinder></geometry>
-        <material><ambient>0.384 0.408 0.426 1</ambient><diffuse>0.64 0.68 0.71 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
-      </visual>
-      <visual name="runner_mount_left_1">
-        <pose>0.565 0.137 0.43 0 0 0</pose>
-        <geometry><box><size>0.026 0.007 0.024</size></box></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="runner_mount_left_1_bolt">
-        <pose>0.565 0.1462 0.43 1.5708 0 0</pose>
-        <geometry><cylinder><radius>0.0035</radius><length>0.002</length></cylinder></geometry>
-        <material><ambient>0.384 0.408 0.426 1</ambient><diffuse>0.64 0.68 0.71 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
-      </visual>
-      <visual name="runner_mount_left_2">
-        <pose>0.66 0.137 0.43 0 0 0</pose>
-        <geometry><box><size>0.026 0.007 0.024</size></box></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="runner_mount_left_2_bolt">
-        <pose>0.66 0.1462 0.43 1.5708 0 0</pose>
-        <geometry><cylinder><radius>0.0035</radius><length>0.002</length></cylinder></geometry>
-        <material><ambient>0.384 0.408 0.426 1</ambient><diffuse>0.64 0.68 0.71 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
-      </visual>
-      <visual name="runner_mount_right_0">
-        <pose>0.47 -0.137 0.43 0 0 0</pose>
-        <geometry><box><size>0.026 0.007 0.024</size></box></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="runner_mount_right_0_bolt">
-        <pose>0.47 -0.1462 0.43 1.5708 0 0</pose>
-        <geometry><cylinder><radius>0.0035</radius><length>0.002</length></cylinder></geometry>
-        <material><ambient>0.384 0.408 0.426 1</ambient><diffuse>0.64 0.68 0.71 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
-      </visual>
-      <visual name="runner_mount_right_1">
-        <pose>0.565 -0.137 0.43 0 0 0</pose>
-        <geometry><box><size>0.026 0.007 0.024</size></box></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="runner_mount_right_1_bolt">
-        <pose>0.565 -0.1462 0.43 1.5708 0 0</pose>
-        <geometry><cylinder><radius>0.0035</radius><length>0.002</length></cylinder></geometry>
-        <material><ambient>0.384 0.408 0.426 1</ambient><diffuse>0.64 0.68 0.71 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
-      </visual>
-      <visual name="runner_mount_right_2">
-        <pose>0.66 -0.137 0.43 0 0 0</pose>
-        <geometry><box><size>0.026 0.007 0.024</size></box></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="runner_mount_right_2_bolt">
-        <pose>0.66 -0.1462 0.43 1.5708 0 0</pose>
-        <geometry><cylinder><radius>0.0035</radius><length>0.002</length></cylinder></geometry>
-        <material><ambient>0.384 0.408 0.426 1</ambient><diffuse>0.64 0.68 0.71 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
+        <material><ambient>0.27 0.03 0.03 1</ambient><diffuse>0.45 0.05 0.05 1</diffuse><specular>0.3 0.3 0.3 1</specular><emissive>0.25 0.01 0.01 1</emissive></material>
       </visual>
       <visual name="charge_port_bezel">
         <pose>0.455 0.1352 0.457 1.5708 0 0</pose>
         <geometry><cylinder><radius>0.0095</radius><length>0.003</length></cylinder></geometry>
-        <material><ambient>0.384 0.408 0.426 1</ambient><diffuse>0.64 0.68 0.71 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
+        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
       </visual>
       <visual name="charge_port_cap">
         <pose>0.455 0.1368 0.457 1.5708 0 0</pose>
         <geometry><cylinder><radius>0.007</radius><length>0.002</length></cylinder></geometry>
         <material><ambient>0.021 0.0234 0.0264 1</ambient><diffuse>0.035 0.039 0.044 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="charge_port_marker">
-        <pose>0.472 0.1352 0.457 0 0 0</pose>
-        <geometry><box><size>0.012 0.002 0.004</size></box></geometry>
-        <material><ambient>0.072 0.372 0.396 1</ambient><diffuse>0.12 0.62 0.66 1</diffuse><specular>0.2 0.2 0.2 1</specular><emissive>0.05 0.35 0.38 1</emissive></material>
       </visual>
       <visual name="belly_skid_left">
         <pose>0.565 0.085 0.3905 0 0 0</pose>
@@ -2044,37 +1784,7 @@
       <visual name="steering_servo_cap">
         <pose>0.818 0 0.389 0 0 0</pose>
         <geometry><cylinder><radius>0.03</radius><length>0.003</length></cylinder></geometry>
-        <material><ambient>0.384 0.408 0.426 1</ambient><diffuse>0.64 0.68 0.71 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
-      </visual>
-      <visual name="steering_servo_bolt_0">
-        <pose>0.85335 0.010934 0.3905 0 0 0</pose>
-        <geometry><cylinder><radius>0.0035</radius><length>0.0015</length></cylinder></geometry>
-        <material><ambient>0.384 0.408 0.426 1</ambient><diffuse>0.64 0.68 0.71 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
-      </visual>
-      <visual name="steering_servo_bolt_1">
-        <pose>0.8262 0.036079 0.3905 0 0 0</pose>
-        <geometry><cylinder><radius>0.0035</radius><length>0.0015</length></cylinder></geometry>
-        <material><ambient>0.384 0.408 0.426 1</ambient><diffuse>0.64 0.68 0.71 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
-      </visual>
-      <visual name="steering_servo_bolt_2">
-        <pose>0.79086 0.025145 0.3905 0 0 0</pose>
-        <geometry><cylinder><radius>0.0035</radius><length>0.0015</length></cylinder></geometry>
-        <material><ambient>0.384 0.408 0.426 1</ambient><diffuse>0.64 0.68 0.71 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
-      </visual>
-      <visual name="steering_servo_bolt_3">
-        <pose>0.78265 -0.010934 0.3905 0 0 0</pose>
-        <geometry><cylinder><radius>0.0035</radius><length>0.0015</length></cylinder></geometry>
-        <material><ambient>0.384 0.408 0.426 1</ambient><diffuse>0.64 0.68 0.71 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
-      </visual>
-      <visual name="steering_servo_bolt_4">
-        <pose>0.8098 -0.036079 0.3905 0 0 0</pose>
-        <geometry><cylinder><radius>0.0035</radius><length>0.0015</length></cylinder></geometry>
-        <material><ambient>0.384 0.408 0.426 1</ambient><diffuse>0.64 0.68 0.71 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
-      </visual>
-      <visual name="steering_servo_bolt_5">
-        <pose>0.84514 -0.025145 0.3905 0 0 0</pose>
-        <geometry><cylinder><radius>0.0035</radius><length>0.0015</length></cylinder></geometry>
-        <material><ambient>0.384 0.408 0.426 1</ambient><diffuse>0.64 0.68 0.71 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
+        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
       </visual>
       <visual name="steering_servo_gearbox">
         <pose>0.766 0 0.3865 0 0 0</pose>
@@ -2090,56 +1800,6 @@
         <pose>0.69 -0.0285 0.3865 0 0 0</pose>
         <geometry><box><size>0.2 0.006 0.006</size></box></geometry>
         <material><ambient>0.021 0.0234 0.0264 1</ambient><diffuse>0.035 0.039 0.044 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="arm_cable_clip_0">
-        <pose>0.615 0 0.3868 0 0 0</pose>
-        <geometry><box><size>0.006 0.066 0.0075</size></box></geometry>
-        <material><ambient>0.384 0.408 0.426 1</ambient><diffuse>0.64 0.68 0.71 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
-      </visual>
-      <visual name="arm_cable_clip_1">
-        <pose>0.665 0 0.3868 0 0 0</pose>
-        <geometry><box><size>0.006 0.066 0.0075</size></box></geometry>
-        <material><ambient>0.384 0.408 0.426 1</ambient><diffuse>0.64 0.68 0.71 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
-      </visual>
-      <visual name="arm_cable_clip_2">
-        <pose>0.715 0 0.3868 0 0 0</pose>
-        <geometry><box><size>0.006 0.066 0.0075</size></box></geometry>
-        <material><ambient>0.384 0.408 0.426 1</ambient><diffuse>0.64 0.68 0.71 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
-      </visual>
-      <visual name="arm_cable_clip_3">
-        <pose>0.765 0 0.3868 0 0 0</pose>
-        <geometry><box><size>0.006 0.066 0.0075</size></box></geometry>
-        <material><ambient>0.384 0.408 0.426 1</ambient><diffuse>0.64 0.68 0.71 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
-      </visual>
-      <visual name="fender_lamp_housing">
-        <pose>0.99845 0 0.30299 0 -0.66323 0</pose>
-        <geometry><box><size>0.018 0.058 0.024</size></box></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="fender_lamp">
-        <pose>1.0016 0 0.30545 0 -0.66323 0</pose>
-        <geometry><box><size>0.012 0.05 0.02</size></box></geometry>
-        <material><ambient>0.6 0.582 0.51 1</ambient><diffuse>1 0.97 0.85 1</diffuse><specular>0.4 0.4 0.4 1</specular><emissive>0.9 0.85 0.7 1</emissive></material>
-      </visual>
-      <visual name="fender_tail_reflector_housing">
-        <pose>0.61968 0 0.2765 0 -2.618 0</pose>
-        <geometry><box><size>0.012 0.058 0.02</size></box></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="fender_tail_reflector">
-        <pose>0.61622 0 0.2785 0 -2.618 0</pose>
-        <geometry><box><size>0.006 0.05 0.016</size></box></geometry>
-        <material><ambient>0.51 0.03 0.024 1</ambient><diffuse>0.85 0.05 0.04 1</diffuse><specular>0.3 0.3 0.3 1</specular><emissive>0.6 0.02 0.02 1</emissive></material>
-      </visual>
-      <visual name="fender_side_reflector_left">
-        <pose>0.87507 0.0515 0.37099 0 0.2618 0</pose>
-        <geometry><box><size>0.03 0.002 0.007</size></box></geometry>
-        <material><ambient>0.57 0.3 0.03 1</ambient><diffuse>0.95 0.5 0.05 1</diffuse><specular>0.3 0.3 0.3 1</specular></material>
-      </visual>
-      <visual name="fender_side_reflector_right">
-        <pose>0.87507 -0.0515 0.37099 0 0.2618 0</pose>
-        <geometry><box><size>0.03 0.002 0.007</size></box></geometry>
-        <material><ambient>0.57 0.3 0.03 1</ambient><diffuse>0.95 0.5 0.05 1</diffuse><specular>0.3 0.3 0.3 1</specular></material>
       </visual>
       <!-- DETAIL-END -->
     </link>
@@ -2197,7 +1857,7 @@
       <visual name="camera_mast_collar">
         <pose>0 0 0.034 0 0 0</pose>
         <geometry><cylinder><radius>0.0135</radius><length>0.012</length></cylinder></geometry>
-        <material><ambient>0.384 0.408 0.426 1</ambient><diffuse>0.64 0.68 0.71 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
+        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
       </visual>
       <visual name="camera_mast_cable">
         <pose>-0.0105 0 0.095 0 0 0</pose>
@@ -2207,12 +1867,7 @@
       <visual name="camera_mast_top_collar">
         <pose>0 0 0.15 0 0 0</pose>
         <geometry><cylinder><radius>0.012</radius><length>0.008</length></cylinder></geometry>
-        <material><ambient>0.384 0.408 0.426 1</ambient><diffuse>0.64 0.68 0.71 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
-      </visual>
-      <visual name="camera_mast_status_led">
-        <pose>0.0095 0 0.034 0 0 0</pose>
-        <geometry><box><size>0.002 0.008 0.005</size></box></geometry>
-        <material><ambient>0.072 0.372 0.396 1</ambient><diffuse>0.12 0.62 0.66 1</diffuse><specular>0.2 0.2 0.2 1</specular><emissive>0.05 0.35 0.38 1</emissive></material>
+        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
       </visual>
       <!-- DETAIL-END -->
     </link>
