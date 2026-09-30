@@ -1107,10 +1107,11 @@
     </link>
 
     <!-- Slide carrier: the whole SWAN kit (body, fork, drive wheel, sensors)
-         rides on this link. Identity pose preserves ALL existing extended poses.
+         rides on this link. Its visuals keep their original coordinates; the link
+         pose shifts the whole kit 0.138 m towards the wheelchair.
          The body is 3 kg: the stow PIDs need real mass on both sides of each joint. -->
     <link name="swan_slide_link">
-      <pose>0 0 0 0 0 0</pose>
+      <pose>-0.138 0 0 0 0 0</pose>
       <inertial>
         <pose>0.555 0 0.431 0 0 0</pose>
         <mass>3.0</mass>
@@ -2333,7 +2334,7 @@
         <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
       </visual>
       <!-- Slide runners under the body; they ride in the under-seat rails.
-           Extended they span x 0.16..0.70; stowed -0.37..0.17. -->
+           In model coordinates they span x 0.02..0.56 extended, -0.37..0.17 stowed. -->
       <visual name="swan_slide_runner_left">
         <pose>0.43 0.053 0.385 0 0 0</pose>
         <geometry><box><size>0.54 0.008 0.014</size></box></geometry>
@@ -2455,7 +2456,7 @@
 
     <!-- STAGE 2 of the stow: the kit body slides back along the wheelchair centre
          line, between the user's legs, until it sits under the seat.
-         0.0 = extended (driving position); +0.53 m = stowed.
+         0.0 = extended (driving position); +0.39 m = stowed.
          The axis points backwards so a positive command retracts.
          Hard stops sit 1 cm outside both commanded positions. -->
     <joint name="swan_slide_joint" type="prismatic">
@@ -2465,7 +2466,7 @@
         <xyz expressed_in="base_link">-1 0 0</xyz>
         <limit>
           <lower>-0.01</lower>
-          <upper>0.54</upper>
+          <upper>0.40</upper>
           <effort>3000</effort>
           <velocity>0.5</velocity>
         </limit>
@@ -2480,7 +2481,7 @@
     <!-- Wheel carriage: steering head, fork, drive wheel, fender and LiDAR ride
          on this arm, which slides under the kit body. -->
     <link name="swan_wheel_carriage">
-      <pose>0 0 0 0 0 0</pose>
+      <pose>-0.138 0 0 0 0 0</pose>
       <inertial>
         <pose>0.76 0 0.386 0 0 0</pose>
         <mass>1.0</mass>
@@ -2753,7 +2754,7 @@
 
     <!-- Camera mast: hinged on the kit body, folds backwards into the body top. -->
     <link name="camera_mast">
-      <pose>0.66 0 0.445 0 0 0</pose>
+      <pose>0.522 0 0.445 0 0 0</pose>
       <inertial>
         <pose>0 0 0.08 0 0 0</pose>
         <mass>0.05</mass>
@@ -4728,7 +4729,7 @@
 
     <link name="swan_steering_fork">
 
-      <pose>0.818 0 0.306 0 0 0</pose>
+      <pose>0.68 0 0.306 0 0 0</pose>
 
       <inertial>
         <mass>1.5</mass>
@@ -4858,7 +4859,7 @@
 
     <link name="front_drive_wheel">
 
-      <pose>0.818 0 0.162 1.5708 0 0</pose>
+      <pose>0.68 0 0.162 1.5708 0 0</pose>
 
       <inertial>
         <mass>7.0</mass>
@@ -6311,7 +6312,7 @@
 
     <link name="lidar_link">
 
-      <pose>1.07 0 0.09 0 0 0</pose>
+      <pose>0.932 0 0.09 0 0 0</pose>
 
       <inertial>
         <mass>0.5</mass>
@@ -6415,7 +6416,7 @@
 
     <link name="camera_link">
 
-      <pose>0.66 0 0.64 0 0.17 0</pose>
+      <pose>0.522 0 0.64 0 0.17 0</pose>
 
       <inertial>
         <mass>0.1</mass>

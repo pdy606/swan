@@ -124,7 +124,7 @@ def generate_launch_description():
         name='lidar_static_tf',
         output='screen',
         arguments=[
-            '--x', '1.07',
+            '--x', '0.932',
             '--y', '0.0',
             '--z', '0.09',
             '--roll', '0.0',

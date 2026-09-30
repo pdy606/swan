@@ -18,8 +18,8 @@ class SwanDriveController(Node):
         self.wheel_radius = 0.18
 
         # 휠체어 큰바퀴 축 x=-0.13
-        # SWAN 조향축 x=0.818
-        self.wheelbase = 0.948
+        # SWAN 조향축 x=0.68
+        self.wheelbase = 0.81
 
         # 완전 90도에서는 수치적으로 너무 극단적이므로
         # 일반 최대 조향은 약 88도
@@ -68,7 +68,7 @@ class SwanDriveController(Node):
 
         # model.sdf 관절 이동 범위
         self.retract_travel = 0.18
-        self.slide_travel = 0.53
+        self.slide_travel = 0.39
         self.camera_fold_angle = 1.5708
 
         self.retract_speed = 0.12   # [m/s]
