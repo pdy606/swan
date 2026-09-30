@@ -53,9 +53,18 @@ def generate_launch_description():
             '@std_msgs/msg/Float64'
             '@gz.msgs.Double',
 
-            # ROS 2 -> Gazebo : under-seat slide, 0.0 extended / 0.47 stowed
-            # (one-way command bridge)
-            '/model/wheelchair/fold/cmd_pos'
+            # ROS 2 -> Gazebo : stow actuators (one-way command bridges).
+            # swan_drive_controller.py drives these from
+            # /model/wheelchair/fold/cmd_pos (0.0 deploy / non-zero stow).
+            '/model/wheelchair/wheel_retract/cmd_pos'
+            '@std_msgs/msg/Float64'
+            ']gz.msgs.Double',
+
+            '/model/wheelchair/slide/cmd_pos'
+            '@std_msgs/msg/Float64'
+            ']gz.msgs.Double',
+
+            '/model/wheelchair/camera_fold/cmd_pos'
             '@std_msgs/msg/Float64'
             ']gz.msgs.Double',
 
@@ -105,6 +114,8 @@ def generate_launch_description():
         executable='swan_drive_controller.py',
         name='swan_drive_controller',
         output='screen',
+        # stow 시퀀스 타이머가 시뮬레이션 시간으로 돌도록
+        parameters=[{'use_sim_time': True}],
     )
 
     lidar_static_tf = Node(
@@ -115,7 +126,7 @@ def generate_launch_description():
         arguments=[
             '--x', '1.07',
             '--y', '0.0',
-            '--z', '0.10',
+            '--z', '0.09',
             '--roll', '0.0',
             '--pitch', '0.0',
             '--yaw', '0.0',
