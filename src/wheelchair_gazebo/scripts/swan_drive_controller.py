@@ -51,8 +51,9 @@ class SwanDriveController(Node):
             10
         )
 
-        # Command-based gate only: zero re-enables immediately.
-        # Keep stopped until unfolding has physically finished (at least 3 seconds).
+        # Command-based gate only: zero (extended) re-enables immediately,
+        # any non-zero slide command (stowed under the seat) disables driving.
+        # Keep stopped until extending has physically finished (at least 3 seconds).
         self.folded = False
         self.fold_sub = self.create_subscription(
             Float64,

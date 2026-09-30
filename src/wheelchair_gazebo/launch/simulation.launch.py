@@ -53,7 +53,8 @@ def generate_launch_description():
             '@std_msgs/msg/Float64'
             '@gz.msgs.Double',
 
-            # ROS 2 -> Gazebo : side-fold (one-way command bridge)
+            # ROS 2 -> Gazebo : under-seat slide, 0.0 extended / 0.34 stowed
+            # (one-way command bridge)
             '/model/wheelchair/fold/cmd_pos'
             '@std_msgs/msg/Float64'
             ']gz.msgs.Double',

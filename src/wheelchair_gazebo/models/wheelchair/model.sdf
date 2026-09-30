@@ -578,45 +578,47 @@
       
       
     
-      <!-- Refined leg clearance, compact panels and fixed sensor fairing: visuals only. -->
+      <!-- Refined leg clearance, compact panels and fixed sensor fairing: visuals only.
+           Footplates leave a 0.20 m centre gap so the SWAN fork and drive wheel
+           can slide back between them. -->
       <visual name="left_footplate">
-        <pose>0.365 0.145 0.18 0 0 0</pose>
-        <geometry><box><size>0.21 0.17 0.022</size></box></geometry>
+        <pose>0.365 0.165 0.18 0 0 0</pose>
+        <geometry><box><size>0.21 0.13 0.022</size></box></geometry>
         <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
       </visual>
       <visual name="left_footpad">
-        <pose>0.365 0.145 0.192 0 0 0</pose>
-        <geometry><box><size>0.19 0.151 0.003</size></box></geometry>
+        <pose>0.365 0.165 0.192 0 0 0</pose>
+        <geometry><box><size>0.19 0.111 0.003</size></box></geometry>
         <material><ambient>0.021 0.0234 0.0264 1</ambient><diffuse>0.035 0.039 0.044 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
       </visual>
       <visual name="left_foot_grip_0">
-        <pose>0.289 0.145 0.194 0 0 0</pose>
-        <geometry><box><size>0.006 0.145 0.002</size></box></geometry>
+        <pose>0.289 0.165 0.194 0 0 0</pose>
+        <geometry><box><size>0.006 0.105 0.002</size></box></geometry>
         <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
       </visual>
       <visual name="left_foot_grip_1">
-        <pose>0.319 0.145 0.194 0 0 0</pose>
-        <geometry><box><size>0.006 0.145 0.002</size></box></geometry>
+        <pose>0.319 0.165 0.194 0 0 0</pose>
+        <geometry><box><size>0.006 0.105 0.002</size></box></geometry>
         <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
       </visual>
       <visual name="left_foot_grip_2">
-        <pose>0.349 0.145 0.194 0 0 0</pose>
-        <geometry><box><size>0.006 0.145 0.002</size></box></geometry>
+        <pose>0.349 0.165 0.194 0 0 0</pose>
+        <geometry><box><size>0.006 0.105 0.002</size></box></geometry>
         <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
       </visual>
       <visual name="left_foot_grip_3">
-        <pose>0.379 0.145 0.194 0 0 0</pose>
-        <geometry><box><size>0.006 0.145 0.002</size></box></geometry>
+        <pose>0.379 0.165 0.194 0 0 0</pose>
+        <geometry><box><size>0.006 0.105 0.002</size></box></geometry>
         <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
       </visual>
       <visual name="left_foot_grip_4">
-        <pose>0.409 0.145 0.194 0 0 0</pose>
-        <geometry><box><size>0.006 0.145 0.002</size></box></geometry>
+        <pose>0.409 0.165 0.194 0 0 0</pose>
+        <geometry><box><size>0.006 0.105 0.002</size></box></geometry>
         <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
       </visual>
       <visual name="left_foot_grip_5">
-        <pose>0.439 0.145 0.194 0 0 0</pose>
-        <geometry><box><size>0.006 0.145 0.002</size></box></geometry>
+        <pose>0.439 0.165 0.194 0 0 0</pose>
+        <geometry><box><size>0.006 0.105 0.002</size></box></geometry>
         <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
       </visual>
       <visual name="left_footrest_hanger_upper">
@@ -706,43 +708,43 @@
       
       
       <visual name="right_footplate">
-        <pose>0.365 -0.145 0.18 0 0 0</pose>
-        <geometry><box><size>0.21 0.17 0.022</size></box></geometry>
+        <pose>0.365 -0.165 0.18 0 0 0</pose>
+        <geometry><box><size>0.21 0.13 0.022</size></box></geometry>
         <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
       </visual>
       <visual name="right_footpad">
-        <pose>0.365 -0.145 0.192 0 0 0</pose>
-        <geometry><box><size>0.19 0.151 0.003</size></box></geometry>
+        <pose>0.365 -0.165 0.192 0 0 0</pose>
+        <geometry><box><size>0.19 0.111 0.003</size></box></geometry>
         <material><ambient>0.021 0.0234 0.0264 1</ambient><diffuse>0.035 0.039 0.044 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
       </visual>
       <visual name="right_foot_grip_0">
-        <pose>0.289 -0.145 0.194 0 0 0</pose>
-        <geometry><box><size>0.006 0.145 0.002</size></box></geometry>
+        <pose>0.289 -0.165 0.194 0 0 0</pose>
+        <geometry><box><size>0.006 0.105 0.002</size></box></geometry>
         <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
       </visual>
       <visual name="right_foot_grip_1">
-        <pose>0.319 -0.145 0.194 0 0 0</pose>
-        <geometry><box><size>0.006 0.145 0.002</size></box></geometry>
+        <pose>0.319 -0.165 0.194 0 0 0</pose>
+        <geometry><box><size>0.006 0.105 0.002</size></box></geometry>
         <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
       </visual>
       <visual name="right_foot_grip_2">
-        <pose>0.349 -0.145 0.194 0 0 0</pose>
-        <geometry><box><size>0.006 0.145 0.002</size></box></geometry>
+        <pose>0.349 -0.165 0.194 0 0 0</pose>
+        <geometry><box><size>0.006 0.105 0.002</size></box></geometry>
         <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
       </visual>
       <visual name="right_foot_grip_3">
-        <pose>0.379 -0.145 0.194 0 0 0</pose>
-        <geometry><box><size>0.006 0.145 0.002</size></box></geometry>
+        <pose>0.379 -0.165 0.194 0 0 0</pose>
+        <geometry><box><size>0.006 0.105 0.002</size></box></geometry>
         <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
       </visual>
       <visual name="right_foot_grip_4">
-        <pose>0.409 -0.145 0.194 0 0 0</pose>
-        <geometry><box><size>0.006 0.145 0.002</size></box></geometry>
+        <pose>0.409 -0.165 0.194 0 0 0</pose>
+        <geometry><box><size>0.006 0.105 0.002</size></box></geometry>
         <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
       </visual>
       <visual name="right_foot_grip_5">
-        <pose>0.439 -0.145 0.194 0 0 0</pose>
-        <geometry><box><size>0.006 0.145 0.002</size></box></geometry>
+        <pose>0.439 -0.165 0.194 0 0 0</pose>
+        <geometry><box><size>0.006 0.105 0.002</size></box></geometry>
         <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
       </visual>
       <visual name="right_footrest_hanger_upper">
@@ -1049,24 +1051,65 @@
       
       
       
-      <!-- Single side-fold hinge at the left wheelchair/kit connector. -->
-      <visual name="swan_fold_hinge_fixed_visual">
-        <pose>0.20 0.258 0.19 0 0 0</pose>
-        <geometry><cylinder><radius>0.018</radius><length>0.045</length></cylinder></geometry>
-        <material><ambient>0.12 0.13 0.14 1</ambient><diffuse>0.25 0.28 0.30 1</diffuse></material>
+      <!-- Under-seat centre guide rail for the SWAN slide: visuals only.
+           Open channel (base + two walls) hung from the seat by two U cradles,
+           so the space in front of the seat stays clear for the user's legs. -->
+      <visual name="swan_slide_rail_base">
+        <pose>-0.04 0 0.324 0 0 0</pose>
+        <geometry><box><size>0.50 0.068 0.008</size></box></geometry>
+        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
       </visual>
-      <!-- Cosmetic latch only: no fixed joint on the opposite side. -->
-      <visual name="swan_fold_latch_fixed_visual">
-        <pose>0.20 -0.258 0.19 0 0 0</pose>
-        <geometry><box><size>0.038 0.034 0.026</size></box></geometry>
-        <material><ambient>0.08 0.09 0.10 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse></material>
+      <visual name="swan_slide_rail_wall_left">
+        <pose>-0.04 0.030 0.343 0 0 0</pose>
+        <geometry><box><size>0.50 0.008 0.030</size></box></geometry>
+        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
+      </visual>
+      <visual name="swan_slide_rail_wall_right">
+        <pose>-0.04 -0.030 0.343 0 0 0</pose>
+        <geometry><box><size>0.50 0.008 0.030</size></box></geometry>
+        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
+      </visual>
+      <visual name="swan_slide_rail_front_block">
+        <pose>0.195 0 0.338 0 0 0</pose>
+        <geometry><box><size>0.030 0.076 0.036</size></box></geometry>
+        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
+      </visual>
+      <visual name="swan_slide_cradle_front_bar">
+        <pose>0.12 0 0.318 0 0 0</pose>
+        <geometry><box><size>0.030 0.36 0.014</size></box></geometry>
+        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
+      </visual>
+      <visual name="swan_slide_cradle_front_hanger_left">
+        <pose>0.12 0.174 0.395 0 0 0</pose>
+        <geometry><box><size>0.030 0.012 0.155</size></box></geometry>
+        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
+      </visual>
+      <visual name="swan_slide_cradle_front_hanger_right">
+        <pose>0.12 -0.174 0.395 0 0 0</pose>
+        <geometry><box><size>0.030 0.012 0.155</size></box></geometry>
+        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
+      </visual>
+      <visual name="swan_slide_cradle_rear_bar">
+        <pose>-0.22 0 0.318 0 0 0</pose>
+        <geometry><box><size>0.030 0.36 0.014</size></box></geometry>
+        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
+      </visual>
+      <visual name="swan_slide_cradle_rear_hanger_left">
+        <pose>-0.22 0.174 0.395 0 0 0</pose>
+        <geometry><box><size>0.030 0.012 0.155</size></box></geometry>
+        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
+      </visual>
+      <visual name="swan_slide_cradle_rear_hanger_right">
+        <pose>-0.22 -0.174 0.395 0 0 0</pose>
+        <geometry><box><size>0.030 0.012 0.155</size></box></geometry>
+        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
       </visual>
     </link>
 
-    <!-- Side-fold carrier. Identity pose preserves ALL existing unfolded poses.
-         Existing link inertials are unchanged; this new carrier adds 0.1 kg.
-         The original SWAN collision shapes below are moved without resizing. -->
-    <link name="swan_fold_link">
+    <!-- Slide carrier: the whole SWAN kit (body, fork, drive wheel, sensors)
+         rides on this link. Identity pose preserves ALL existing extended poses.
+         Existing link inertials are unchanged; the carrier itself is 0.1 kg. -->
+    <link name="swan_slide_link">
       <pose>0 0 0 0 0 0</pose>
       <inertial>
         <pose>0.52 0 0.40 0 0 0</pose>
@@ -1211,36 +1254,6 @@
         <geometry><cylinder><radius>0.004</radius><length>0.003</length></cylinder></geometry>
         <material><ambient>0.384 0.408 0.426 1</ambient><diffuse>0.64 0.68 0.71 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
       </visual>
-      <visual name="left_lower_attachment_rail">
-        <pose>0.345 0.258 0.155 0 0.2368488 0</pose>
-        <geometry><box><size>0.2983287 0.024 0.026</size></box></geometry>
-        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="left_rising_attachment_rail">
-        <pose>0.555 0.258 0.235 0 -1.056345 0</pose>
-        <geometry><box><size>0.2641969 0.024 0.026</size></box></geometry>
-        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="left_attachment_crosspin">
-        <pose>0.62 0.196 0.35 0 1.570796 -1.570796</pose>
-        <geometry><cylinder><radius>0.013</radius><length>0.124</length></cylinder></geometry>
-        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="left_fold_hinge">
-        <pose>0.49 0.258 0.12 1.570796 0 0</pose>
-        <geometry><cylinder><radius>0.023</radius><length>0.034</length></cylinder></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="left_hinge_pin">
-        <pose>0.49 0.279 0.12 1.570796 0 0</pose>
-        <geometry><cylinder><radius>0.009</radius><length>0.004</length></cylinder></geometry>
-        <material><ambient>0.384 0.408 0.426 1</ambient><diffuse>0.64 0.68 0.71 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
-      </visual>
-      <visual name="left_flush_release_lever">
-        <pose>0.505 0.281 0.136 0 -0.65 0</pose>
-        <geometry><box><size>0.044 0.006 0.01</size></box></geometry>
-        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
       <visual name="right_swan_side_shell">
         <pose>0.565 -0.141 0.423 0 0 0</pose>
         <geometry><box><size>0.27 0.016 0.126</size></box></geometry>
@@ -1340,36 +1353,6 @@
         <pose>0.676 -0.153 0.377 1.570796 0 0</pose>
         <geometry><cylinder><radius>0.004</radius><length>0.003</length></cylinder></geometry>
         <material><ambient>0.384 0.408 0.426 1</ambient><diffuse>0.64 0.68 0.71 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
-      </visual>
-      <visual name="right_lower_attachment_rail">
-        <pose>0.345 -0.258 0.155 0 0.2368488 0</pose>
-        <geometry><box><size>0.2983287 0.024 0.026</size></box></geometry>
-        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="right_rising_attachment_rail">
-        <pose>0.555 -0.258 0.235 0 -1.056345 0</pose>
-        <geometry><box><size>0.2641969 0.024 0.026</size></box></geometry>
-        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="right_attachment_crosspin">
-        <pose>0.62 -0.196 0.35 0 1.570796 1.570796</pose>
-        <geometry><cylinder><radius>0.013</radius><length>0.124</length></cylinder></geometry>
-        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="right_fold_hinge">
-        <pose>0.49 -0.258 0.12 1.570796 0 0</pose>
-        <geometry><cylinder><radius>0.023</radius><length>0.034</length></cylinder></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="right_hinge_pin">
-        <pose>0.49 -0.279 0.12 1.570796 0 0</pose>
-        <geometry><cylinder><radius>0.009</radius><length>0.004</length></cylinder></geometry>
-        <material><ambient>0.384 0.408 0.426 1</ambient><diffuse>0.64 0.68 0.71 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
-      </visual>
-      <visual name="right_flush_release_lever">
-        <pose>0.505 -0.281 0.136 0 -0.65 0</pose>
-        <geometry><box><size>0.044 0.006 0.01</size></box></geometry>
-        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
       </visual>
       <visual name="swan_integrated_core">
         <pose>0.565 0 0.419 0 0 0</pose>
@@ -1641,29 +1624,42 @@
         <geometry><box><size>0.03 0.026 0.002</size></box></geometry>
         <material><ambient>0.021 0.0234 0.0264 1</ambient><diffuse>0.035 0.039 0.044 1</diffuse></material>
       </visual>
-      <visual name="swan_fold_latch_moving_visual">
-        <pose>0.221 -0.258 0.19 0 0 0</pose>
-        <geometry><box><size>0.012 0.028 0.018</size></box></geometry>
-        <material><ambient>0.30 0.32 0.34 1</ambient><diffuse>0.60 0.64 0.68 1</diffuse></material>
+      <!-- Slide beam: runs inside the under-seat guide rail and carries the kit.
+           Visuals only. Extended it spans x -0.06..0.58; stowed -0.40..0.24. -->
+      <visual name="swan_slide_beam">
+        <pose>0.26 0 0.343 0 0 0</pose>
+        <geometry><box><size>0.64 0.046 0.024</size></box></geometry>
+        <material><ambient>0.384 0.408 0.426 1</ambient><diffuse>0.64 0.68 0.71 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
+      </visual>
+      <visual name="swan_slide_beam_end_stop">
+        <pose>-0.063 0 0.343 0 0 0</pose>
+        <geometry><box><size>0.010 0.050 0.028</size></box></geometry>
+        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
+      </visual>
+      <visual name="swan_slide_saddle">
+        <pose>0.52 0 0.357 0 0 0</pose>
+        <geometry><box><size>0.22 0.080 0.008</size></box></geometry>
+        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
       </visual>
     </link>
 
-    <!-- +Z yaw around the LEFT connector: +1.5708 rad folds outwards.
-         This is the only fold constraint; no latch joint or runtime detach. -->
-    <joint name="swan_fold_joint" type="revolute">
-      <pose relative_to="base_link">0.20 0.258 0.19 0 0 0</pose>
+    <!-- Fore-aft slide along the wheelchair centre line, between the user's legs.
+         0.0 = extended (driving position); +0.34 m = stowed under the seat.
+         The axis points backwards so a positive command retracts the kit.
+         Travel is limited by the camera mast reaching the seat front edge. -->
+    <joint name="swan_slide_joint" type="prismatic">
       <parent>base_link</parent>
-      <child>swan_fold_link</child>
+      <child>swan_slide_link</child>
       <axis>
-        <xyz expressed_in="base_link">0 0 1</xyz>
+        <xyz expressed_in="base_link">-1 0 0</xyz>
         <limit>
           <lower>0.0</lower>
-          <upper>1.5708</upper>
-          <effort>150</effort>
-          <velocity>0.60</velocity>
+          <upper>0.34</upper>
+          <effort>2000</effort>
+          <velocity>0.15</velocity>
         </limit>
         <dynamics>
-          <damping>0.8</damping>
+          <damping>5.0</damping>
           <friction>0.10</friction>
         </dynamics>
       </axis>
@@ -3710,7 +3706,7 @@
 
     <joint name="front_steering_joint" type="revolute">
 
-      <parent>swan_fold_link</parent>
+      <parent>swan_slide_link</parent>
       <child>swan_steering_fork</child>
 
       <axis>
@@ -5286,7 +5282,7 @@
 
 
     <joint name="lidar_joint" type="fixed">
-      <parent>swan_fold_link</parent>
+      <parent>swan_slide_link</parent>
       <child>lidar_link</child>
     </joint>
 
@@ -5365,7 +5361,7 @@
 
 
     <joint name="camera_joint" type="fixed">
-      <parent>swan_fold_link</parent>
+      <parent>swan_slide_link</parent>
       <child>camera_link</child>
     </joint>
 
@@ -5432,20 +5428,22 @@
       <joint_name>front_drive_wheel_joint</joint_name>
       <joint_name>left_drive_wheel_joint</joint_name>
       <joint_name>right_drive_wheel_joint</joint_name>
+      <joint_name>swan_slide_joint</joint_name>
 
     </plugin>
 
 
-    <!-- Side-fold control: 0.0 = unfolded; +1.5708 = folded.
-         Velocity-command mode bounds speed at 0.60 rad/s in both directions.
-         Allow at least 3 seconds at rest after an unfold command. -->
+    <!-- Slide control: 0.0 = extended; +0.34 = stowed under the seat [m].
+         Velocity-command mode bounds speed at 0.15 m/s in both directions,
+         so a full stroke takes about 2.3 s.
+         Allow at least 3 seconds at rest after an extend command. -->
     <plugin filename="gz-sim-joint-position-controller-system"
             name="gz::sim::systems::JointPositionController">
-      <joint_name>swan_fold_joint</joint_name>
+      <joint_name>swan_slide_joint</joint_name>
       <topic>/model/wheelchair/fold/cmd_pos</topic>
       <use_velocity_commands>true</use_velocity_commands>
-      <cmd_max>0.60</cmd_max>
-      <cmd_min>-0.60</cmd_min>
+      <cmd_max>0.15</cmd_max>
+      <cmd_min>-0.15</cmd_min>
       <initial_position>0.0</initial_position>
     </plugin>
 
