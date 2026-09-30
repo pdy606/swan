@@ -53,7 +53,7 @@ class SwanDriveController(Node):
 
         # Command-based gate only: zero (extended) re-enables immediately,
         # any non-zero slide command (stowed under the seat) disables driving.
-        # Keep stopped until extending has physically finished (at least 3 seconds).
+        # Keep stopped until extending has physically finished (at least 4 seconds).
         self.folded = False
         self.fold_sub = self.create_subscription(
             Float64,

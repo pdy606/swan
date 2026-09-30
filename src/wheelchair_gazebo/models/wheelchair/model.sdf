@@ -1051,57 +1051,47 @@
       
       
       
-      <!-- Under-seat centre guide rail for the SWAN slide: visuals only.
-           Open channel (base + two walls) hung from the seat by two U cradles,
-           so the space in front of the seat stays clear for the user's legs. -->
-      <visual name="swan_slide_rail_base">
-        <pose>-0.04 0 0.324 0 0 0</pose>
-        <geometry><box><size>0.50 0.068 0.008</size></box></geometry>
+      <!-- Under-seat twin guide rails for the SWAN slide: visuals only.
+           Drawer-slide layout: one rail each side of the kit body, hung from
+           the seat, so the fork and drive wheel pass freely between them. -->
+      <visual name="swan_slide_rail_left">
+        <pose>-0.015 0.166 0.375 0 0 0</pose>
+        <geometry><box><size>0.55 0.010 0.036</size></box></geometry>
         <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
       </visual>
-      <visual name="swan_slide_rail_wall_left">
-        <pose>-0.04 0.030 0.343 0 0 0</pose>
-        <geometry><box><size>0.50 0.008 0.030</size></box></geometry>
+      <visual name="swan_slide_rail_left_lip">
+        <pose>-0.015 0.163 0.392 0 0 0</pose>
+        <geometry><box><size>0.55 0.016 0.004</size></box></geometry>
         <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
       </visual>
-      <visual name="swan_slide_rail_wall_right">
-        <pose>-0.04 -0.030 0.343 0 0 0</pose>
-        <geometry><box><size>0.50 0.008 0.030</size></box></geometry>
+      <visual name="swan_slide_rail_left_front_bracket">
+        <pose>0.1 0.168 0.433 0 0 0</pose>
+        <geometry><box><size>0.030 0.012 0.080</size></box></geometry>
         <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
       </visual>
-      <visual name="swan_slide_rail_front_block">
-        <pose>0.195 0 0.338 0 0 0</pose>
-        <geometry><box><size>0.030 0.076 0.036</size></box></geometry>
+      <visual name="swan_slide_rail_left_rear_bracket">
+        <pose>-0.22 0.168 0.433 0 0 0</pose>
+        <geometry><box><size>0.030 0.012 0.080</size></box></geometry>
+        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
+      </visual>
+      <visual name="swan_slide_rail_right">
+        <pose>-0.015 -0.166 0.375 0 0 0</pose>
+        <geometry><box><size>0.55 0.010 0.036</size></box></geometry>
         <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
       </visual>
-      <visual name="swan_slide_cradle_front_bar">
-        <pose>0.12 0 0.318 0 0 0</pose>
-        <geometry><box><size>0.030 0.36 0.014</size></box></geometry>
+      <visual name="swan_slide_rail_right_lip">
+        <pose>-0.015 -0.163 0.392 0 0 0</pose>
+        <geometry><box><size>0.55 0.016 0.004</size></box></geometry>
         <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
       </visual>
-      <visual name="swan_slide_cradle_front_hanger_left">
-        <pose>0.12 0.174 0.395 0 0 0</pose>
-        <geometry><box><size>0.030 0.012 0.155</size></box></geometry>
+      <visual name="swan_slide_rail_right_front_bracket">
+        <pose>0.1 -0.168 0.433 0 0 0</pose>
+        <geometry><box><size>0.030 0.012 0.080</size></box></geometry>
         <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
       </visual>
-      <visual name="swan_slide_cradle_front_hanger_right">
-        <pose>0.12 -0.174 0.395 0 0 0</pose>
-        <geometry><box><size>0.030 0.012 0.155</size></box></geometry>
-        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="swan_slide_cradle_rear_bar">
-        <pose>-0.22 0 0.318 0 0 0</pose>
-        <geometry><box><size>0.030 0.36 0.014</size></box></geometry>
-        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="swan_slide_cradle_rear_hanger_left">
-        <pose>-0.22 0.174 0.395 0 0 0</pose>
-        <geometry><box><size>0.030 0.012 0.155</size></box></geometry>
-        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="swan_slide_cradle_rear_hanger_right">
-        <pose>-0.22 -0.174 0.395 0 0 0</pose>
-        <geometry><box><size>0.030 0.012 0.155</size></box></geometry>
+      <visual name="swan_slide_rail_right_rear_bracket">
+        <pose>-0.22 -0.168 0.433 0 0 0</pose>
+        <geometry><box><size>0.030 0.012 0.080</size></box></geometry>
         <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
       </visual>
     </link>
@@ -1150,7 +1140,7 @@
         <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
       </visual>
       <visual name="camera_tilt_pivot">
-        <pose>0.55 0 0.61 1.570796 0 0</pose>
+        <pose>0.68 0 0.61 1.570796 0 0</pose>
         <geometry><cylinder><radius>0.014</radius><length>0.066</length></cylinder></geometry>
         <material><ambient>0.384 0.408 0.426 1</ambient><diffuse>0.64 0.68 0.71 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
       </visual>
@@ -1410,12 +1400,12 @@
         <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
       </visual>
       <visual name="camera_mast_socket">
-        <pose>0.55 0 0.495 0 0 0</pose>
+        <pose>0.68 0 0.495 0 0 0</pose>
         <geometry><cylinder><radius>0.02</radius><length>0.02</length></cylinder></geometry>
         <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
       </visual>
       <visual name="camera_short_mast">
-        <pose>0.55 0 0.5585 0 0 0</pose>
+        <pose>0.68 0 0.5585 0 0 0</pose>
         <geometry><cylinder><radius>0.01</radius><length>0.107</length></cylinder></geometry>
         <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
       </visual>
@@ -1624,27 +1614,33 @@
         <geometry><box><size>0.03 0.026 0.002</size></box></geometry>
         <material><ambient>0.021 0.0234 0.0264 1</ambient><diffuse>0.035 0.039 0.044 1</diffuse></material>
       </visual>
-      <!-- Slide beam: runs inside the under-seat guide rail and carries the kit.
-           Visuals only. Extended it spans x -0.06..0.58; stowed -0.40..0.24. -->
-      <visual name="swan_slide_beam">
-        <pose>0.26 0 0.343 0 0 0</pose>
-        <geometry><box><size>0.64 0.046 0.024</size></box></geometry>
+      <!-- Slide runners: bolted to both sides of the kit body, they ride in
+           the under-seat rails. Visuals only.
+           Extended they span x 0.12..0.60; stowed -0.35..0.13. -->
+      <visual name="swan_slide_runner_left">
+        <pose>0.36 0.157 0.375 0 0 0</pose>
+        <geometry><box><size>0.48 0.006 0.026</size></box></geometry>
         <material><ambient>0.384 0.408 0.426 1</ambient><diffuse>0.64 0.68 0.71 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
       </visual>
-      <visual name="swan_slide_beam_end_stop">
-        <pose>-0.063 0 0.343 0 0 0</pose>
-        <geometry><box><size>0.010 0.050 0.028</size></box></geometry>
+      <visual name="swan_slide_runner_left_end_stop">
+        <pose>0.123 0.157 0.375 0 0 0</pose>
+        <geometry><box><size>0.008 0.010 0.030</size></box></geometry>
         <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
       </visual>
-      <visual name="swan_slide_saddle">
-        <pose>0.52 0 0.357 0 0 0</pose>
-        <geometry><box><size>0.22 0.080 0.008</size></box></geometry>
-        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
+      <visual name="swan_slide_runner_right">
+        <pose>0.36 -0.157 0.375 0 0 0</pose>
+        <geometry><box><size>0.48 0.006 0.026</size></box></geometry>
+        <material><ambient>0.384 0.408 0.426 1</ambient><diffuse>0.64 0.68 0.71 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
+      </visual>
+      <visual name="swan_slide_runner_right_end_stop">
+        <pose>0.123 -0.157 0.375 0 0 0</pose>
+        <geometry><box><size>0.008 0.010 0.030</size></box></geometry>
+        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
       </visual>
     </link>
 
     <!-- Fore-aft slide along the wheelchair centre line, between the user's legs.
-         0.0 = extended (driving position); +0.34 m = stowed under the seat.
+         0.0 = extended (driving position); +0.47 m = stowed under the seat.
          The axis points backwards so a positive command retracts the kit.
          Travel is limited by the camera mast reaching the seat front edge.
          The hard stops sit 1 cm outside both commanded positions: while a joint
@@ -1657,7 +1653,7 @@
         <xyz expressed_in="base_link">-1 0 0</xyz>
         <limit>
           <lower>-0.01</lower>
-          <upper>0.35</upper>
+          <upper>0.48</upper>
           <effort>2000</effort>
           <velocity>0.15</velocity>
         </limit>
@@ -5295,7 +5291,7 @@
 
     <link name="camera_link">
 
-      <pose>0.55 0 0.64 0 0.17 0</pose>
+      <pose>0.68 0 0.64 0 0.17 0</pose>
 
       <inertial>
         <mass>0.1</mass>
@@ -5436,10 +5432,10 @@
     </plugin>
 
 
-    <!-- Slide control: 0.0 = extended; +0.34 = stowed under the seat [m].
+    <!-- Slide control: 0.0 = extended; +0.47 = stowed under the seat [m].
          Velocity-command mode bounds speed at 0.15 m/s in both directions,
-         so a full stroke takes about 2.3 s.
-         Allow at least 3 seconds at rest after an extend command. -->
+         so a full stroke takes about 3.1 s.
+         Allow at least 4 seconds at rest after an extend command. -->
     <plugin filename="gz-sim-joint-position-controller-system"
             name="gz::sim::systems::JointPositionController">
       <joint_name>swan_slide_joint</joint_name>
