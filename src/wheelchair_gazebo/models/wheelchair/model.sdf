@@ -1646,15 +1646,18 @@
     <!-- Fore-aft slide along the wheelchair centre line, between the user's legs.
          0.0 = extended (driving position); +0.34 m = stowed under the seat.
          The axis points backwards so a positive command retracts the kit.
-         Travel is limited by the camera mast reaching the seat front edge. -->
+         Travel is limited by the camera mast reaching the seat front edge.
+         The hard stops sit 1 cm outside both commanded positions: while a joint
+         rests exactly on a limit the physics engine applies the limit instead
+         of the velocity command, so the slide would never leave it. -->
     <joint name="swan_slide_joint" type="prismatic">
       <parent>base_link</parent>
       <child>swan_slide_link</child>
       <axis>
         <xyz expressed_in="base_link">-1 0 0</xyz>
         <limit>
-          <lower>0.0</lower>
-          <upper>0.34</upper>
+          <lower>-0.01</lower>
+          <upper>0.35</upper>
           <effort>2000</effort>
           <velocity>0.15</velocity>
         </limit>
