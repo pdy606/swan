@@ -6,7 +6,7 @@ from typing import Optional
 import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import LaserScan
-from std_msgs.msg import String
+from std_msgs.msg import Float64, String
 
 
 class SituationNode(Node):
@@ -72,6 +72,15 @@ class SituationNode(Node):
         # ROS 통신
         # --------------------------------------------------------------
 
+        # No fold state machine: nonzero command pauses new sensor decisions.
+        self.folded = False
+        self.fold_subscription = self.create_subscription(
+            Float64,
+            "/model/wheelchair/fold/cmd_pos",
+            self.fold_callback,
+            10,
+        )
+
         self.scan_subscription = self.create_subscription(
             LaserScan,
             "/scan_filtered",
@@ -98,7 +107,22 @@ class SituationNode(Node):
         )
 
 
+    def fold_callback(self, msg: Float64) -> None:
+        self.folded = (msg.data != 0.0)
+        if self.folded:
+            # Discard pre-fold obstacle/vision history without publishing C.
+            self.front_distance = math.inf
+            self.raw_front_distance = math.inf
+            self.last_detected_distance = math.inf
+            self.last_obstacle_seen_time = None
+            self.c_active = False
+            self.last_traffic_state = None
+            self.last_crosswalk_seen_time = None
+
     def yolo_callback(self, msg: String) -> None:
+        if self.folded:
+            return
+
         detected = msg.data.strip().lower()
         now = self.get_clock().now()
 
@@ -154,6 +178,9 @@ class SituationNode(Node):
     # ==============================================================
 
     def scan_callback(self, msg: LaserScan) -> None:
+        if self.folded:
+            return
+
         now = self.get_clock().now()
 
         corridor_distances = self.extract_corridor_distances(msg)

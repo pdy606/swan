@@ -51,6 +51,16 @@ class SwanDriveController(Node):
             10
         )
 
+        # Command-based gate only: zero re-enables immediately.
+        # Keep stopped until unfolding has physically finished (at least 3 seconds).
+        self.folded = False
+        self.fold_sub = self.create_subscription(
+            Float64,
+            '/model/wheelchair/fold/cmd_pos',
+            self.fold_callback,
+            10
+        )
+
         self.cmd_sub = self.create_subscription(
             Twist,
             '/model/wheelchair/cmd_vel',
@@ -97,7 +107,16 @@ class SwanDriveController(Node):
         self.drive_pub.publish(drive_msg)
         self.steer_pub.publish(steer_msg)
 
+    def fold_callback(self, msg: Float64):
+        self.folded = (msg.data != 0.0)
+        # Stop immediately on fold/unfold; never replay a pre-fold command.
+        self.publish_commands(wheel_speed=0.0, steering=0.0)
+
     def cmd_callback(self, msg: Twist):
+
+        if self.folded:
+            self.publish_commands(wheel_speed=0.0, steering=0.0)
+            return
 
         self.last_cmd_time = self.get_clock().now()
 
@@ -196,6 +215,10 @@ class SwanDriveController(Node):
         )
 
     def watchdog_callback(self):
+
+        if self.folded:
+            self.publish_commands(wheel_speed=0.0, steering=0.0)
+            return
 
         elapsed = (
             self.get_clock().now() -
