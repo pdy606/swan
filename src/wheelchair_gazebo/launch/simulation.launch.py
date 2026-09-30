@@ -53,10 +53,19 @@ def generate_launch_description():
             '@std_msgs/msg/Float64'
             '@gz.msgs.Double',
 
-            # ROS 2 -> Gazebo : side-fold (one-way command bridge)
-            '/model/wheelchair/fold/cmd_pos'
-            '@std_msgs/msg/Float64'
-            ']gz.msgs.Double',
+            # High-level fold/cmd_pos stays inside ROS (drive + situation).
+            # Only sequenced internal joint commands enter Gazebo.
+            '/model/wheelchair/fold/camera/cmd_pos'
+            '@std_msgs/msg/Float64]gz.msgs.Double',
+            '/model/wheelchair/fold/cover/cmd_pos'
+            '@std_msgs/msg/Float64]gz.msgs.Double',
+            '/model/wheelchair/fold/wheel/cmd_pos'
+            '@std_msgs/msg/Float64]gz.msgs.Double',
+            '/model/wheelchair/fold/main/cmd_pos'
+            '@std_msgs/msg/Float64]gz.msgs.Double',
+            # Existing JointStatePublisher, now also containing folding joints.
+            '/world/swan_test_world/model/wheelchair/joint_state'
+            '@sensor_msgs/msg/JointState[gz.msgs.Model',
 
             # Gazebo -> ROS 2 odometry
             '/model/wheelchair/odometry'
@@ -104,6 +113,7 @@ def generate_launch_description():
         executable='swan_drive_controller.py',
         name='swan_drive_controller',
         output='screen',
+        parameters=[{'use_sim_time': True}],
     )
 
     lidar_static_tf = Node(

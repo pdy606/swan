@@ -1,18 +1,11 @@
-<?xml version="1.0"?>
-
+<?xml version='1.0' encoding='utf-8'?>
 <sdf version="1.10">
   <model name="wheelchair">
-
     <pose>0 0 0 0 0 0</pose>
-
-
     <link name="base_link">
-
       <inertial>
         <pose>-0.05 0 0.40 0 0 0</pose>
-
         <mass>40.0</mass>
-
         <inertia>
           <ixx>3.0</ixx>
           <iyy>4.0</iyy>
@@ -22,10 +15,7 @@
           <iyz>0.0</iyz>
         </inertia>
       </inertial>
-
-
       <!-- Wheelchair collisions -->
-
       <collision name="wheelchair_lower_collision">
         <pose>-0.02 0 0.34 0 0 0</pose>
 
@@ -35,8 +25,6 @@
           </box>
         </geometry>
       </collision>
-
-
       <collision name="seat_collision">
         <pose>-0.05 0 0.51 0 0 0</pose>
 
@@ -46,8 +34,6 @@
           </box>
         </geometry>
       </collision>
-
-
       <collision name="backrest_collision">
         <pose>-0.29 0 0.82 0 0 0</pose>
 
@@ -57,78 +43,24 @@
           </box>
         </geometry>
       </collision>
-
-
       <!-- SWAN collision remains simple -->
-
-      
-
-
-      
-
-
-
       <!-- Wheelchair seat -->
-
-
       <!-- Wheelchair backrest -->
-
-
       <!-- Back posts -->
-
-
       <!-- Push handles -->
-
-
       <!-- Armrests -->
-
-
-
       <!-- Wheelchair frame -->
-
-
       <!-- Wheelchair folding braces -->
-
-
-
       <!-- Footrests -->
-
-
-
       <!-- Folded wheelchair casters -->
-
-
-
       <!-- SWAN connection arms -->
-
-
-
       <!-- SWAN upper side plates -->
-
-
-
       <!-- SWAN diagonal lower plates -->
-
-
-
       <!-- SWAN rear side plates -->
-
-
-
       <!-- SWAN front short plates -->
-
-
-
       <!-- SWAN small center enclosure -->
-
-
-
       <!-- SWAN front cross member -->
-
-
       <!-- SWAN rear cross member -->
-
-    
       <!-- Redesigned appearance only; no added physical elements. -->
       <visual name="seat_visual">
         <pose>-0.05 0 0.51 0 0 0</pose>
@@ -147,11 +79,6 @@
         </material>
       
       </visual>
-
-
-      
-
-      
       <visual name="backrest_visual">
         <pose>-0.29 0 0.83 0 -0.07 0</pose>
 
@@ -169,11 +96,6 @@
         </material>
       
       </visual>
-
-
-      
-
-      
       <visual name="back_left_post">
         <pose>-0.3 0.255 0.84 0 0 0</pose>
 
@@ -185,9 +107,6 @@
         </material>
       
       </visual>
-
-
-      
       <visual name="back_right_post">
         <pose>-0.3 -0.255 0.84 0 0 0</pose>
 
@@ -199,11 +118,6 @@
         </material>
       
       </visual>
-
-
-      
-
-      
       <visual name="left_push_handle">
         <pose>-0.37 0.255 1.16 0 1.570796 0</pose>
 
@@ -215,9 +129,6 @@
         </material>
       
       </visual>
-
-
-      
       <visual name="right_push_handle">
         <pose>-0.37 -0.255 1.16 0 1.570796 0</pose>
 
@@ -229,11 +140,6 @@
         </material>
       
       </visual>
-
-
-      
-
-      
       <visual name="left_armrest">
         <pose>-0.05 0.285 0.75 0 0 0</pose>
 
@@ -251,9 +157,6 @@
         </material>
       
       </visual>
-
-
-      
       <visual name="right_armrest">
         <pose>-0.05 -0.285 0.75 0 0 0</pose>
 
@@ -271,9 +174,6 @@
         </material>
       
       </visual>
-
-
-      
       <visual name="left_armrest_support">
         <pose>0.08 0.285 0.64 0 0 0</pose>
 
@@ -285,9 +185,6 @@
         </material>
       
       </visual>
-
-
-      
       <visual name="right_armrest_support">
         <pose>0.08 -0.285 0.64 0 0 0</pose>
 
@@ -299,12 +196,6 @@
         </material>
       
       </visual>
-
-
-
-      
-
-      
       <visual name="left_upper_frame">
         <pose>-0.02 0.245 0.47 0 1.570796 0</pose>
 
@@ -316,9 +207,6 @@
         </material>
       
       </visual>
-
-
-      
       <visual name="right_upper_frame">
         <pose>-0.02 -0.245 0.47 0 1.570796 0</pose>
 
@@ -330,9 +218,6 @@
         </material>
       
       </visual>
-
-
-      
       <visual name="left_front_frame">
         <pose>0.2 0.245 0.32 0 0 0</pose>
 
@@ -344,9 +229,6 @@
         </material>
       
       </visual>
-
-
-      
       <visual name="right_front_frame">
         <pose>0.2 -0.245 0.32 0 0 0</pose>
 
@@ -358,11 +240,6 @@
         </material>
       
       </visual>
-
-
-      
-
-      
       <visual name="left_cross_frame_1">
         <pose>-0.02 0.225 0.32 0 2.130796 0</pose>
 
@@ -374,9 +251,6 @@
         </material>
       
       </visual>
-
-
-      
       <visual name="left_cross_frame_2">
         <pose>-0.02 0.215 0.32 0 1.010796 0</pose>
 
@@ -388,9 +262,6 @@
         </material>
       
       </visual>
-
-
-      
       <visual name="right_cross_frame_1">
         <pose>-0.02 -0.225 0.32 0 2.130796 0</pose>
 
@@ -402,9 +273,6 @@
         </material>
       
       </visual>
-
-
-      
       <visual name="right_cross_frame_2">
         <pose>-0.02 -0.215 0.32 0 1.010796 0</pose>
 
@@ -416,58 +284,6 @@
         </material>
       
       </visual>
-
-
-
-      
-
-      
-      
-
-
-      
-      
-
-
-      
-      
-
-
-      
-      
-
-
-
-      
-
-      
-      
-
-
-      
-      
-
-
-      
-      
-
-
-      
-      
-
-
-      
-      
-
-
-      
-      
-
-
-
-      
-
-      
       <visual name="seat_front_piping">
         <pose>0.17 0 0.523 0 0 0</pose>
         <geometry><box><size>0.006 0.44 0.012</size></box></geometry>
@@ -498,29 +314,6 @@
         <geometry><box><size>0.31 0.012 0.13</size></box></geometry>
         <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
       </visual>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
       <visual name="right_lower_rail">
         <pose>-0.04 -0.245 0.2 0 1.570796 0</pose>
         <geometry><cylinder><radius>0.017</radius><length>0.48</length></cylinder></geometry>
@@ -541,43 +334,6 @@
         <geometry><box><size>0.31 0.012 0.13</size></box></geometry>
         <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
       </visual>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-    
       <!-- Refined leg clearance, compact panels and fixed sensor fairing: visuals only. -->
       <visual name="left_footplate">
         <pose>0.365 0.145 0.18 0 0 0</pose>
@@ -639,72 +395,25 @@
         <geometry><cylinder><radius>0.017</radius><length>0.015</length></cylinder></geometry>
         <material><ambient>0.384 0.408 0.426 1</ambient><diffuse>0.64 0.68 0.71 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
       </visual>
-      <visual name="folded_left_caster_tire">
-        <pose>0.24 0.285 0.15 1.570796 0 0</pose>
-        <geometry><cylinder><radius>0.085</radius><length>0.038</length></cylinder></geometry>
-        <material><ambient>0.021 0.0234 0.0264 1</ambient><diffuse>0.035 0.039 0.044 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="folded_left_caster_hub">
-        <pose>0.24 0.285 0.15 1.570796 0 0</pose>
-        <geometry><cylinder><radius>0.048</radius><length>0.041</length></cylinder></geometry>
-        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="folded_left_caster_axle">
-        <pose>0.24 0.285 0.15 1.570796 0 0</pose>
-        <geometry><cylinder><radius>0.013</radius><length>0.068</length></cylinder></geometry>
-        <material><ambient>0.384 0.408 0.426 1</ambient><diffuse>0.64 0.68 0.71 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
-      </visual>
       <visual name="left_caster_frame_mount">
         <pose>0.2 0.265 0.29 0 2.034444 1.570796</pose>
         <geometry><cylinder><radius>0.012</radius><length>0.04472136</length></cylinder></geometry>
         <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
       </visual>
       <visual name="left_caster_swivel">
-        <pose>0.2 0.285 0.267 0 0 0</pose>
-        <geometry><cylinder><radius>0.019</radius><length>0.038</length></cylinder></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
+        <pose>0.2 0.285 0.2345 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.019</radius>
+            <length>0.103</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.063 0.072 0.084 1</ambient>
+          <diffuse>0.105 0.12 0.14 1</diffuse>
+          <specular>0.06 0.06 0.06 1</specular>
+        </material>
       </visual>
-      <visual name="left_caster_fork_crown">
-        <pose>0.204 0.285 0.242 0 0 0</pose>
-        <geometry><box><size>0.03 0.075 0.018</size></box></geometry>
-        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="left_caster_fork_0">
-        <pose>0.222 0.255 0.1945 0 2.757218 0</pose>
-        <geometry><cylinder><radius>0.008</radius><length>0.09600521</length></cylinder></geometry>
-        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="left_caster_fork_1">
-        <pose>0.222 0.315 0.1945 0 2.757218 0</pose>
-        <geometry><cylinder><radius>0.008</radius><length>0.09600521</length></cylinder></geometry>
-        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
       <visual name="right_footplate">
         <pose>0.365 -0.145 0.18 0 0 0</pose>
         <geometry><box><size>0.21 0.17 0.022</size></box></geometry>
@@ -765,291 +474,27 @@
         <geometry><cylinder><radius>0.017</radius><length>0.015</length></cylinder></geometry>
         <material><ambient>0.384 0.408 0.426 1</ambient><diffuse>0.64 0.68 0.71 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
       </visual>
-      <visual name="folded_right_caster_tire">
-        <pose>0.24 -0.285 0.15 1.570796 0 0</pose>
-        <geometry><cylinder><radius>0.085</radius><length>0.038</length></cylinder></geometry>
-        <material><ambient>0.021 0.0234 0.0264 1</ambient><diffuse>0.035 0.039 0.044 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="folded_right_caster_hub">
-        <pose>0.24 -0.285 0.15 1.570796 0 0</pose>
-        <geometry><cylinder><radius>0.048</radius><length>0.041</length></cylinder></geometry>
-        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="folded_right_caster_axle">
-        <pose>0.24 -0.285 0.15 1.570796 0 0</pose>
-        <geometry><cylinder><radius>0.013</radius><length>0.068</length></cylinder></geometry>
-        <material><ambient>0.384 0.408 0.426 1</ambient><diffuse>0.64 0.68 0.71 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
-      </visual>
       <visual name="right_caster_frame_mount">
         <pose>0.2 -0.265 0.29 0 2.034444 -1.570796</pose>
         <geometry><cylinder><radius>0.012</radius><length>0.04472136</length></cylinder></geometry>
         <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
       </visual>
       <visual name="right_caster_swivel">
-        <pose>0.2 -0.285 0.267 0 0 0</pose>
-        <geometry><cylinder><radius>0.019</radius><length>0.038</length></cylinder></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
+        <pose>0.2 -0.285 0.2345 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.019</radius>
+            <length>0.103</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.063 0.072 0.084 1</ambient>
+          <diffuse>0.105 0.12 0.14 1</diffuse>
+          <specular>0.06 0.06 0.06 1</specular>
+        </material>
       </visual>
-      <visual name="right_caster_fork_crown">
-        <pose>0.204 -0.285 0.242 0 0 0</pose>
-        <geometry><box><size>0.03 0.075 0.018</size></box></geometry>
-        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="right_caster_fork_0">
-        <pose>0.222 -0.255 0.1945 0 2.757218 0</pose>
-        <geometry><cylinder><radius>0.008</radius><length>0.09600521</length></cylinder></geometry>
-        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="right_caster_fork_1">
-        <pose>0.222 -0.315 0.1945 0 2.757218 0</pose>
-        <geometry><cylinder><radius>0.008</radius><length>0.09600521</length></cylinder></geometry>
-        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-    
       <!-- Fixed front cover and integrated sensor pod: visuals only. -->
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-    
       <!-- Thin fixed mudguard; minimal rear-only sensor support, no enclosing pod. -->
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      <!-- Single side-fold hinge at the left wheelchair/kit connector. -->
       <visual name="swan_fold_hinge_fixed_visual">
         <pose>0.20 0.258 0.19 0 0 0</pose>
         <geometry><cylinder><radius>0.018</radius><length>0.045</length></cylinder></geometry>
@@ -1061,11 +506,834 @@
         <geometry><box><size>0.038 0.034 0.026</size></box></geometry>
         <material><ambient>0.08 0.09 0.10 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse></material>
       </visual>
-    </link>
+      <!-- BEGIN SEATED PASSENGER: visual reference only.
+           Attached to base_link, not swan_fold_link. No added mass,
+           inertia, collision, joint, sensor, plugin, or external resource.
+           Coordinates use metres. Foot soles touch z=0.195 grip tops.
+           Appearance can be seen by rendering-based sensors like any visual.
+           This figure does not simulate occupant load or prevent folding. -->
+      <visual name="passenger_pelvis">
+        <pose>-0.13 0 0.6255 0 0 0</pose>
+        <geometry>
+          <ellipsoid>
+            <radii>0.113 0.179 0.078</radii>
+          </ellipsoid>
+        </geometry>
+        <material>
+          <ambient>0.13 0.1495 0.1755 1</ambient>
+          <diffuse>0.2 0.23 0.27 1</diffuse>
+          <specular>0.035 0.035 0.035 1</specular>
+        </material>
+      </visual>
+      <visual name="passenger_lower_torso">
+        <pose>-0.133 0 0.753 0 0 0</pose>
+        <geometry>
+          <ellipsoid>
+            <radii>0.102 0.16 0.149</radii>
+          </ellipsoid>
+        </geometry>
+        <material>
+          <ambient>0.0845 0.1755 0.234 1</ambient>
+          <diffuse>0.13 0.27 0.36 1</diffuse>
+          <specular>0.035 0.035 0.035 1</specular>
+        </material>
+      </visual>
+      <visual name="passenger_chest">
+        <pose>-0.153 0 0.95 0 -0.065 0</pose>
+        <geometry>
+          <ellipsoid>
+            <radii>0.103 0.187 0.172</radii>
+          </ellipsoid>
+        </geometry>
+        <material>
+          <ambient>0.0845 0.1755 0.234 1</ambient>
+          <diffuse>0.13 0.27 0.36 1</diffuse>
+          <specular>0.035 0.035 0.035 1</specular>
+        </material>
+      </visual>
+      <visual name="passenger_shirt_hem">
+        <pose>-0.132 0 0.676 0 0 0</pose>
+        <geometry>
+          <ellipsoid>
+            <radii>0.111 0.166 0.043</radii>
+          </ellipsoid>
+        </geometry>
+        <material>
+          <ambient>0.0585 0.1235 0.1625 1</ambient>
+          <diffuse>0.09 0.19 0.25 1</diffuse>
+          <specular>0.035 0.035 0.035 1</specular>
+        </material>
+      </visual>
+      <visual name="passenger_collar">
+        <pose>-0.164 0 1.095 0 0 0</pose>
+        <geometry>
+          <ellipsoid>
+            <radii>0.054 0.068 0.025</radii>
+          </ellipsoid>
+        </geometry>
+        <material>
+          <ambient>0.0585 0.1235 0.1625 1</ambient>
+          <diffuse>0.09 0.19 0.25 1</diffuse>
+          <specular>0.035 0.035 0.035 1</specular>
+        </material>
+      </visual>
+      <visual name="passenger_neck">
+        <pose>-0.161 0 1.125 0 0 0</pose>
+        <geometry>
+          <ellipsoid>
+            <radii>0.045 0.043 0.058</radii>
+          </ellipsoid>
+        </geometry>
+        <material>
+          <ambient>0.429 0.2925 0.208 1</ambient>
+          <diffuse>0.66 0.45 0.32 1</diffuse>
+          <specular>0.035 0.035 0.035 1</specular>
+        </material>
+      </visual>
+      <visual name="passenger_head">
+        <pose>-0.149 0 1.228 0 0 0</pose>
+        <geometry>
+          <ellipsoid>
+            <radii>0.087 0.077 0.114</radii>
+          </ellipsoid>
+        </geometry>
+        <material>
+          <ambient>0.429 0.2925 0.208 1</ambient>
+          <diffuse>0.66 0.45 0.32 1</diffuse>
+          <specular>0.035 0.035 0.035 1</specular>
+        </material>
+      </visual>
+      <visual name="passenger_jaw">
+        <pose>-0.133 0 1.179 0 0 0</pose>
+        <geometry>
+          <ellipsoid>
+            <radii>0.071 0.066 0.064</radii>
+          </ellipsoid>
+        </geometry>
+        <material>
+          <ambient>0.429 0.2925 0.208 1</ambient>
+          <diffuse>0.66 0.45 0.32 1</diffuse>
+          <specular>0.035 0.035 0.035 1</specular>
+        </material>
+      </visual>
+      <visual name="passenger_hair_crown">
+        <pose>-0.156 0 1.316 0 0 0</pose>
+        <geometry>
+          <ellipsoid>
+            <radii>0.084 0.078 0.037</radii>
+          </ellipsoid>
+        </geometry>
+        <material>
+          <ambient>0.04225 0.0325 0.02795 1</ambient>
+          <diffuse>0.065 0.05 0.043 1</diffuse>
+          <specular>0.035 0.035 0.035 1</specular>
+        </material>
+      </visual>
+      <visual name="passenger_hair_back">
+        <pose>-0.223 0 1.256 0 0 0</pose>
+        <geometry>
+          <ellipsoid>
+            <radii>0.018 0.066 0.072</radii>
+          </ellipsoid>
+        </geometry>
+        <material>
+          <ambient>0.04225 0.0325 0.02795 1</ambient>
+          <diffuse>0.065 0.05 0.043 1</diffuse>
+          <specular>0.035 0.035 0.035 1</specular>
+        </material>
+      </visual>
+      <visual name="passenger_nose">
+        <pose>-0.058 0 1.228 0 0 0</pose>
+        <geometry>
+          <ellipsoid>
+            <radii>0.02 0.013 0.023</radii>
+          </ellipsoid>
+        </geometry>
+        <material>
+          <ambient>0.429 0.2925 0.208 1</ambient>
+          <diffuse>0.66 0.45 0.32 1</diffuse>
+          <specular>0.035 0.035 0.035 1</specular>
+        </material>
+      </visual>
+      <visual name="passenger_mouth">
+        <pose>-0.064 0 1.193 0 0 0</pose>
+        <geometry>
+          <ellipsoid>
+            <radii>0.005 0.022 0.003</radii>
+          </ellipsoid>
+        </geometry>
+        <material>
+          <ambient>0.2795 0.1625 0.1235 1</ambient>
+          <diffuse>0.43 0.25 0.19 1</diffuse>
+          <specular>0.035 0.035 0.035 1</specular>
+        </material>
+      </visual>
+      <visual name="passenger_left_ear">
+        <pose>-0.157 0.077 1.229 0 0 0</pose>
+        <geometry>
+          <ellipsoid>
+            <radii>0.017 0.012 0.029</radii>
+          </ellipsoid>
+        </geometry>
+        <material>
+          <ambient>0.429 0.2925 0.208 1</ambient>
+          <diffuse>0.66 0.45 0.32 1</diffuse>
+          <specular>0.035 0.035 0.035 1</specular>
+        </material>
+      </visual>
+      <visual name="passenger_left_eye">
+        <pose>-0.07 0.029 1.255 0 0 0</pose>
+        <geometry>
+          <ellipsoid>
+            <radii>0.007 0.013 0.0045</radii>
+          </ellipsoid>
+        </geometry>
+        <material>
+          <ambient>0.4875 0.468 0.4225 1</ambient>
+          <diffuse>0.75 0.72 0.65 1</diffuse>
+          <specular>0.035 0.035 0.035 1</specular>
+        </material>
+      </visual>
+      <visual name="passenger_left_pupil">
+        <pose>-0.0635 0.029 1.255 0 0 0</pose>
+        <geometry>
+          <ellipsoid>
+            <radii>0.0025 0.0035 0.0035</radii>
+          </ellipsoid>
+        </geometry>
+        <material>
+          <ambient>0.04225 0.0325 0.02795 1</ambient>
+          <diffuse>0.065 0.05 0.043 1</diffuse>
+          <specular>0.035 0.035 0.035 1</specular>
+        </material>
+      </visual>
+      <visual name="passenger_left_brow">
+        <pose>-0.072 0.03 1.267 0 0 0</pose>
+        <geometry>
+          <ellipsoid>
+            <radii>0.006 0.018 0.0035</radii>
+          </ellipsoid>
+        </geometry>
+        <material>
+          <ambient>0.04225 0.0325 0.02795 1</ambient>
+          <diffuse>0.065 0.05 0.043 1</diffuse>
+          <specular>0.035 0.035 0.035 1</specular>
+        </material>
+      </visual>
+      <visual name="passenger_left_thigh">
+        <pose>0.061 0.1245 0.632 0 1.61761343 0.106920533</pose>
+        <geometry>
+          <ellipsoid>
+            <radii>0.083 0.088 0.223307696</radii>
+          </ellipsoid>
+        </geometry>
+        <material>
+          <ambient>0.13 0.1495 0.1755 1</ambient>
+          <diffuse>0.2 0.23 0.27 1</diffuse>
+          <specular>0.035 0.035 0.035 1</specular>
+        </material>
+      </visual>
+      <visual name="passenger_left_knee">
+        <pose>0.252 0.145 0.619 0 0 0</pose>
+        <geometry>
+          <ellipsoid>
+            <radii>0.070 0.074 0.075</radii>
+          </ellipsoid>
+        </geometry>
+        <material>
+          <ambient>0.13 0.1495 0.1755 1</ambient>
+          <diffuse>0.2 0.23 0.27 1</diffuse>
+          <specular>0.035 0.035 0.035 1</specular>
+        </material>
+      </visual>
+      <visual name="passenger_left_lower_leg">
+        <pose>0.2775 0.145 0.427 0 3.00395492 0</pose>
+        <geometry>
+          <ellipsoid>
+            <radii>0.062 0.067 0.191</radii>
+          </ellipsoid>
+        </geometry>
+        <material>
+          <ambient>0.13 0.1495 0.1755 1</ambient>
+          <diffuse>0.2 0.23 0.27 1</diffuse>
+          <specular>0.035 0.035 0.035 1</specular>
+        </material>
+      </visual>
+      <visual name="passenger_left_sock">
+        <pose>0.298 0.145 0.278 0 0 0</pose>
+        <geometry>
+          <ellipsoid>
+            <radii>0.042 0.044 0.046</radii>
+          </ellipsoid>
+        </geometry>
+        <material>
+          <ambient>0.104 0.117 0.13 1</ambient>
+          <diffuse>0.16 0.18 0.2 1</diffuse>
+          <specular>0.035 0.035 0.035 1</specular>
+        </material>
+      </visual>
+      <visual name="passenger_left_shoe_upper">
+        <pose>0.379 0.145 0.240 0 0 0</pose>
+        <geometry>
+          <ellipsoid>
+            <radii>0.125 0.055 0.045</radii>
+          </ellipsoid>
+        </geometry>
+        <material>
+          <ambient>0.065 0.078 0.091 1</ambient>
+          <diffuse>0.1 0.12 0.14 1</diffuse>
+          <specular>0.035 0.035 0.035 1</specular>
+        </material>
+      </visual>
+      <visual name="passenger_left_shoe_heel">
+        <pose>0.294 0.145 0.238 0 0 0</pose>
+        <geometry>
+          <ellipsoid>
+            <radii>0.040 0.051 0.042</radii>
+          </ellipsoid>
+        </geometry>
+        <material>
+          <ambient>0.065 0.078 0.091 1</ambient>
+          <diffuse>0.1 0.12 0.14 1</diffuse>
+          <specular>0.035 0.035 0.035 1</specular>
+        </material>
+      </visual>
+      <visual name="passenger_left_shoe_lace_0">
+        <pose>0.344 0.145 0.282 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.003 0.035 0.002</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.234 0.2535 0.26 1</ambient>
+          <diffuse>0.36 0.39 0.4 1</diffuse>
+          <specular>0.035 0.035 0.035 1</specular>
+        </material>
+      </visual>
+      <visual name="passenger_left_shoe_lace_1">
+        <pose>0.360 0.145 0.2835 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.003 0.035 0.002</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.234 0.2535 0.26 1</ambient>
+          <diffuse>0.36 0.39 0.4 1</diffuse>
+          <specular>0.035 0.035 0.035 1</specular>
+        </material>
+      </visual>
+      <visual name="passenger_left_shoe_lace_2">
+        <pose>0.376 0.145 0.284 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.003 0.035 0.002</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.234 0.2535 0.26 1</ambient>
+          <diffuse>0.36 0.39 0.4 1</diffuse>
+          <specular>0.035 0.035 0.035 1</specular>
+        </material>
+      </visual>
+      <visual name="passenger_left_shoulder">
+        <pose>-0.166 0.199 1.055 0 0 0</pose>
+        <geometry>
+          <ellipsoid>
+            <radii>0.061 0.056 0.06</radii>
+          </ellipsoid>
+        </geometry>
+        <material>
+          <ambient>0.0845 0.1755 0.234 1</ambient>
+          <diffuse>0.13 0.27 0.36 1</diffuse>
+          <specular>0.035 0.035 0.035 1</specular>
+        </material>
+      </visual>
+      <visual name="passenger_left_sleeve">
+        <pose>-0.154 0.216 1.0025 0 2.76423222 0.956133375</pose>
+        <geometry>
+          <ellipsoid>
+            <radii>0.048 0.046 0.0854734451</radii>
+          </ellipsoid>
+        </geometry>
+        <material>
+          <ambient>0.0845 0.1755 0.234 1</ambient>
+          <diffuse>0.13 0.27 0.36 1</diffuse>
+          <specular>0.035 0.035 0.035 1</specular>
+        </material>
+      </visual>
+      <visual name="passenger_left_upper_arm">
+        <pose>-0.126 0.2555 0.88325 0 2.74940364 0.952652101</pose>
+        <geometry>
+          <ellipsoid>
+            <radii>0.035 0.034 0.0942344274</radii>
+          </ellipsoid>
+        </geometry>
+        <material>
+          <ambient>0.429 0.2925 0.208 1</ambient>
+          <diffuse>0.66 0.45 0.32 1</diffuse>
+          <specular>0.035 0.035 0.035 1</specular>
+        </material>
+      </visual>
+      <visual name="passenger_left_elbow">
+        <pose>-0.11 0.278 0.8165 0 0 0</pose>
+        <geometry>
+          <ellipsoid>
+            <radii>0.035 0.034 0.034</radii>
+          </ellipsoid>
+        </geometry>
+        <material>
+          <ambient>0.429 0.2925 0.208 1</ambient>
+          <diffuse>0.66 0.45 0.32 1</diffuse>
+          <specular>0.035 0.035 0.035 1</specular>
+        </material>
+      </visual>
+      <visual name="passenger_left_forearm">
+        <pose>-0.0015 0.278 0.8165 0 1.57079633 0</pose>
+        <geometry>
+          <ellipsoid>
+            <radii>0.034 0.032 0.1285</radii>
+          </ellipsoid>
+        </geometry>
+        <material>
+          <ambient>0.429 0.2925 0.208 1</ambient>
+          <diffuse>0.66 0.45 0.32 1</diffuse>
+          <specular>0.035 0.035 0.035 1</specular>
+        </material>
+      </visual>
+      <visual name="passenger_left_hand">
+        <pose>0.158 0.278 0.806 0 0 0</pose>
+        <geometry>
+          <ellipsoid>
+            <radii>0.061 0.038 0.021</radii>
+          </ellipsoid>
+        </geometry>
+        <material>
+          <ambient>0.429 0.2925 0.208 1</ambient>
+          <diffuse>0.66 0.45 0.32 1</diffuse>
+          <specular>0.035 0.035 0.035 1</specular>
+        </material>
+      </visual>
+      <visual name="passenger_left_thumb">
+        <pose>0.145 0.248 0.799 0 0 0</pose>
+        <geometry>
+          <ellipsoid>
+            <radii>0.031 0.014 0.015</radii>
+          </ellipsoid>
+        </geometry>
+        <material>
+          <ambient>0.429 0.2925 0.208 1</ambient>
+          <diffuse>0.66 0.45 0.32 1</diffuse>
+          <specular>0.035 0.035 0.035 1</specular>
+        </material>
+      </visual>
+      <visual name="passenger_right_ear">
+        <pose>-0.157 -0.077 1.229 0 0 0</pose>
+        <geometry>
+          <ellipsoid>
+            <radii>0.017 0.012 0.029</radii>
+          </ellipsoid>
+        </geometry>
+        <material>
+          <ambient>0.429 0.2925 0.208 1</ambient>
+          <diffuse>0.66 0.45 0.32 1</diffuse>
+          <specular>0.035 0.035 0.035 1</specular>
+        </material>
+      </visual>
+      <visual name="passenger_right_eye">
+        <pose>-0.07 -0.029 1.255 0 0 0</pose>
+        <geometry>
+          <ellipsoid>
+            <radii>0.007 0.013 0.0045</radii>
+          </ellipsoid>
+        </geometry>
+        <material>
+          <ambient>0.4875 0.468 0.4225 1</ambient>
+          <diffuse>0.75 0.72 0.65 1</diffuse>
+          <specular>0.035 0.035 0.035 1</specular>
+        </material>
+      </visual>
+      <visual name="passenger_right_pupil">
+        <pose>-0.0635 -0.029 1.255 0 0 0</pose>
+        <geometry>
+          <ellipsoid>
+            <radii>0.0025 0.0035 0.0035</radii>
+          </ellipsoid>
+        </geometry>
+        <material>
+          <ambient>0.04225 0.0325 0.02795 1</ambient>
+          <diffuse>0.065 0.05 0.043 1</diffuse>
+          <specular>0.035 0.035 0.035 1</specular>
+        </material>
+      </visual>
+      <visual name="passenger_right_brow">
+        <pose>-0.072 -0.03 1.267 0 0 0</pose>
+        <geometry>
+          <ellipsoid>
+            <radii>0.006 0.018 0.0035</radii>
+          </ellipsoid>
+        </geometry>
+        <material>
+          <ambient>0.04225 0.0325 0.02795 1</ambient>
+          <diffuse>0.065 0.05 0.043 1</diffuse>
+          <specular>0.035 0.035 0.035 1</specular>
+        </material>
+      </visual>
+      <visual name="passenger_right_thigh">
+        <pose>0.061 -0.1245 0.632 0 1.61761343 -0.106920533</pose>
+        <geometry>
+          <ellipsoid>
+            <radii>0.083 0.088 0.223307696</radii>
+          </ellipsoid>
+        </geometry>
+        <material>
+          <ambient>0.13 0.1495 0.1755 1</ambient>
+          <diffuse>0.2 0.23 0.27 1</diffuse>
+          <specular>0.035 0.035 0.035 1</specular>
+        </material>
+      </visual>
+      <visual name="passenger_right_knee">
+        <pose>0.252 -0.145 0.619 0 0 0</pose>
+        <geometry>
+          <ellipsoid>
+            <radii>0.070 0.074 0.075</radii>
+          </ellipsoid>
+        </geometry>
+        <material>
+          <ambient>0.13 0.1495 0.1755 1</ambient>
+          <diffuse>0.2 0.23 0.27 1</diffuse>
+          <specular>0.035 0.035 0.035 1</specular>
+        </material>
+      </visual>
+      <visual name="passenger_right_lower_leg">
+        <pose>0.2775 -0.145 0.427 0 3.00395492 0</pose>
+        <geometry>
+          <ellipsoid>
+            <radii>0.062 0.067 0.191</radii>
+          </ellipsoid>
+        </geometry>
+        <material>
+          <ambient>0.13 0.1495 0.1755 1</ambient>
+          <diffuse>0.2 0.23 0.27 1</diffuse>
+          <specular>0.035 0.035 0.035 1</specular>
+        </material>
+      </visual>
+      <visual name="passenger_right_sock">
+        <pose>0.298 -0.145 0.278 0 0 0</pose>
+        <geometry>
+          <ellipsoid>
+            <radii>0.042 0.044 0.046</radii>
+          </ellipsoid>
+        </geometry>
+        <material>
+          <ambient>0.104 0.117 0.13 1</ambient>
+          <diffuse>0.16 0.18 0.2 1</diffuse>
+          <specular>0.035 0.035 0.035 1</specular>
+        </material>
+      </visual>
+      <visual name="passenger_right_shoe_upper">
+        <pose>0.379 -0.145 0.240 0 0 0</pose>
+        <geometry>
+          <ellipsoid>
+            <radii>0.125 0.055 0.045</radii>
+          </ellipsoid>
+        </geometry>
+        <material>
+          <ambient>0.065 0.078 0.091 1</ambient>
+          <diffuse>0.1 0.12 0.14 1</diffuse>
+          <specular>0.035 0.035 0.035 1</specular>
+        </material>
+      </visual>
+      <visual name="passenger_right_shoe_heel">
+        <pose>0.294 -0.145 0.238 0 0 0</pose>
+        <geometry>
+          <ellipsoid>
+            <radii>0.040 0.051 0.042</radii>
+          </ellipsoid>
+        </geometry>
+        <material>
+          <ambient>0.065 0.078 0.091 1</ambient>
+          <diffuse>0.1 0.12 0.14 1</diffuse>
+          <specular>0.035 0.035 0.035 1</specular>
+        </material>
+      </visual>
+      <visual name="passenger_right_shoe_lace_0">
+        <pose>0.344 -0.145 0.282 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.003 0.035 0.002</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.234 0.2535 0.26 1</ambient>
+          <diffuse>0.36 0.39 0.4 1</diffuse>
+          <specular>0.035 0.035 0.035 1</specular>
+        </material>
+      </visual>
+      <visual name="passenger_right_shoe_lace_1">
+        <pose>0.360 -0.145 0.2835 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.003 0.035 0.002</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.234 0.2535 0.26 1</ambient>
+          <diffuse>0.36 0.39 0.4 1</diffuse>
+          <specular>0.035 0.035 0.035 1</specular>
+        </material>
+      </visual>
+      <visual name="passenger_right_shoe_lace_2">
+        <pose>0.376 -0.145 0.284 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.003 0.035 0.002</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.234 0.2535 0.26 1</ambient>
+          <diffuse>0.36 0.39 0.4 1</diffuse>
+          <specular>0.035 0.035 0.035 1</specular>
+        </material>
+      </visual>
+      <visual name="passenger_right_shoulder">
+        <pose>-0.166 -0.199 1.055 0 0 0</pose>
+        <geometry>
+          <ellipsoid>
+            <radii>0.061 0.056 0.06</radii>
+          </ellipsoid>
+        </geometry>
+        <material>
+          <ambient>0.0845 0.1755 0.234 1</ambient>
+          <diffuse>0.13 0.27 0.36 1</diffuse>
+          <specular>0.035 0.035 0.035 1</specular>
+        </material>
+      </visual>
+      <visual name="passenger_right_sleeve">
+        <pose>-0.154 -0.216 1.0025 0 2.76423222 -0.956133375</pose>
+        <geometry>
+          <ellipsoid>
+            <radii>0.048 0.046 0.0854734451</radii>
+          </ellipsoid>
+        </geometry>
+        <material>
+          <ambient>0.0845 0.1755 0.234 1</ambient>
+          <diffuse>0.13 0.27 0.36 1</diffuse>
+          <specular>0.035 0.035 0.035 1</specular>
+        </material>
+      </visual>
+      <visual name="passenger_right_upper_arm">
+        <pose>-0.126 -0.2555 0.88325 0 2.74940364 -0.952652101</pose>
+        <geometry>
+          <ellipsoid>
+            <radii>0.035 0.034 0.0942344274</radii>
+          </ellipsoid>
+        </geometry>
+        <material>
+          <ambient>0.429 0.2925 0.208 1</ambient>
+          <diffuse>0.66 0.45 0.32 1</diffuse>
+          <specular>0.035 0.035 0.035 1</specular>
+        </material>
+      </visual>
+      <visual name="passenger_right_elbow">
+        <pose>-0.11 -0.278 0.8165 0 0 0</pose>
+        <geometry>
+          <ellipsoid>
+            <radii>0.035 0.034 0.034</radii>
+          </ellipsoid>
+        </geometry>
+        <material>
+          <ambient>0.429 0.2925 0.208 1</ambient>
+          <diffuse>0.66 0.45 0.32 1</diffuse>
+          <specular>0.035 0.035 0.035 1</specular>
+        </material>
+      </visual>
+      <visual name="passenger_right_forearm">
+        <pose>-0.0015 -0.278 0.8165 0 1.57079633 0</pose>
+        <geometry>
+          <ellipsoid>
+            <radii>0.034 0.032 0.1285</radii>
+          </ellipsoid>
+        </geometry>
+        <material>
+          <ambient>0.429 0.2925 0.208 1</ambient>
+          <diffuse>0.66 0.45 0.32 1</diffuse>
+          <specular>0.035 0.035 0.035 1</specular>
+        </material>
+      </visual>
+      <visual name="passenger_right_hand">
+        <pose>0.158 -0.278 0.806 0 0 0</pose>
+        <geometry>
+          <ellipsoid>
+            <radii>0.061 0.038 0.021</radii>
+          </ellipsoid>
+        </geometry>
+        <material>
+          <ambient>0.429 0.2925 0.208 1</ambient>
+          <diffuse>0.66 0.45 0.32 1</diffuse>
+          <specular>0.035 0.035 0.035 1</specular>
+        </material>
+      </visual>
+      <visual name="passenger_right_thumb">
+        <pose>0.145 -0.248 0.799 0 0 0</pose>
+        <geometry>
+          <ellipsoid>
+            <radii>0.031 0.014 0.015</radii>
+          </ellipsoid>
+        </geometry>
+        <material>
+          <ambient>0.429 0.2925 0.208 1</ambient>
+          <diffuse>0.66 0.45 0.32 1</diffuse>
+          <specular>0.035 0.035 0.035 1</specular>
+        </material>
+      </visual>
+      <!-- END SEATED PASSENGER -->
+      <collision name="swan_connector_collision">
+        <pose>0.32 0 0.35 0 0 0</pose>
 
-    <!-- Side-fold carrier. Identity pose preserves ALL existing unfolded poses.
-         Existing link inertials are unchanged; this new carrier adds 0.1 kg.
-         The original SWAN collision shapes below are moved without resizing. -->
+        <geometry>
+          <box>
+            <size>0.24 0.20 0.07</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="left_lower_attachment_rail">
+        <pose>0.345 0.258 0.155 0 0.2368488 0</pose>
+        <geometry><box><size>0.2983287 0.024 0.026</size></box></geometry>
+        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
+      </visual>
+      <visual name="left_rising_attachment_rail">
+        <pose>0.555 0.258 0.235 0 -1.056345 0</pose>
+        <geometry><box><size>0.2641969 0.024 0.026</size></box></geometry>
+        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
+      </visual>
+      <visual name="left_attachment_crosspin">
+        <pose>0.62 0.196 0.35 0 1.570796 -1.570796</pose>
+        <geometry><cylinder><radius>0.013</radius><length>0.124</length></cylinder></geometry>
+        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
+      </visual>
+      <visual name="left_fold_hinge">
+        <pose>0.49 0.258 0.12 1.570796 0 0</pose>
+        <geometry><cylinder><radius>0.023</radius><length>0.034</length></cylinder></geometry>
+        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
+      </visual>
+      <visual name="left_hinge_pin">
+        <pose>0.49 0.279 0.12 1.570796 0 0</pose>
+        <geometry><cylinder><radius>0.009</radius><length>0.004</length></cylinder></geometry>
+        <material><ambient>0.384 0.408 0.426 1</ambient><diffuse>0.64 0.68 0.71 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
+      </visual>
+      <visual name="left_flush_release_lever">
+        <pose>0.505 0.281 0.136 0 -0.65 0</pose>
+        <geometry><box><size>0.044 0.006 0.01</size></box></geometry>
+        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
+      </visual>
+      <visual name="right_lower_attachment_rail">
+        <pose>0.345 -0.258 0.155 0 0.2368488 0</pose>
+        <geometry><box><size>0.2983287 0.024 0.026</size></box></geometry>
+        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
+      </visual>
+      <visual name="right_rising_attachment_rail">
+        <pose>0.555 -0.258 0.235 0 -1.056345 0</pose>
+        <geometry><box><size>0.2641969 0.024 0.026</size></box></geometry>
+        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
+      </visual>
+      <visual name="right_attachment_crosspin">
+        <pose>0.62 -0.196 0.35 0 1.570796 1.570796</pose>
+        <geometry><cylinder><radius>0.013</radius><length>0.124</length></cylinder></geometry>
+        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
+      </visual>
+      <visual name="right_fold_hinge">
+        <pose>0.49 -0.258 0.12 1.570796 0 0</pose>
+        <geometry><cylinder><radius>0.023</radius><length>0.034</length></cylinder></geometry>
+        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
+      </visual>
+      <visual name="right_hinge_pin">
+        <pose>0.49 -0.279 0.12 1.570796 0 0</pose>
+        <geometry><cylinder><radius>0.009</radius><length>0.004</length></cylinder></geometry>
+        <material><ambient>0.384 0.408 0.426 1</ambient><diffuse>0.64 0.68 0.71 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
+      </visual>
+      <visual name="right_flush_release_lever">
+        <pose>0.505 -0.281 0.136 0 -0.65 0</pose>
+        <geometry><box><size>0.044 0.006 0.01</size></box></geometry>
+        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
+      </visual>
+      <visual name="swan_fold_latch_moving_visual">
+        <pose>0.221 -0.258 0.19 0 0 0</pose>
+        <geometry><box><size>0.012 0.028 0.018</size></box></geometry>
+        <material><ambient>0.30 0.32 0.34 1</ambient><diffuse>0.60 0.64 0.68 1</diffuse></material>
+      </visual>
+      <visual name="left_main_hinge_support">
+        <pose>0.6074999999999999 0.178 0.435 0 0.1460122577112755 3.141592653589793</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.009</radius>
+            <length>0.17182840277439587</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.20 0.22 0.24 1</ambient>
+          <diffuse>0.20 0.22 0.24 1</diffuse>
+        </material>
+      </visual>
+      <collision name="left_main_hinge_support_collision">
+        <pose>0.6074999999999999 0.178 0.435 0 0.1460122577112755 3.141592653589793</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.009</radius>
+            <length>0.17182840277439587</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name="right_main_hinge_support">
+        <pose>0.6074999999999999 -0.178 0.435 0 0.1460122577112755 3.141592653589793</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.009</radius>
+            <length>0.17182840277439587</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.20 0.22 0.24 1</ambient>
+          <diffuse>0.20 0.22 0.24 1</diffuse>
+        </material>
+      </visual>
+      <collision name="right_main_hinge_support_collision">
+        <pose>0.6074999999999999 -0.178 0.435 0 0.1460122577112755 3.141592653589793</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.009</radius>
+            <length>0.17182840277439587</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name="left_main_fold_pin">
+        <pose>0.595 0.1575 0.52 0 1.5707963267948966 1.5707963267948966</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.009</radius>
+            <length>0.065</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.20 0.22 0.24 1</ambient>
+          <diffuse>0.20 0.22 0.24 1</diffuse>
+        </material>
+      </visual>
+      <visual name="right_main_fold_pin">
+        <pose>0.595 -0.1575 0.52 0 1.5707963267948966 -1.5707963267948966</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.009</radius>
+            <length>0.065</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.20 0.22 0.24 1</ambient>
+          <diffuse>0.20 0.22 0.24 1</diffuse>
+        </material>
+      </visual>
+    </link>
     <link name="swan_fold_link">
       <pose>0 0 0 0 0 0</pose>
       <inertial>
@@ -1075,7 +1343,9 @@
           <ixx>0.000988333333333</ixx>
           <iyy>0.001390833333333</iyy>
           <izz>0.002004166666667</izz>
-          <ixy>0</ixy><ixz>0</ixz><iyz>0</iyz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
         </inertia>
       </inertial>
       <collision name="swan_body_collision">
@@ -1087,30 +1357,6 @@
           </box>
         </geometry>
       </collision>
-      <collision name="swan_connector_collision">
-        <pose>0.32 0 0.35 0 0 0</pose>
-
-        <geometry>
-          <box>
-            <size>0.24 0.20 0.07</size>
-          </box>
-        </geometry>
-      </collision>
-      <visual name="swan_head_bridge">
-        <pose>0.725 0 0.455 0 1.93797 0</pose>
-        <geometry><cylinder><radius>0.023</radius><length>0.1392839</length></cylinder></geometry>
-        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="swan_steering_bearing">
-        <pose>0.79 0 0.408 0 0 0</pose>
-        <geometry><cylinder><radius>0.03</radius><length>0.06</length></cylinder></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="camera_tilt_pivot">
-        <pose>0.55 0 0.61 1.570796 0 0</pose>
-        <geometry><cylinder><radius>0.014</radius><length>0.066</length></cylinder></geometry>
-        <material><ambient>0.384 0.408 0.426 1</ambient><diffuse>0.64 0.68 0.71 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
-      </visual>
       <visual name="left_swan_side_shell">
         <pose>0.565 0.141 0.423 0 0 0</pose>
         <geometry><box><size>0.27 0.016 0.126</size></box></geometry>
@@ -1210,36 +1456,6 @@
         <pose>0.676 0.153 0.377 1.570796 0 0</pose>
         <geometry><cylinder><radius>0.004</radius><length>0.003</length></cylinder></geometry>
         <material><ambient>0.384 0.408 0.426 1</ambient><diffuse>0.64 0.68 0.71 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
-      </visual>
-      <visual name="left_lower_attachment_rail">
-        <pose>0.345 0.258 0.155 0 0.2368488 0</pose>
-        <geometry><box><size>0.2983287 0.024 0.026</size></box></geometry>
-        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="left_rising_attachment_rail">
-        <pose>0.555 0.258 0.235 0 -1.056345 0</pose>
-        <geometry><box><size>0.2641969 0.024 0.026</size></box></geometry>
-        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="left_attachment_crosspin">
-        <pose>0.62 0.196 0.35 0 1.570796 -1.570796</pose>
-        <geometry><cylinder><radius>0.013</radius><length>0.124</length></cylinder></geometry>
-        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="left_fold_hinge">
-        <pose>0.49 0.258 0.12 1.570796 0 0</pose>
-        <geometry><cylinder><radius>0.023</radius><length>0.034</length></cylinder></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="left_hinge_pin">
-        <pose>0.49 0.279 0.12 1.570796 0 0</pose>
-        <geometry><cylinder><radius>0.009</radius><length>0.004</length></cylinder></geometry>
-        <material><ambient>0.384 0.408 0.426 1</ambient><diffuse>0.64 0.68 0.71 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
-      </visual>
-      <visual name="left_flush_release_lever">
-        <pose>0.505 0.281 0.136 0 -0.65 0</pose>
-        <geometry><box><size>0.044 0.006 0.01</size></box></geometry>
-        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
       </visual>
       <visual name="right_swan_side_shell">
         <pose>0.565 -0.141 0.423 0 0 0</pose>
@@ -1341,36 +1557,6 @@
         <geometry><cylinder><radius>0.004</radius><length>0.003</length></cylinder></geometry>
         <material><ambient>0.384 0.408 0.426 1</ambient><diffuse>0.64 0.68 0.71 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
       </visual>
-      <visual name="right_lower_attachment_rail">
-        <pose>0.345 -0.258 0.155 0 0.2368488 0</pose>
-        <geometry><box><size>0.2983287 0.024 0.026</size></box></geometry>
-        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="right_rising_attachment_rail">
-        <pose>0.555 -0.258 0.235 0 -1.056345 0</pose>
-        <geometry><box><size>0.2641969 0.024 0.026</size></box></geometry>
-        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="right_attachment_crosspin">
-        <pose>0.62 -0.196 0.35 0 1.570796 1.570796</pose>
-        <geometry><cylinder><radius>0.013</radius><length>0.124</length></cylinder></geometry>
-        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="right_fold_hinge">
-        <pose>0.49 -0.258 0.12 1.570796 0 0</pose>
-        <geometry><cylinder><radius>0.023</radius><length>0.034</length></cylinder></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
-      <visual name="right_hinge_pin">
-        <pose>0.49 -0.279 0.12 1.570796 0 0</pose>
-        <geometry><cylinder><radius>0.009</radius><length>0.004</length></cylinder></geometry>
-        <material><ambient>0.384 0.408 0.426 1</ambient><diffuse>0.64 0.68 0.71 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
-      </visual>
-      <visual name="right_flush_release_lever">
-        <pose>0.505 -0.281 0.136 0 -0.65 0</pose>
-        <geometry><box><size>0.044 0.006 0.01</size></box></geometry>
-        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
       <visual name="swan_integrated_core">
         <pose>0.565 0 0.419 0 0 0</pose>
         <geometry><box><size>0.27 0.264 0.108</size></box></geometry>
@@ -1431,236 +1617,77 @@
         <geometry><cylinder><radius>0.02</radius><length>0.02</length></cylinder></geometry>
         <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
       </visual>
-      <visual name="camera_short_mast">
-        <pose>0.55 0 0.5585 0 0 0</pose>
-        <geometry><cylinder><radius>0.01</radius><length>0.107</length></cylinder></geometry>
-        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
-      </visual>
       <visual name="swan_rear_diagonal_finish">
         <pose>0.4 0 0.4 0 0.9272952 0</pose>
         <geometry><box><size>0.108 0.298 0.014</size></box></geometry>
         <material><ambient>0.174 0.192 0.21 1</ambient><diffuse>0.29 0.32 0.35 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
       </visual>
-      <visual name="front_slim_fender_00">
-        <pose>1.0142783 0 0.08389992 0 1.9756158 0</pose>
-        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
+      <visual name="left_main_fold_lug">
+        <pose>0.595 0.145 0.495 0 0.0 0.0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.009</radius>
+            <length>0.050000000000000044</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.20 0.22 0.24 1</ambient>
+          <diffuse>0.20 0.22 0.24 1</diffuse>
+        </material>
       </visual>
-      <visual name="front_slim_fender_01">
-        <pose>1.0198858 0 0.098216685 0 1.91259 0</pose>
-        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
+      <visual name="right_main_fold_lug">
+        <pose>0.595 -0.145 0.495 0 0.0 0.0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.009</radius>
+            <length>0.050000000000000044</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.20 0.22 0.24 1</ambient>
+          <diffuse>0.20 0.22 0.24 1</diffuse>
+        </material>
       </visual>
-      <visual name="front_slim_fender_02">
-        <pose>1.0245804 0 0.11285821 0 1.8495642 0</pose>
-        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
+      <visual name="wheel_fold_cross_pin">
+        <pose>0.55 0.0 0.435 0 1.5707963267948966 1.5707963267948966</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.009</radius>
+            <length>0.38</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.20 0.22 0.24 1</ambient>
+          <diffuse>0.20 0.22 0.24 1</diffuse>
+        </material>
       </visual>
-      <visual name="front_slim_fender_03">
-        <pose>1.0283435 0 0.12776634 0 1.7865384 0</pose>
-        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
-      </visual>
-      <visual name="front_slim_fender_04">
-        <pose>1.0311602 0 0.14288189 0 1.7235126 0</pose>
-        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
-      </visual>
-      <visual name="front_slim_fender_05">
-        <pose>1.0330192 0 0.15814484 0 1.6604869 0</pose>
-        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
-      </visual>
-      <visual name="front_slim_fender_06">
-        <pose>1.0339133 0 0.17349457 0 1.5974611 0</pose>
-        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
-      </visual>
-      <visual name="front_slim_fender_07">
-        <pose>1.0338387 0 0.18887014 0 1.5344353 0</pose>
-        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
-      </visual>
-      <visual name="front_slim_fender_08">
-        <pose>1.0327959 0 0.20421048 0 1.4714095 0</pose>
-        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
-      </visual>
-      <visual name="front_slim_fender_09">
-        <pose>1.030789 0 0.21945468 0 1.4083837 0</pose>
-        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
-      </visual>
-      <visual name="front_slim_fender_10">
-        <pose>1.0278259 0 0.23454221 0 1.345358 0</pose>
-        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
-      </visual>
-      <visual name="front_slim_fender_11">
-        <pose>1.0239184 0 0.24941316 0 1.2823322 0</pose>
-        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
-      </visual>
-      <visual name="front_slim_fender_12">
-        <pose>1.019082 0 0.26400847 0 1.2193064 0</pose>
-        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
-      </visual>
-      <visual name="front_slim_fender_13">
-        <pose>1.013336 0 0.27827019 0 1.1562806 0</pose>
-        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
-      </visual>
-      <visual name="front_slim_fender_14">
-        <pose>1.0067031 0 0.29214169 0 1.0932549 0</pose>
-        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
-      </visual>
-      <visual name="front_slim_fender_15">
-        <pose>0.99920972 0 0.30556788 0 1.0302291 0</pose>
-        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
-      </visual>
-      <visual name="front_slim_fender_16">
-        <pose>0.99088557 0 0.31849544 0 0.96720329 0</pose>
-        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
-      </visual>
-      <visual name="front_slim_fender_17">
-        <pose>0.98176371 0 0.33087306 0 0.90417752 0</pose>
-        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
-      </visual>
-      <visual name="front_slim_fender_18">
-        <pose>0.97188037 0 0.34265156 0 0.84115174 0</pose>
-        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
-      </visual>
-      <visual name="front_slim_fender_19">
-        <pose>0.9612748 0 0.35378418 0 0.77812596 0</pose>
-        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
-      </visual>
-      <visual name="front_slim_fender_20">
-        <pose>0.94998911 0 0.36422672 0 0.71510018 0</pose>
-        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
-      </visual>
-      <visual name="front_slim_fender_21">
-        <pose>0.93806811 0 0.37393771 0 0.6520744 0</pose>
-        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
-      </visual>
-      <visual name="front_slim_fender_22">
-        <pose>0.92555914 0 0.38287859 0 0.58904862 0</pose>
-        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
-      </visual>
-      <visual name="front_slim_fender_23">
-        <pose>0.91251187 0 0.39101384 0 0.52602284 0</pose>
-        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
-      </visual>
-      <visual name="front_slim_fender_24">
-        <pose>0.89897812 0 0.39831118 0 0.46299707 0</pose>
-        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
-      </visual>
-      <visual name="front_slim_fender_25">
-        <pose>0.88501162 0 0.40474161 0 0.39997129 0</pose>
-        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
-      </visual>
-      <visual name="front_slim_fender_26">
-        <pose>0.87066784 0 0.41027961 0 0.33694551 0</pose>
-        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
-      </visual>
-      <visual name="front_slim_fender_27">
-        <pose>0.85600373 0 0.41490319 0 0.27391973 0</pose>
-        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
-      </visual>
-      <visual name="front_slim_fender_28">
-        <pose>0.84107753 0 0.41859398 0 0.21089395 0</pose>
-        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
-      </visual>
-      <visual name="front_slim_fender_29">
-        <pose>0.8259485 0 0.42133733 0 0.14786817 0</pose>
-        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
-      </visual>
-      <visual name="front_slim_fender_30">
-        <pose>0.81067672 0 0.42312234 0 0.084842394 0</pose>
-        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
-      </visual>
-      <visual name="front_slim_fender_31">
-        <pose>0.79532283 0 0.42394193 0 0.021816616 0</pose>
-        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
-      </visual>
-      <visual name="front_slim_fender_32">
-        <pose>0.77994781 0 0.42379285 0 -0.041209163 0</pose>
-        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
-      </visual>
-      <visual name="front_slim_fender_33">
-        <pose>0.7646127 0 0.42267568 0 -0.10423494 0</pose>
-        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
-      </visual>
-      <visual name="front_slim_fender_34">
-        <pose>0.74937841 0 0.42059486 0 -0.16726072 0</pose>
-        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
-      </visual>
-      <visual name="front_slim_fender_35">
-        <pose>0.73430542 0 0.41755865 0 -0.2302865 0</pose>
-        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
-        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
-      </visual>
-      <visual name="front_slim_fender_root">
-        <pose>0.714 0 0.439 0 0.64 0</pose>
-        <geometry><box><size>0.058 0.04 0.006</size></box></geometry>
-        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse></material>
-      </visual>
-      <visual name="lidar_rear_mount_neck">
-        <pose>1.02 0 0.07 0 0.32 0</pose>
-        <geometry><box><size>0.034 0.028 0.004</size></box></geometry>
-        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse></material>
-      </visual>
-      <visual name="lidar_rear_underplate">
-        <pose>1.05 0 0.067 0 0 0</pose>
-        <geometry><box><size>0.041 0.033 0.004</size></box></geometry>
-        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse></material>
-      </visual>
-      <visual name="lidar_rear_isolation_pad">
-        <pose>1.05 0 0.07 0 0 0</pose>
-        <geometry><box><size>0.03 0.026 0.002</size></box></geometry>
-        <material><ambient>0.021 0.0234 0.0264 1</ambient><diffuse>0.035 0.039 0.044 1</diffuse></material>
-      </visual>
-      <visual name="swan_fold_latch_moving_visual">
-        <pose>0.221 -0.258 0.19 0 0 0</pose>
-        <geometry><box><size>0.012 0.028 0.018</size></box></geometry>
-        <material><ambient>0.30 0.32 0.34 1</ambient><diffuse>0.60 0.64 0.68 1</diffuse></material>
+      <visual name="camera_fold_pedestal">
+        <pose>0.55 0.0 0.5175000000000001 0 0.0 0.0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.01</radius>
+            <length>0.025000000000000022</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.20 0.22 0.24 1</ambient>
+          <diffuse>0.20 0.22 0.24 1</diffuse>
+        </material>
       </visual>
     </link>
-
     <!-- +Z yaw around the LEFT connector: +1.5708 rad folds outwards.
          This is the only fold constraint; no latch joint or runtime detach. -->
     <joint name="swan_fold_joint" type="revolute">
-      <pose relative_to="base_link">0.20 0.258 0.19 0 0 0</pose>
+      <pose relative_to="base_link">0.595 0 0.52 0 0 0</pose>
       <parent>base_link</parent>
       <child>swan_fold_link</child>
       <axis>
-        <xyz expressed_in="base_link">0 0 1</xyz>
+        <xyz expressed_in="base_link">0 1 0</xyz>
         <limit>
           <lower>0.0</lower>
-          <upper>1.5708</upper>
+          <upper>1.5707963267948966</upper>
           <effort>150</effort>
-          <velocity>0.60</velocity>
+          <velocity>0.25</velocity>
         </limit>
         <dynamics>
           <damping>0.8</damping>
@@ -1668,19 +1695,11 @@
         </dynamics>
       </axis>
     </joint>
-
-
-
-
     <!-- Left passive rear wheel -->
-
     <link name="left_drive_wheel">
-
       <pose>-0.13 0.34 0.29 1.5708 0 0</pose>
-
       <inertial>
         <mass>6.0</mass>
-
         <inertia>
           <ixx>0.13</ixx>
           <iyy>0.25</iyy>
@@ -1690,8 +1709,6 @@
           <iyz>0</iyz>
         </inertia>
       </inertial>
-
-
       <collision name="left_rear_wheel_collision">
 
         <geometry>
@@ -1711,8 +1728,6 @@
         </surface>
 
       </collision>
-
-    
       <!-- Redesigned appearance only; no added physical elements. -->
       <visual name="left_tire_00">
         <pose>0.2763791 0 0 0 0 0</pose>
@@ -2595,8 +2610,6 @@
         <material><ambient>0.384 0.408 0.426 1</ambient><diffuse>0.64 0.68 0.71 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
       </visual>
     </link>
-
-
     <joint name="left_drive_wheel_joint" type="revolute">
 
       <parent>base_link</parent>
@@ -2621,18 +2634,11 @@
       </axis>
 
     </joint>
-
-
-
     <!-- Right passive rear wheel -->
-
     <link name="right_drive_wheel">
-
       <pose>-0.13 -0.34 0.29 1.5708 0 0</pose>
-
       <inertial>
         <mass>6.0</mass>
-
         <inertia>
           <ixx>0.13</ixx>
           <iyy>0.25</iyy>
@@ -2642,8 +2648,6 @@
           <iyz>0</iyz>
         </inertia>
       </inertial>
-
-
       <collision name="right_rear_wheel_collision">
 
         <geometry>
@@ -2663,8 +2667,6 @@
         </surface>
 
       </collision>
-
-    
       <!-- Redesigned appearance only; no added physical elements. -->
       <visual name="right_tire_00">
         <pose>0.2763791 0 0 0 0 0</pose>
@@ -3547,8 +3549,6 @@
         <material><ambient>0.384 0.408 0.426 1</ambient><diffuse>0.64 0.68 0.71 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
       </visual>
     </link>
-
-
     <joint name="right_drive_wheel_joint" type="revolute">
 
       <parent>base_link</parent>
@@ -3573,18 +3573,11 @@
       </axis>
 
     </joint>
-
-
-
     <!-- SWAN steering fork -->
-
     <link name="swan_steering_fork">
-
       <pose>0.79 0 0.34 0 0 0</pose>
-
       <inertial>
         <mass>1.5</mass>
-
         <inertia>
           <ixx>0.018</ixx>
           <iyy>0.018</iyy>
@@ -3594,11 +3587,7 @@
           <iyz>0</iyz>
         </inertia>
       </inertial>
-
-
       <!-- No tall steering tube visual -->
-
-    
       <!-- Redesigned appearance only; no added physical elements. -->
       <visual name="fork_steering_neck">
         <pose>0 0 0.044 0 0 0</pose>
@@ -3640,16 +3629,6 @@
         <geometry><cylinder><radius>0.004</radius><length>0.1943425</length></cylinder></geometry>
         <material><ambient>0.384 0.408 0.426 1</ambient><diffuse>0.64 0.68 0.71 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
       </visual>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
       <visual name="front_fender_10">
         <pose>-0.01330858 0 0.05759339 0 -0.06108652 0</pose>
         <geometry><box><size>0.02729957 0.122 0.006</size></box></geometry>
@@ -3706,44 +3685,28 @@
         <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
       </visual>
     </link>
-
-
     <joint name="front_steering_joint" type="revolute">
-
-      <parent>swan_fold_link</parent>
+      <parent>front_wheel_fold_link</parent>
       <child>swan_steering_fork</child>
-
       <axis>
-
-        <xyz expressed_in="__model__">0 0 1</xyz>
-
+        <xyz expressed_in="front_wheel_fold_link">0 0 1</xyz>
         <limit>
           <lower>-1.5708</lower>
           <upper>1.5708</upper>
           <effort>150</effort>
           <velocity>4.0</velocity>
         </limit>
-
         <dynamics>
           <damping>0.8</damping>
           <friction>0.10</friction>
         </dynamics>
-
       </axis>
-
     </joint>
-
-
-
     <!-- SWAN drive wheel -->
-
     <link name="front_drive_wheel">
-
       <pose>0.79 0 0.18 1.5708 0 0</pose>
-
       <inertial>
         <mass>7.0</mass>
-
         <inertia>
           <ixx>0.145</ixx>
           <iyy>0.280</iyy>
@@ -3753,8 +3716,6 @@
           <iyz>0</iyz>
         </inertia>
       </inertial>
-
-
       <collision name="front_drive_wheel_collision">
 
         <geometry>
@@ -3774,44 +3735,25 @@
         </surface>
 
       </collision>
-
-
       <!-- ================================================== -->
       <!-- Front wheel visuals                                -->
       <!-- ================================================== -->
-
       <!-- Rubber tire -->
-
-
       <!-- ================================================== -->
       <!-- Outer rim - left side                              -->
       <!-- ================================================== -->
-
-
       <!-- Black center mask to create rim-ring appearance -->
-
-
       <!-- ================================================== -->
       <!-- Five spokes - left side                            -->
       <!-- ================================================== -->
-
-
       <!-- Motor hub -->
-
-
       <!-- Axle cap -->
-
-
       <!-- ================================================== -->
       <!-- Outer rim - right side                             -->
       <!-- ================================================== -->
-
-
       <!-- ================================================== -->
       <!-- Five spokes - right side                           -->
       <!-- ================================================== -->
-
-    
       <!-- Redesigned appearance only; no added physical elements. -->
       <visual name="front_tire_00">
         <pose>0.1845718 0 0 0 0 0</pose>
@@ -5159,8 +5101,6 @@
         <material><ambient>0.384 0.408 0.426 1</ambient><diffuse>0.64 0.68 0.71 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
       </visual>
     </link>
-
-
     <joint name="front_drive_wheel_joint" type="revolute">
 
       <parent>swan_steering_fork</parent>
@@ -5185,18 +5125,11 @@
       </axis>
 
     </joint>
-
-
-
     <!-- LiDAR -->
-
     <link name="lidar_link">
-
       <pose>1.07 0 0.10 0 0 0</pose>
-
       <inertial>
         <mass>0.5</mass>
-
         <inertia>
           <ixx>0.001</ixx>
           <iyy>0.001</iyy>
@@ -5206,8 +5139,6 @@
           <iyz>0.0</iyz>
         </inertia>
       </inertial>
-
-
       <collision name="lidar_collision">
 
         <geometry>
@@ -5218,8 +5149,6 @@
         </geometry>
 
       </collision>
-
-
       <sensor name="lidar_sensor" type="gpu_lidar">
 
         <pose>0 0 0.03 0 0 0</pose>
@@ -5256,15 +5185,13 @@
         </lidar>
 
       </sensor>
-
-    
       <!-- Redesigned appearance only; no added physical elements. -->
       <visual name="lidar_visual">
         <pose>0 0 -0.006 0 0 0</pose>
         <geometry><cylinder><radius>0.05</radius><length>0.048</length></cylinder></geometry>
         <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
       </visual>
-                  <visual name="lidar_scan_band">
+      <visual name="lidar_scan_band">
         <pose>0 0 0.02 0 0 0</pose>
         
         
@@ -5275,32 +5202,21 @@
       
       
       </visual>
-
-
       <visual name="lidar_lower_ring">
         <pose>0 0 -0.026 0 0 0</pose>
         <geometry><cylinder><radius>0.051</radius><length>0.007</length></cylinder></geometry>
         <material><ambient>0.384 0.408 0.426 1</ambient><diffuse>0.64 0.68 0.71 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
       </visual>
     </link>
-
-
     <joint name="lidar_joint" type="fixed">
-      <parent>swan_fold_link</parent>
+      <parent>front_cover_fold_link</parent>
       <child>lidar_link</child>
     </joint>
-
-
-
     <!-- Camera -->
-
     <link name="camera_link">
-
       <pose>0.55 0 0.64 0 0.17 0</pose>
-
       <inertial>
         <mass>0.1</mass>
-
         <inertia>
           <ixx>0.0001</ixx>
           <iyy>0.0001</iyy>
@@ -5310,8 +5226,6 @@
           <iyz>0.0</iyz>
         </inertia>
       </inertial>
-
-
       <sensor name="camera_sensor" type="camera">
 
         <topic>/camera</topic>
@@ -5338,8 +5252,6 @@
         </camera>
 
       </sensor>
-
-    
       <!-- Redesigned appearance only; no added physical elements. -->
       <visual name="camera_visual">
         <pose>-0.008 0 0 0 0 0</pose>
@@ -5362,92 +5274,863 @@
         <material><ambient>0.072 0.288 0.306 1</ambient><diffuse>0.12 0.48 0.51 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
       </visual>
     </link>
-
-
     <joint name="camera_joint" type="fixed">
-      <parent>swan_fold_link</parent>
+      <parent>camera_fold_link</parent>
       <child>camera_link</child>
     </joint>
-
-
-
     <!-- Odometry publisher -->
-    <plugin
-      filename="gz-sim-odometry-publisher-system"
-      name="gz::sim::systems::OdometryPublisher">
-
+    <plugin filename="gz-sim-odometry-publisher-system" name="gz::sim::systems::OdometryPublisher">
       <odom_frame>odom</odom_frame>
       <robot_base_frame>base_link</robot_base_frame>
-
       <odom_topic>/model/wheelchair/odometry</odom_topic>
       <tf_topic>/model/wheelchair/tf</tf_topic>
-
       <odom_publish_frequency>30</odom_publish_frequency>
       <dimensions>2</dimensions>
-
     </plugin>
-
     <!-- Front drive controller -->
-
-    <plugin
-      filename="gz-sim-joint-controller-system"
-      name="gz::sim::systems::JointController">
-
+    <plugin filename="gz-sim-joint-controller-system" name="gz::sim::systems::JointController">
       <joint_name>front_drive_wheel_joint</joint_name>
       <topic>/model/wheelchair/front_drive/cmd_vel</topic>
-
     </plugin>
-
-
-
     <!-- Steering controller -->
-
-    <plugin
-      filename="gz-sim-joint-position-controller-system"
-      name="gz::sim::systems::JointPositionController">
-
+    <plugin filename="gz-sim-joint-position-controller-system" name="gz::sim::systems::JointPositionController">
       <joint_name>front_steering_joint</joint_name>
       <topic>/model/wheelchair/front_steering/cmd_pos</topic>
-
       <p_gain>25.0</p_gain>
       <i_gain>0.0</i_gain>
       <d_gain>3.0</d_gain>
-
       <cmd_max>150</cmd_max>
       <cmd_min>-150</cmd_min>
-
       <initial_position>0.0</initial_position>
-
     </plugin>
-
-
-
     <!-- Joint states -->
-
-    <plugin
-      filename="gz-sim-joint-state-publisher-system"
-      name="gz::sim::systems::JointStatePublisher">
-
+    <plugin filename="gz-sim-joint-state-publisher-system" name="gz::sim::systems::JointStatePublisher">
       <joint_name>front_steering_joint</joint_name>
       <joint_name>front_drive_wheel_joint</joint_name>
       <joint_name>left_drive_wheel_joint</joint_name>
       <joint_name>right_drive_wheel_joint</joint_name>
-
-    </plugin>
-
-
-    <!-- Side-fold control: 0.0 = unfolded; +1.5708 = folded.
-         Velocity-command mode bounds speed at 0.60 rad/s in both directions.
-         Allow at least 3 seconds at rest after an unfold command. -->
-    <plugin filename="gz-sim-joint-position-controller-system"
-            name="gz::sim::systems::JointPositionController">
+      <joint_name>camera_fold_joint</joint_name>
+      <joint_name>front_wheel_fold_joint</joint_name>
+      <joint_name>front_cover_fold_joint</joint_name>
       <joint_name>swan_fold_joint</joint_name>
-      <topic>/model/wheelchair/fold/cmd_pos</topic>
+    </plugin>
+    <plugin filename="gz-sim-joint-position-controller-system" name="gz::sim::systems::JointPositionController">
+      <joint_name>swan_fold_joint</joint_name>
+      <topic>/model/wheelchair/fold/main/cmd_pos</topic>
       <use_velocity_commands>true</use_velocity_commands>
-      <cmd_max>0.60</cmd_max>
-      <cmd_min>-0.60</cmd_min>
+      <cmd_max>0.25</cmd_max>
+      <cmd_min>-0.25</cmd_min>
       <initial_position>0.0</initial_position>
     </plugin>
-
+    <link name="camera_fold_link">
+      <pose>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.55 0 0.56 0 0 0</pose>
+        <mass>0.05</mass>
+        <inertia>
+          <ixx>0.0001</ixx>
+          <iyy>0.0001</iyy>
+          <izz>5e-05</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      <visual name="camera_tilt_pivot">
+        <pose>0.55 0 0.61 1.570796 0 0</pose>
+        <geometry><cylinder><radius>0.014</radius><length>0.066</length></cylinder></geometry>
+        <material><ambient>0.384 0.408 0.426 1</ambient><diffuse>0.64 0.68 0.71 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>
+      </visual>
+      <visual name="camera_short_mast">
+        <pose>0.55 0 0.5585 0 0 0</pose>
+        <geometry><cylinder><radius>0.01</radius><length>0.107</length></cylinder></geometry>
+        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
+      </visual>
+      <visual name="camera_fold_pin">
+        <pose>0.55 0.0 0.53 0 1.5707963267948966 1.5707963267948966</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.009</radius>
+            <length>0.054</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.20 0.22 0.24 1</ambient>
+          <diffuse>0.20 0.22 0.24 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="front_wheel_fold_link">
+      <pose>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.55 0 0.435 0 0 0</pose>
+        <mass>0.08</mass>
+        <inertia>
+          <ixx>0.0003</ixx>
+          <iyy>0.0003</iyy>
+          <izz>0.0003</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      <visual name="swan_head_bridge">
+        <pose>0.725 0 0.455 0 1.93797 0</pose>
+        <geometry><cylinder><radius>0.023</radius><length>0.1392839</length></cylinder></geometry>
+        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
+      </visual>
+      <visual name="swan_steering_bearing">
+        <pose>0.79 0 0.408 0 0 0</pose>
+        <geometry><cylinder><radius>0.03</radius><length>0.06</length></cylinder></geometry>
+        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
+      </visual>
+      <visual name="left_wheel_fold_arm">
+        <pose>0.67 0.178 0.4215 0 1.6828252892208846 0.0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.009</radius>
+            <length>0.2415139747509448</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.20 0.22 0.24 1</ambient>
+          <diffuse>0.20 0.22 0.24 1</diffuse>
+        </material>
+      </visual>
+      <collision name="left_wheel_fold_arm_collision">
+        <pose>0.67 0.178 0.4215 0 1.6828252892208846 0.0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.009</radius>
+            <length>0.2415139747509448</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name="right_wheel_fold_arm">
+        <pose>0.67 -0.178 0.4215 0 1.6828252892208846 0.0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.009</radius>
+            <length>0.2415139747509448</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.20 0.22 0.24 1</ambient>
+          <diffuse>0.20 0.22 0.24 1</diffuse>
+        </material>
+      </visual>
+      <collision name="right_wheel_fold_arm_collision">
+        <pose>0.67 -0.178 0.4215 0 1.6828252892208846 0.0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.009</radius>
+            <length>0.2415139747509448</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name="wheel_fold_front_crossbar">
+        <pose>0.79 0.0 0.408 0 1.5707963267948966 1.5707963267948966</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.009</radius>
+            <length>0.356</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.20 0.22 0.24 1</ambient>
+          <diffuse>0.20 0.22 0.24 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="front_cover_fold_link">
+      <pose>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.88 0 0.30 0 0 0</pose>
+        <mass>0.08</mass>
+        <inertia>
+          <ixx>0.0005</ixx>
+          <iyy>0.001</iyy>
+          <izz>0.0005</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      <visual name="front_slim_fender_00">
+        <pose>1.0142783 0 0.08389992 0 1.9756158 0</pose>
+        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
+        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
+      </visual>
+      <visual name="front_slim_fender_01">
+        <pose>1.0198858 0 0.098216685 0 1.91259 0</pose>
+        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
+        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
+      </visual>
+      <visual name="front_slim_fender_02">
+        <pose>1.0245804 0 0.11285821 0 1.8495642 0</pose>
+        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
+        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
+      </visual>
+      <visual name="front_slim_fender_03">
+        <pose>1.0283435 0 0.12776634 0 1.7865384 0</pose>
+        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
+        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
+      </visual>
+      <visual name="front_slim_fender_04">
+        <pose>1.0311602 0 0.14288189 0 1.7235126 0</pose>
+        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
+        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
+      </visual>
+      <visual name="front_slim_fender_05">
+        <pose>1.0330192 0 0.15814484 0 1.6604869 0</pose>
+        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
+        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
+      </visual>
+      <visual name="front_slim_fender_06">
+        <pose>1.0339133 0 0.17349457 0 1.5974611 0</pose>
+        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
+        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
+      </visual>
+      <visual name="front_slim_fender_07">
+        <pose>1.0338387 0 0.18887014 0 1.5344353 0</pose>
+        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
+        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
+      </visual>
+      <visual name="front_slim_fender_08">
+        <pose>1.0327959 0 0.20421048 0 1.4714095 0</pose>
+        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
+        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
+      </visual>
+      <visual name="front_slim_fender_09">
+        <pose>1.030789 0 0.21945468 0 1.4083837 0</pose>
+        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
+        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
+      </visual>
+      <visual name="front_slim_fender_10">
+        <pose>1.0278259 0 0.23454221 0 1.345358 0</pose>
+        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
+        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
+      </visual>
+      <visual name="front_slim_fender_11">
+        <pose>1.0239184 0 0.24941316 0 1.2823322 0</pose>
+        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
+        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
+      </visual>
+      <visual name="front_slim_fender_12">
+        <pose>1.019082 0 0.26400847 0 1.2193064 0</pose>
+        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
+        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
+      </visual>
+      <visual name="front_slim_fender_13">
+        <pose>1.013336 0 0.27827019 0 1.1562806 0</pose>
+        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
+        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
+      </visual>
+      <visual name="front_slim_fender_14">
+        <pose>1.0067031 0 0.29214169 0 1.0932549 0</pose>
+        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
+        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
+      </visual>
+      <visual name="front_slim_fender_15">
+        <pose>0.99920972 0 0.30556788 0 1.0302291 0</pose>
+        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
+        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
+      </visual>
+      <visual name="front_slim_fender_16">
+        <pose>0.99088557 0 0.31849544 0 0.96720329 0</pose>
+        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
+        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
+      </visual>
+      <visual name="front_slim_fender_17">
+        <pose>0.98176371 0 0.33087306 0 0.90417752 0</pose>
+        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
+        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
+      </visual>
+      <visual name="front_slim_fender_18">
+        <pose>0.97188037 0 0.34265156 0 0.84115174 0</pose>
+        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
+        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
+      </visual>
+      <visual name="front_slim_fender_19">
+        <pose>0.9612748 0 0.35378418 0 0.77812596 0</pose>
+        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
+        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
+      </visual>
+      <visual name="front_slim_fender_20">
+        <pose>0.94998911 0 0.36422672 0 0.71510018 0</pose>
+        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
+        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
+      </visual>
+      <visual name="front_slim_fender_21">
+        <pose>0.93806811 0 0.37393771 0 0.6520744 0</pose>
+        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
+        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
+      </visual>
+      <visual name="front_slim_fender_22">
+        <pose>0.92555914 0 0.38287859 0 0.58904862 0</pose>
+        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
+        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
+      </visual>
+      <visual name="front_slim_fender_23">
+        <pose>0.91251187 0 0.39101384 0 0.52602284 0</pose>
+        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
+        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
+      </visual>
+      <visual name="front_slim_fender_24">
+        <pose>0.89897812 0 0.39831118 0 0.46299707 0</pose>
+        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
+        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
+      </visual>
+      <visual name="front_slim_fender_25">
+        <pose>0.88501162 0 0.40474161 0 0.39997129 0</pose>
+        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
+        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
+      </visual>
+      <visual name="front_slim_fender_26">
+        <pose>0.87066784 0 0.41027961 0 0.33694551 0</pose>
+        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
+        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
+      </visual>
+      <visual name="front_slim_fender_27">
+        <pose>0.85600373 0 0.41490319 0 0.27391973 0</pose>
+        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
+        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
+      </visual>
+      <visual name="front_slim_fender_28">
+        <pose>0.84107753 0 0.41859398 0 0.21089395 0</pose>
+        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
+        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
+      </visual>
+      <visual name="front_slim_fender_29">
+        <pose>0.8259485 0 0.42133733 0 0.14786817 0</pose>
+        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
+        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
+      </visual>
+      <visual name="front_slim_fender_30">
+        <pose>0.81067672 0 0.42312234 0 0.084842394 0</pose>
+        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
+        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
+      </visual>
+      <visual name="front_slim_fender_31">
+        <pose>0.79532283 0 0.42394193 0 0.021816616 0</pose>
+        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
+        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
+      </visual>
+      <visual name="front_slim_fender_32">
+        <pose>0.77994781 0 0.42379285 0 -0.041209163 0</pose>
+        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
+        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
+      </visual>
+      <visual name="front_slim_fender_33">
+        <pose>0.7646127 0 0.42267568 0 -0.10423494 0</pose>
+        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
+        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
+      </visual>
+      <visual name="front_slim_fender_34">
+        <pose>0.74937841 0 0.42059486 0 -0.16726072 0</pose>
+        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
+        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
+      </visual>
+      <visual name="front_slim_fender_35">
+        <pose>0.73430542 0 0.41755865 0 -0.2302865 0</pose>
+        <geometry><box><size>0.015532073 0.112 0.003</size></box></geometry>
+        <material><ambient>0.063 0.072 0.084 1</ambient><diffuse>0.105 0.12 0.14 1</diffuse></material>
+      </visual>
+      <visual name="front_slim_fender_root">
+        <pose>0.714 0 0.439 0 0.64 0</pose>
+        <geometry><box><size>0.058 0.04 0.006</size></box></geometry>
+        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse></material>
+      </visual>
+      <visual name="lidar_rear_mount_neck">
+        <pose>1.02 0 0.07 0 0.32 0</pose>
+        <geometry><box><size>0.034 0.028 0.004</size></box></geometry>
+        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse></material>
+      </visual>
+      <visual name="lidar_rear_underplate">
+        <pose>1.05 0 0.067 0 0 0</pose>
+        <geometry><box><size>0.041 0.033 0.004</size></box></geometry>
+        <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse></material>
+      </visual>
+      <visual name="lidar_rear_isolation_pad">
+        <pose>1.05 0 0.07 0 0 0</pose>
+        <geometry><box><size>0.03 0.026 0.002</size></box></geometry>
+        <material><ambient>0.021 0.0234 0.0264 1</ambient><diffuse>0.035 0.039 0.044 1</diffuse></material>
+      </visual>
+      <visual name="front_cover_hinge_stay">
+        <pose>0.752 0.0 0.4235 0 1.1835027235888202 3.141592653589793</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.004</radius>
+            <length>0.08207923001588167</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.20 0.22 0.24 1</ambient>
+          <diffuse>0.20 0.22 0.24 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <joint name="camera_fold_joint" type="revolute">
+      <pose relative_to="swan_fold_link">0.55 0 0.53 0 0 0</pose>
+      <parent>swan_fold_link</parent>
+      <child>camera_fold_link</child>
+      <axis>
+        <xyz expressed_in="swan_fold_link">0 1 0</xyz>
+        <limit>
+          <lower>0</lower>
+          <upper>1.5707963267948966</upper>
+          <effort>150</effort>
+          <velocity>0.45</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.08</damping>
+          <friction>0</friction>
+        </dynamics>
+      </axis>
+    </joint>
+    <joint name="front_wheel_fold_joint" type="revolute">
+      <pose relative_to="swan_fold_link">0.55 0 0.435 0 0 0</pose>
+      <parent>swan_fold_link</parent>
+      <child>front_wheel_fold_link</child>
+      <axis>
+        <xyz expressed_in="swan_fold_link">0 -1 0</xyz>
+        <limit>
+          <lower>0</lower>
+          <upper>1.5707963267948966</upper>
+          <effort>150</effort>
+          <velocity>0.3</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.08</damping>
+          <friction>0</friction>
+        </dynamics>
+      </axis>
+    </joint>
+    <joint name="front_cover_fold_joint" type="revolute">
+      <pose relative_to="front_wheel_fold_link">0.79 0 0.34 0 0 0</pose>
+      <parent>front_wheel_fold_link</parent>
+      <child>front_cover_fold_link</child>
+      <axis>
+        <xyz expressed_in="front_wheel_fold_link">0 0 1</xyz>
+        <limit>
+          <lower>0</lower>
+          <upper>1.5707963267948966</upper>
+          <effort>150</effort>
+          <velocity>0.45</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.08</damping>
+          <friction>0</friction>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name="left_caster_fork">
+      <pose>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.222 0.285 0.13 0 0 0</pose>
+        <mass>0.3</mass>
+        <inertia>
+          <ixx>0.001</ixx>
+          <iyy>0.001</iyy>
+          <izz>0.0004</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      <visual name="folded_left_caster_axle">
+        <pose>0.24 0.285 0.085 1.570796 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.013</radius>
+            <length>0.068</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.384 0.408 0.426 1</ambient>
+          <diffuse>0.64 0.68 0.71 1</diffuse>
+          <specular>0.25 0.25 0.25 1</specular>
+        </material>
+      </visual>
+      <visual name="left_caster_fork_crown">
+        <pose>0.204 0.285 0.177 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.03 0.075 0.018</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.114 0.132 0.15 1</ambient>
+          <diffuse>0.19 0.22 0.25 1</diffuse>
+          <specular>0.06 0.06 0.06 1</specular>
+        </material>
+      </visual>
+      <collision name="left_caster_fork_crown_collision">
+        <pose>0.204 0.285 0.177 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.03 0.075 0.018</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="left_caster_fork_0">
+        <pose>0.222 0.255 0.1295 0 2.757218 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.008</radius>
+            <length>0.09600521</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.114 0.132 0.15 1</ambient>
+          <diffuse>0.19 0.22 0.25 1</diffuse>
+          <specular>0.06 0.06 0.06 1</specular>
+        </material>
+      </visual>
+      <collision name="left_caster_fork_0_collision">
+        <pose>0.222 0.255 0.1295 0 2.757218 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.008</radius>
+            <length>0.09600521</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name="left_caster_fork_1">
+        <pose>0.222 0.315 0.1295 0 2.757218 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.008</radius>
+            <length>0.09600521</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.114 0.132 0.15 1</ambient>
+          <diffuse>0.19 0.22 0.25 1</diffuse>
+          <specular>0.06 0.06 0.06 1</specular>
+        </material>
+      </visual>
+      <collision name="left_caster_fork_1_collision">
+        <pose>0.222 0.315 0.1295 0 2.757218 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.008</radius>
+            <length>0.09600521</length>
+          </cylinder>
+        </geometry>
+      </collision>
+    </link>
+    <link name="left_caster_wheel">
+      <pose>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.24 0.285 0.085 0 0 0</pose>
+        <mass>0.35</mass>
+        <inertia>
+          <ixx>0.00068</ixx>
+          <iyy>0.00126</iyy>
+          <izz>0.00068</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      <visual name="folded_left_caster_tire">
+        <pose>0.24 0.285 0.085 1.570796 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.085</radius>
+            <length>0.038</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.021 0.0234 0.0264 1</ambient>
+          <diffuse>0.035 0.039 0.044 1</diffuse>
+          <specular>0.06 0.06 0.06 1</specular>
+        </material>
+      </visual>
+      <visual name="folded_left_caster_hub">
+        <pose>0.24 0.285 0.085 1.570796 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.048</radius>
+            <length>0.041</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.114 0.132 0.15 1</ambient>
+          <diffuse>0.19 0.22 0.25 1</diffuse>
+          <specular>0.06 0.06 0.06 1</specular>
+        </material>
+      </visual>
+      <collision name="left_caster_wheel_collision">
+        <pose>0.24 0.285 0.085 1.5707963267948966 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.085</radius>
+            <length>0.038</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>0.7</mu>
+              <mu2>0.7</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+    </link>
+    <joint name="left_caster_swivel_joint" type="revolute">
+      <pose relative_to="base_link">0.2 0.285 0.267 0 0 0</pose>
+      <parent>base_link</parent>
+      <child>left_caster_fork</child>
+      <axis>
+        <xyz expressed_in="base_link">0 0 1</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+          <effort>0</effort>
+          <velocity>30</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.035</damping>
+          <friction>0</friction>
+        </dynamics>
+      </axis>
+    </joint>
+    <joint name="left_caster_wheel_joint" type="revolute">
+      <pose relative_to="left_caster_fork">0.24 0.285 0.085 0 0 0</pose>
+      <parent>left_caster_fork</parent>
+      <child>left_caster_wheel</child>
+      <axis>
+        <xyz expressed_in="left_caster_fork">0 1 0</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+          <effort>0</effort>
+          <velocity>50</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.002</damping>
+          <friction>0</friction>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name="right_caster_fork">
+      <pose>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.222 -0.285 0.13 0 0 0</pose>
+        <mass>0.3</mass>
+        <inertia>
+          <ixx>0.001</ixx>
+          <iyy>0.001</iyy>
+          <izz>0.0004</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      <visual name="folded_right_caster_axle">
+        <pose>0.24 -0.285 0.085 1.570796 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.013</radius>
+            <length>0.068</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.384 0.408 0.426 1</ambient>
+          <diffuse>0.64 0.68 0.71 1</diffuse>
+          <specular>0.25 0.25 0.25 1</specular>
+        </material>
+      </visual>
+      <visual name="right_caster_fork_crown">
+        <pose>0.204 -0.285 0.177 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.03 0.075 0.018</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.114 0.132 0.15 1</ambient>
+          <diffuse>0.19 0.22 0.25 1</diffuse>
+          <specular>0.06 0.06 0.06 1</specular>
+        </material>
+      </visual>
+      <collision name="right_caster_fork_crown_collision">
+        <pose>0.204 -0.285 0.177 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.03 0.075 0.018</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="right_caster_fork_0">
+        <pose>0.222 -0.255 0.1295 0 2.757218 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.008</radius>
+            <length>0.09600521</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.114 0.132 0.15 1</ambient>
+          <diffuse>0.19 0.22 0.25 1</diffuse>
+          <specular>0.06 0.06 0.06 1</specular>
+        </material>
+      </visual>
+      <collision name="right_caster_fork_0_collision">
+        <pose>0.222 -0.255 0.1295 0 2.757218 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.008</radius>
+            <length>0.09600521</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name="right_caster_fork_1">
+        <pose>0.222 -0.315 0.1295 0 2.757218 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.008</radius>
+            <length>0.09600521</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.114 0.132 0.15 1</ambient>
+          <diffuse>0.19 0.22 0.25 1</diffuse>
+          <specular>0.06 0.06 0.06 1</specular>
+        </material>
+      </visual>
+      <collision name="right_caster_fork_1_collision">
+        <pose>0.222 -0.315 0.1295 0 2.757218 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.008</radius>
+            <length>0.09600521</length>
+          </cylinder>
+        </geometry>
+      </collision>
+    </link>
+    <link name="right_caster_wheel">
+      <pose>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.24 -0.285 0.085 0 0 0</pose>
+        <mass>0.35</mass>
+        <inertia>
+          <ixx>0.00068</ixx>
+          <iyy>0.00126</iyy>
+          <izz>0.00068</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      <visual name="folded_right_caster_tire">
+        <pose>0.24 -0.285 0.085 1.570796 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.085</radius>
+            <length>0.038</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.021 0.0234 0.0264 1</ambient>
+          <diffuse>0.035 0.039 0.044 1</diffuse>
+          <specular>0.06 0.06 0.06 1</specular>
+        </material>
+      </visual>
+      <visual name="folded_right_caster_hub">
+        <pose>0.24 -0.285 0.085 1.570796 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.048</radius>
+            <length>0.041</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.114 0.132 0.15 1</ambient>
+          <diffuse>0.19 0.22 0.25 1</diffuse>
+          <specular>0.06 0.06 0.06 1</specular>
+        </material>
+      </visual>
+      <collision name="right_caster_wheel_collision">
+        <pose>0.24 -0.285 0.085 1.5707963267948966 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.085</radius>
+            <length>0.038</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>0.7</mu>
+              <mu2>0.7</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+    </link>
+    <joint name="right_caster_swivel_joint" type="revolute">
+      <pose relative_to="base_link">0.2 -0.285 0.267 0 0 0</pose>
+      <parent>base_link</parent>
+      <child>right_caster_fork</child>
+      <axis>
+        <xyz expressed_in="base_link">0 0 1</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+          <effort>0</effort>
+          <velocity>30</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.035</damping>
+          <friction>0</friction>
+        </dynamics>
+      </axis>
+    </joint>
+    <joint name="right_caster_wheel_joint" type="revolute">
+      <pose relative_to="right_caster_fork">0.24 -0.285 0.085 0 0 0</pose>
+      <parent>right_caster_fork</parent>
+      <child>right_caster_wheel</child>
+      <axis>
+        <xyz expressed_in="right_caster_fork">0 1 0</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+          <effort>0</effort>
+          <velocity>50</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.002</damping>
+          <friction>0</friction>
+        </dynamics>
+      </axis>
+    </joint>
+    <plugin filename="gz-sim-joint-position-controller-system" name="gz::sim::systems::JointPositionController">
+      <joint_name>camera_fold_joint</joint_name>
+      <topic>/model/wheelchair/fold/camera/cmd_pos</topic>
+      <use_velocity_commands>true</use_velocity_commands>
+      <cmd_max>0.45</cmd_max>
+      <cmd_min>-0.45</cmd_min>
+      <initial_position>0</initial_position>
+    </plugin>
+    <plugin filename="gz-sim-joint-position-controller-system" name="gz::sim::systems::JointPositionController">
+      <joint_name>front_wheel_fold_joint</joint_name>
+      <topic>/model/wheelchair/fold/wheel/cmd_pos</topic>
+      <use_velocity_commands>true</use_velocity_commands>
+      <cmd_max>0.3</cmd_max>
+      <cmd_min>-0.3</cmd_min>
+      <initial_position>0</initial_position>
+    </plugin>
+    <plugin filename="gz-sim-joint-position-controller-system" name="gz::sim::systems::JointPositionController">
+      <joint_name>front_cover_fold_joint</joint_name>
+      <topic>/model/wheelchair/fold/cover/cmd_pos</topic>
+      <use_velocity_commands>true</use_velocity_commands>
+      <cmd_max>0.45</cmd_max>
+      <cmd_min>-0.45</cmd_min>
+      <initial_position>0</initial_position>
+    </plugin>
   </model>
 </sdf>
