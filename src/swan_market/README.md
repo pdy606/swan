@@ -1,6 +1,6 @@
 # 시장 월드
 
-실제 월드 파일: **`src/wheelchair_gazebo/worlds/market_shopping.world`**.
+실제 월드 파일: **`src/wheelchair_gazebo/worlds/market_shopping.sdf`**.
 다른 팀 월드와 같은 폴더에 저장하며, 이 패키지는 시장 자산·이동 제어·생성 도구를 제공한다.
 
 가게 8개, 고정 인물 21명, 주정차 오토바이 3대가 있는 전통시장이다.

@@ -78,7 +78,7 @@ class WorldSelectionTest(unittest.TestCase):
         self.assertTrue(any('wheelchair_world.sdf' in str(a.kwargs.get('cmd')) for a in actions))
 
     def test_nine_team_worlds_are_selectable_with_one_spawn(self):
-        files = sorted(p for p in (GAZEBO / 'worlds').glob('*.world') if p.name != 'market_shopping.world')
+        files = sorted((GAZEBO / 'worlds').glob('*.world'))
         self.assertEqual(len(files), 9)
         for path in files:
             with self.subTest(world=path.name):
@@ -101,9 +101,10 @@ class WorldSelectionTest(unittest.TestCase):
 
     def test_explicit_package_matches_alias(self):
         a = support.resolve_world('market', '', share)
-        b = support.resolve_world('market_shopping.world', 'wheelchair_gazebo', share)
+        b = support.resolve_world('market_shopping.sdf', 'wheelchair_gazebo', share)
         self.assertEqual(a['path'], b['path'])
-        self.assertEqual(a['path'], GAZEBO/'worlds/market_shopping.world')
+        self.assertEqual(a['path'], GAZEBO/'worlds/market_shopping.sdf')
+        self.assertFalse((GAZEBO/'worlds/market_shopping.world').exists())
         self.assertFalse((SRC/'swan_market/worlds/market_shopping.sdf').exists())
 
     def test_absolute_path_and_spawn_override(self):
@@ -194,7 +195,7 @@ class SignalCycleTest(unittest.TestCase):
 
     def test_icons_are_collision_free_and_housed_on_both_banks(self):
         import xml.etree.ElementTree as ET
-        world=ET.parse(GAZEBO/'worlds/market_shopping.world').getroot().find('world')
+        world=ET.parse(GAZEBO/'worlds/market_shopping.sdf').getroot().find('world')
         self.assertEqual(len(self.cfg['signals']),2)
         for signal in self.cfg['signals']:
             for color in ('red','green'):

@@ -2,7 +2,7 @@
 
 시장 패키지가 제공하는 `world.launch.py`에서 월드를 선택한다.
 팀 공용 `wheelchair_gazebo/launch/simulation.launch.py`는 integration 원본을 유지한다. `.world`와 `.sdf` 모두 SDF XML이다.
-기존 팀 월드는 SDF 1.9, 시장 월드는 SDF 1.10이다. 시장 파일 확장자는 팀 월드와 같은 `.world`를 사용한다.
+기존 팀 월드는 SDF 1.9, 시장 월드는 SDF 1.10이다. 시장 파일은 `.sdf`이며 기존 `.world` 팀 월드도 선택할 수 있다.
 
 ## 빌드와 실행
 
@@ -41,7 +41,7 @@ ros2 launch swan_market world.launch.py world:=level1_basic.world
 ros2 launch swan_market world.launch.py world:=market software_rendering:=true
 ros2 launch swan_market world.launch.py world:=market moving_traffic:=false
 ros2 launch swan_market world.launch.py world:=/absolute/path/custom.world spawn_x:=0 spawn_y:=-5 spawn_yaw:=1.57
-ros2 launch swan_market world.launch.py world:=market_shopping.world
+ros2 launch swan_market world.launch.py world:=market_shopping.sdf
 ```
 
 ## 월드 추가 규칙
@@ -55,7 +55,7 @@ ros2 launch swan_market world.launch.py world:=market_shopping.world
    이 경우 추가 생성하지 않고 월드에 적힌 초기 위치를 사용한다. `spawn_*`를 지정하면
    무시하지 않고 설명과 함께 실패한다.
 3. 초기 위치가 필요하면 같은 디렉터리에 `<파일이름>.launch.json`을 둔다.
-   `example.world`이면 `example.launch.json`이다. 시장의 실제 예제를 참고한다.
+   `example.sdf` 또는 `example.world`이면 `example.launch.json`이다. 시장의 실제 예제를 참고한다.
 
 ```json
 {

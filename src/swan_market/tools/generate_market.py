@@ -393,13 +393,13 @@ def build(font):
     metadata['pedestrian_signal_sequence']='red 0-17 s; green 17-24 s; flashing green 24-27 s (1 Hz); red 27-32 s'
     world_dir = ROOT.parent/'wheelchair_gazebo/worlds'
     world_dir.mkdir(parents=True,exist_ok=True);(ROOT/'config').mkdir(exist_ok=True)
-    ET.indent(sdf,space='  ');ET.ElementTree(sdf).write(world_dir/'market_shopping.world',encoding='utf-8',xml_declaration=True)
+    ET.indent(sdf,space='  ');ET.ElementTree(sdf).write(world_dir/'market_shopping.sdf',encoding='utf-8',xml_declaration=True)
     (ROOT/'config/market_layout.json').write_text(json.dumps(metadata,ensure_ascii=False,indent=2)+'\n')
     (world_dir/'market_shopping.launch.json').write_text(json.dumps(
         {'spawn':metadata['spawn'], 'scenario_launch':'launch/traffic.launch.py', 'scenario_package':'swan_market'},indent=2)+'\n')
     (ASSET/'model.config').write_text('<?xml version="1.0"?><model><name>swan_market_assets</name><version>1.0</version><sdf version="1.10">model.sdf</sdf><description>Local Korean market signage assets</description></model>')
     (ASSET/'model.sdf').write_text('<?xml version="1.0"?><sdf version="1.10"><model name="swan_market_assets"><static>true</static><link name="assets"/></model></sdf>')
-    print(f'Generated {len(w.findall("model"))} models: {world_dir / "market_shopping.world"}')
+    print(f'Generated {len(w.findall("model"))} models: {world_dir / "market_shopping.sdf"}')
 
 
 if __name__=='__main__':
