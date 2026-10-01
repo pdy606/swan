@@ -1,0 +1,208 @@
+<?xml version="1.0" ?>
+<sdf version="1.9">
+  <world name="apartment_entrance_dynamic">
+    
+    <!-- ============================= -->
+    <!-- 1. 물리 엔진 & 플러그인 -->
+    <!-- ============================= -->
+    <physics name="1ms" type="ignore">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+    </physics>
+    <plugin filename="gz-sim-physics-system" name="gz::sim::systems::Physics"/>
+    <plugin filename="gz-sim-scene-broadcaster-system" name="gz::sim::systems::SceneBroadcaster"/>
+    <plugin filename="gz-sim-sensors-system" name="gz::sim::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+    <plugin filename="gz-sim-user-commands-system" name="gz::sim::systems::UserCommands"/>
+
+    <scene>
+      <ambient>0.7 0.7 0.75 1</ambient>
+      <background>0.6 0.8 0.9 1</background>
+      <shadows>true</shadows>
+      <sky></sky>
+    </scene>
+
+    <light type="directional" name="sun">
+      <cast_shadows>true</cast_shadows>
+      <pose>10 5 20 0 0 0</pose>
+      <diffuse>0.95 0.92 0.85 1</diffuse>
+      <specular>0.3 0.3 0.3 1</specular>
+      <direction>-0.5 -0.3 -1.0</direction>
+    </light>
+
+    <!-- ============================= -->
+    <!-- 2. 외부 바닥 & 휠체어 경사로 -->
+    <!-- ============================= -->
+    <model name="ground_environment">
+      <static>true</static>
+      <link name="ground">
+        <collision name="collision"><geometry><plane><normal>0 0 1</normal><size>50 50</size></plane></geometry></collision>
+        <visual name="visual">
+          <geometry><plane><normal>0 0 1</normal><size>50 50</size></plane></geometry>
+          <material><ambient>0.55 0.55 0.55 1</ambient><diffuse>0.55 0.55 0.55 1</diffuse>
+            <pbr><metal><roughness>0.95</roughness></metal></pbr></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="entrance_stairs">
+      <static>true</static>
+      <pose>5.0 0 0 0 0 -1.570796</pose>
+      <link name="landing">
+        <pose>0 3.5 0.25 0 0 0</pose> 
+        <collision name="collision"><geometry><box><size>4.6 6.0 0.5</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>4.6 6.0 0.5</size></box></geometry>
+        <material><ambient>0.5 0.5 0.52 1</ambient><diffuse>0.5 0.5 0.52 1</diffuse></material></visual>
+      </link>
+      <link name="step1"><pose>0 -0.1 0.05 0 0 0</pose><collision name="collision"><geometry><box><size>2.8 0.3 0.1</size></box></geometry></collision><visual name="visual"><geometry><box><size>2.8 0.3 0.1</size></box></geometry><material><ambient>0.55 0.55 0.57 1</ambient><diffuse>0.55 0.55 0.57 1</diffuse></material></visual></link>
+      <link name="step2"><pose>0 0.2 0.15 0 0 0</pose><collision name="collision"><geometry><box><size>2.8 0.3 0.3</size></box></geometry></collision><visual name="visual"><geometry><box><size>2.8 0.3 0.3</size></box></geometry><material><ambient>0.55 0.55 0.57 1</ambient><diffuse>0.55 0.55 0.57 1</diffuse></material></visual></link>
+      <link name="step3"><pose>0 0.5 0.25 0 0 0</pose><collision name="collision"><geometry><box><size>2.8 0.3 0.5</size></box></geometry></collision><visual name="visual"><geometry><box><size>2.8 0.3 0.5</size></box></geometry><material><ambient>0.55 0.55 0.57 1</ambient><diffuse>0.55 0.55 0.57 1</diffuse></material></visual></link>
+      <link name="step4"><pose>0 0.8 0.35 0 0 0</pose><collision name="collision"><geometry><box><size>2.8 0.3 0.7</size></box></geometry></collision><visual name="visual"><geometry><box><size>2.8 0.3 0.7</size></box></geometry><material><ambient>0.55 0.55 0.57 1</ambient><diffuse>0.55 0.55 0.57 1</diffuse></material></visual></link>
+    </model>
+
+    <model name="wheelchair_ramp">
+      <static>true</static>
+      <pose>5.0 0 0 0 0 -1.570796</pose>
+      <link name="ramp_floor"><pose>5.1 1.0 0.25 0 0.0833 0</pose><collision name="collision"><geometry><box><size>5.6 1.5 0.1</size></box></geometry></collision><visual name="visual"><geometry><box><size>5.6 1.5 0.1</size></box></geometry><material><ambient>0.5 0.5 0.52 1</ambient><diffuse>0.5 0.5 0.52 1</diffuse></material></visual></link>
+      <link name="ramp_wall"><pose>5.1 0.15 0.5 0 0.0833 0</pose><collision name="collision"><geometry><box><size>5.6 0.2 0.6</size></box></geometry></collision><visual name="visual"><geometry><box><size>5.6 0.2 0.6</size></box></geometry><material><ambient>0.82 0.8 0.75 1</ambient><diffuse>0.82 0.8 0.75 1</diffuse></material></visual></link>
+      <link name="handrail_front"><pose>5.1 0.2 0.85 0 0.0833 0</pose><collision name="collision"><geometry><box><size>5.6 0.05 0.05</size></box></geometry></collision><visual name="visual"><geometry><box><size>5.6 0.05 0.05</size></box></geometry><material><ambient>0.8 0.8 0.85 1</ambient><diffuse>0.8 0.8 0.85 1</diffuse><pbr><metal><albedo_color>0.9 0.9 0.95 1</albedo_color><roughness>0.2</roughness><metalness>1.0</metalness></metal></pbr></material></visual></link>
+      <link name="handrail_back"><pose>5.1 1.8 0.85 0 0.0833 0</pose><collision name="collision"><geometry><box><size>5.6 0.05 0.05</size></box></geometry></collision><visual name="visual"><geometry><box><size>5.6 0.05 0.05</size></box></geometry><material><ambient>0.8 0.8 0.85 1</ambient><diffuse>0.8 0.8 0.85 1</diffuse><pbr><metal><albedo_color>0.9 0.9 0.95 1</albedo_color><roughness>0.2</roughness><metalness>1.0</metalness></metal></pbr></material></visual></link>
+    </model>
+
+    <!-- ============================= -->
+    <!-- 3. 실내 로비(Lobby) -->
+    <!-- ============================= -->
+    <model name="building_structure">
+      <static>true</static>
+      <pose>5.0 0 0 0 0 -1.570796</pose>
+      
+      <link name="front_wall_left">
+        <pose>-3.2 2.6 2.5 0 0 0</pose>
+        <visual name="visual"><geometry><box><size>3.6 0.2 4.0</size></box></geometry><material><ambient>0.74 0.68 0.6 1</ambient><diffuse>0.74 0.68 0.6 1</diffuse></material></visual>
+        <collision name="collision"><geometry><box><size>3.6 0.2 4.0</size></box></geometry></collision>
+      </link>
+      <link name="front_wall_right">
+        <pose>3.2 2.6 2.5 0 0 0</pose>
+        <visual name="visual"><geometry><box><size>3.6 0.2 4.0</size></box></geometry><material><ambient>0.74 0.68 0.6 1</ambient><diffuse>0.74 0.68 0.6 1</diffuse></material></visual>
+        <collision name="collision"><geometry><box><size>3.6 0.2 4.0</size></box></geometry></collision>
+      </link>
+      <!-- 지붕(캐노피) 윗부분의 뻥 뚫린 허공을 막아주는 상단 벽 -->
+      <link name="front_wall_top">
+        <pose>0 2.6 3.5 0 0 0</pose>
+        <visual name="visual"><geometry><box><size>2.8 0.2 2.0</size></box></geometry><material><ambient>0.74 0.68 0.6 1</ambient><diffuse>0.74 0.68 0.6 1</diffuse></material></visual>
+        <collision name="collision"><geometry><box><size>2.8 0.2 2.0</size></box></geometry></collision>
+      </link>
+
+      <!-- 실내 로비 공간 박스 -->
+      <link name="lobby_wall_left">
+        <pose>-1.5 4.5 2.5 0 0 0</pose>
+        <visual name="visual"><geometry><box><size>0.2 3.8 4.0</size></box></geometry><material><ambient>0.74 0.68 0.6 1</ambient><diffuse>0.74 0.68 0.6 1</diffuse></material></visual>
+        <collision name="collision"><geometry><box><size>0.2 3.8 4.0</size></box></geometry></collision>
+      </link>
+      <link name="lobby_wall_right">
+        <pose>1.5 4.5 2.5 0 0 0</pose>
+        <visual name="visual"><geometry><box><size>0.2 3.8 4.0</size></box></geometry><material><ambient>0.74 0.68 0.6 1</ambient><diffuse>0.74 0.68 0.6 1</diffuse></material></visual>
+        <collision name="collision"><geometry><box><size>0.2 3.8 4.0</size></box></geometry></collision>
+      </link>
+      <link name="lobby_wall_back">
+        <pose>0 6.4 2.5 0 0 0</pose>
+        <visual name="visual"><geometry><box><size>3.2 0.2 4.0</size></box></geometry><material><ambient>0.74 0.68 0.6 1</ambient><diffuse>0.74 0.68 0.6 1</diffuse></material></visual>
+        <collision name="collision"><geometry><box><size>3.2 0.2 4.0</size></box></geometry></collision>
+      </link>
+      <link name="lobby_ceiling">
+        <pose>0 4.5 4.5 0 0 0</pose>
+        <visual name="visual"><geometry><box><size>3.2 3.8 0.2</size></box></geometry><material><ambient>0.8 0.8 0.8 1</ambient><diffuse>0.8 0.8 0.8 1</diffuse></material></visual>
+        <collision name="collision"><geometry><box><size>3.2 3.8 0.2</size></box></geometry></collision>
+      </link>
+
+      <!-- 실내 조명 -->
+      <light name="lobby_light" type="point">
+        <pose>0 4.5 3.5 0 0 0</pose>
+        <diffuse>0.9 0.85 0.7 1</diffuse>
+        <specular>0.2 0.2 0.2 1</specular>
+        <attenuation><range>10</range><constant>0.5</constant><linear>0.1</linear></attenuation>
+      </light>
+
+      <!-- 기둥 및 캐노피 -->
+      <link name="pillar_left_1"><pose>-1.8 2.0 0.74 0 0 0</pose><visual name="visual"><geometry><box><size>0.8 1.0 0.46</size></box></geometry><material><ambient>0.74 0.68 0.6 1</ambient><diffuse>0.74 0.68 0.6 1</diffuse></material></visual><collision name="collision"><geometry><box><size>0.8 1.0 0.46</size></box></geometry></collision></link>
+      <link name="pillar_left_2"><pose>-1.8 2.0 1.24 0 0 0</pose><visual name="visual"><geometry><box><size>0.8 1.0 0.46</size></box></geometry><material><ambient>0.74 0.68 0.6 1</ambient><diffuse>0.74 0.68 0.6 1</diffuse></material></visual><collision name="collision"><geometry><box><size>0.8 1.0 0.46</size></box></geometry></collision></link>
+      <link name="pillar_left_3"><pose>-1.8 2.0 1.74 0 0 0</pose><visual name="visual"><geometry><box><size>0.8 1.0 0.46</size></box></geometry><material><ambient>0.74 0.68 0.6 1</ambient><diffuse>0.74 0.68 0.6 1</diffuse></material></visual><collision name="collision"><geometry><box><size>0.8 1.0 0.46</size></box></geometry></collision></link>
+      <link name="pillar_left_4"><pose>-1.8 2.0 2.24 0 0 0</pose><visual name="visual"><geometry><box><size>0.8 1.0 0.46</size></box></geometry><material><ambient>0.74 0.68 0.6 1</ambient><diffuse>0.74 0.68 0.6 1</diffuse></material></visual><collision name="collision"><geometry><box><size>0.8 1.0 0.46</size></box></geometry></collision></link>
+      <link name="pillar_right_1"><pose>1.8 2.0 0.74 0 0 0</pose><visual name="visual"><geometry><box><size>0.8 1.0 0.46</size></box></geometry><material><ambient>0.74 0.68 0.6 1</ambient><diffuse>0.74 0.68 0.6 1</diffuse></material></visual><collision name="collision"><geometry><box><size>0.8 1.0 0.46</size></box></geometry></collision></link>
+      <link name="pillar_right_2"><pose>1.8 2.0 1.24 0 0 0</pose><visual name="visual"><geometry><box><size>0.8 1.0 0.46</size></box></geometry><material><ambient>0.74 0.68 0.6 1</ambient><diffuse>0.74 0.68 0.6 1</diffuse></material></visual><collision name="collision"><geometry><box><size>0.8 1.0 0.46</size></box></geometry></collision></link>
+      <link name="pillar_right_3"><pose>1.8 2.0 1.74 0 0 0</pose><visual name="visual"><geometry><box><size>0.8 1.0 0.46</size></box></geometry><material><ambient>0.74 0.68 0.6 1</ambient><diffuse>0.74 0.68 0.6 1</diffuse></material></visual><collision name="collision"><geometry><box><size>0.8 1.0 0.46</size></box></geometry></collision></link>
+      <link name="pillar_right_4"><pose>1.8 2.0 2.24 0 0 0</pose><visual name="visual"><geometry><box><size>0.8 1.0 0.46</size></box></geometry><material><ambient>0.74 0.68 0.6 1</ambient><diffuse>0.74 0.68 0.6 1</diffuse></material></visual><collision name="collision"><geometry><box><size>0.8 1.0 0.46</size></box></geometry></collision></link>
+      <link name="canopy_base"><pose>0 1.5 2.6 0 0 0</pose><visual name="visual"><geometry><box><size>4.8 2.2 0.3</size></box></geometry><material><ambient>0.52 0.45 0.38 1</ambient><diffuse>0.52 0.45 0.38 1</diffuse></material></visual><collision name="collision"><geometry><box><size>4.8 2.2 0.3</size></box></geometry></collision></link>
+      <link name="canopy_mid"><pose>0 1.5 2.85 0 0 0</pose><visual name="visual"><geometry><box><size>4.4 2.0 0.2</size></box></geometry><material><ambient>0.52 0.45 0.38 1</ambient><diffuse>0.52 0.45 0.38 1</diffuse></material></visual></link>
+      <link name="canopy_top"><pose>0 1.5 3.05 0 0 0</pose><visual name="visual"><geometry><box><size>4.0 1.8 0.2</size></box></geometry><material><ambient>0.52 0.45 0.38 1</ambient><diffuse>0.52 0.45 0.38 1</diffuse></material></visual></link>
+      
+      <!-- 고정된 문틀 -->
+      <link name="door_frame_top"><pose>0 2.45 2.55 0 0 0</pose><visual name="visual"><geometry><box><size>2.8 0.1 0.1</size></box></geometry><material><ambient>0.15 0.15 0.15 1</ambient><diffuse>0.15 0.15 0.15 1</diffuse></material></visual><collision name="collision"><geometry><box><size>2.8 0.1 0.1</size></box></geometry></collision></link>
+      <link name="door_frame_left"><pose>-1.35 2.45 1.5 0 0 0</pose><visual name="visual"><geometry><box><size>0.1 0.1 2.0</size></box></geometry><material><ambient>0.15 0.15 0.15 1</ambient><diffuse>0.15 0.15 0.15 1</diffuse></material></visual><collision name="collision"><geometry><box><size>0.1 0.1 2.0</size></box></geometry></collision></link>
+      <link name="door_frame_right"><pose>1.35 2.45 1.5 0 0 0</pose><visual name="visual"><geometry><box><size>0.1 0.1 2.0</size></box></geometry><material><ambient>0.15 0.15 0.15 1</ambient><diffuse>0.15 0.15 0.15 1</diffuse></material></visual><collision name="collision"><geometry><box><size>0.1 0.1 2.0</size></box></geometry></collision></link>
+    </model>
+
+    <!-- ============================= -->
+    <!-- 4. 작동 가능한 '슬라이딩 자동문' 시스템 -->
+    <!-- ============================= -->
+    <model name="automatic_doors">
+      <static>false</static>
+      <pose>5.0 0 0 0 0 -1.570796</pose>
+
+      <link name="door_base">
+        <pose>0 2.45 1.5 0 0 0</pose>
+        <inertial><mass>10.0</mass><inertia><ixx>1.0</ixx><iyy>1.0</iyy><izz>1.0</izz></inertia></inertial>
+      </link>
+      <joint name="base_fixed_to_world" type="fixed">
+        <parent>world</parent>
+        <child>door_base</child>
+      </joint>
+
+      <link name="left_door">
+        <pose>-0.65 2.45 1.5 0 0 0</pose>
+        <inertial><mass>2.0</mass><inertia><ixx>0.5</ixx><iyy>0.5</iyy><izz>0.5</izz></inertia></inertial>
+        <visual name="v1"><geometry><box><size>1.3 0.04 2.0</size></box></geometry><material><ambient>0.1 0.1 0.1 0.6</ambient><diffuse>0.1 0.1 0.1 0.6</diffuse></material></visual>
+        <collision name="c1"><geometry><box><size>1.3 0.04 2.0</size></box></geometry></collision>
+      </link>
+      <link name="right_door">
+        <pose>0.65 2.45 1.5 0 0 0</pose>
+        <inertial><mass>2.0</mass><inertia><ixx>0.5</ixx><iyy>0.5</iyy><izz>0.5</izz></inertia></inertial>
+        <visual name="v1"><geometry><box><size>1.3 0.04 2.0</size></box></geometry><material><ambient>0.1 0.1 0.1 0.6</ambient><diffuse>0.1 0.1 0.1 0.6</diffuse></material></visual>
+        <collision name="c1"><geometry><box><size>1.3 0.04 2.0</size></box></geometry></collision>
+      </link>
+
+      <joint name="left_door_joint" type="prismatic">
+        <parent>door_base</parent>
+        <child>left_door</child>
+        <axis><xyz>1 0 0</xyz><limit><lower>-1.2</lower><upper>0.0</upper><effort>100</effort><velocity>1.0</velocity></limit></axis>
+      </joint>
+      <joint name="right_door_joint" type="prismatic">
+        <parent>door_base</parent>
+        <child>right_door</child>
+        <axis><xyz>1 0 0</xyz><limit><lower>0.0</lower><upper>1.2</upper><effort>100</effort><velocity>1.0</velocity></limit></axis>
+      </joint>
+
+      <plugin filename="gz-sim-joint-position-controller-system" name="gz::sim::systems::JointPositionController">
+        <joint_name>left_door_joint</joint_name>
+        <p_gain>100</p_gain><i_gain>0</i_gain><d_gain>10</d_gain>
+      </plugin>
+      <plugin filename="gz-sim-joint-position-controller-system" name="gz::sim::systems::JointPositionController">
+        <joint_name>right_door_joint</joint_name>
+        <p_gain>100</p_gain><i_gain>0</i_gain><d_gain>10</d_gain>
+      </plugin>
+    </model>
+
+    <!-- 조경 (기존 동일) -->
+    <model name="landscaping">
+      <static>true</static>
+      <pose>5.0 0 0 0 0 -1.570796</pose>
+      <link name="bush_left_1"><pose>-2.5 0 0.6 0 0 0</pose><visual name="visual"><geometry><sphere><radius>0.9</radius></sphere></geometry><material><ambient>0.22 0.38 0.18 1</ambient><diffuse>0.22 0.38 0.18 1</diffuse></material></visual></link>
+      <link name="bush_left_2"><pose>-3.2 -0.5 0.5 0 0 0</pose><visual name="visual"><geometry><sphere><radius>0.7</radius></sphere></geometry><material><ambient>0.2 0.35 0.15 1</ambient><diffuse>0.2 0.35 0.15 1</diffuse></material></visual></link>
+      <link name="hedge_right"><pose>5.1 -0.25 0.35 0 0.0833 0</pose><visual name="visual"><geometry><box><size>5.4 0.4 0.7</size></box></geometry><material><ambient>0.22 0.38 0.18 1</ambient><diffuse>0.22 0.38 0.18 1</diffuse></material></visual></link>
+      <link name="tree_trunk_1"><pose>-3.5 1.5 2.0 0 0 0</pose><visual name="visual"><geometry><cylinder><radius>0.15</radius><length>4.0</length></cylinder></geometry><material><ambient>0.25 0.2 0.15 1</ambient><diffuse>0.25 0.2 0.15 1</diffuse></material></visual></link>
+      <link name="tree_trunk_2"><pose>4.0 2.5 2.0 0 0 0</pose><visual name="visual"><geometry><cylinder><radius>0.12</radius><length>4.0</length></cylinder></geometry><material><ambient>0.25 0.2 0.15 1</ambient><diffuse>0.25 0.2 0.15 1</diffuse></material></visual></link>
+    </model>
+
+  </world>
+</sdf>
