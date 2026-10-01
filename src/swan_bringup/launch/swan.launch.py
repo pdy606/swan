@@ -5,8 +5,9 @@ import os
 from ament_index_python.packages import get_package_share_directory
 
 from launch import LaunchDescription
-from launch.actions import IncludeLaunchDescription
+from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch.substitutions import LaunchConfiguration
 
 from launch_ros.actions import Node
 
@@ -76,7 +77,10 @@ def generate_launch_description():
                 "launch",
                 "avoidance.launch.py",
             )
-        )
+        ),
+        launch_arguments={
+            "auto_mode": LaunchConfiguration("auto_mode"),
+        }.items(),
     )
 
     # --------------------------------------------------------------
@@ -128,6 +132,13 @@ def generate_launch_description():
     )
 
     return LaunchDescription([
+        # ros2 launch swan_bringup swan.launch.py auto_mode:=false
+        # -> 자동 회피/신호등 정지 끄고 수동 주행만
+        DeclareLaunchArgument(
+            "auto_mode",
+            default_value="true",
+        ),
+
         simulation_launch,
         scan_filter_launch,
         navigation_launch,

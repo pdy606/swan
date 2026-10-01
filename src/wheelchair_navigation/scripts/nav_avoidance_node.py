@@ -12,7 +12,7 @@ from nav_msgs.msg import Odometry
 from rclpy.action import ActionClient
 from rclpy.node import Node
 from sensor_msgs.msg import LaserScan
-from std_msgs.msg import String
+from std_msgs.msg import Bool, String
 
 
 class DrivingState(Enum):
@@ -122,6 +122,12 @@ class NavAvoidanceNode(Node):
         self.state = DrivingState.MANUAL
         self.c_avoidance_requested = False
 
+        # 자율 모드 (장애물 자동 회피 + 빨간불 자동 정지)
+        # false 이면 사용자 입력을 그대로 전달하는 순수 수동 주행.
+        # 실행 중 전환: ros2 topic pub --once /swan/auto_mode std_msgs/msg/Bool "{data: false}"
+        self.declare_parameter("auto_mode", True)
+        self.auto_mode = bool(self.get_parameter("auto_mode").value)
+
         # 필터링 후 Supervisor가 사용하는 전방 거리
         self.front_distance = math.inf
 
@@ -228,6 +234,13 @@ class NavAvoidanceNode(Node):
             10,
         )
 
+        self.auto_mode_subscription = self.create_subscription(
+            Bool,
+            "/swan/auto_mode",
+            self.auto_mode_callback,
+            10,
+        )
+
         # 실제 휠체어 명령은 이 노드 하나만 발행한다.
         self.cmd_vel_publisher = self.create_publisher(
             Twist,
@@ -266,12 +279,44 @@ class NavAvoidanceNode(Node):
             "Driving supervisor started: "
             "stable LiDAR detection + manual safety + Nav2 avoidance"
         )
+        self.get_logger().info(
+            f"Auto mode: {'ON' if self.auto_mode else 'OFF (manual only)'}"
+        )
 
     # ==============================================================
     # 입력 콜백
     # ==============================================================
 
+    def auto_mode_callback(self, msg: Bool) -> None:
+        enabled = bool(msg.data)
+
+        if enabled == self.auto_mode:
+            return
+
+        self.auto_mode = enabled
+
+        if not enabled:
+            # 진행 중인 회피를 끊고 바로 수동 주행으로 돌아간다.
+            self.c_avoidance_requested = False
+            self.traffic_stop_requested = False
+
+            if self.goal_handle is not None:
+                self.goal_handle.cancel_goal_async()
+
+            self.latest_nav_cmd = Twist()
+            self.last_nav_cmd_time = None
+            self.reset_avoidance_session()
+            self.change_state(DrivingState.MANUAL)
+
+        self.get_logger().info(
+            f"Auto mode: {'ON' if enabled else 'OFF (manual only)'}"
+        )
+
     def situation_callback(self, msg: String) -> None:
+        # 수동 모드에서는 신호등/장애물 판단으로 개입하지 않는다.
+        if not self.auto_mode:
+            return
+
         situation = msg.data.strip().upper()
 
         # --------------------------------------------------------------
