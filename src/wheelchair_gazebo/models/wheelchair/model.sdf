@@ -1127,1211 +1127,69 @@
 
         <geometry>
           <box>
-            <size>0.34 0.17 0.08</size>
+            <size>0.34 0.13 0.08</size>
           </box>
         </geometry>
       </collision>
       <!-- Kit body: slim neck between the rider's legs, flaring into a wider head.
            The curved outline is built from thin slices; visuals only. -->
-      <visual name="swan_body_slice_00">
-        <pose>0.363 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.044076 0.063</size></box></geometry>
+      <!-- Slide runners under the body; they ride in the under-seat rails.
+           In model coordinates they span x 0.02..0.56 extended, -0.37..0.17 stowed. -->
+      <!-- Kit body: slim battery/controller box with a raked nose and a
+           chamfered tail, after the team's reference. Visuals only. -->
+      <!-- Slide runners under the body; they ride in the under-seat rails.
+           In model coordinates they span x 0.02..0.56 extended, -0.37..0.17 stowed. -->
+      <!-- Kit body: slim battery/controller box with a raked nose and a
+           chamfered tail, after the team's reference. Visuals only. -->
+      <visual name="swan_body_main">
+        <pose>0.545 0 0.4225 0 0 0</pose>
+        <geometry><box><size>0.3 0.13 0.061</size></box></geometry>
         <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
       </visual>
-      <visual name="swan_body_crown_00">
-        <pose>0.363 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.028076 0.0792</size></box></geometry>
+      <visual name="swan_body_top_deck">
+        <pose>0.545 0 0.4635 0 0 0</pose>
+        <geometry><box><size>0.27 0.116 0.016</size></box></geometry>
         <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
       </visual>
-      <visual name="swan_body_pinstripe_l_00">
-        <pose>0.363 0.022038 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_00">
-        <pose>0.363 -0.022038 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_01">
-        <pose>0.369 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.073308 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_01">
-        <pose>0.369 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.057308 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_01">
-        <pose>0.369 0.036654 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_01">
-        <pose>0.369 -0.036654 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_02">
-        <pose>0.375 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.090552 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_02">
-        <pose>0.375 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.074552 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_02">
-        <pose>0.375 0.045276 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_02">
-        <pose>0.375 -0.045276 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_03">
-        <pose>0.381 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.10208 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_03">
-        <pose>0.381 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.086078 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_03">
-        <pose>0.381 0.051039 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_03">
-        <pose>0.381 -0.051039 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_04">
-        <pose>0.387 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.1097 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_04">
-        <pose>0.387 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.093703 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_04">
-        <pose>0.387 0.054851 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_04">
-        <pose>0.387 -0.054851 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_05">
-        <pose>0.393 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.11421 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_05">
-        <pose>0.393 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.09821 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_05">
-        <pose>0.393 0.057105 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_05">
-        <pose>0.393 -0.057105 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_06">
-        <pose>0.399 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.11596 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_06">
-        <pose>0.399 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.099964 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_06">
-        <pose>0.399 0.057982 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_06">
-        <pose>0.399 -0.057982 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_07">
-        <pose>0.405 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.116 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_07">
-        <pose>0.405 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.1 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_07">
-        <pose>0.405 0.058 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_07">
-        <pose>0.405 -0.058 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_08">
-        <pose>0.411 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.116 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_08">
-        <pose>0.411 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.1 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_08">
-        <pose>0.411 0.058 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_08">
-        <pose>0.411 -0.058 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_09">
-        <pose>0.417 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.116 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_09">
-        <pose>0.417 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.1 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_09">
-        <pose>0.417 0.058 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_09">
-        <pose>0.417 -0.058 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_10">
-        <pose>0.423 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.116 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_10">
-        <pose>0.423 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.1 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_10">
-        <pose>0.423 0.058 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_10">
-        <pose>0.423 -0.058 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_11">
-        <pose>0.429 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.116 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_11">
-        <pose>0.429 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.1 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_11">
-        <pose>0.429 0.058 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_11">
-        <pose>0.429 -0.058 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_12">
-        <pose>0.435 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.116 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_12">
-        <pose>0.435 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.1 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_12">
-        <pose>0.435 0.058 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_12">
-        <pose>0.435 -0.058 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_13">
-        <pose>0.441 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.116 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_13">
-        <pose>0.441 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.1 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_13">
-        <pose>0.441 0.058 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_13">
-        <pose>0.441 -0.058 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_14">
-        <pose>0.447 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.116 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_14">
-        <pose>0.447 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.1 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_14">
-        <pose>0.447 0.058 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_14">
-        <pose>0.447 -0.058 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_15">
-        <pose>0.453 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.116 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_15">
-        <pose>0.453 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.1 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_15">
-        <pose>0.453 0.058 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_15">
-        <pose>0.453 -0.058 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_16">
-        <pose>0.459 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.116 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_16">
-        <pose>0.459 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.1 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_16">
-        <pose>0.459 0.058 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_16">
-        <pose>0.459 -0.058 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_17">
-        <pose>0.465 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.116 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_17">
-        <pose>0.465 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.1 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_17">
-        <pose>0.465 0.058 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_17">
-        <pose>0.465 -0.058 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_18">
-        <pose>0.471 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.116 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_18">
-        <pose>0.471 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.1 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_18">
-        <pose>0.471 0.058 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_18">
-        <pose>0.471 -0.058 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_19">
-        <pose>0.477 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.116 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_19">
-        <pose>0.477 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.1 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_19">
-        <pose>0.477 0.058 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_19">
-        <pose>0.477 -0.058 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_20">
-        <pose>0.483 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.116 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_20">
-        <pose>0.483 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.1 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_20">
-        <pose>0.483 0.058 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_20">
-        <pose>0.483 -0.058 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_21">
-        <pose>0.489 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.116 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_21">
-        <pose>0.489 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.1 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_21">
-        <pose>0.489 0.058 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_21">
-        <pose>0.489 -0.058 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_22">
-        <pose>0.495 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.116 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_22">
-        <pose>0.495 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.1 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_22">
-        <pose>0.495 0.058 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_22">
-        <pose>0.495 -0.058 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_23">
-        <pose>0.501 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.116 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_23">
-        <pose>0.501 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.1 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_23">
-        <pose>0.501 0.058 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_23">
-        <pose>0.501 -0.058 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_24">
-        <pose>0.507 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.116 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_24">
-        <pose>0.507 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.1 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_24">
-        <pose>0.507 0.058 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_24">
-        <pose>0.507 -0.058 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_25">
-        <pose>0.513 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.116 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_25">
-        <pose>0.513 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.1 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_25">
-        <pose>0.513 0.058 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_25">
-        <pose>0.513 -0.058 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_26">
-        <pose>0.519 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.116 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_26">
-        <pose>0.519 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.1 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_26">
-        <pose>0.519 0.058 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_26">
-        <pose>0.519 -0.058 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_27">
-        <pose>0.525 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.11631 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_27">
-        <pose>0.525 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.10031 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_27">
-        <pose>0.525 0.058153 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_27">
-        <pose>0.525 -0.058153 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_28">
-        <pose>0.531 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.11747 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_28">
-        <pose>0.531 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.10147 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_28">
-        <pose>0.531 0.058734 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_28">
-        <pose>0.531 -0.058734 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_29">
-        <pose>0.537 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.11947 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_29">
-        <pose>0.537 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.10347 0.0792</size></box></geometry>
+      <visual name="swan_body_nose">
+        <pose>0.703 0 0.432 0 -0.42 0</pose>
+        <geometry><box><size>0.016 0.13 0.084</size></box></geometry>
         <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
       </visual>
-      <visual name="swan_body_pinstripe_l_29">
-        <pose>0.537 0.059734 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_29">
-        <pose>0.537 -0.059734 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_30">
-        <pose>0.543 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.12224 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_30">
-        <pose>0.543 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.10624 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_30">
-        <pose>0.543 0.061121 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_30">
-        <pose>0.543 -0.061121 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_31">
-        <pose>0.549 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.12571 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_31">
-        <pose>0.549 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.10971 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_31">
-        <pose>0.549 0.062857 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_31">
-        <pose>0.549 -0.062857 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_32">
-        <pose>0.555 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.12978 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_32">
-        <pose>0.555 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.11378 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_32">
-        <pose>0.555 0.06489 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_32">
-        <pose>0.555 -0.06489 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_33">
-        <pose>0.561 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.13432 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_33">
-        <pose>0.561 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.11832 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_33">
-        <pose>0.561 0.067161 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_33">
-        <pose>0.561 -0.067161 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_34">
-        <pose>0.567 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.13921 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_34">
-        <pose>0.567 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.12321 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_34">
-        <pose>0.567 0.069603 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_34">
-        <pose>0.567 -0.069603 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_35">
-        <pose>0.573 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.14429 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_35">
-        <pose>0.573 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.12829 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_35">
-        <pose>0.573 0.072144 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_35">
-        <pose>0.573 -0.072144 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_36">
-        <pose>0.579 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.14942 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_36">
-        <pose>0.579 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.13342 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_36">
-        <pose>0.579 0.07471 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_36">
-        <pose>0.579 -0.07471 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_37">
-        <pose>0.585 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.15445 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_37">
-        <pose>0.585 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.13845 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_37">
-        <pose>0.585 0.077226 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_37">
-        <pose>0.585 -0.077226 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_38">
-        <pose>0.591 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.15924 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_38">
-        <pose>0.591 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.14324 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_38">
-        <pose>0.591 0.079618 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_38">
-        <pose>0.591 -0.079618 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_39">
-        <pose>0.597 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.16363 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_39">
-        <pose>0.597 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.14763 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_39">
-        <pose>0.597 0.081817 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_39">
-        <pose>0.597 -0.081817 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_40">
-        <pose>0.603 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.16751 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_40">
-        <pose>0.603 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.15151 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_40">
-        <pose>0.603 0.083757 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_40">
-        <pose>0.603 -0.083757 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_41">
-        <pose>0.609 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.17076 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_41">
-        <pose>0.609 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.15476 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_41">
-        <pose>0.609 0.085382 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_41">
-        <pose>0.609 -0.085382 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_42">
-        <pose>0.615 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.17329 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_42">
-        <pose>0.615 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.15729 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_42">
-        <pose>0.615 0.086644 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_42">
-        <pose>0.615 -0.086644 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_43">
-        <pose>0.621 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.17501 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_43">
-        <pose>0.621 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.15901 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_43">
-        <pose>0.621 0.087507 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_43">
-        <pose>0.621 -0.087507 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_44">
-        <pose>0.627 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.17589 0.063</size></box></geometry>
+      <visual name="swan_body_nose_chin">
+        <pose>0.698 0 0.399 0 0 0</pose>
+        <geometry><box><size>0.03 0.13 0.014</size></box></geometry>
         <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
       </visual>
-      <visual name="swan_body_crown_44">
-        <pose>0.627 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.15989 0.0792</size></box></geometry>
+      <visual name="swan_body_tail">
+        <pose>0.392 0 0.434 0 0.38 0</pose>
+        <geometry><box><size>0.016 0.13 0.086</size></box></geometry>
         <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
       </visual>
-      <visual name="swan_body_pinstripe_l_44">
-        <pose>0.627 0.087945 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_44">
-        <pose>0.627 -0.087945 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_45">
-        <pose>0.633 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.176 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_45">
-        <pose>0.633 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.16 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_45">
-        <pose>0.633 0.088 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_45">
-        <pose>0.633 -0.088 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_46">
-        <pose>0.639 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.176 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_46">
-        <pose>0.639 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.16 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_46">
-        <pose>0.639 0.088 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_46">
-        <pose>0.639 -0.088 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_47">
-        <pose>0.645 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.176 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_47">
-        <pose>0.645 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.16 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_47">
-        <pose>0.645 0.088 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_47">
-        <pose>0.645 -0.088 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_48">
-        <pose>0.651 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.176 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_48">
-        <pose>0.651 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.16 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_48">
-        <pose>0.651 0.088 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_48">
-        <pose>0.651 -0.088 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_49">
-        <pose>0.657 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.176 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_49">
-        <pose>0.657 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.16 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_49">
-        <pose>0.657 0.088 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_49">
-        <pose>0.657 -0.088 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_50">
-        <pose>0.663 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.176 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_50">
-        <pose>0.663 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.16 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_50">
-        <pose>0.663 0.088 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_50">
-        <pose>0.663 -0.088 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_51">
-        <pose>0.669 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.176 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_51">
-        <pose>0.669 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.16 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_51">
-        <pose>0.669 0.088 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_51">
-        <pose>0.669 -0.088 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_52">
-        <pose>0.675 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.176 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_52">
-        <pose>0.675 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.16 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_52">
-        <pose>0.675 0.088 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_52">
-        <pose>0.675 -0.088 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_53">
-        <pose>0.681 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.17443 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_53">
-        <pose>0.681 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.15843 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_53">
-        <pose>0.681 0.087214 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_53">
-        <pose>0.681 -0.087214 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_54">
-        <pose>0.687 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.16963 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_54">
-        <pose>0.687 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.15363 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_54">
-        <pose>0.687 0.084813 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_54">
-        <pose>0.687 -0.084813 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_55">
-        <pose>0.693 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.16131 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_55">
-        <pose>0.693 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.14531 0.0792</size></box></geometry>
+      <visual name="swan_body_tail_foot">
+        <pose>0.398 0 0.399 0 0 0</pose>
+        <geometry><box><size>0.024 0.13 0.014</size></box></geometry>
         <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
       </visual>
-      <visual name="swan_body_pinstripe_l_55">
-        <pose>0.693 0.080653 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
+      <visual name="swan_body_side_panel_left">
+        <pose>0.55 0.0658 0.424 0 0 0</pose>
+        <geometry><box><size>0.22 0.0016 0.036</size></box></geometry>
+        <material><ambient>0.12 0.12 0.12 1</ambient><diffuse>0.2 0.2 0.2 1</diffuse><specular>0.1 0.1 0.1 1</specular></material>
       </visual>
-      <visual name="swan_body_pinstripe_r_55">
-        <pose>0.693 -0.080653 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_56">
-        <pose>0.699 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.14888 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_56">
-        <pose>0.699 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.13288 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_56">
-        <pose>0.699 0.07444 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_56">
-        <pose>0.699 -0.07444 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_57">
-        <pose>0.705 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.13118 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_57">
-        <pose>0.705 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.11518 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_57">
-        <pose>0.705 0.065591 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_57">
-        <pose>0.705 -0.065591 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_58">
-        <pose>0.711 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.1056 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_58">
-        <pose>0.711 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0896 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_l_58">
-        <pose>0.711 0.0528 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_pinstripe_r_58">
-        <pose>0.711 -0.0528 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
-      </visual>
-      <visual name="swan_body_slice_59">
-        <pose>0.717 0 0.4315 0 0 0</pose>
-        <geometry><box><size>0.0066 0.063186 0.063</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="swan_body_crown_59">
-        <pose>0.717 0 0.4316 0 0 0</pose>
-        <geometry><box><size>0.0066 0.047186 0.0792</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
+      <visual name="swan_body_side_groove_left">
+        <pose>0.55 0.0662 0.447 0 0 0</pose>
+        <geometry><box><size>0.24 0.001 0.0025</size></box></geometry>
+        <material><ambient>0.036 0.036 0.036 1</ambient><diffuse>0.06 0.06 0.06 1</diffuse><specular>0.04 0.04 0.04 1</specular></material>
       </visual>
-      <visual name="swan_body_pinstripe_l_59">
-        <pose>0.717 0.031593 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
+      <visual name="swan_body_side_panel_right">
+        <pose>0.55 -0.0658 0.424 0 0 0</pose>
+        <geometry><box><size>0.22 0.0016 0.036</size></box></geometry>
+        <material><ambient>0.12 0.12 0.12 1</ambient><diffuse>0.2 0.2 0.2 1</diffuse><specular>0.1 0.1 0.1 1</specular></material>
       </visual>
-      <visual name="swan_body_pinstripe_r_59">
-        <pose>0.717 -0.031593 0.43 0 0 0</pose>
-        <geometry><box><size>0.0066 0.0016 0.004</size></box></geometry>
-        <material><ambient>0.132 0.132 0.132 1</ambient><diffuse>0.22 0.22 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
+      <visual name="swan_body_side_groove_right">
+        <pose>0.55 -0.0662 0.447 0 0 0</pose>
+        <geometry><box><size>0.24 0.001 0.0025</size></box></geometry>
+        <material><ambient>0.036 0.036 0.036 1</ambient><diffuse>0.06 0.06 0.06 1</diffuse><specular>0.04 0.04 0.04 1</specular></material>
       </visual>
       <!-- Slide runners under the body; they ride in the under-seat rails.
            In model coordinates they span x 0.02..0.56 extended, -0.37..0.17 stowed. -->
@@ -2366,81 +1224,6 @@
         <material><ambient>0.036 0.036 0.036 1</ambient><diffuse>0.06 0.06 0.06 1</diffuse><specular>0.04 0.04 0.04 1</specular></material>
       </visual>
       <!-- DETAIL-BEGIN product detailing: visuals only (generated) -->
-      <visual name="swan_logo_S_0">
-        <pose>0.598 0.0605 0.4716 0 0 -1.5708</pose>
-        <geometry><box><size>0.029025 0.0055 0.0012</size></box></geometry>
-        <material><ambient>0.372 0.378 0.384 1</ambient><diffuse>0.62 0.63 0.64 1</diffuse><specular>0.2 0.2 0.2 1</specular></material>
-      </visual>
-      <visual name="swan_logo_S_1">
-        <pose>0.615 0.0605 0.4716 0 0 -1.5708</pose>
-        <geometry><box><size>0.029025 0.0055 0.0012</size></box></geometry>
-        <material><ambient>0.372 0.378 0.384 1</ambient><diffuse>0.62 0.63 0.64 1</diffuse><specular>0.2 0.2 0.2 1</specular></material>
-      </visual>
-      <visual name="swan_logo_S_2">
-        <pose>0.632 0.0605 0.4716 0 0 -1.5708</pose>
-        <geometry><box><size>0.029025 0.0055 0.0012</size></box></geometry>
-        <material><ambient>0.372 0.378 0.384 1</ambient><diffuse>0.62 0.63 0.64 1</diffuse><specular>0.2 0.2 0.2 1</specular></material>
-      </visual>
-      <visual name="swan_logo_S_3">
-        <pose>0.6235 0.0735 0.4716 0 0 0</pose>
-        <geometry><box><size>0.020025 0.0055 0.0012</size></box></geometry>
-        <material><ambient>0.372 0.378 0.384 1</ambient><diffuse>0.62 0.63 0.64 1</diffuse><specular>0.2 0.2 0.2 1</specular></material>
-      </visual>
-      <visual name="swan_logo_S_4">
-        <pose>0.6065 0.0475 0.4716 0 0 0</pose>
-        <geometry><box><size>0.020025 0.0055 0.0012</size></box></geometry>
-        <material><ambient>0.372 0.378 0.384 1</ambient><diffuse>0.62 0.63 0.64 1</diffuse><specular>0.2 0.2 0.2 1</specular></material>
-      </visual>
-      <visual name="swan_logo_W_0">
-        <pose>0.615 0.03625 0.4716 0 0 -2.9527</pose>
-        <geometry><box><size>0.037641 0.0055 0.0012</size></box></geometry>
-        <material><ambient>0.372 0.378 0.384 1</ambient><diffuse>0.62 0.63 0.64 1</diffuse><specular>0.2 0.2 0.2 1</specular></material>
-      </visual>
-      <visual name="swan_logo_W_1">
-        <pose>0.60854 0.02975 0.4716 0 0 -0.2991</pose>
-        <geometry><box><size>0.025084 0.0055 0.0012</size></box></geometry>
-        <material><ambient>0.372 0.378 0.384 1</ambient><diffuse>0.62 0.63 0.64 1</diffuse><specular>0.2 0.2 0.2 1</specular></material>
-      </visual>
-      <visual name="swan_logo_W_2">
-        <pose>0.60854 0.02325 0.4716 0 0 -2.8425</pose>
-        <geometry><box><size>0.025084 0.0055 0.0012</size></box></geometry>
-        <material><ambient>0.372 0.378 0.384 1</ambient><diffuse>0.62 0.63 0.64 1</diffuse><specular>0.2 0.2 0.2 1</specular></material>
-      </visual>
-      <visual name="swan_logo_W_3">
-        <pose>0.615 0.01675 0.4716 0 0 -0.1889</pose>
-        <geometry><box><size>0.037641 0.0055 0.0012</size></box></geometry>
-        <material><ambient>0.372 0.378 0.384 1</ambient><diffuse>0.62 0.63 0.64 1</diffuse><specular>0.2 0.2 0.2 1</specular></material>
-      </visual>
-      <visual name="swan_logo_A_0">
-        <pose>0.615 -0.02 0.4716 0 0 -0.3652</pose>
-        <geometry><box><size>0.039426 0.0055 0.0012</size></box></geometry>
-        <material><ambient>0.372 0.378 0.384 1</ambient><diffuse>0.62 0.63 0.64 1</diffuse><specular>0.2 0.2 0.2 1</specular></material>
-      </visual>
-      <visual name="swan_logo_A_1">
-        <pose>0.615 -0.033 0.4716 0 0 -2.7764</pose>
-        <geometry><box><size>0.039426 0.0055 0.0012</size></box></geometry>
-        <material><ambient>0.372 0.378 0.384 1</ambient><diffuse>0.62 0.63 0.64 1</diffuse><specular>0.2 0.2 0.2 1</specular></material>
-      </visual>
-      <visual name="swan_logo_A_2">
-        <pose>0.60922 -0.0265 0.4716 0 0 -1.5708</pose>
-        <geometry><box><size>0.017585 0.0055 0.0012</size></box></geometry>
-        <material><ambient>0.372 0.378 0.384 1</ambient><diffuse>0.62 0.63 0.64 1</diffuse><specular>0.2 0.2 0.2 1</specular></material>
-      </visual>
-      <visual name="swan_logo_N_0">
-        <pose>0.615 -0.0475 0.4716 0 0 0</pose>
-        <geometry><box><size>0.037025 0.0055 0.0012</size></box></geometry>
-        <material><ambient>0.372 0.378 0.384 1</ambient><diffuse>0.62 0.63 0.64 1</diffuse><specular>0.2 0.2 0.2 1</specular></material>
-      </visual>
-      <visual name="swan_logo_N_1">
-        <pose>0.615 -0.0735 0.4716 0 0 0</pose>
-        <geometry><box><size>0.037025 0.0055 0.0012</size></box></geometry>
-        <material><ambient>0.372 0.378 0.384 1</ambient><diffuse>0.62 0.63 0.64 1</diffuse><specular>0.2 0.2 0.2 1</specular></material>
-      </visual>
-      <visual name="swan_logo_N_2">
-        <pose>0.615 -0.0605 0.4716 0 0 -2.4887</pose>
-        <geometry><box><size>0.045827 0.0055 0.0012</size></box></geometry>
-        <material><ambient>0.372 0.378 0.384 1</ambient><diffuse>0.62 0.63 0.64 1</diffuse><specular>0.2 0.2 0.2 1</specular></material>
-      </visual>
       <visual name="camera_dock_recess">
         <pose>0.468 0 0.4714 0 0 0</pose>
         <geometry><box><size>0.158 0.08 0.0008</size></box></geometry>
@@ -2492,21 +1275,6 @@
           <ixy>0</ixy><ixz>0</ixz><iyz>0</iyz>
         </inertia>
       </inertial>
-      <visual name="swan_retract_arm">
-        <pose>0.71 0 0.3865 0 0 0</pose>
-        <geometry><box><size>0.26 0.05 0.009</size></box></geometry>
-        <material><ambient>0.12 0.12 0.12 1</ambient><diffuse>0.2 0.2 0.2 1</diffuse><specular>0.12 0.12 0.12 1</specular></material>
-      </visual>
-      <visual name="swan_steering_head">
-        <pose>0.818 0 0.3865 0 0 0</pose>
-        <geometry><cylinder><radius>0.027</radius><length>0.011</length></cylinder></geometry>
-        <material><ambient>0.027 0.027 0.027 1</ambient><diffuse>0.045 0.045 0.045 1</diffuse><specular>0.03 0.03 0.03 1</specular></material>
-      </visual>
-      <visual name="swan_retract_arm_end_stop">
-        <pose>0.583 0 0.3865 0 0 0</pose>
-        <geometry><box><size>0.008 0.058 0.011</size></box></geometry>
-        <material><ambient>0.027 0.027 0.027 1</ambient><diffuse>0.045 0.045 0.045 1</diffuse><specular>0.03 0.03 0.03 1</specular></material>
-      </visual>
       <visual name="front_slim_fender_00">
         <pose>1.01985 0 0.0755099 0 1.97562 0</pose>
         <geometry><box><size>0.0139789 0.024 0.006</size></box></geometry>
@@ -2702,33 +1470,21 @@
         <geometry><box><size>0.027 0.0234 0.0018</size></box></geometry>
         <material><ambient>0.0132 0.0132 0.0132 1</ambient><diffuse>0.022 0.022 0.022 1</diffuse><specular>0.02 0.02 0.02 1</specular></material>
       </visual>
-      <!-- DETAIL-BEGIN product detailing: visuals only (generated) -->
-      <visual name="steering_servo_housing">
-        <pose>0.818 0 0.3865 0 0 0</pose>
-        <geometry><cylinder><radius>0.044</radius><length>0.0105</length></cylinder></geometry>
-        <material><ambient>0.036 0.036 0.036 1</ambient><diffuse>0.06 0.06 0.06 1</diffuse><specular>0.04 0.04 0.04 1</specular></material>
+      <visual name="swan_retract_arm">
+        <pose>0.61 0 0.3865 0 0 0</pose>
+        <geometry><box><size>0.075 0.05 0.009</size></box></geometry>
+        <material><ambient>0.036 0.036 0.036 1</ambient><diffuse>0.06 0.06 0.06 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
       </visual>
-      <visual name="steering_servo_cap">
-        <pose>0.818 0 0.389 0 0 0</pose>
-        <geometry><cylinder><radius>0.03</radius><length>0.003</length></cylinder></geometry>
-        <material><ambient>0.036 0.036 0.036 1</ambient><diffuse>0.06 0.06 0.06 1</diffuse><specular>0.04 0.04 0.04 1</specular></material>
+      <visual name="swan_retract_arm_end_stop">
+        <pose>0.571 0 0.3865 0 0 0</pose>
+        <geometry><box><size>0.008 0.058 0.011</size></box></geometry>
+        <material><ambient>0.015 0.015 0.015 1</ambient><diffuse>0.025 0.025 0.025 1</diffuse><specular>0.02 0.02 0.02 1</specular></material>
       </visual>
-      <visual name="steering_servo_gearbox">
-        <pose>0.766 0 0.3865 0 0 0</pose>
-        <geometry><box><size>0.05 0.062 0.0105</size></box></geometry>
-        <material><ambient>0.036 0.036 0.036 1</ambient><diffuse>0.06 0.06 0.06 1</diffuse><specular>0.04 0.04 0.04 1</specular></material>
+      <visual name="swing_pivot_bracket">
+        <pose>0.648 -0.045 0.3865 0 0 0</pose>
+        <geometry><box><size>0.03 0.04 0.009</size></box></geometry>
+        <material><ambient>0.036 0.036 0.036 1</ambient><diffuse>0.06 0.06 0.06 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
       </visual>
-      <visual name="arm_cable_left">
-        <pose>0.69 0.0285 0.3865 0 0 0</pose>
-        <geometry><box><size>0.2 0.006 0.006</size></box></geometry>
-        <material><ambient>0.0132 0.0132 0.0132 1</ambient><diffuse>0.022 0.022 0.022 1</diffuse><specular>0.02 0.02 0.02 1</specular></material>
-      </visual>
-      <visual name="arm_cable_right">
-        <pose>0.69 -0.0285 0.3865 0 0 0</pose>
-        <geometry><box><size>0.2 0.006 0.006</size></box></geometry>
-        <material><ambient>0.0132 0.0132 0.0132 1</ambient><diffuse>0.022 0.022 0.022 1</diffuse><specular>0.02 0.02 0.02 1</specular></material>
-      </visual>
-      <!-- DETAIL-END -->
     </link>
 
     <!-- STAGE 1 of the stow: the drive wheel tucks under the kit body.
@@ -4749,26 +3505,6 @@
 
     
       <!-- Redesigned appearance only; no added physical elements. -->
-      <visual name="fork_steering_neck">
-        <pose>0 0 0.0396 0 0 0</pose>
-        <geometry><cylinder><radius>0.0198</radius><length>0.0675</length></cylinder></geometry>
-        <material><ambient>0.042 0.042 0.042 1</ambient><diffuse>0.07 0.07 0.07 1</diffuse><specular>0.04 0.04 0.04 1</specular></material>
-      </visual>
-      <visual name="fork_crown">
-        <pose>0 0 0.0495 0 0 0</pose>
-        <geometry><box><size>0.0522 0.1503 0.0288</size></box></geometry>
-        <material><ambient>0.027 0.027 0.027 1</ambient><diffuse>0.045 0.045 0.045 1</diffuse><specular>0.03 0.03 0.03 1</specular></material>
-      </visual>
-      <visual name="fork_axle_boss_-1">
-        <pose>0 -0.0675 -0.144 1.570796 0 0</pose>
-        <geometry><cylinder><radius>0.0198</radius><length>0.0198</length></cylinder></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
-      <visual name="fork_axle_boss_1">
-        <pose>0 0.0675 -0.144 1.570796 0 0</pose>
-        <geometry><cylinder><radius>0.0198</radius><length>0.0198</length></cylinder></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
-      </visual>
       
       
       
@@ -4784,46 +3520,126 @@
         <geometry><box><size>0.0333 0.0198 0.0423</size></box></geometry>
         <material><ambient>0.027 0.027 0.027 1</ambient><diffuse>0.045 0.045 0.045 1</diffuse><specular>0.03 0.03 0.03 1</specular></material>
       </visual>
-      <!-- Flat blade fork, after the concept render. -->
-      <visual name="fork_blade_upper_left">
-        <pose>-0.004 0.0675 0.0 0 0 0</pose>
-        <geometry><box><size>0.082 0.008 0.10</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
+      <!-- Single-sided swing arm with the SWAN logo (after the team's reference). -->
+      <visual name="swing_arm_plate_0">
+        <pose>-0.034 -0.068 -0.1052 0 -2.2904 0</pose>
+        <geometry><box><size>0.11318 0.012 0.0836</size></box></geometry>
+        <material><ambient>0.18 0.18 0.18 1</ambient><diffuse>0.3 0.3 0.3 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
       </visual>
-      <visual name="fork_blade_mid_left">
-        <pose>0 0.0675 -0.068 0 0 0</pose>
-        <geometry><box><size>0.064 0.008 0.06</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
+      <visual name="swing_arm_plate_1">
+        <pose>-0.085 -0.068 -0.047 0 -2.2904 0</pose>
+        <geometry><box><size>0.11318 0.012 0.071</size></box></geometry>
+        <material><ambient>0.18 0.18 0.18 1</ambient><diffuse>0.3 0.3 0.3 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
       </visual>
-      <visual name="fork_blade_lower_left">
-        <pose>0 0.0675 -0.118 0 0 0</pose>
-        <geometry><box><size>0.046 0.008 0.06</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
+      <visual name="swing_arm_plate_2">
+        <pose>-0.136 -0.068 0.0112 0 -2.2904 0</pose>
+        <geometry><box><size>0.11318 0.012 0.0584</size></box></geometry>
+        <material><ambient>0.18 0.18 0.18 1</ambient><diffuse>0.3 0.3 0.3 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
       </visual>
-      <visual name="fork_blade_rib_left">
-        <pose>0.012 0.0722 -0.05 0 0 0</pose>
-        <geometry><box><size>0.012 0.002 0.17</size></box></geometry>
-        <material><ambient>0.12 0.12 0.12 1</ambient><diffuse>0.2 0.2 0.2 1</diffuse><specular>0.12 0.12 0.12 1</specular></material>
+      <visual name="swing_arm_hub_disc">
+        <pose>0 -0.068 -0.144 1.5708 0 0</pose>
+        <geometry><cylinder><radius>0.05</radius><length>0.012</length></cylinder></geometry>
+        <material><ambient>0.18 0.18 0.18 1</ambient><diffuse>0.3 0.3 0.3 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
       </visual>
-      <visual name="fork_blade_upper_right">
-        <pose>-0.004 -0.0675 0.0 0 0 0</pose>
-        <geometry><box><size>0.082 0.008 0.10</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
+      <visual name="swing_arm_top_disc">
+        <pose>-0.17 -0.068 0.05 1.5708 0 0</pose>
+        <geometry><cylinder><radius>0.025</radius><length>0.012</length></cylinder></geometry>
+        <material><ambient>0.18 0.18 0.18 1</ambient><diffuse>0.3 0.3 0.3 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
       </visual>
-      <visual name="fork_blade_mid_right">
-        <pose>0 -0.0675 -0.068 0 0 0</pose>
-        <geometry><box><size>0.064 0.008 0.06</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
+      <visual name="swing_arm_hub_cap">
+        <pose>0 -0.076 -0.144 1.5708 0 0</pose>
+        <geometry><cylinder><radius>0.032</radius><length>0.006</length></cylinder></geometry>
+        <material><ambient>0.015 0.015 0.015 1</ambient><diffuse>0.025 0.025 0.025 1</diffuse><specular>0.02 0.02 0.02 1</specular></material>
       </visual>
-      <visual name="fork_blade_lower_right">
-        <pose>0 -0.0675 -0.118 0 0 0</pose>
-        <geometry><box><size>0.046 0.008 0.06</size></box></geometry>
-        <material><ambient>0.063 0.063 0.063 1</ambient><diffuse>0.105 0.105 0.105 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
+      <visual name="swing_arm_axle_nut">
+        <pose>0 -0.0805 -0.144 1.5708 0 0</pose>
+        <geometry><cylinder><radius>0.011</radius><length>0.004</length></cylinder></geometry>
+        <material><ambient>0.18 0.18 0.18 1</ambient><diffuse>0.3 0.3 0.3 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
       </visual>
-      <visual name="fork_blade_rib_right">
-        <pose>0.012 -0.0722 -0.05 0 0 0</pose>
-        <geometry><box><size>0.012 0.002 0.17</size></box></geometry>
-        <material><ambient>0.12 0.12 0.12 1</ambient><diffuse>0.2 0.2 0.2 1</diffuse><specular>0.12 0.12 0.12 1</specular></material>
+      <visual name="swing_arm_pivot_cap">
+        <pose>-0.17 -0.0755 0.05 1.5708 0 0</pose>
+        <geometry><cylinder><radius>0.016</radius><length>0.004</length></cylinder></geometry>
+        <material><ambient>0.015 0.015 0.015 1</ambient><diffuse>0.025 0.025 0.025 1</diffuse><specular>0.02 0.02 0.02 1</specular></material>
+      </visual>
+      <visual name="swing_arm_edge_line">
+        <pose>-0.073193 -0.0742 -0.019506 0 -2.2904 0</pose>
+        <geometry><box><size>0.15477 0.001 0.003</size></box></geometry>
+        <material><ambient>0.036 0.036 0.036 1</ambient><diffuse>0.06 0.06 0.06 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
+      </visual>
+      <visual name="swing_arm_logo_S_0">
+        <pose>-0.12661 -0.0745 -0.020759 0 0.85124 0</pose>
+        <geometry><box><size>0.02364 0.0012 0.0048</size></box></geometry>
+        <material><ambient>0.51 0.51 0.51 1</ambient><diffuse>0.85 0.85 0.85 1</diffuse><specular>0.2 0.2 0.2 1</specular></material>
+      </visual>
+      <visual name="swing_arm_logo_S_1">
+        <pose>-0.11608 -0.0745 -0.011532 0 0.85124 0</pose>
+        <geometry><box><size>0.02364 0.0012 0.0048</size></box></geometry>
+        <material><ambient>0.51 0.51 0.51 1</ambient><diffuse>0.85 0.85 0.85 1</diffuse><specular>0.2 0.2 0.2 1</specular></material>
+      </visual>
+      <visual name="swing_arm_logo_S_2">
+        <pose>-0.10555 -0.0745 -0.0023052 0 0.85124 0</pose>
+        <geometry><box><size>0.02364 0.0012 0.0048</size></box></geometry>
+        <material><ambient>0.51 0.51 0.51 1</ambient><diffuse>0.85 0.85 0.85 1</diffuse><specular>0.2 0.2 0.2 1</specular></material>
+      </visual>
+      <visual name="swing_arm_logo_S_3">
+        <pose>-0.11774 -0.0745 0.00097842 0 -0.71956 0</pose>
+        <geometry><box><size>0.01664 0.0012 0.0048</size></box></geometry>
+        <material><ambient>0.51 0.51 0.51 1</ambient><diffuse>0.85 0.85 0.85 1</diffuse><specular>0.2 0.2 0.2 1</specular></material>
+      </visual>
+      <visual name="swing_arm_logo_S_4">
+        <pose>-0.11442 -0.0745 -0.024042 0 -0.71956 0</pose>
+        <geometry><box><size>0.01664 0.0012 0.0048</size></box></geometry>
+        <material><ambient>0.51 0.51 0.51 1</ambient><diffuse>0.85 0.85 0.85 1</diffuse><specular>0.2 0.2 0.2 1</specular></material>
+      </visual>
+      <visual name="swing_arm_logo_W_0">
+        <pose>-0.10282 -0.0745 -0.026668 0 2.2367 0</pose>
+        <geometry><box><size>0.031128 0.0012 0.0048</size></box></geometry>
+        <material><ambient>0.51 0.51 0.51 1</ambient><diffuse>0.85 0.85 0.85 1</diffuse><specular>0.2 0.2 0.2 1</specular></material>
+      </visual>
+      <visual name="swing_arm_logo_W_1">
+        <pose>-0.10336 -0.0745 -0.034123 0 -0.42588 0</pose>
+        <geometry><box><size>0.020776 0.0012 0.0048</size></box></geometry>
+        <material><ambient>0.51 0.51 0.51 1</ambient><diffuse>0.85 0.85 0.85 1</diffuse><specular>0.2 0.2 0.2 1</specular></material>
+      </visual>
+      <visual name="swing_arm_logo_W_2">
+        <pose>-0.099898 -0.0745 -0.038071 0 2.1284 0</pose>
+        <geometry><box><size>0.020776 0.0012 0.0048</size></box></geometry>
+        <material><ambient>0.51 0.51 0.51 1</ambient><diffuse>0.85 0.85 0.85 1</diffuse><specular>0.2 0.2 0.2 1</specular></material>
+      </visual>
+      <visual name="swing_arm_logo_W_3">
+        <pose>-0.092437 -0.0745 -0.038513 0 -0.53421 0</pose>
+        <geometry><box><size>0.031128 0.0012 0.0048</size></box></geometry>
+        <material><ambient>0.51 0.51 0.51 1</ambient><diffuse>0.85 0.85 0.85 1</diffuse><specular>0.2 0.2 0.2 1</specular></material>
+      </visual>
+      <visual name="swing_arm_logo_A_0">
+        <pose>-0.082633 -0.0745 -0.049701 0 -0.36079 0</pose>
+        <geometry><box><size>0.032544 0.0012 0.0048</size></box></geometry>
+        <material><ambient>0.51 0.51 0.51 1</ambient><diffuse>0.85 0.85 0.85 1</diffuse><specular>0.2 0.2 0.2 1</specular></material>
+      </visual>
+      <visual name="swing_arm_logo_A_1">
+        <pose>-0.075713 -0.0745 -0.057598 0 2.0633 0</pose>
+        <geometry><box><size>0.032544 0.0012 0.0048</size></box></geometry>
+        <material><ambient>0.51 0.51 0.51 1</ambient><diffuse>0.85 0.85 0.85 1</diffuse><specular>0.2 0.2 0.2 1</specular></material>
+      </visual>
+      <visual name="swing_arm_logo_A_2">
+        <pose>-0.082753 -0.0745 -0.056786 0 0.85124 0</pose>
+        <geometry><box><size>0.0144 0.0012 0.0048</size></box></geometry>
+        <material><ambient>0.51 0.51 0.51 1</ambient><diffuse>0.85 0.85 0.85 1</diffuse><specular>0.2 0.2 0.2 1</specular></material>
+      </visual>
+      <visual name="swing_arm_logo_N_0">
+        <pose>-0.06764 -0.0745 -0.066811 0 -0.71956 0</pose>
+        <geometry><box><size>0.03064 0.0012 0.0048</size></box></geometry>
+        <material><ambient>0.51 0.51 0.51 1</ambient><diffuse>0.85 0.85 0.85 1</diffuse><specular>0.2 0.2 0.2 1</specular></material>
+      </visual>
+      <visual name="swing_arm_logo_N_1">
+        <pose>-0.0538 -0.0745 -0.082605 0 -0.71956 0</pose>
+        <geometry><box><size>0.03064 0.0012 0.0048</size></box></geometry>
+        <material><ambient>0.51 0.51 0.51 1</ambient><diffuse>0.85 0.85 0.85 1</diffuse><specular>0.2 0.2 0.2 1</specular></material>
+      </visual>
+      <visual name="swing_arm_logo_N_2">
+        <pose>-0.06072 -0.0745 -0.074708 0 1.7785 0</pose>
+        <geometry><box><size>0.03764 0.0012 0.0048</size></box></geometry>
+        <material><ambient>0.51 0.51 0.51 1</ambient><diffuse>0.85 0.85 0.85 1</diffuse><specular>0.2 0.2 0.2 1</specular></material>
       </visual>
     </link>
 
