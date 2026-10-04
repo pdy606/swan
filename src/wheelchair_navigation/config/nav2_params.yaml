@@ -117,9 +117,7 @@ controller_server:
         trajectory_step: 5
         time_step: 3
       AckermannConstraints:
-        # SWAN steers about the fork top (leading arm, max 60 deg):
-        # tightest turn of the rear-axle centre is ~0.57 m.
-        min_turning_r: 0.6
+        min_turning_r: 0.2
       critics: [
         "ConstraintCritic", "CostCritic", "GoalCritic",
         "GoalAngleCritic", "PathAlignCritic", "PathFollowCritic",

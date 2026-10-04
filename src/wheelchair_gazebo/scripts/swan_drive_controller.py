@@ -17,19 +17,17 @@ class SwanDriveController(Node):
         # model.sdf 기준
         self.wheel_radius = 0.18
 
-        # 조향 모터는 포크 위끝에 있고, 바퀴는 그 앞에 달린 스윙암 끝에 있다.
-        #   큰바퀴 축 x=-0.13 -> 조향축 x=0.51 : pivot_offset
-        #   조향축 -> 바퀴 축                   : arm_length
-        self.pivot_offset = 0.64
-        self.arm_length = 0.17
+        # 휠체어 큰바퀴 축 x=-0.13
+        # SWAN 조향축(바퀴 중심) x=0.68
+        self.wheelbase = 0.81
 
-        # 바퀴가 발판 쪽으로 휩쓸려 들어오지 않는 한계 (model.sdf 관절 한계 1.06 rad)
-        self.max_steer = math.radians(60.0)
+        # 완전 90도에서는 수치적으로 너무 극단적이므로
+        # 일반 최대 조향은 약 88도
+        self.max_steer = math.radians(88.0)
 
-        # 제자리 회전 대신: 최대로 꺾고 천천히 전진하는 최소 반경 회전
-        self.pivot_steer = self.max_steer
-        # 최소 반경 회전 시 큰바퀴 축 중심의 최대 전진 속도 [m/s]
-        self.pivot_linear_speed = 0.25
+        # 제자리 회전 비슷한 동작
+        self.pivot_steer = math.radians(85.0)
+        self.pivot_linear_speed = 0.12
 
         self.linear_deadband = 0.02
         self.angular_deadband = 0.02
@@ -138,38 +136,6 @@ class SwanDriveController(Node):
 
     def clamp(self, value, minimum, maximum):
         return max(minimum, min(value, maximum))
-
-    def solve_leading_arm(self, v, w):
-        """
-        v, w : 큰바퀴 축 중심의 전진 속도 [m/s], 요 각속도 [rad/s]
-
-        접지점 P = (b + a cos d, a sin d) (큰바퀴 축 기준)
-        P 의 속도 (v - w a sin d, w (b + a cos d)) 가 바퀴 방향 (cos d, sin d)
-        과 평행하려면  v sin d - w b cos d = w a
-        """
-        a = self.arm_length
-        b = self.pivot_offset
-
-        # 후진은 같은 식을 |v| 와 부호 바꾼 w 로 푼다.
-        direction = 1.0 if v >= 0.0 else -1.0
-        speed = abs(v)
-        yaw = direction * w
-
-        r = math.hypot(speed, yaw * b)
-        phi = math.atan2(yaw * b, speed)
-        steering = phi + math.asin(self.clamp(yaw * a / r, -1.0, 1.0))
-
-        steering = self.clamp(
-            steering,
-            -self.max_steer,
-            self.max_steer
-        )
-
-        # 접지점의 실제 속도 = 바퀴 선속도
-        vx = v - w * a * math.sin(steering)
-        vy = w * (b + a * math.cos(steering))
-
-        return steering, direction * math.hypot(vx, vy)
 
     def publish_commands(self, wheel_speed, steering):
         drive_msg = Float64()
@@ -319,35 +285,71 @@ class SwanDriveController(Node):
         # --------------------------------------------------
         # angular.z만 들어온 경우
         #
-        # 바퀴가 조향축 앞에 달려 있어 제자리 회전은 불가능하다.
-        # 최대 조향각으로 꺾고, 요청한 각속도가 나오는 만큼만
-        # 천천히 전진하는 최소 반경 회전으로 대신한다.
+        # 기존 DiffDrive는 여기서 제자리 회전을 했지만
+        # SWAN은 앞바퀴를 약 85도로 꺾고 아주 천천히
+        # 굴려서 pseudo-pivot 동작을 만든다.
         # --------------------------------------------------
 
         if abs(v) < self.linear_deadband:
 
-            a = self.arm_length
-            b = self.pivot_offset
+            steering = math.copysign(
+                self.pivot_steer,
+                w
+            )
 
-            creep = abs(w) * (
-                a + b * math.cos(self.pivot_steer)
-            ) / math.sin(self.pivot_steer)
+            # angular 값에 따라 살짝 속도 조절
+            strength = self.clamp(
+                abs(w),
+                0.35,
+                1.0
+            )
 
-            creep = min(creep, self.pivot_linear_speed)
-
-            steering, wheel_linear_speed = self.solve_leading_arm(creep, w)
+            wheel_linear_speed = (
+                self.pivot_linear_speed *
+                strength
+            )
 
         # --------------------------------------------------
-        # 직진 / 곡선 주행
+        # 직진
+        # --------------------------------------------------
+
+        elif abs(w) < self.angular_deadband:
+
+            steering = 0.0
+            wheel_linear_speed = v
+
+        # --------------------------------------------------
+        # 일반 곡선 주행
         #
-        # 바퀴 접지점이 조향축 앞 arm_length 에 있으므로
-        # 일반 bicycle model 대신, 접지점 속도가 바퀴 방향과
-        # 일치하는 조향각을 직접 푼다.
+        # bicycle model:
+        #
+        # tan(delta) = L * w / v
         # --------------------------------------------------
 
         else:
 
-            steering, wheel_linear_speed = self.solve_leading_arm(v, w)
+            steering = math.atan(
+                (self.wheelbase * w) / v
+            )
+
+            steering = self.clamp(
+                steering,
+                -self.max_steer,
+                self.max_steer
+            )
+
+            # 조향할수록 앞바퀴 진행방향이 기울기 때문에
+            # 지나친 보상은 하지 않고 최대 약 1.6배까지만.
+            cos_delta = abs(math.cos(steering))
+
+            speed_scale = 1.0 / max(
+                cos_delta,
+                0.625
+            )
+
+            wheel_linear_speed = (
+                v * speed_scale
+            )
 
         # m/s -> wheel rad/s
         wheel_speed = (
