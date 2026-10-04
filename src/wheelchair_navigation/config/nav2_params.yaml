@@ -82,6 +82,8 @@ controller_server:
     #  xy_goal_tolerance: 0.25
     #  yaw_goal_tolerance: 0.25
     #  stateful: True
+    # Position only: with the SWAN turning radius the chair cannot square up
+    # on the spot. nav_avoidance_node restores the travel heading afterwards.
     general_goal_checker:
       stateful: True
       plugin: "nav2_controller::PositionGoalChecker"
@@ -115,7 +117,9 @@ controller_server:
         trajectory_step: 5
         time_step: 3
       AckermannConstraints:
-        min_turning_r: 0.2
+        # SWAN steers about the fork top (leading arm, max 60 deg):
+        # tightest turn of the rear-axle centre is ~0.57 m.
+        min_turning_r: 0.6
       critics: [
         "ConstraintCritic", "CostCritic", "GoalCritic",
         "GoalAngleCritic", "PathAlignCritic", "PathFollowCritic",
@@ -239,8 +243,9 @@ global_costmap:
       robot_base_frame: base_link
 
       rolling_window: true
-      width: 6
-      height: 6
+      # Avoidance goals are up to 4.4 m ahead: keep them inside the rolling window.
+      width: 10
+      height: 10
       resolution: 0.05
 
       footprint: "[[0.99, 0.08],

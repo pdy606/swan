@@ -101,6 +101,16 @@ class SituationNode(Node):
             10,
         )
 
+        # 회피가 끝나면 다음 장애물에 다시 C 를 낼 수 있게 한다.
+        # (회피 직후 바로 다음 장애물이 통로 안에 있으면 거리 기반
+        #  해제 조건이 만족되지 않아 C 가 다시 나오지 않던 문제)
+        self.avoidance_status_subscription = self.create_subscription(
+            String,
+            "/avoidance_status",
+            self.avoidance_status_callback,
+            10,
+        )
+
         self.get_logger().info(
             "Situation node started: "
             "stable LiDAR detection -> driving situation"
@@ -118,6 +128,14 @@ class SituationNode(Node):
             self.c_active = False
             self.last_traffic_state = None
             self.last_crosswalk_seen_time = None
+
+    def avoidance_status_callback(self, msg: String) -> None:
+        if msg.data.strip().upper() == "COMPLETED":
+            if self.c_active:
+                self.get_logger().info(
+                    "Avoidance finished - ready for next C situation"
+                )
+            self.c_active = False
 
     def yolo_callback(self, msg: String) -> None:
         if self.folded:
