@@ -1034,6 +1034,65 @@
         <geometry><box><size>0.03 0.01 0.087</size></box></geometry>
         <material><ambient>0.114 0.132 0.15 1</ambient><diffuse>0.19 0.22 0.25 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
       </visual>
+      <!-- SENSORS-BEGIN final sensor suite (generated) -->
+      <collision name="left_footrest_collision">
+        <pose>0.365 0.165 0.18 0 0 0</pose>
+        <geometry><box><size>0.21 0.13 0.022</size></box></geometry>
+      </collision>
+      <collision name="right_footrest_collision">
+        <pose>0.365 -0.165 0.18 0 0 0</pose>
+        <geometry><box><size>0.21 0.13 0.022</size></box></geometry>
+      </collision>
+      <visual name="rear_sensor_bar">
+        <pose>-0.29 0 0.24 1.570796 0 0</pose>
+        <geometry><cylinder><radius>0.008</radius><length>0.49</length></cylinder></geometry>
+        <material><ambient>0.042 0.042 0.042 1</ambient><diffuse>0.07 0.07 0.07 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
+      </visual>
+      <visual name="rear_sensor_housing">
+        <pose>-0.335 0 0.24 0 0 0</pose>
+        <geometry><box><size>0.03 0.10 0.032</size></box></geometry>
+        <material><ambient>0.018 0.018 0.018 1</ambient><diffuse>0.03 0.03 0.03 1</diffuse><specular>0.03 0.03 0.03 1</specular></material>
+      </visual>
+      <visual name="rear_sensor_eye_0">
+        <pose>-0.3505 0.026 0.24 0 1.570796 0</pose>
+        <geometry><cylinder><radius>0.011</radius><length>0.002</length></cylinder></geometry>
+        <material><ambient>0.02 0.03 0.035 1</ambient><diffuse>0.05 0.075 0.085 1</diffuse><specular>0.6 0.6 0.6 1</specular></material>
+      </visual>
+      <visual name="rear_sensor_eye_1">
+        <pose>-0.3505 -0.026 0.24 0 1.570796 0</pose>
+        <geometry><cylinder><radius>0.011</radius><length>0.002</length></cylinder></geometry>
+        <material><ambient>0.02 0.03 0.035 1</ambient><diffuse>0.05 0.075 0.085 1</diffuse><specular>0.6 0.6 0.6 1</specular></material>
+      </visual>
+      <sensor name="rear_sensor" type="gpu_lidar">
+        <pose>-0.352 0 0.24 0 0 3.14159265</pose>
+        <topic>/model/wheelchair/rear_scan</topic>
+        <update_rate>10</update_rate>
+        <always_on>true</always_on>
+        <visualize>false</visualize>
+        <lidar>
+          <scan><horizontal><samples>31</samples><resolution>1</resolution><min_angle>-0.6</min_angle><max_angle>0.6</max_angle></horizontal></scan>
+          <range><min>0.05</min><max>2.5</max><resolution>0.01</resolution></range>
+          <noise><type>gaussian</type><mean>0.0</mean><stddev>0.005</stddev></noise>
+        </lidar>
+      </sensor>
+      <sensor name="imu_sensor" type="imu">
+        <topic>/model/wheelchair/imu</topic>
+        <update_rate>100</update_rate>
+        <always_on>true</always_on>
+      </sensor>
+      <sensor name="body_contact" type="contact">
+        <topic>/model/wheelchair/contacts/body</topic>
+        <update_rate>50</update_rate>
+        <always_on>true</always_on>
+        <contact>
+          <collision>wheelchair_lower_collision</collision>
+          <collision>seat_collision</collision>
+          <collision>backrest_collision</collision>
+          <collision>left_footrest_collision</collision>
+          <collision>right_footrest_collision</collision>
+        </contact>
+      </sensor>
+      <!-- SENSORS-END -->
     </link>
 
     <!-- Slide carrier: the whole SWAN kit (body, fork, drive wheel, sensors)
@@ -1165,6 +1224,16 @@
         <material><ambient>0.0132 0.0132 0.0132 1</ambient><diffuse>0.022 0.022 0.022 1</diffuse><specular>0.02 0.02 0.02 1</specular></material>
       </visual>
       <!-- DETAIL-END -->
+      <!-- SENSORS-BEGIN (generated) -->
+      <sensor name="kit_body_contact" type="contact">
+        <topic>/model/wheelchair/contacts/kit</topic>
+        <update_rate>50</update_rate>
+        <always_on>true</always_on>
+        <contact>
+          <collision>swan_body_collision</collision>
+        </contact>
+      </sensor>
+      <!-- SENSORS-END -->
     </link>
 
     <!-- STAGE 2 of the stow: the kit body slides back along the wheelchair centre
@@ -5435,6 +5504,43 @@
         <geometry><cylinder><radius>0.051</radius><length>0.007</length></cylinder></geometry>
         <material><ambient>0.12 0.12 0.12 1</ambient><diffuse>0.2 0.2 0.2 1</diffuse><specular>0.12 0.12 0.12 1</specular></material>
       </visual>
+      <!-- SENSORS-BEGIN (generated) -->
+      <visual name="cliff_sensor_housing">
+        <pose>0.062 0 0.052 0 0.7 0</pose>
+        <geometry><box><size>0.022 0.05 0.018</size></box></geometry>
+        <material><ambient>0.018 0.018 0.018 1</ambient><diffuse>0.03 0.03 0.03 1</diffuse><specular>0.03 0.03 0.03 1</specular></material>
+      </visual>
+      <visual name="cliff_sensor_lens">
+        <pose>0.0705 0 0.0455 0 2.270796 0</pose>
+        <geometry><cylinder><radius>0.006</radius><length>0.002</length></cylinder></geometry>
+        <material><ambient>0.02 0.03 0.035 1</ambient><diffuse>0.05 0.075 0.085 1</diffuse><specular>0.6 0.6 0.6 1</specular></material>
+      </visual>
+      <visual name="cliff_sensor_stalk">
+        <pose>0.05 0 0.04 0 0 0</pose>
+        <geometry><box><size>0.012 0.02 0.03</size></box></geometry>
+        <material><ambient>0.042 0.042 0.042 1</ambient><diffuse>0.07 0.07 0.07 1</diffuse><specular>0.05 0.05 0.05 1</specular></material>
+      </visual>
+      <sensor name="cliff_sensor" type="gpu_lidar">
+        <pose>0.072 0 0.044 0 0.7 0</pose>
+        <topic>/model/wheelchair/cliff_scan</topic>
+        <update_rate>20</update_rate>
+        <always_on>true</always_on>
+        <visualize>false</visualize>
+        <lidar>
+          <scan><horizontal><samples>7</samples><resolution>1</resolution><min_angle>-0.35</min_angle><max_angle>0.35</max_angle></horizontal></scan>
+          <range><min>0.03</min><max>1.0</max><resolution>0.01</resolution></range>
+          <noise><type>gaussian</type><mean>0.0</mean><stddev>0.005</stddev></noise>
+        </lidar>
+      </sensor>
+      <sensor name="lidar_contact" type="contact">
+        <topic>/model/wheelchair/contacts/lidar</topic>
+        <update_rate>50</update_rate>
+        <always_on>true</always_on>
+        <contact>
+          <collision>lidar_collision</collision>
+        </contact>
+      </sensor>
+      <!-- SENSORS-END -->
     </link>
 
 
@@ -5649,5 +5755,9 @@
       <initial_position>0.0</initial_position>
     </plugin>
 
+    <!-- SENSORS-BEGIN systems for IMU and contact sensors (generated) -->
+    <plugin filename="gz-sim-imu-system" name="gz::sim::systems::Imu"/>
+    <plugin filename="gz-sim-contact-system" name="gz::sim::systems::Contact"/>
+    <!-- SENSORS-END -->
   </model>
 </sdf>
