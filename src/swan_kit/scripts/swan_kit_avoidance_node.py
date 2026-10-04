@@ -122,6 +122,27 @@ class NavAvoidanceNode(Node):
         self.state = DrivingState.MANUAL
         self.c_avoidance_requested = False
 
+        # --------------------------------------------------------------
+        # 회피 후 방향 복귀
+        # 조향 반경 제약 때문에 Nav2 도착 시 차체가 비스듬할 수 있다.
+        # 회피가 끝난 뒤 사용자가 직진을 누르는 동안 원래 진행 방향으로
+        # 자동으로 바로잡는다. 사용자가 직접 조향하면 즉시 해제.
+        # --------------------------------------------------------------
+
+        self.heading_hold_active = False
+        self.heading_hold_yaw = 0.0
+        self.heading_hold_since = None
+        self.heading_hold_gain = 1.5
+        self.heading_hold_max_rate = 0.6        # [rad/s]
+        self.heading_hold_done_error = 0.04     # [rad]
+        self.heading_hold_timeout = 8.0         # [s]
+        self.heading_hold_user_turn = 0.15      # [rad/s] 이보다 크면 사용자 조향으로 간주
+
+        # 회피가 연달아 일어나면 처음 진행 방향을 이어서 쓴다.
+        self.last_avoidance_done_time = None
+        self.chained_avoidance_window = 10.0    # [s]
+
+
         # 필터링 후 Supervisor가 사용하는 전방 거리
         self.front_distance = math.inf
 
@@ -544,7 +565,20 @@ class NavAvoidanceNode(Node):
     def save_initial_avoidance_pose(self) -> None:
         self.goal_start_x = self.current_x
         self.goal_start_y = self.current_y
-        self.original_travel_yaw = self.current_yaw
+
+        chained = (
+            self.last_avoidance_done_time is not None
+            and self.get_age_seconds(self.last_avoidance_done_time)
+            <= self.chained_avoidance_window
+        )
+
+        if chained:
+            # 직전 회피 후 방향 복귀가 끝나기 전에 다음 장애물을 만난 경우
+            self.original_travel_yaw = self.heading_hold_yaw
+        else:
+            self.original_travel_yaw = self.current_yaw
+
+        self.heading_hold_active = False
 
         self.avoidance_pose_saved = True
 
@@ -955,6 +989,12 @@ class NavAvoidanceNode(Node):
         self.latest_nav_cmd = Twist()
         self.last_nav_cmd_time = None
 
+        # 원래 진행 방향으로 복귀 시작 (reset 전에 방향 보관)
+        self.heading_hold_yaw = self.original_travel_yaw
+        self.heading_hold_active = True
+        self.heading_hold_since = self.get_clock().now()
+        self.last_avoidance_done_time = self.heading_hold_since
+
         self.c_avoidance_requested = False
         self.reset_avoidance_session()
         self.change_state(DrivingState.MANUAL)
@@ -1012,7 +1052,7 @@ class NavAvoidanceNode(Node):
                 return
 
             self.cmd_vel_publisher.publish(
-                self.copy_twist(self.latest_user_cmd)
+                self.apply_heading_hold(self.latest_user_cmd)
             )
             return
 
@@ -1056,6 +1096,52 @@ class NavAvoidanceNode(Node):
         self.publish_stop()
 
 
+
+    def apply_heading_hold(self, user_cmd: Twist) -> Twist:
+        """
+        회피 직후 직진 입력에 방향 보정 각속도를 더한다.
+        """
+        output_cmd = self.copy_twist(user_cmd)
+
+        if not self.heading_hold_active:
+            return output_cmd
+
+        expired = (
+            self.heading_hold_since is None
+            or self.get_age_seconds(self.heading_hold_since)
+            > self.heading_hold_timeout
+        )
+        user_steering = (
+            abs(user_cmd.angular.z) > self.heading_hold_user_turn
+        )
+
+        if expired or user_steering or not self.is_odom_fresh():
+            self.heading_hold_active = False
+            return output_cmd
+
+        # 전진 중일 때만 보정 (정지/후진 입력은 그대로)
+        if user_cmd.linear.x <= 0.0:
+            return output_cmd
+
+        error = math.atan2(
+            math.sin(self.heading_hold_yaw - self.current_yaw),
+            math.cos(self.heading_hold_yaw - self.current_yaw),
+        )
+
+        if abs(error) < self.heading_hold_done_error:
+            self.heading_hold_active = False
+            self.get_logger().info("Heading restored after avoidance")
+            return output_cmd
+
+        output_cmd.angular.z = max(
+            -self.heading_hold_max_rate,
+            min(
+                self.heading_hold_max_rate,
+                self.heading_hold_gain * error,
+            ),
+        )
+
+        return output_cmd
 
     def make_recovery_cmd(
         self,
