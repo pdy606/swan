@@ -1,4 +1,5 @@
 import rclpy
+import json
 from ament_index_python.packages import get_package_share_directory
 from rclpy.node import Node
 from sensor_msgs.msg import Image
@@ -144,10 +145,19 @@ class YoloDetectorNode(Node):
                 cv2.putText(annotated_frame, gap_label, (mid_x, mid_y - 15), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 0), 4)
                 cv2.putText(annotated_frame, gap_label, (mid_x, mid_y - 15), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 105, 180), 2)
 
-            if detected_class_names:
-                msg_str = String()
-                msg_str.data = f"Detected Order: {', '.join(detected_class_names)}"
-                self.label_pub.publish(msg_str)
+            # 검출된 모든 객체의 class, x, z 정보를 매 프레임 발행
+            publish_objects = []
+
+            for obj in detected_objects:
+                publish_objects.append({
+                    'class': str(obj['class']),
+                    'x': float(obj['x']),
+                    'z': float(obj['z'])
+                })
+
+            msg_str = String()
+            msg_str.data = json.dumps(publish_objects, ensure_ascii=False)
+            self.label_pub.publish(msg_str)
             
             annotated_msg = Image()
             annotated_msg.header = msg.header
