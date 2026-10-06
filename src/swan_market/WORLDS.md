@@ -54,8 +54,10 @@ ros2 launch swan_market world.launch.py world:=market_shopping.sdf
    기존 월드의 `model://wheelchair` include 또는 `model name="wheelchair"`는 유지해도 된다.
    이 경우 추가 생성하지 않고 월드에 적힌 초기 위치를 사용한다. `spawn_*`를 지정하면
    무시하지 않고 설명과 함께 실패한다.
-3. 초기 위치가 필요하면 같은 디렉터리에 `<파일이름>.launch.json`을 둔다.
-   `example.sdf` 또는 `example.world`이면 `example.launch.json`이다. 시장의 실제 예제를 참고한다.
+3. 등록한 월드의 초기 위치·시나리오는 `swan_market/config/worlds.json`의 별칭 항목에 둘 수 있다.
+   시장은 이 방식을 사용하므로 `market_shopping.sdf` 옆에 설정 파일이 없다.
+   등록하지 않은 월드는 같은 디렉터리에 `<파일이름>.launch.json`을 둘 수도 있다.
+   `example.sdf` 또는 `example.world`이면 `example.launch.json`이다.
 
 ```json
 {

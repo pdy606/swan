@@ -23,8 +23,15 @@ def resolve_world(selection, package, share_lookup):
     if root.tag != 'sdf' or len(worlds) != 1 or not worlds[0].get('name'):
         raise ValueError(f'Expected one named SDF world: {path}')
     world = worlds[0]
+    options = {}
+    for entry in aliases.values():
+        registered = (Path(share_lookup(entry['package'])) / 'worlds' / entry['world']).resolve()
+        if registered == path:
+            options.update({key: value for key, value in entry.items() if key not in ('package', 'world')})
+            break
     sidecar = path.with_suffix('.launch.json')
-    options = json.loads(sidecar.read_text()) if sidecar.exists() else {}
+    if sidecar.exists():
+        options.update(json.loads(sidecar.read_text()))
     embedded = list(world.findall("model[@name='wheelchair']"))
     for inc in world.findall('include'):
         uri = inc.findtext('uri', '').rstrip('/')

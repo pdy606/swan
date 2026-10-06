@@ -1,7 +1,8 @@
 # 시장 월드
 
 실제 월드 파일: **`src/wheelchair_gazebo/worlds/market_shopping.sdf`**.
-다른 팀 월드와 같은 폴더에 저장하며, 이 패키지는 시장 자산·이동 제어·생성 도구를 제공한다.
+다른 팀 월드와 같은 폴더에 저장한다. 시장 환경과 한글 간판은 모두 이 한 파일에 있으며
+외부 메시·텍스처를 참조하지 않는다. 이 패키지는 이동 제어·생성 도구를 제공한다.
 
 가게 8개, 고정 인물 21명, 주정차 오토바이 3대가 있는 전통시장이다.
 입구 횡단보도에는 왕복 보행자 2명과 운전자가 탄 오토바이 2대를 추가했다.
@@ -15,6 +16,7 @@
 빌드 방법·다른 월드 선택·공통 토픽은 [공통 실행 안내](WORLDS.md)에 있다.
 
 ```bash
+gz sim -r src/wheelchair_gazebo/worlds/market_shopping.sdf
 ros2 launch swan_market world.launch.py world:=market
 # UTM 소프트웨어 렌더링
 ros2 launch swan_market world.launch.py world:=market software_rendering:=true
@@ -49,8 +51,8 @@ ros2 launch swan_market world.launch.py world:=market moving_traffic:=false
 
 | 폴더 | 내용 |
 |---|---|
-| `../wheelchair_gazebo/worlds/` | 실제 시장 월드와 초기 위치·추가 런처 설정 |
-| `models/` | 월드가 참조하는 간판 메시·텍스처 |
+| `../wheelchair_gazebo/worlds/` | 실제 시장 월드 `.sdf` |
+| `config/worlds.json` | 시장 별칭, 휠체어 초기 위치와 이동 제어 런처 |
 | `launch/` | 시장 단축 명령과 이동 교통 런처 |
 | `config/` | 배치·경로·이동 주기 데이터 |
 | `scripts/` | 실행용 이동 제어기·센서 모니터 |
@@ -77,6 +79,8 @@ python3 src/swan_market/tools/inspect_market.py
 python3 src/swan_market/tools/check_crosswalk_traffic.py
 ```
 
-생성기는 월드·간판·설정을 덮어쓴다. 검사 결과·미리보기는 `preview/`에 생성하고 Git에서는 제외한다.
+생성기는 월드와 이동 경로 설정을 덮어쓴다. 검사 결과·미리보기는 `preview/`에 생성하고 Git에서는 제외한다.
+`.sdf`를 Gazebo에서 직접 열면 시장 환경과 초기 배치가 보인다. 횡단보도 사람·오토바이 이동과
+신호 전환은 위 `ros2 launch` 명령으로 이동 제어기를 함께 실행해야 한다.
 검사 범위·실제 장면 사진·예전 기록은 [검증 요약](../../docs/market/README.md)에 있다.
 모든 맵 자산은 저장소에 포함되어 Fuel 다운로드가 필요 없다.

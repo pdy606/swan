@@ -24,8 +24,9 @@ def setup(context):
     robot_share, share = spec['robot_share'], spec['share']
     scenario_package = spec['options'].get('scenario_package')
     scenario_share = Path(get_package_share_directory(scenario_package)) if scenario_package else share
-    resources = list(dict.fromkeys([str(share / 'models'), str(robot_share / 'models'),
-                                    str(scenario_share / 'models'), str(spec['path'].parent)]))
+    resources = list(dict.fromkeys(str(path) for path in
+                    (share / 'models', robot_share / 'models', scenario_share / 'models', spec['path'].parent)
+                    if path.is_dir()))
     if os.environ.get('GZ_SIM_RESOURCE_PATH'):
         resources.append(os.environ['GZ_SIM_RESOURCE_PATH'])
     actions = []

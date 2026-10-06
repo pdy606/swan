@@ -96,7 +96,7 @@ class WorldSelectionTest(unittest.TestCase):
         self.assertEqual(float(args[args.index('-x')+1]), -6.2)
         extra = next(a for a in actions if type(a).__name__ == 'IncludeLaunchDescription')
         self.assertEqual(dict(extra.kwargs['launch_arguments']), {'moving_traffic':'false', 'world_name':'swan_market'})
-        self.assertIn('swan_market/models', str(actions[0].args))
+        self.assertNotIn('swan_market/models', str(actions[0].args))
         self.assertIn(str(SRC/'swan_market/launch/traffic.launch.py'), str(extra.args[0].args))
 
     def test_explicit_package_matches_alias(self):
@@ -106,6 +106,20 @@ class WorldSelectionTest(unittest.TestCase):
         self.assertEqual(a['path'], GAZEBO/'worlds/market_shopping.sdf')
         self.assertFalse((GAZEBO/'worlds/market_shopping.world').exists())
         self.assertFalse((SRC/'swan_market/worlds/market_shopping.sdf').exists())
+        self.assertEqual(a['options'], b['options'])
+        self.assertFalse((GAZEBO/'worlds/market_shopping.launch.json').exists())
+
+    def test_market_sdf_has_no_external_scenery_assets(self):
+        import xml.etree.ElementTree as ET
+        world=ET.parse(GAZEBO/'worlds/market_shopping.sdf').getroot().find('world')
+        self.assertEqual(len(world.findall('model')), 251)
+        self.assertFalse(world.findall('.//mesh'))
+        self.assertFalse(world.findall('.//include'))
+        self.assertFalse(world.findall('.//albedo_map'))
+        for key in ('crosswalk', 'entrance', *(f'shop_{i}' for i in range(8))):
+            sign=world.find(f"model[@name='sign_{key}']")
+            self.assertIsNotNone(sign)
+            self.assertGreater(len(sign.findall('.//visual')), 30)
 
     def test_absolute_path_and_spawn_override(self):
         path = GAZEBO / 'worlds/layout_narrow_alley.world'

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Generate a deterministic, static market world and locally bundled signs.
+"""Generate a deterministic market world with all scenery in one SDF file.
 
-Authoring dependency: Pillow. Runtime: Gazebo Harmonic, no remote assets.
+Authoring dependency: Pillow. Runtime: Gazebo Harmonic, no external scenery assets.
 Run with --font /path/to/KoreanFont.ttf when regenerating on Linux.
 """
 import argparse
@@ -13,7 +13,6 @@ import xml.etree.ElementTree as ET
 from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path(__file__).resolve().parents[1]
-ASSET = ROOT / 'models' / 'swan_market_assets'
 PALETTE = [(0.72, .24, .16), (.23, .46, .29), (.20, .40, .57), (.72, .49, .15)]
 
 
@@ -60,50 +59,46 @@ def box(world, name, xyz, size, color, collision=True, yaw=0):
 
 
 def sign(world, key, text, xyz, width, yaw, color, font):
-    """Textured vertical panel, local face normal -Y, bundled COLLADA texture."""
-    tex = ASSET / 'materials' / 'textures' / f'{key}.png'
-    tex.parent.mkdir(parents=True, exist_ok=True)
-    im = Image.new('RGB', (1024, 192), tuple(int(c * 255) for c in color))
-    draw = ImageDraw.Draw(im)
-    ft = ImageFont.truetype(font, 88)
-    draw.rounded_rectangle((12, 12, 1012, 180), radius=8, outline='#f6e9ce', width=3)
-    draw.text((512, 92), text, font=ft, fill='#fff5df', anchor='mm')
-    im.save(tex)
-    mesh = ASSET / 'meshes' / f'{key}.dae'
-    mesh.parent.mkdir(parents=True, exist_ok=True)
-    mesh.write_text(f'''<?xml version="1.0" encoding="utf-8"?>
-<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1">
- <asset><created>2026-09-12T00:00:00Z</created><modified>2026-09-12T00:00:00Z</modified><unit meter="1"/><up_axis>Z_UP</up_axis></asset>
- <library_images><image id="image"><init_from>../materials/textures/{key}.png</init_from></image></library_images>
- <library_effects><effect id="effect"><profile_COMMON>
-  <newparam sid="surface"><surface type="2D"><init_from>image</init_from></surface></newparam>
-  <newparam sid="sampler"><sampler2D><source>surface</source></sampler2D></newparam>
-  <technique sid="common"><lambert><emission><color>0 0 0 1</color></emission><ambient><color>1 1 1 1</color></ambient><diffuse><texture texture="sampler" texcoord="UVSET0"/></diffuse></lambert></technique>
- </profile_COMMON></effect></library_effects>
- <library_materials><material id="material"><instance_effect url="#effect"/></material></library_materials>
- <library_geometries><geometry id="panel"><mesh>
-  <source id="positions"><float_array id="posarray" count="12">-.5 0 -.5 .5 0 -.5 .5 0 .5 -.5 0 .5</float_array><technique_common><accessor source="#posarray" count="4" stride="3"><param name="X" type="float"/><param name="Y" type="float"/><param name="Z" type="float"/></accessor></technique_common></source>
-  <source id="uv"><float_array id="uvarray" count="8">0 0 1 0 1 1 0 1</float_array><technique_common><accessor source="#uvarray" count="4" stride="2"><param name="S" type="float"/><param name="T" type="float"/></accessor></technique_common></source>
-  <source id="normals"><float_array id="normalarray" count="3">0 -1 0</float_array><technique_common><accessor source="#normalarray" count="1" stride="3"><param name="X" type="float"/><param name="Y" type="float"/><param name="Z" type="float"/></accessor></technique_common></source>
-  <vertices id="vertices"><input semantic="POSITION" source="#positions"/></vertices>
-  <triangles count="2" material="mat"><input semantic="VERTEX" source="#vertices" offset="0"/><input semantic="TEXCOORD" source="#uv" offset="1" set="0"/><input semantic="NORMAL" source="#normals" offset="2"/><p>0 0 0 1 1 0 2 2 0 0 0 0 2 2 0 3 3 0</p></triangles>
- </mesh></geometry></library_geometries>
- <library_visual_scenes><visual_scene id="scene"><node id="panelnode"><instance_geometry url="#panel"><bind_material><technique_common><instance_material symbol="mat" target="#material"><bind_vertex_input semantic="UVSET0" input_semantic="TEXCOORD" input_set="0"/></instance_material></technique_common></bind_material></instance_geometry></node></visual_scene></library_visual_scenes>
- <scene><instance_visual_scene url="#scene"/></scene>
-</COLLADA>''')
+    """Draw Korean lettering with primitive SDF visuals on a local -Y face."""
+    height = width * 192 / 1024
     link = model(world, f'sign_{key}', (*xyz, 0, 0, yaw))
-    visual = element(link, 'visual', name='lettering')
-    geo = element(element(visual, 'geometry'), 'mesh')
-    element(geo, 'uri', f'model://swan_market_assets/meshes/{key}.dae')
-    element(geo, 'scale', f'{width} 1 {width * 192 / 1024}')
-    material = element(visual, 'material')
-    element(material, 'ambient', '1 1 1 1')
-    element(material, 'diffuse', '1 1 1 1')
-    element(material, 'emissive', '0 0 0 1')
-    metal = element(element(material, 'pbr'), 'metal')
-    element(metal, 'albedo_map', f'model://swan_market_assets/materials/textures/{key}.png')
-    element(metal, 'metalness', '0')
-    element(metal, 'roughness', '1')
+    ink = (1, .961, .875)
+    def stroke(name, x, z, w, h):
+        shape(link, name, 'box', (w, .003, h), (x, -.003, z, 0, 0, 0), ink, False)
+    # The solid backing is already part of the world. Four thin bars frame it.
+    border = height * .016
+    for edge, z in [('top', height*.475), ('bottom', -height*.475)]:
+        stroke(edge, 0, z, width*.976, border)
+    for edge, x in [('left', -width*.488), ('right', width*.488)]:
+        stroke(edge, x, 0, border, height*.95)
+
+    canvas = Image.new('L', (1024, 192))
+    draw = ImageDraw.Draw(canvas)
+    draw.text((512, 92), text, font=ImageFont.truetype(font, 88), fill=255, anchor='mm')
+    # Merge matching scanline runs vertically to keep Gazebo's visual count low.
+    cols, rows = 192, 36
+    pixels = canvas.resize((cols, rows), Image.Resampling.LANCZOS).load()
+    index = 0
+    previous = {}
+    for row in range(rows + 1):
+        start = None
+        runs = []
+        for col in range(cols + 1) if row < rows else ():
+            filled = col < cols and pixels[col, row] >= 96
+            if filled and start is None:
+                start = col
+            elif not filled and start is not None:
+                runs.append((start, col))
+                start = None
+        current = {run: previous.get(run, row) for run in runs}
+        for (first_col, last_col), first_row in previous.items():
+            if (first_col, last_col) not in current:
+                x = ((first_col + last_col) / (2*cols) - .5) * width
+                z = (.5 - (first_row + row) / (2*rows)) * height
+                stroke(f'ink_{index}', x, z, (last_col-first_col)*width/cols,
+                       (row-first_row)*height/rows)
+                index += 1
+        previous = current
 
 
 def stall(world, idx, x, side, title, font):
@@ -395,10 +390,6 @@ def build(font):
     world_dir.mkdir(parents=True,exist_ok=True);(ROOT/'config').mkdir(exist_ok=True)
     ET.indent(sdf,space='  ');ET.ElementTree(sdf).write(world_dir/'market_shopping.sdf',encoding='utf-8',xml_declaration=True)
     (ROOT/'config/market_layout.json').write_text(json.dumps(metadata,ensure_ascii=False,indent=2)+'\n')
-    (world_dir/'market_shopping.launch.json').write_text(json.dumps(
-        {'spawn':metadata['spawn'], 'scenario_launch':'launch/traffic.launch.py', 'scenario_package':'swan_market'},indent=2)+'\n')
-    (ASSET/'model.config').write_text('<?xml version="1.0"?><model><name>swan_market_assets</name><version>1.0</version><sdf version="1.10">model.sdf</sdf><description>Local Korean market signage assets</description></model>')
-    (ASSET/'model.sdf').write_text('<?xml version="1.0"?><sdf version="1.10"><model name="swan_market_assets"><static>true</static><link name="assets"/></model></sdf>')
     print(f'Generated {len(w.findall("model"))} models: {world_dir / "market_shopping.sdf"}')
 
 
