@@ -32,19 +32,21 @@ class NavAvoidanceNode(Node):
         # 일반 주행 안전 거리
         # --------------------------------------------------------------
 
-
         # 장애물 접근 정지 및 자동 회피 시작
         self.stop_distance = 0.75
 
         # 상태가 거리 경계에서 반복 전환되는 현상 방지
         self.hysteresis = 0.12
 
-
         # STOPPED 진입 후 Nav2 회피 시작까지 대기
         self.avoidance_start_delay = 0.10
 
-        # 빨간 신호등 정지 명령 1회 요청
-        self.traffic_stop_requested = False
+        # --------------------------------------------------------------
+        # 빨간 신호등 정지
+        # --------------------------------------------------------------
+
+        # RED를 받은 뒤 사용자가 전진 입력을 놓을 때까지 정지 유지
+        self.traffic_stop_latched = False
 
         # --------------------------------------------------------------
         # LiDAR 장애물 감지 설정
@@ -65,8 +67,6 @@ class NavAvoidanceNode(Node):
         # 장애물이 한두 프레임 사라져도 마지막 값을 잠시 유지한다.
         # 회전 중 장애물이 통로 밖으로 순간 이탈하며 CLEAR가 되는 문제를 방지한다.
         self.obstacle_hold_duration = 0.60
-
-
 
         # --------------------------------------------------------------
         # 회피 중 새 장애물 판단 설정
@@ -279,13 +279,21 @@ class NavAvoidanceNode(Node):
         # --------------------------------------------------------------
 
         if situation == "RED":
-            # 일반 수동 주행 중일 때만 정지 명령을 1회 요청한다.
-            if self.state == DrivingState.MANUAL:
-                self.traffic_stop_requested = True
 
-                self.get_logger().info(
-                    "Traffic light RED - one-time stop"
-                )
+            # 일반 수동 주행 중일 때만 적용
+            if self.state == DrivingState.MANUAL:
+
+                # 현재 사용자가 전진 입력을 하고 있을 때 정지 latch
+                if (
+                    self.is_user_cmd_fresh()
+                    and self.latest_user_cmd.linear.x > 0.01
+                ):
+                    self.traffic_stop_latched = True
+
+                    self.get_logger().info(
+                        "Traffic light RED - "
+                        "forward command stopped until release"
+                    )
 
             return
 
@@ -315,10 +323,30 @@ class NavAvoidanceNode(Node):
 
         self.c_avoidance_requested = True
         self.enter_stopped_state()
-    
+
     def user_cmd_callback(self, msg: Twist) -> None:
         self.latest_user_cmd = self.copy_twist(msg)
         self.last_user_cmd_time = self.get_clock().now()
+
+        # ----------------------------------------------------------
+        # 빨간불 정지 latch 해제
+        #
+        # RED에 의해 정지한 뒤 사용자가 전진 버튼을 놓으면
+        # linear.x가 0이 되므로 latch를 해제한다.
+        #
+        # 이후 다시 전진 버튼을 누르면 정상 주행 가능.
+        # ----------------------------------------------------------
+
+        if (
+            self.traffic_stop_latched
+            and abs(msg.linear.x) <= 0.01
+        ):
+            self.traffic_stop_latched = False
+
+            self.get_logger().info(
+                "Forward command released - "
+                "traffic stop latch cleared"
+            )
 
     def nav_cmd_callback(self, msg: Twist) -> None:
         self.latest_nav_cmd = self.copy_twist(msg)
@@ -367,13 +395,13 @@ class NavAvoidanceNode(Node):
 
         if detected_distance is None:
             self.raw_front_distance = math.inf
+
         else:
             self.raw_front_distance = detected_distance
             self.last_detected_distance = detected_distance
             self.last_obstacle_seen_time = now
 
         self.front_distance = self.get_stabilized_front_distance()
-
 
     # ==============================================================
     # LiDAR 처리
@@ -383,9 +411,11 @@ class NavAvoidanceNode(Node):
         self,
         msg: LaserScan,
     ) -> list[float]:
+
         distances: list[float] = []
 
         for index, distance in enumerate(msg.ranges):
+
             if not math.isfinite(distance):
                 continue
 
@@ -414,25 +444,30 @@ class NavAvoidanceNode(Node):
             distances.append(x)
 
         distances.sort()
+
         return distances
 
     def find_nearest_cluster(
         self,
         distances: list[float],
     ) -> Optional[float]:
+
         if len(distances) < self.minimum_cluster_points:
             return None
 
         for start_index in range(len(distances)):
+
             cluster_start = distances[start_index]
             cluster: list[float] = []
 
             for distance in distances[start_index:]:
+
                 if (
                     distance - cluster_start
                     <= self.cluster_tolerance
                 ):
                     cluster.append(distance)
+
                 else:
                     break
 
@@ -447,6 +482,7 @@ class NavAvoidanceNode(Node):
 
         단, 실제 측정이 다시 들어오면 즉시 새로운 값을 사용한다.
         """
+
         if math.isfinite(self.raw_front_distance):
             return self.raw_front_distance
 
@@ -466,10 +502,10 @@ class NavAvoidanceNode(Node):
     # 일반 주행 상태
     # ==============================================================
 
-
-
     def enter_stopped_state(self) -> None:
+
         if self.state != DrivingState.STOPPED:
+
             self.stopped_since = self.get_clock().now()
             self.avoidance_pose_saved = False
 
@@ -493,6 +529,7 @@ class NavAvoidanceNode(Node):
     # ==============================================================
 
     def supervisor_callback(self) -> None:
+
         if self.state == DrivingState.STOPPED:
             self.handle_stopped_state()
 
@@ -503,6 +540,7 @@ class NavAvoidanceNode(Node):
             self.handle_replanning_state()
 
     def handle_stopped_state(self) -> None:
+
         if self.stopped_since is None:
             self.stopped_since = self.get_clock().now()
             return
@@ -511,10 +549,12 @@ class NavAvoidanceNode(Node):
             return
 
         if not self.is_odom_fresh():
+
             self.get_logger().warn(
                 "Cannot start avoidance: odometry is unavailable",
                 throttle_duration_sec=2.0,
             )
+
             return
 
         if (
@@ -533,15 +573,18 @@ class NavAvoidanceNode(Node):
             return
 
         if not self.navigate_client.server_is_ready():
+
             self.get_logger().warn(
                 "Waiting for /navigate_to_pose action server...",
                 throttle_duration_sec=2.0,
             )
+
             return
 
         self.send_current_candidate_goal()
 
     def save_initial_avoidance_pose(self) -> None:
+
         self.goal_start_x = self.current_x
         self.goal_start_y = self.current_y
         self.original_travel_yaw = self.current_yaw
@@ -560,13 +603,16 @@ class NavAvoidanceNode(Node):
     # ==============================================================
 
     def send_current_candidate_goal(self) -> None:
+
         if (
             self.goal_candidate_index
             >= len(self.goal_distance_candidates)
         ):
+
             self.enter_blocked_state(
                 "No feasible avoidance goal remains"
             )
+
             return
 
         goal_distance = self.goal_distance_candidates[
@@ -588,6 +634,7 @@ class NavAvoidanceNode(Node):
         goal_msg = NavigateToPose.Goal()
 
         goal_msg.pose.header.frame_id = "odom"
+
         goal_msg.pose.header.stamp = (
             self.get_clock().now().to_msg()
         )
@@ -602,7 +649,10 @@ class NavAvoidanceNode(Node):
         goal_msg.pose.pose.orientation.w = math.cos(half_yaw)
 
         self.goal_request_in_progress = True
-        self.change_state(DrivingState.WAITING_FOR_NAV)
+
+        self.change_state(
+            DrivingState.WAITING_FOR_NAV
+        )
 
         self.get_logger().info(
             "Sending avoidance goal "
@@ -621,22 +671,30 @@ class NavAvoidanceNode(Node):
         )
 
     def goal_response_callback(self, future) -> None:
+
         self.goal_request_in_progress = False
 
         try:
             goal_handle = future.result()
+
         except Exception as error:
+
             self.get_logger().error(
                 f"Failed to send Nav2 goal: {error}"
             )
+
             self.try_next_goal_candidate()
+
             return
 
         if not goal_handle.accepted:
+
             self.get_logger().warn(
                 "Nav2 rejected avoidance goal"
             )
+
             self.try_next_goal_candidate()
+
             return
 
         self.goal_handle = goal_handle
@@ -650,7 +708,9 @@ class NavAvoidanceNode(Node):
         self.clear_condition_since = None
         self.emergency_condition_since = None
 
-        self.change_state(DrivingState.AVOIDING)
+        self.change_state(
+            DrivingState.AVOIDING
+        )
 
         self.get_logger().info(
             "Avoidance goal accepted by Nav2"
@@ -667,6 +727,7 @@ class NavAvoidanceNode(Node):
     # ==============================================================
 
     def handle_avoiding_state(self) -> None:
+
         now = self.get_clock().now()
 
         if self.nav_goal_accepted_time is None:
@@ -678,11 +739,14 @@ class NavAvoidanceNode(Node):
 
         # 목표 승인 직후에는 기존 장애물 때문에 재계획하지 않는다.
         if goal_age < self.replan_minimum_arm_delay:
+
             self.clear_condition_since = None
             self.emergency_condition_since = None
+
             return
 
         if not self.emergency_replan_armed:
+
             clear_now = (
                 not math.isfinite(self.raw_front_distance)
                 or self.raw_front_distance
@@ -690,6 +754,7 @@ class NavAvoidanceNode(Node):
             )
 
             if clear_now:
+
                 if self.clear_condition_since is None:
                     self.clear_condition_since = now
 
@@ -699,7 +764,9 @@ class NavAvoidanceNode(Node):
                     )
                     >= self.replan_clear_duration
                 ):
+
                     self.emergency_replan_armed = True
+
                     self.clear_condition_since = None
                     self.emergency_condition_since = None
 
@@ -720,11 +787,15 @@ class NavAvoidanceNode(Node):
         )
 
         if not emergency_now:
+
             self.emergency_condition_since = None
+
             return
 
         if self.emergency_condition_since is None:
+
             self.emergency_condition_since = now
+
             return
 
         if (
@@ -741,10 +812,15 @@ class NavAvoidanceNode(Node):
         if self.replan_requested:
             return
 
-        if self.replan_count >= self.maximum_replan_count:
+        if (
+            self.replan_count
+            >= self.maximum_replan_count
+        ):
+
             self.cancel_for_blocked_state(
                 "Maximum automatic replan count reached"
             )
+
             return
 
         self.get_logger().warn(
@@ -768,10 +844,13 @@ class NavAvoidanceNode(Node):
     # ==============================================================
 
     def cancel_current_goal(self) -> None:
+
         if self.goal_handle is None:
+
             self.enter_blocked_state(
                 "Cannot cancel Nav2 goal: goal handle is unavailable"
             )
+
             return
 
         if self.goal_cancel_requested:
@@ -779,23 +858,33 @@ class NavAvoidanceNode(Node):
 
         self.goal_cancel_requested = True
 
-        cancel_future = self.goal_handle.cancel_goal_async()
+        cancel_future = (
+            self.goal_handle.cancel_goal_async()
+        )
 
         cancel_future.add_done_callback(
             self.cancel_response_callback
         )
 
-    def cancel_for_blocked_state(self, reason: str) -> None:
+    def cancel_for_blocked_state(
+        self,
+        reason: str,
+    ) -> None:
+
         self.replan_requested = False
 
         if self.goal_handle is None:
+
             self.enter_blocked_state(reason)
+
             return
 
         self.get_logger().error(reason)
+
         self.cancel_current_goal()
 
     def cancel_response_callback(self, future) -> None:
+
         try:
             future.result()
 
@@ -804,6 +893,7 @@ class NavAvoidanceNode(Node):
             )
 
         except Exception as error:
+
             self.get_logger().error(
                 f"Failed to cancel Nav2 goal: {error}"
             )
@@ -817,11 +907,14 @@ class NavAvoidanceNode(Node):
             )
 
     def navigation_result_callback(self, future) -> None:
+
         try:
+
             wrapped_result = future.result()
             status = wrapped_result.status
 
         except Exception as error:
+
             self.get_logger().error(
                 f"Failed to receive Nav2 result: {error}"
             )
@@ -830,7 +923,11 @@ class NavAvoidanceNode(Node):
             self.goal_request_in_progress = False
 
             if self.replan_requested:
-                self.change_state(DrivingState.REPLANNING)
+
+                self.change_state(
+                    DrivingState.REPLANNING
+                )
+
             else:
                 self.try_next_goal_candidate()
 
@@ -840,17 +937,23 @@ class NavAvoidanceNode(Node):
         self.goal_request_in_progress = False
 
         if status == GoalStatus.STATUS_SUCCEEDED:
+
             self.handle_navigation_success()
+
             return
 
         if self.goal_cancel_requested:
+
             self.goal_cancel_requested = False
 
             self.latest_nav_cmd = Twist()
             self.last_nav_cmd_time = None
 
             if self.replan_requested:
-                self.change_state(DrivingState.REPLANNING)
+
+                self.change_state(
+                    DrivingState.REPLANNING
+                )
 
                 self.get_logger().info(
                     "Previous Nav2 goal canceled. "
@@ -859,6 +962,7 @@ class NavAvoidanceNode(Node):
                 )
 
             else:
+
                 self.enter_blocked_state(
                     "Avoidance canceled without a replan request"
                 )
@@ -872,10 +976,13 @@ class NavAvoidanceNode(Node):
         self.try_next_goal_candidate()
 
     def handle_replanning_state(self) -> None:
+
         if not self.replan_requested:
+
             self.enter_blocked_state(
                 "REPLANNING entered without a request"
             )
+
             return
 
         if self.goal_request_in_progress:
@@ -885,23 +992,27 @@ class NavAvoidanceNode(Node):
             return
 
         if not self.is_odom_fresh():
+
             self.get_logger().warn(
                 "Cannot replan: odometry is unavailable",
                 throttle_duration_sec=2.0,
             )
+
             return
 
         if not self.navigate_client.server_is_ready():
+
             self.get_logger().warn(
                 "Waiting for /navigate_to_pose during replanning...",
                 throttle_duration_sec=2.0,
             )
+
             return
 
         # 새 장애물이므로 후보를 처음부터 다시 시작한다.
         self.goal_candidate_index = 0
 
-        # 현재 위치 기준으로 2m 안쪽 목표를 다시 생성한다.
+        # 현재 위치 기준으로 목표를 다시 생성한다.
         # 방향은 최초 수동 주행 방향을 계속 유지한다.
         self.goal_start_x = self.current_x
         self.goal_start_y = self.current_y
@@ -918,6 +1029,7 @@ class NavAvoidanceNode(Node):
         self.send_current_candidate_goal()
 
     def try_next_goal_candidate(self) -> None:
+
         self.goal_handle = None
         self.goal_request_in_progress = False
 
@@ -930,9 +1042,11 @@ class NavAvoidanceNode(Node):
             self.goal_candidate_index
             >= len(self.goal_distance_candidates)
         ):
+
             self.enter_blocked_state(
                 "No feasible avoidance goal remains"
             )
+
             return
 
         self.send_current_candidate_goal()
@@ -942,11 +1056,14 @@ class NavAvoidanceNode(Node):
     # ==============================================================
 
     def handle_navigation_success(self) -> None:
+
         self.get_logger().info(
             "Avoidance completed successfully"
         )
 
-        self.publish_avoidance_status("COMPLETED")
+        self.publish_avoidance_status(
+            "COMPLETED"
+        )
 
         # 회피 전 teleop 명령이 다시 적용되지 않도록 초기화한다.
         self.latest_user_cmd = Twist()
@@ -956,10 +1073,18 @@ class NavAvoidanceNode(Node):
         self.last_nav_cmd_time = None
 
         self.c_avoidance_requested = False
-        self.reset_avoidance_session()
-        self.change_state(DrivingState.MANUAL)
 
-    def enter_blocked_state(self, reason: str) -> None:
+        self.reset_avoidance_session()
+
+        self.change_state(
+            DrivingState.MANUAL
+        )
+
+    def enter_blocked_state(
+        self,
+        reason: str,
+    ) -> None:
+
         self.latest_nav_cmd = Twist()
         self.last_nav_cmd_time = None
 
@@ -968,13 +1093,17 @@ class NavAvoidanceNode(Node):
         self.goal_cancel_requested = False
         self.replan_requested = False
 
-        self.change_state(DrivingState.BLOCKED)
+        self.change_state(
+            DrivingState.BLOCKED
+        )
 
         self.get_logger().error(
-            f"{reason}. Manual reverse and rotation are available."
+            f"{reason}. "
+            "Manual reverse and rotation are available."
         )
 
     def reset_avoidance_session(self) -> None:
+
         self.stopped_since = None
         self.avoidance_pose_saved = False
 
@@ -996,29 +1125,50 @@ class NavAvoidanceNode(Node):
     # ==============================================================
 
     def output_callback(self) -> None:
+
         if not self.is_scan_fresh():
+
             self.publish_stop()
+
             return
 
-            # 빨간 신호등 정지 요청은 한 번만 실행한다.
-        if self.traffic_stop_requested:
+        # ----------------------------------------------------------
+        # 빨간불 횡단보도 정지
+        #
+        # RED를 받은 뒤 사용자가 기존 전진 버튼을 계속 누르고 있으면
+        # 실제 cmd_vel에는 계속 0을 발행한다.
+        #
+        # 전진 버튼을 놓으면 user_cmd_callback에서 latch가 해제된다.
+        # ----------------------------------------------------------
+
+        if self.traffic_stop_latched:
+
             self.publish_stop()
-            self.traffic_stop_requested = False
+
             return
 
         if self.state == DrivingState.MANUAL:
+
             if not self.is_user_cmd_fresh():
+
                 self.publish_stop()
+
                 return
 
             self.cmd_vel_publisher.publish(
-                self.copy_twist(self.latest_user_cmd)
+                self.copy_twist(
+                    self.latest_user_cmd
+                )
             )
+
             return
 
         if self.state == DrivingState.STOPPED:
+
             if not self.is_user_cmd_fresh():
+
                 self.publish_stop()
+
                 return
 
             self.cmd_vel_publisher.publish(
@@ -1026,21 +1176,31 @@ class NavAvoidanceNode(Node):
                     self.latest_user_cmd
                 )
             )
+
             return
 
         if self.state == DrivingState.AVOIDING:
+
             if not self.is_nav_cmd_fresh():
+
                 self.publish_stop()
+
                 return
 
             self.cmd_vel_publisher.publish(
-                self.copy_twist(self.latest_nav_cmd)
+                self.copy_twist(
+                    self.latest_nav_cmd
+                )
             )
+
             return
 
         if self.state == DrivingState.BLOCKED:
+
             if not self.is_user_cmd_fresh():
+
                 self.publish_stop()
+
                 return
 
             # 자동 회피가 실패해도 전진만 막고
@@ -1050,12 +1210,11 @@ class NavAvoidanceNode(Node):
                     self.latest_user_cmd
                 )
             )
+
             return
 
         # WAITING_FOR_NAV와 REPLANNING에서는 완전 정지
         self.publish_stop()
-
-
 
     def make_recovery_cmd(
         self,
@@ -1064,7 +1223,10 @@ class NavAvoidanceNode(Node):
         """
         전진만 차단하고 후진과 회전은 허용한다.
         """
-        output_cmd = self.copy_twist(user_cmd)
+
+        output_cmd = self.copy_twist(
+            user_cmd
+        )
 
         if output_cmd.linear.x > 0.0:
             output_cmd.linear.x = 0.0
@@ -1076,15 +1238,22 @@ class NavAvoidanceNode(Node):
     # ==============================================================
 
     def is_scan_fresh(self) -> bool:
+
         if self.last_scan_time is None:
             return False
 
         fresh = (
-            self.get_age_seconds(self.last_scan_time)
+            self.get_age_seconds(
+                self.last_scan_time
+            )
             <= self.scan_timeout
         )
 
-        if not fresh and not self.scan_timed_out:
+        if (
+            not fresh
+            and not self.scan_timed_out
+        ):
+
             self.scan_timed_out = True
 
             self.get_logger().error(
@@ -1094,33 +1263,46 @@ class NavAvoidanceNode(Node):
         return fresh
 
     def is_user_cmd_fresh(self) -> bool:
+
         if self.last_user_cmd_time is None:
             return False
 
         return (
-            self.get_age_seconds(self.last_user_cmd_time)
+            self.get_age_seconds(
+                self.last_user_cmd_time
+            )
             <= self.user_cmd_timeout
         )
 
     def is_nav_cmd_fresh(self) -> bool:
+
         if self.last_nav_cmd_time is None:
             return False
 
         return (
-            self.get_age_seconds(self.last_nav_cmd_time)
+            self.get_age_seconds(
+                self.last_nav_cmd_time
+            )
             <= self.nav_cmd_timeout
         )
 
     def is_odom_fresh(self) -> bool:
+
         if self.last_odom_time is None:
             return False
 
         return (
-            self.get_age_seconds(self.last_odom_time)
+            self.get_age_seconds(
+                self.last_odom_time
+            )
             <= self.odom_timeout
         )
 
-    def get_age_seconds(self, recorded_time) -> float:
+    def get_age_seconds(
+        self,
+        recorded_time,
+    ) -> float:
+
         return (
             self.get_clock().now()
             - recorded_time
@@ -1131,23 +1313,28 @@ class NavAvoidanceNode(Node):
     # ==============================================================
 
     def monitor_callback(self) -> None:
+
         if self.last_scan_time is None:
+
             self.get_logger().warn(
                 "Waiting for /scan_filtered...",
                 throttle_duration_sec=2.0,
             )
+
             return
 
         if not self.is_scan_fresh():
             return
 
         if not self.odom_received:
+
             self.get_logger().warn(
                 "Waiting for /odom...",
                 throttle_duration_sec=2.0,
             )
 
         elif not self.is_odom_fresh():
+
             self.get_logger().warn(
                 "Odometry timeout",
                 throttle_duration_sec=2.0,
@@ -1156,15 +1343,25 @@ class NavAvoidanceNode(Node):
         if not self.should_log_status():
             return
 
-        if math.isinf(self.front_distance):
+        if math.isinf(
+            self.front_distance
+        ):
             distance_text = "CLEAR"
-        else:
-            distance_text = f"{self.front_distance:.2f}m"
 
-        if math.isinf(self.raw_front_distance):
-            raw_text = "CLEAR"
         else:
-            raw_text = f"{self.raw_front_distance:.2f}m"
+            distance_text = (
+                f"{self.front_distance:.2f}m"
+            )
+
+        if math.isinf(
+            self.raw_front_distance
+        ):
+            raw_text = "CLEAR"
+
+        else:
+            raw_text = (
+                f"{self.raw_front_distance:.2f}m"
+            )
 
         self.get_logger().info(
             f"state={self.state.value}, "
@@ -1176,21 +1373,32 @@ class NavAvoidanceNode(Node):
         )
 
         self.last_logged_state = self.state
-        self.last_logged_distance = self.front_distance
+        self.last_logged_distance = (
+            self.front_distance
+        )
 
     def should_log_status(self) -> bool:
-        if self.last_logged_state != self.state:
+
+        if (
+            self.last_logged_state
+            != self.state
+        ):
             return True
 
         if self.last_logged_distance is None:
             return True
 
-        if math.isinf(self.front_distance):
+        if math.isinf(
+            self.front_distance
+        ):
+
             return not math.isinf(
                 self.last_logged_distance
             )
 
-        if math.isinf(self.last_logged_distance):
+        if math.isinf(
+            self.last_logged_distance
+        ):
             return True
 
         return abs(
@@ -1198,10 +1406,17 @@ class NavAvoidanceNode(Node):
             - self.last_logged_distance
         ) >= 0.10
 
-    def publish_avoidance_status(self, status: str) -> None:
+    def publish_avoidance_status(
+        self,
+        status: str,
+    ) -> None:
+
         msg = String()
         msg.data = status
-        self.avoidance_status_publisher.publish(msg)
+
+        self.avoidance_status_publisher.publish(
+            msg
+        )
 
         self.get_logger().info(
             f"AVOIDANCE STATUS: {status}"
@@ -1211,6 +1426,7 @@ class NavAvoidanceNode(Node):
         self,
         new_state: DrivingState,
     ) -> None:
+
         if self.state == new_state:
             return
 
@@ -1229,6 +1445,7 @@ class NavAvoidanceNode(Node):
             DrivingState.REPLANNING,
             DrivingState.BLOCKED,
         ):
+
             self.publish_avoidance_status(
                 new_state.value
             )
@@ -1238,9 +1455,11 @@ class NavAvoidanceNode(Node):
         previous_state: DrivingState,
         new_state: DrivingState,
     ) -> None:
+
         self.get_logger().info(
             "STATE CHANGED: "
-            f"{previous_state.value} -> {new_state.value}"
+            f"{previous_state.value} -> "
+            f"{new_state.value}"
         )
 
     # ==============================================================
@@ -1248,13 +1467,19 @@ class NavAvoidanceNode(Node):
     # ==============================================================
 
     def publish_stop(self) -> None:
+
         if not rclpy.ok():
             return
 
-        self.cmd_vel_publisher.publish(Twist())
+        self.cmd_vel_publisher.publish(
+            Twist()
+        )
 
     @staticmethod
-    def copy_twist(source: Twist) -> Twist:
+    def copy_twist(
+        source: Twist,
+    ) -> Twist:
+
         copied = Twist()
 
         copied.linear.x = source.linear.x
@@ -1269,17 +1494,23 @@ class NavAvoidanceNode(Node):
 
 
 def main(args=None) -> None:
-    rclpy.init(args=args)
+
+    rclpy.init(
+        args=args
+    )
 
     node = NavAvoidanceNode()
 
     try:
-        rclpy.spin(node)
+        rclpy.spin(
+            node
+        )
 
     except KeyboardInterrupt:
         pass
 
     finally:
+
         if rclpy.ok():
             node.publish_stop()
 
