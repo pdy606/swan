@@ -5,7 +5,6 @@ find_package(ament_cmake REQUIRED)
 
 install(
   DIRECTORY
-    config
     launch
     models
     worlds
@@ -15,8 +14,6 @@ install(
 install(
   PROGRAMS
     scripts/swan_kit_drive_controller.py
-    scripts/swan_kit_avoidance_node.py
-    scripts/swan_kit_situation_node.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
