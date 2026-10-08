@@ -1,4 +1,5 @@
 import os
+import xml.etree.ElementTree as ET
 
 from ament_index_python.packages import get_package_share_directory
 
@@ -16,7 +17,7 @@ def generate_launch_description():
     world_file = os.path.join(
         pkg_share,
         'worlds',
-        'wheelchair_world.sdf'
+        'market_shopping.sdf'
     )
 
     models_path = os.path.join(
@@ -35,6 +36,20 @@ def generate_launch_description():
         launch_arguments={
             'gz_args': f'-r {world_file}'
         }.items()
+    )
+
+    # The market SDF contains the environment; spawn the shared robot once.
+    world_name = ET.parse(world_file).getroot().find('world').get('name')
+    spawn_wheelchair = Node(
+        package='ros_gz_sim',
+        executable='create',
+        output='screen',
+        arguments=[
+            '-world', world_name,
+            '-file', os.path.join(models_path, 'wheelchair', 'model.sdf'),
+            '-name', 'wheelchair',
+            '-x', '-6.2', '-y', '0', '-z', '0.03', '-Y', '0',
+        ],
     )
 
     bridge = Node(
@@ -113,6 +128,7 @@ def generate_launch_description():
         ),
 
         gazebo_launch,
+        spawn_wheelchair,
         bridge,
         lidar_static_tf,
     ])

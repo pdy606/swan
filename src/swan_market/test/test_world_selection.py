@@ -24,6 +24,8 @@ support = load(ROOT / 'launch/world_support.py', 'support')
 
 
 def share(name):
+    if name == 'ros_gz_sim':
+        return '/test/ros_gz_sim'
     path = SRC / name
     if not path.is_dir():
         raise LookupError(name)
@@ -43,7 +45,7 @@ class Config:
         return context[self.name]
 
 
-def launch_module():
+def launch_module(path=None):
     # Inspect the generated graph without requiring ROS on the developer's Mac.
     modules = {}
     for name in ['ament_index_python', 'ament_index_python.packages', 'launch',
@@ -59,13 +61,13 @@ def launch_module():
     modules['launch.substitutions'].LaunchConfiguration = Config
     modules['launch_ros.actions'].Node = type('Node', (Action,), {})
     with patch.dict(sys.modules, modules):
-        return load(ROOT / 'launch/world.launch.py', 'simulation_test')
+        return load(path or ROOT / 'launch/world.launch.py', 'simulation_test')
 
 
 class WorldSelectionTest(unittest.TestCase):
     def setUp(self):
         self.launch = launch_module()
-        self.context = dict(world='wheelchair_world.sdf', world_package='', headless='false',
+        self.context = dict(world='market_shopping.sdf', world_package='', headless='false',
                             software_rendering='false', moving_traffic='true',
                             spawn_x='', spawn_y='', spawn_z='', spawn_yaw='')
 
@@ -73,20 +75,37 @@ class WorldSelectionTest(unittest.TestCase):
         return self.launch.setup({**self.context, **kwargs})
 
     def test_embedded_robot_is_not_spawned_twice(self):
-        actions = self.actions()
-        self.assertFalse(any(a.kwargs.get('executable') == 'create' for a in actions))
-        self.assertTrue(any('wheelchair_world.sdf' in str(a.kwargs.get('cmd')) for a in actions))
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp) / 'embedded.sdf'
+            path.write_text('<sdf version="1.10"><world name="embedded"><include><uri>model://wheelchair</uri></include></world></sdf>')
+            actions = self.actions(world=str(path))
+            self.assertFalse(any(a.kwargs.get('executable') == 'create' for a in actions))
+            self.assertTrue(any(str(path) in str(a.kwargs.get('cmd')) for a in actions))
 
-    def test_nine_team_worlds_are_selectable_with_one_spawn(self):
-        files = sorted((GAZEBO / 'worlds').glob('*.world'))
-        self.assertEqual(len(files), 9)
-        for path in files:
-            with self.subTest(world=path.name):
-                spec = support.resolve_world(path.name, '', share)
-                creates = [a for a in self.actions(world=path.name) if a.kwargs.get('executable') == 'create']
-                self.assertEqual(len(creates), 1)
-                self.assertEqual(creates[0].kwargs['arguments'][1], spec['name'])
-                self.assertFalse(any(type(a).__name__ == 'IncludeLaunchDescription' for a in self.actions(world=path.name)))
+    def test_only_market_is_shipped_and_is_the_launch_default(self):
+        self.assertEqual(sorted(p.name for p in (GAZEBO / 'worlds').iterdir()), ['market_shopping.sdf'])
+        description = self.launch.generate_launch_description()
+        default = next(a.kwargs['default_value'] for a in description.args[0]
+                       if type(a).__name__ == 'DeclareLaunchArgument' and a.args == ('world',))
+        actions = self.actions(world=default)
+        creates = [a for a in actions if a.kwargs.get('executable') == 'create']
+        self.assertEqual(len(creates), 1)
+        self.assertEqual(creates[0].kwargs['arguments'][1], 'swan_market')
+        self.assertTrue(any(type(a).__name__ == 'IncludeLaunchDescription' for a in actions))
+
+    def test_basic_simulation_launch_uses_market_and_spawns_robot(self):
+        launch = launch_module(GAZEBO / 'launch/simulation.launch.py')
+        actions = launch.generate_launch_description().args[0]
+        gazebo = next(a for a in actions if type(a).__name__ == 'IncludeLaunchDescription')
+        self.assertIn(str(GAZEBO / 'worlds/market_shopping.sdf'), dict(gazebo.kwargs['launch_arguments'])['gz_args'])
+        creates = [a for a in actions if a.kwargs.get('executable') == 'create']
+        self.assertEqual(len(creates), 1)
+        args = creates[0].kwargs['arguments']
+        self.assertEqual(args[args.index('-world') + 1], 'swan_market')
+        self.assertTrue(Path(args[args.index('-file') + 1]).is_file())
+        pose = support.resolve_world('market', '', share)['options']['spawn']
+        for key, flag in [('x', '-x'), ('y', '-y'), ('z', '-z'), ('yaw', '-Y')]:
+            self.assertEqual(float(args[args.index(flag) + 1]), pose[key])
 
     def test_market_spawn_and_scenario(self):
         actions = self.actions(world='market', moving_traffic='false')
@@ -122,15 +141,18 @@ class WorldSelectionTest(unittest.TestCase):
             self.assertGreater(len(sign.findall('.//visual')), 30)
 
     def test_absolute_path_and_spawn_override(self):
-        path = GAZEBO / 'worlds/layout_narrow_alley.world'
+        path = GAZEBO / 'worlds/market_shopping.sdf'
         spec = support.resolve_world(str(path), '', share)
         pose = support.spawn_pose(spec, {'x':'1.2', 'y':'-3', 'yaw':'1.57'})
         self.assertEqual(pose['x'], 1.2)
         self.assertEqual(pose['y'], -3)
 
     def test_existing_robot_rejects_ignored_spawn_override(self):
-        with self.assertRaisesRegex(ValueError, 'already includes'):
-            self.actions(spawn_x='2')
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp) / 'embedded.sdf'
+            path.write_text('<sdf version="1.10"><world name="embedded"><include><uri>model://wheelchair</uri></include></world></sdf>')
+            with self.assertRaisesRegex(ValueError, 'already includes'):
+                self.actions(world=str(path), spawn_x='2')
 
     def test_missing_file_and_model_only_file_fail_clearly(self):
         with self.assertRaisesRegex(ValueError, 'not found'):

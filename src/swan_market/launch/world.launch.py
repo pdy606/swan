@@ -1,4 +1,4 @@
-"""Market-owned world selector; shared team launch files stay unmodified."""
+"""Launch the market by default, with optional external world selection."""
 import importlib.util
 import os
 from pathlib import Path
@@ -84,7 +84,7 @@ def setup(context):
 
 
 def generate_launch_description():
-    defaults = {'world':'wheelchair_world.sdf', 'world_package':'', 'headless':'false',
+    defaults = {'world':'market_shopping.sdf', 'world_package':'', 'headless':'false',
                 'software_rendering':'false', 'moving_traffic':'true',
                 'spawn_x':'', 'spawn_y':'', 'spawn_z':'', 'spawn_yaw':''}
     return LaunchDescription([DeclareLaunchArgument(k, default_value=v) for k,v in defaults.items()] + [OpaqueFunction(function=setup)])
