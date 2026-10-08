@@ -1,0 +1,11 @@
+wall_elapsed_s,sim_time_s,x,y,yaw,goal_distance_m,heading_error_rad,front_m,left_m,right_m,proposed,applied,gate,api_latency_s,reason
+0.201,123.182,0.0,-0.0,-0.0,0.8,0.0,6.101,1.931,0.531,forward,forward,accepted,3.032,Aligned with the goal and sufficient front clearance.
+3.401,125.188,0.0,-0.0,-0.0,0.8,0.0,6.094,1.932,0.531,forward,forward,accepted,0.808,Aligned with the goal and sufficient front clearance.
+4.401,125.766,0.066,-0.0,-0.0,0.734,0.0,6.042,1.924,0.543,forward,forward,accepted,0.807,Aligned with the goal and sufficient front clearance.
+5.401,126.208,0.119,-0.0,-0.0,0.681,0.0,5.966,1.892,0.542,forward,forward,accepted,0.86,Aligned with the goal and sufficient front clearance.
+6.401,126.786,0.188,-0.0,-0.0,0.612,0.0,5.907,1.899,0.599,forward,forward,accepted,0.775,Aligned with the goal and sufficient front clearance.
+7.401,127.364,0.257,-0.0,-0.0,0.543,0.0,5.873,1.9,4.801,forward,forward,accepted,0.768,Aligned with the goal and sufficient front clearance.
+8.401,127.942,0.327,-0.0,-0.0,0.473,0.0,5.776,1.895,4.789,forward,forward,accepted,0.866,Aligned with the goal and sufficient front clearance.
+9.401,128.486,0.392,-0.0,-0.0,0.408,0.0,5.712,1.895,4.803,forward,forward,accepted,0.775,Aligned with the goal and sufficient front clearance.
+10.401,128.962,0.449,-0.0,-0.0,0.351,0.0,5.683,1.9,4.797,forward,forward,accepted,0.778,Aligned with the goal and sufficient front clearance.
+11.903,129.54,0.505,-0.0,-0.0,0.295,0.0,5.627,1.899,4.798,stop,stop,goal_reached,0.0,final observation

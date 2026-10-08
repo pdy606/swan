@@ -40,6 +40,7 @@ UTM에서는 `software_rendering:=true`를 추가한다. 기존 Gazebo 실행은
 - [실행 옵션·월드 교체](src/swan_market/WORLDS.md)
 - [시장 구성·센서 화면·맵 수정](src/swan_market/README.md)
 - [이전 검증 요약·장면 사진](docs/market/README.md)
+- [AI를 사람 조종자 대용으로 쓴 주행 시험·재현 방법](docs/market/ai_operator/README.md)
 - [판단 파이프라인](src/swan_pipeline/README.md)
 
 ## integration과의 관계
@@ -69,4 +70,4 @@ python3 -m unittest discover -s src/swan_market/test -v
 ```
 
 단일 맵 구성, 기본 런처의 맵·로봇 경로, 초기 위치, 센서 연결, 신호 주기를 검사한다.
-실제 Gazebo 주행 실험은 실행하지 않는다. 원시 검증 기록은 Git 이력에 보관하며 새 `preview/` 출력은 커밋하지 않는다.
+오프라인 검사는 실제 Gazebo 주행을 실행하지 않는다. Qwen을 사용한 Gazebo 주행 결과는 [별도 실험 README](docs/market/ai_operator/README.md)에 기록했다. 새 `preview/` 출력은 커밋하지 않는다.
