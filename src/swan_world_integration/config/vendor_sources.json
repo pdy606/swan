@@ -1,0 +1,26 @@
+[
+  {
+    "commit": "a23e859957a4b6ccf9ee6e9dc29624d18b2ad26b",
+    "source_path": "src/wheelchair_gazebo/models/wheelchair/model.sdf",
+    "target_path": "models/wheelchair/model.sdf",
+    "sha256": "98bdb69ca6c261e66251b07fc316c38f19bf3f4a486c23740258779cf0164042"
+  },
+  {
+    "commit": "a23e859957a4b6ccf9ee6e9dc29624d18b2ad26b",
+    "source_path": "src/wheelchair_gazebo/models/wheelchair/model.config",
+    "target_path": "models/wheelchair/model.config",
+    "sha256": "b97bdd6104c7ec4fb6816b51a02cbb636923ce602dc91fe8b2dbe391a1249cbe"
+  },
+  {
+    "commit": "a23e859957a4b6ccf9ee6e9dc29624d18b2ad26b",
+    "source_path": "src/wheelchair_gazebo/scripts/swan_drive_controller.py",
+    "target_path": "scripts/swan_drive_controller.py",
+    "sha256": "1994d539db5fc91551f4fc8697509d52f0870e62fe2923109cab59eeb6c1d9ea"
+  },
+  {
+    "commit": "011fa32e4ee7f7d7eee6f75a177609c384bb1a59",
+    "source_path": "src/swan_market/scripts/animate_crosswalk.py",
+    "target_path": "scripts/animate_crosswalk.py",
+    "sha256": "a2f0ac841d51eb823eff3ba50348d9cc03db494888a97b593a978ca7ecbcd968"
+  }
+]

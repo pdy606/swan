@@ -1,0 +1,3716 @@
+{
+  "world": "swan_town",
+  "sources": [
+    {
+      "zone": "apartment",
+      "commit": "a23e859957a4b6ccf9ee6e9dc29624d18b2ad26b",
+      "path": "src/wheelchair_gazebo/worlds/dy_scene2.sdf",
+      "sha256": "34de65f02131cf69075946701e691005d2b0f2d626cde62af4a42a87ea29e9f2",
+      "transform_xyz_yaw": [
+        -35.98,
+        0,
+        -0.05,
+        3.141592653589793
+      ],
+      "models": {
+        "ground_environment": {
+          "internal_sha256": "e4e655ea74d8033ddfc0d48a55395c40fdc41ec818e5dc23231a54728f6171f7",
+          "original_pose": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "wheelchair_ramp": {
+          "internal_sha256": "7ff6ee59b1fd6d1a6354d41fca4299250517cac8c5788694fd044820d10531ba",
+          "original_pose": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "lobby_floor": {
+          "internal_sha256": "61c064500cdfe3773f791e49be6bafbb32bfdd838e5ba6966c03ada9c5528ada",
+          "original_pose": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "building_structure": {
+          "internal_sha256": "a81266af3ae04dd53ab0d14f959796c6faefe55435752aa45cf9c9aa501372e7",
+          "original_pose": [
+            5.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            -1.570796
+          ]
+        },
+        "pedestrian_connection": {
+          "internal_sha256": "d5551646ee354758e8cee9e3e68a53839b7f4c098b510731b4992a5bd7e09079",
+          "original_pose": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "parking_lot": {
+          "internal_sha256": "36b091c7355f3e8faf86691afc5607d36f1acb5ebf259006ff8cdc568216a784",
+          "original_pose": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "parking_objects": {
+          "internal_sha256": "3893c1eda33750fcf42fa88c4dc2b33974fe2523417383d77cb70595ec9bdf60",
+          "original_pose": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "source_robot_includes": [
+        "<include>\n      <uri>model://wheelchair</uri>\n      <name>wheelchair</name>\n      <pose>9.80 0 0.87 0 0 3.141593</pose>\n    </include>\n\n  "
+      ]
+    },
+    {
+      "zone": "city",
+      "commit": "7adea9e9c68fd77aee3c05200aa454ecc6732f16",
+      "path": "src/wheelchair_gazebo/worlds/wheelchair_world.sdf",
+      "sha256": "402369c12c32d2b3a86158a7ee519b54dfc0f0f93944885124790ce438491f15",
+      "transform_xyz_yaw": [
+        -14,
+        30,
+        -0.025,
+        0
+      ],
+      "models": {
+        "ground_plane": {
+          "internal_sha256": "427e09810f921f67ba04cea6fd599eac691d109084e0e7fb39c98440142a60ca",
+          "original_pose": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "road": {
+          "internal_sha256": "f98a423705d56734f3e9c93a0ed17e96bc526a563a211fd41b00add553be0bd6",
+          "original_pose": [
+            0.0,
+            0.0,
+            0.01,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "sidewalk_left": {
+          "internal_sha256": "145c9014dac3986418ddbde6e38c07fdaa4bd9fb1f4137e33ecae546b0be2664",
+          "original_pose": [
+            -4.5,
+            0.0,
+            0.05,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "sidewalk_right": {
+          "internal_sha256": "3057dd739436b14f6741988e8105e127190c7a62aec35422c802ff080bc17e92",
+          "original_pose": [
+            4.5,
+            0.0,
+            0.05,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "crosswalk_1": {
+          "internal_sha256": "dc9a8a4eb4fbf8fd119c60849922b5af1845c03e088bb06e495b3c826fd8d45f",
+          "original_pose": [
+            -2.4,
+            0.0,
+            0.02,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "crosswalk_2": {
+          "internal_sha256": "fc1f768769eeaabda479051e016b764d64ceeb7dc90f178d694b3e1f10005620",
+          "original_pose": [
+            -1.6,
+            0.0,
+            0.02,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "crosswalk_3": {
+          "internal_sha256": "fc1a797ed0ca33705a0bb258fb72fe4b0773f366cbdc3c2d856de3ca2b982cdf",
+          "original_pose": [
+            -0.8,
+            0.0,
+            0.02,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "crosswalk_4": {
+          "internal_sha256": "44ecd288840e0e2111ac228dd09c8b2ef65694a737f8ebf6f23e25377f9e7c4c",
+          "original_pose": [
+            0.0,
+            0.0,
+            0.02,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "crosswalk_5": {
+          "internal_sha256": "ac54b596f38e70d27a82c65098fc90b1ac5199281f4531347cb151020da1be07",
+          "original_pose": [
+            0.8,
+            0.0,
+            0.02,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "crosswalk_6": {
+          "internal_sha256": "7d4f3ee028487406a666aacdac82eb6fe0a6b1f556d45df274834593ed4baa62",
+          "original_pose": [
+            1.6,
+            0.0,
+            0.02,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "crosswalk_7": {
+          "internal_sha256": "cfa2030da0f07b3ca71f1ff4013df501fac674fc5ea55a4e786c66a8ad593174",
+          "original_pose": [
+            2.4,
+            0.0,
+            0.02,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "curb_left_south": {
+          "internal_sha256": "d59357455cd01a294883d179b96f0b044480b559e6c5426b5ab4b1825c868a83",
+          "original_pose": [
+            -3.1,
+            -9.25,
+            0.11,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "curb_left_north": {
+          "internal_sha256": "2943983fb819aa33f5c2f3c2eaba4bfa6a20117f306f411d6374df1e5926de80",
+          "original_pose": [
+            -3.1,
+            9.25,
+            0.11,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "curb_right_south": {
+          "internal_sha256": "5ad1e504d19dde1b190d1426e887d36fe05fd842069202d9a227c1017bcdb2f6",
+          "original_pose": [
+            3.1,
+            -9.25,
+            0.11,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "curb_right_north": {
+          "internal_sha256": "0e514f091db3ccc87cece8d6792000fb83b1d37778e2ba6748170ccddd0e0b01",
+          "original_pose": [
+            3.1,
+            9.25,
+            0.11,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "curb_ramp_left": {
+          "internal_sha256": "745dccfa01dccd562336c5147536697fa9b4307e1e83280e98bf91b4fe99fa7b",
+          "original_pose": [
+            -3.1,
+            0.0,
+            0.1,
+            0.0,
+            0.5,
+            0.0
+          ]
+        },
+        "curb_ramp_right": {
+          "internal_sha256": "804466b57421d9a1dfe8c4e257eae9f5525208c6a153f5867ba5ae1be5d26ee4",
+          "original_pose": [
+            3.1,
+            0.0,
+            0.1,
+            0.0,
+            -0.5,
+            0.0
+          ]
+        },
+        "building_left_1": {
+          "internal_sha256": "ccda0c4a4bd484ebac528c277761e865d3cf0bd5a898f45ee4377baa45c5eec7",
+          "original_pose": [
+            -6.5,
+            -8.0,
+            1.5,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "building_left_2": {
+          "internal_sha256": "283e69b9566d51d759065e4e0e1c92b0cbde23a0329871e350313855c306bc8f",
+          "original_pose": [
+            -6.5,
+            2.0,
+            2.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "building_right_1": {
+          "internal_sha256": "cb38bdfd2308eb5bfc8a51311d77267bf650f8a11f2e6b131b54bc4c342dec9c",
+          "original_pose": [
+            6.5,
+            -6.0,
+            1.75,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "building_right_2": {
+          "internal_sha256": "74305585c14d96f8dc45d8d2b640deb1fdadbba76e1591a20aebb194a7dd46f6",
+          "original_pose": [
+            6.5,
+            4.0,
+            1.25,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "tree_1": {
+          "internal_sha256": "4135898dd98ca28d57d2508fa7ed451c2df0e64c3a9c949b154ce4b9bc96a5b9",
+          "original_pose": [
+            -3.7,
+            -10.0,
+            0.15,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "tree_1_trunk": {
+          "internal_sha256": "717cac4e44e4a4a7b38a69662443b49f81a86e4b7fc83cf6764aba9b4a59a586",
+          "original_pose": [
+            -3.7,
+            -10.0,
+            1.1,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "tree_2": {
+          "internal_sha256": "5edacd6aaa9bf73d5637c6ac2c5ccc24e3deff91c757ba9f102ccc80d75f5922",
+          "original_pose": [
+            3.7,
+            -4.0,
+            0.15,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "tree_2_trunk": {
+          "internal_sha256": "263618d8a4cb043d250879e8dc421ba68b8d3e6f106e96f829dd1586f603796b",
+          "original_pose": [
+            3.7,
+            -4.0,
+            1.1,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "tree_3": {
+          "internal_sha256": "f06f1131f300bbe7a015d9817dce4d56617600c24fb012d822e01895654305b9",
+          "original_pose": [
+            -3.7,
+            3.0,
+            0.15,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "tree_3_trunk": {
+          "internal_sha256": "7619c00478f61faf62bd35845ea2ff87ec4ed36192c96d4d042566a261c77073",
+          "original_pose": [
+            -3.7,
+            3.0,
+            1.1,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "tree_4": {
+          "internal_sha256": "d4e6f8b7567ec8ca5c14f8bcb959b2f6ae13aff63f8fc11516d7222b916bb0f6",
+          "original_pose": [
+            3.7,
+            8.0,
+            0.15,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "tree_4_trunk": {
+          "internal_sha256": "701976fa319c1620d50d73a366b86249f5acd0f0fdf18e88c263158547e8b9fe",
+          "original_pose": [
+            3.7,
+            8.0,
+            1.1,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "bench_1": {
+          "internal_sha256": "7ed09d56cc1a974f8904f3806a5fde5e60dc7e4d19d99a10be91117b57a21523",
+          "original_pose": [
+            -3.5,
+            -3.0,
+            0.25,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "bench_2": {
+          "internal_sha256": "262aac2a51adbc930283837f11fc0b760f05bca69d1481bbee28bc18dd788e85",
+          "original_pose": [
+            3.5,
+            11.0,
+            0.25,
+            0.0,
+            0.0,
+            1.5708
+          ]
+        },
+        "trash_bin_1": {
+          "internal_sha256": "2140435dc54703e7a484890dc69bdbf87133d785bc9973ce1656fbc55b699dcf",
+          "original_pose": [
+            -3.8,
+            -13.0,
+            0.3,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "trash_bin_2": {
+          "internal_sha256": "ce80ae15071be748d7c05736a72761c38e1f96f22cb39ef50be0a257f82f9aec",
+          "original_pose": [
+            3.8,
+            -8.0,
+            0.3,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "hydrant_1": {
+          "internal_sha256": "f938fcb6ae0965dbeb184e7d902681252bba8f5e2d85cca69578c6c9e0cf2012",
+          "original_pose": [
+            -3.6,
+            5.0,
+            0.25,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "parked_bike_1": {
+          "internal_sha256": "eb7b97777bd67f32e546c377e208a5cf36007571b7a2a65e077a87972485881a",
+          "original_pose": [
+            3.9,
+            1.0,
+            0.3,
+            0.0,
+            0.0,
+            0.2
+          ]
+        },
+        "sign_board_1": {
+          "internal_sha256": "df77b6c5b92bd4f27e5bb15d44b6e5d05245ccd33cf3588d0e136fecf5e25c88",
+          "original_pose": [
+            -3.5,
+            9.0,
+            0.4,
+            0.3,
+            0.0,
+            0.0
+          ]
+        },
+        "pedestrian_1": {
+          "internal_sha256": "a4006e1152c0eca8634d863fd7e10b4a6e64eb08972e280d88a690ee505bd495",
+          "original_pose": [
+            3.6,
+            -12.0,
+            0.85,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "pedestrian_2": {
+          "internal_sha256": "770f515e326052d2f035d82190647b3eb8e4cb46fab2f1319e34d8a7003a5717",
+          "original_pose": [
+            -3.6,
+            13.0,
+            0.85,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "pole_1": {
+          "internal_sha256": "78e4dc29859e30259dca48c293219afb37e6a3f2a9bc86218d1a46a7d12492ab",
+          "original_pose": [
+            -3.2,
+            -1.0,
+            2.5,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "pole_2": {
+          "internal_sha256": "3acbe720dbafec410ea0e39fb3fb944d2271a171123c3950b578e881bf59edb7",
+          "original_pose": [
+            3.2,
+            3.0,
+            2.5,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "extra_rock_1": {
+          "internal_sha256": "1454f06187a5ac43dcf4b627a9be14d09ba5a9b98882e3ef0bb506d9e8f7e325",
+          "original_pose": [
+            -5.0,
+            -14.0,
+            0.1,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "extra_debris_1": {
+          "internal_sha256": "7fd9252761ef74539b5a5267fdd8e85d8716728057eb6e9ad56149d76fcbd2aa",
+          "original_pose": [
+            -4.2,
+            -11.5,
+            0.06,
+            0.0,
+            0.0,
+            0.5
+          ]
+        },
+        "extra_box_1": {
+          "internal_sha256": "cb9d7a99717af79a08c926c726153c9177fed50be3dc6d112c34675e8f07cd32",
+          "original_pose": [
+            -3.6,
+            -8.5,
+            0.1,
+            0.0,
+            0.0,
+            0.2
+          ]
+        },
+        "extra_cylinder_1": {
+          "internal_sha256": "ccde6fd72fceb009578253c865eafa68be65880db1db3627e45573053bf4bf4b",
+          "original_pose": [
+            -5.5,
+            -5.5,
+            0.1,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "extra_rock_2": {
+          "internal_sha256": "a32c77bfb38534f23f674f8b1af643e8d2778c769e694fe68e25a5c35ad70dcc",
+          "original_pose": [
+            -4.8,
+            -0.5,
+            0.12,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "extra_debris_2": {
+          "internal_sha256": "9beabc5cea51606fa4961e2483aa007d543a82619e7a18cc6e8983ce0fde1064",
+          "original_pose": [
+            -3.5,
+            4.5,
+            0.06,
+            0.0,
+            0.0,
+            0.9
+          ]
+        },
+        "extra_box_2": {
+          "internal_sha256": "9f0fd4e8494be28d492d56ba41984313453cd1b826f151867c6c5ac91ffb7cd0",
+          "original_pose": [
+            -5.2,
+            7.5,
+            0.1,
+            0.0,
+            0.0,
+            0.7
+          ]
+        },
+        "extra_cylinder_2": {
+          "internal_sha256": "46ce1c86004fd4be21a1c59e06bcddaa7e36f9ec80c56d5fd5630afeb1544319",
+          "original_pose": [
+            -4.0,
+            10.5,
+            0.1,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "extra_rock_3": {
+          "internal_sha256": "db15ea0342fb27654f8a2584490fc292261712aae40df54bef6f4437df8306e0",
+          "original_pose": [
+            4.3,
+            -13.0,
+            0.1,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "extra_debris_3": {
+          "internal_sha256": "2924e6453c6caf8b1cb2c99cf576faadd06e69d1a37c152349929c0dce21e9a7",
+          "original_pose": [
+            5.5,
+            -10.0,
+            0.06,
+            0.0,
+            0.0,
+            0.3
+          ]
+        },
+        "extra_box_3": {
+          "internal_sha256": "b381fc45bf7d821d0b9ad1d23f81b31a1bca4a47fa80d4e2ef571f88f1543457",
+          "original_pose": [
+            4.5,
+            -6.5,
+            0.1,
+            0.0,
+            0.0,
+            0.4
+          ]
+        },
+        "extra_cylinder_3": {
+          "internal_sha256": "049418cf75e73b40287da212b77c24a01b23dd7592f5608693cc7fc3b9fd6568",
+          "original_pose": [
+            3.7,
+            -3.5,
+            0.1,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "extra_rock_4": {
+          "internal_sha256": "8577461d9235b1bf8dbf65013bb732e298b93e82c353ffd02b53c63357af2e9e",
+          "original_pose": [
+            5.3,
+            2.0,
+            0.13,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "extra_debris_4": {
+          "internal_sha256": "a15e7d751910e9beba1305a523a43a0145f41a068f50beb930dfda25f7f239f3",
+          "original_pose": [
+            4.6,
+            5.5,
+            0.06,
+            0.0,
+            0.0,
+            0.6
+          ]
+        },
+        "extra_box_4": {
+          "internal_sha256": "606e8c20a4244bdc92aa7c3ba51822ceff9a1f69151df209978145fceff1fdab",
+          "original_pose": [
+            3.8,
+            9.5,
+            0.1,
+            0.0,
+            0.0,
+            1.0
+          ]
+        },
+        "extra_cylinder_4": {
+          "internal_sha256": "d85eae3415f554ea62d3a47aea51036e8704c8eb427abfc78e4bc86ecaea763f",
+          "original_pose": [
+            5.6,
+            12.0,
+            0.1,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "traffic_light_1": {
+          "internal_sha256": "17550b0ec93a87745bf83df48e05167f7e496f035178c65b5d939ddbd5e4dfb3",
+          "original_pose": [
+            -3.6,
+            -2.0,
+            1.5,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "traffic_light_1_head": {
+          "internal_sha256": "88c3cf7d957dc0ff074425e4a83757600a5919e8fa2eaddca2e01d2138f921f1",
+          "original_pose": [
+            -3.6,
+            -2.0,
+            2.9,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "traffic_light_1_red": {
+          "internal_sha256": "eaea04aea5fcbc5968491b3ceb95cc0cf2eb6fed28689f4feb1abac7c7be0f1b",
+          "original_pose": [
+            -3.6,
+            -1.87,
+            3.15,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "traffic_light_1_green": {
+          "internal_sha256": "3165b88d6ba24563d87a1d002ac131e73c8f94cafbbd777a38215025da3f68f5",
+          "original_pose": [
+            -3.6,
+            -1.87,
+            2.65,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "traffic_light_2": {
+          "internal_sha256": "94d9481037be4b54625967c1f89b3c1ddcccc775da026d770dbdcdcef1791ade",
+          "original_pose": [
+            3.6,
+            2.0,
+            1.5,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "traffic_light_2_head": {
+          "internal_sha256": "b4e211bfe6f98d9d72daf99afc468a3a2e56b8cca0e69eae078e355e8f784a18",
+          "original_pose": [
+            3.6,
+            2.0,
+            2.9,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "traffic_light_2_red": {
+          "internal_sha256": "878e02dea8e6549be56ab2e2bf4788638f5153abc48b55ca63513a0dae58d068",
+          "original_pose": [
+            3.6,
+            1.87,
+            3.15,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "traffic_light_2_green": {
+          "internal_sha256": "3efe0b4fe4c8dd26d756e11140fc116cf6fd587f5f187cd95094b92abc2c3b3f",
+          "original_pose": [
+            3.6,
+            1.87,
+            2.65,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "traffic_light_3": {
+          "internal_sha256": "7f6b053de785f9a5be7194dcb06391b86f61a82b91668ba6cbe76cacb1f52d07",
+          "original_pose": [
+            -3.6,
+            2.0,
+            1.5,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "traffic_light_3_head": {
+          "internal_sha256": "474ffc2aa98f4bbd4c9e2168a41306a72b9f1c81506a2bba3d78f37e4a0a0242",
+          "original_pose": [
+            -3.6,
+            2.0,
+            2.9,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "traffic_light_3_red": {
+          "internal_sha256": "c8d9cae84c172949b2fb7afbfc4ead16b7171baac70a970f8f4a6e8836438b5a",
+          "original_pose": [
+            -3.6,
+            1.87,
+            3.15,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "traffic_light_3_green": {
+          "internal_sha256": "12ea2b3a87c287deb7a3b5c75cbd2ff7e541f59436c53cd0c2b6153e33015b88",
+          "original_pose": [
+            -3.6,
+            1.87,
+            2.65,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "traffic_light_4": {
+          "internal_sha256": "13e2e54d4f351f78cdaef8342f799bdd73889f6c6df2c97be6a284251d4766bc",
+          "original_pose": [
+            3.6,
+            -2.0,
+            1.5,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "traffic_light_4_head": {
+          "internal_sha256": "6c5eec55a753cc2cda9ae8e9c1d0325133aecd7a8e972d4bd3dc746b9b2462c4",
+          "original_pose": [
+            3.6,
+            -2.0,
+            2.9,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "traffic_light_4_red": {
+          "internal_sha256": "284e457d5e3253773017344aec94edd2d728eab6259708826e8f7a1328107cb0",
+          "original_pose": [
+            3.6,
+            -1.87,
+            3.15,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "traffic_light_4_green": {
+          "internal_sha256": "85028280ad7bd829c2a78d6316eb905b29cfe8c8faee3d69d0c28f8582e06c2b",
+          "original_pose": [
+            3.6,
+            -1.87,
+            2.65,
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "source_robot_includes": [
+        "<include>\n      <uri>model://wheelchair</uri>\n      <name>wheelchair</name>\n      <pose>0 0 0.30 0 0 0</pose>\n    </include>\n\n  "
+      ]
+    },
+    {
+      "zone": "market",
+      "commit": "011fa32e4ee7f7d7eee6f75a177609c384bb1a59",
+      "path": "src/wheelchair_gazebo/worlds/market_shopping.sdf",
+      "sha256": "2cc76ec58e69370c37e8c6b16b173bc07fc46b6d03972c4e9673846b578303b1",
+      "transform_xyz_yaw": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "models": {
+        "ground": {
+          "internal_sha256": "bb75ab0e454f22e77e29064028abee29b775ffa85abfda8529ad99c1b1ba533b",
+          "original_pose": [
+            15.0,
+            0.0,
+            -0.1,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "market_paving_0": {
+          "internal_sha256": "db239f30e34f79d44a5575e3e09eb113a0c234b920708fc537bfdb3f1f61cdef",
+          "original_pose": [
+            -1.75,
+            0.0,
+            0.002,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "paving_joint_0": {
+          "internal_sha256": "b6391d032a65bc6ea822d1e1322f568197de45a043c8a833ba17276f2bda6f7a",
+          "original_pose": [
+            -1.75,
+            0.0,
+            0.0045,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "market_paving_1": {
+          "internal_sha256": "c1482373ab30dcca753e1b42d17efbfd9efe96748e139e65e7af892cc0bd14f7",
+          "original_pose": [
+            -1.25,
+            0.0,
+            0.002,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "market_paving_2": {
+          "internal_sha256": "94507f230eb59fbd9b9bb427adb35e45ce831c62909677d107aa9e7e1c129978",
+          "original_pose": [
+            -0.75,
+            0.0,
+            0.002,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "paving_joint_2": {
+          "internal_sha256": "2b46ac6691e1c3b6b7a6dd10c7b0a8ad7c2a1b8dc2bac7ca9b6484f3f99f4b42",
+          "original_pose": [
+            -0.75,
+            0.0,
+            0.0045,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "market_paving_3": {
+          "internal_sha256": "97be52fb541c38e89f2d015ba3b9abb34be35955fd773ba97b185d13100ea47b",
+          "original_pose": [
+            -0.25,
+            0.0,
+            0.002,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "market_paving_4": {
+          "internal_sha256": "6e1492cf351fbf1052abfcfafa9cfd248e7e324e41f018e0708e69892c88b6cd",
+          "original_pose": [
+            0.25,
+            0.0,
+            0.002,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "paving_joint_4": {
+          "internal_sha256": "facd00bf910085521369cd8f82a3e4227ff506b521e008a8707b2107b680d15d",
+          "original_pose": [
+            0.25,
+            0.0,
+            0.0045,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "market_paving_5": {
+          "internal_sha256": "85edcf9231c69354d912bf82157e7fa807903996f1093b6d04a650cf4d43bb09",
+          "original_pose": [
+            0.75,
+            0.0,
+            0.002,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "market_paving_6": {
+          "internal_sha256": "f361eaf317854384071443f5e54af8ff5091f8cde19c296551930dd98f970d56",
+          "original_pose": [
+            1.25,
+            0.0,
+            0.002,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "paving_joint_6": {
+          "internal_sha256": "b83e24a0def7c4d9edfdf3b0e19aa0126cab0333a4a418226fbfcfcd252ec082",
+          "original_pose": [
+            1.25,
+            0.0,
+            0.0045,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "market_paving_7": {
+          "internal_sha256": "17bcc15c7ecdbacc08b78426d3e0947a650352a2d538b9641763d3024e6352fe",
+          "original_pose": [
+            1.75,
+            0.0,
+            0.002,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "market_paving_8": {
+          "internal_sha256": "cf35c887d4d56aae4c88b899ccb5e2dc2120ea72104ce1fec2d7bbce59723a09",
+          "original_pose": [
+            2.25,
+            0.0,
+            0.002,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "paving_joint_8": {
+          "internal_sha256": "3cc30da03c46240c4d4f880e242f7b426b159e696b484e25e227f6638ebbcae0",
+          "original_pose": [
+            2.25,
+            0.0,
+            0.0045,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "market_paving_9": {
+          "internal_sha256": "57323fc6291cdcc03ab407148077c0144418195d63ef860cdf559efd272e34a8",
+          "original_pose": [
+            2.75,
+            0.0,
+            0.002,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "market_paving_10": {
+          "internal_sha256": "fcdd5bd2d4e68eadac7cdf7070788576ebf380ce8d2766addd49656f51206678",
+          "original_pose": [
+            3.25,
+            0.00031537,
+            0.002,
+            0.0,
+            0.0,
+            0.003781
+          ]
+        },
+        "paving_joint_10": {
+          "internal_sha256": "30fe852a02bfc1a3827f447d51c0a5c3bd44ec1e592721ea5511042aec18d1ec",
+          "original_pose": [
+            3.25,
+            0.00031537,
+            0.0045,
+            0.0,
+            0.0,
+            0.003781
+          ]
+        },
+        "market_paving_11": {
+          "internal_sha256": "a50265a153b839edb180ac657cb118f366abd85e95982aa7346f3dae6a7248a1",
+          "original_pose": [
+            3.75,
+            0.0084221,
+            0.002,
+            0.0,
+            0.0,
+            0.033398
+          ]
+        },
+        "market_paving_12": {
+          "internal_sha256": "617a8612a9c8d0d6d1440e24cf42283da72a679ef3f93c1570cc27cfb1e25efc",
+          "original_pose": [
+            4.25,
+            0.038143,
+            0.002,
+            0.0,
+            0.0,
+            0.089204
+          ]
+        },
+        "paving_joint_12": {
+          "internal_sha256": "69c4761a9fa3f37e1ef7576652a7478db0852b66d4203bcb9fa891b2b2b53282",
+          "original_pose": [
+            4.25,
+            0.038143,
+            0.0045,
+            0.0,
+            0.0,
+            0.089204
+          ]
+        },
+        "market_paving_13": {
+          "internal_sha256": "8d4745bdea69d2ed03f786114b96d185541357b511a9d5a9647966ce5559e32d",
+          "original_pose": [
+            4.75,
+            0.10125,
+            0.002,
+            0.0,
+            0.0,
+            0.16424
+          ]
+        },
+        "market_paving_14": {
+          "internal_sha256": "fc7054071e48c6409bd5dd5b73e13a04c2ba0a8af24b29be3ad9843c4c77bc20",
+          "original_pose": [
+            5.25,
+            0.20586,
+            0.002,
+            0.0,
+            0.0,
+            0.2486
+          ]
+        },
+        "paving_joint_14": {
+          "internal_sha256": "39791420347b6031128c476ea0b59123ea2ef4167fd7a9a1ec4d16ccd77790de",
+          "original_pose": [
+            5.25,
+            0.20586,
+            0.0045,
+            0.0,
+            0.0,
+            0.2486
+          ]
+        },
+        "market_paving_15": {
+          "internal_sha256": "f8cc0a2201696fe8266594b74814dc013517930485c15beb3f4462022122ddbb",
+          "original_pose": [
+            5.75,
+            0.35543,
+            0.002,
+            0.0,
+            0.0,
+            0.33122
+          ]
+        },
+        "market_paving_16": {
+          "internal_sha256": "93692e02274b9e43e277150abc7a819d2541b76017a4bf8754eefe25b7634f45",
+          "original_pose": [
+            6.25,
+            0.54833,
+            0.002,
+            0.0,
+            0.0,
+            0.40225
+          ]
+        },
+        "paving_joint_16": {
+          "internal_sha256": "f8815a88b4c1f25f75e08ee58a3e22598d7c39c19917a1cde8337432cd12e0da",
+          "original_pose": [
+            6.25,
+            0.54833,
+            0.0045,
+            0.0,
+            0.0,
+            0.40225
+          ]
+        },
+        "market_paving_17": {
+          "internal_sha256": "6f8f0d3490564c1bc49e645885cf55cece72a0fa172e38f4a86ca6fb2c28db17",
+          "original_pose": [
+            6.75,
+            0.77782,
+            0.002,
+            0.0,
+            0.0,
+            0.45458
+          ]
+        },
+        "market_paving_18": {
+          "internal_sha256": "8e235fcde3a8294fde75bbc298587bd5bea3cec9e3904746fea51d8ecc2ce511",
+          "original_pose": [
+            7.25,
+            1.0326,
+            0.002,
+            0.0,
+            0.0,
+            0.48375
+          ]
+        },
+        "paving_joint_18": {
+          "internal_sha256": "da1904ad99f6718c72364b999f81bea8ac68d2f65b96afa7dbae87ba61587611",
+          "original_pose": [
+            7.25,
+            1.0326,
+            0.0045,
+            0.0,
+            0.0,
+            0.48375
+          ]
+        },
+        "market_paving_19": {
+          "internal_sha256": "4f85c914d9c5c8cbe8faab2e74aa02957c68619e32de5677b74884f8bdc37eed",
+          "original_pose": [
+            7.75,
+            1.2978,
+            0.002,
+            0.0,
+            0.0,
+            0.48699
+          ]
+        },
+        "market_paving_20": {
+          "internal_sha256": "7359d30dbec4330677856ad8609bffdcf71c2dd1244721e543e7c667ad235b51",
+          "original_pose": [
+            8.25,
+            1.5562,
+            0.002,
+            0.0,
+            0.0,
+            0.46221
+          ]
+        },
+        "paving_joint_20": {
+          "internal_sha256": "921b6f83237ecd5e26dd73496b0955dbc8c9ff8e2ef5bf3ab7914f9c281c8fd6",
+          "original_pose": [
+            8.25,
+            1.5562,
+            0.0045,
+            0.0,
+            0.0,
+            0.46221
+          ]
+        },
+        "market_paving_21": {
+          "internal_sha256": "6852fc02a2d7f8c2349286fc90310afd498533097cb94942da40d955a6593446",
+          "original_pose": [
+            8.75,
+            1.7901,
+            0.002,
+            0.0,
+            0.0,
+            0.40758
+          ]
+        },
+        "market_paving_22": {
+          "internal_sha256": "e5140ab5e1c5740e8bdc9f94f4e00c0db9658bd5b7d66063e6935e8ae7ee3cc7",
+          "original_pose": [
+            9.25,
+            1.9827,
+            0.002,
+            0.0,
+            0.0,
+            0.32217
+          ]
+        },
+        "paving_joint_22": {
+          "internal_sha256": "3884cceba076ecea9ae6732bdca924b97e03630ee7871340a1e8f40d622cd35d",
+          "original_pose": [
+            9.25,
+            1.9827,
+            0.0045,
+            0.0,
+            0.0,
+            0.32217
+          ]
+        },
+        "market_paving_23": {
+          "internal_sha256": "df7954a80a0e2a9d8372c2b1a51cedd5236037b2297c9c7665b14ab7ab40450c",
+          "original_pose": [
+            9.75,
+            2.1197,
+            0.002,
+            0.0,
+            0.0,
+            0.2079
+          ]
+        },
+        "market_paving_24": {
+          "internal_sha256": "606ac1b821b11f1bdd1b08db6ac7ec820870c2bf0f184044c95efeaa278b4bc3",
+          "original_pose": [
+            10.25,
+            2.191,
+            0.002,
+            0.0,
+            0.0,
+            0.072021
+          ]
+        },
+        "paving_joint_24": {
+          "internal_sha256": "5bfa445f1ede3cb29fdb913b0efb5f99059cad38fc64f634573a4ee05c5229b4",
+          "original_pose": [
+            10.25,
+            2.191,
+            0.0045,
+            0.0,
+            0.0,
+            0.072021
+          ]
+        },
+        "market_paving_25": {
+          "internal_sha256": "1b3931eae30cb0cb2d626aee8e6d36108f207083e9f156f619618966b13ab492",
+          "original_pose": [
+            10.75,
+            2.191,
+            0.002,
+            0.0,
+            0.0,
+            -0.072021
+          ]
+        },
+        "market_paving_26": {
+          "internal_sha256": "8977821302fc7c0ee212ed45352c4b7e840e84731fcc12775df0d5a3d970041f",
+          "original_pose": [
+            11.25,
+            2.1197,
+            0.002,
+            0.0,
+            0.0,
+            -0.2079
+          ]
+        },
+        "paving_joint_26": {
+          "internal_sha256": "60c3ae112ce33ee12b4edd88ef07ff69cfb5e68c0adbae086b99ba1854b7298b",
+          "original_pose": [
+            11.25,
+            2.1197,
+            0.0045,
+            0.0,
+            0.0,
+            -0.2079
+          ]
+        },
+        "market_paving_27": {
+          "internal_sha256": "9acbe2104fce8685f4d05f8ea1e38b010bb2e02c485cd8051fef79a20feae228",
+          "original_pose": [
+            11.75,
+            1.9827,
+            0.002,
+            0.0,
+            0.0,
+            -0.32217
+          ]
+        },
+        "market_paving_28": {
+          "internal_sha256": "cf667f1e369fffa23115a1cc052d8a0fc5fe90045e1b22061647d0ae49f7d7fc",
+          "original_pose": [
+            12.25,
+            1.7901,
+            0.002,
+            0.0,
+            0.0,
+            -0.40758
+          ]
+        },
+        "paving_joint_28": {
+          "internal_sha256": "53b2dac683ab3bfbbd4f0a4bb85aaf64f6295997a4aa1d827fbfc566352f5f77",
+          "original_pose": [
+            12.25,
+            1.7901,
+            0.0045,
+            0.0,
+            0.0,
+            -0.40758
+          ]
+        },
+        "market_paving_29": {
+          "internal_sha256": "a467aae410a86510c17448914ccea379eb010239e13a81d34df18611888247a1",
+          "original_pose": [
+            12.75,
+            1.5562,
+            0.002,
+            0.0,
+            0.0,
+            -0.46221
+          ]
+        },
+        "market_paving_30": {
+          "internal_sha256": "58538d07785061d5de6a2cd4392d5b9a26b0be0b0c018d06334a9f46fae13ccc",
+          "original_pose": [
+            13.25,
+            1.2978,
+            0.002,
+            0.0,
+            0.0,
+            -0.48699
+          ]
+        },
+        "paving_joint_30": {
+          "internal_sha256": "aa65de8a74475e0ae363dd15db24ccffb124242b254ace6739c59e1a22065406",
+          "original_pose": [
+            13.25,
+            1.2978,
+            0.0045,
+            0.0,
+            0.0,
+            -0.48699
+          ]
+        },
+        "market_paving_31": {
+          "internal_sha256": "2067a592686b77574f568568f04dc292a00d471e5ab7853e9a844ad25724a904",
+          "original_pose": [
+            13.75,
+            1.0326,
+            0.002,
+            0.0,
+            0.0,
+            -0.48375
+          ]
+        },
+        "market_paving_32": {
+          "internal_sha256": "11106fa196cbb7eb3b7467259a4c971eb129a4997b85d9c5f2319ed178e9b659",
+          "original_pose": [
+            14.25,
+            0.77782,
+            0.002,
+            0.0,
+            0.0,
+            -0.45458
+          ]
+        },
+        "paving_joint_32": {
+          "internal_sha256": "58225d03bb7bc4b4272f67c2a305e5ae8a95b095bbabe9c07c5edbab9023f430",
+          "original_pose": [
+            14.25,
+            0.77782,
+            0.0045,
+            0.0,
+            0.0,
+            -0.45458
+          ]
+        },
+        "market_paving_33": {
+          "internal_sha256": "382aad19af6ffbbee1a37f0f325d8d9a2a6461da72c8f56cec3a2fd5c03a14c0",
+          "original_pose": [
+            14.75,
+            0.54833,
+            0.002,
+            0.0,
+            0.0,
+            -0.40225
+          ]
+        },
+        "market_paving_34": {
+          "internal_sha256": "fcc3459334c4d55a605ef90f75c1e5e6a5ef8f2dea12afb5a154227894dc56ae",
+          "original_pose": [
+            15.25,
+            0.35543,
+            0.002,
+            0.0,
+            0.0,
+            -0.33122
+          ]
+        },
+        "paving_joint_34": {
+          "internal_sha256": "a5387d94b2c8dd6fdf4963ce08706aa238bb8ebed39ffc8de78b616538e097fd",
+          "original_pose": [
+            15.25,
+            0.35543,
+            0.0045,
+            0.0,
+            0.0,
+            -0.33122
+          ]
+        },
+        "market_paving_35": {
+          "internal_sha256": "25a38b3171c522879bbba36353230fcf15726df1828a9e6cf892a5d373edc6f2",
+          "original_pose": [
+            15.75,
+            0.20586,
+            0.002,
+            0.0,
+            0.0,
+            -0.2486
+          ]
+        },
+        "market_paving_36": {
+          "internal_sha256": "b0963b670b9e8b3dcffd0acdf6818811e6b3c560bf03f5d9914081c86eb9580a",
+          "original_pose": [
+            16.25,
+            0.10125,
+            0.002,
+            0.0,
+            0.0,
+            -0.16424
+          ]
+        },
+        "paving_joint_36": {
+          "internal_sha256": "ad48c2deeff5ccf9843d33122e1d64779f4565ed6fb9443b63dfce5e76feda64",
+          "original_pose": [
+            16.25,
+            0.10125,
+            0.0045,
+            0.0,
+            0.0,
+            -0.16424
+          ]
+        },
+        "market_paving_37": {
+          "internal_sha256": "e3eb3a87bd4b4b4ae3af6350fa0f51978712694a138493e21e11ad5929a7d8ab",
+          "original_pose": [
+            16.75,
+            0.038143,
+            0.002,
+            0.0,
+            0.0,
+            -0.089204
+          ]
+        },
+        "market_paving_38": {
+          "internal_sha256": "35700f6a91aca23828163a1c814b93d50c18343d1931f5769c5099578417522a",
+          "original_pose": [
+            17.25,
+            0.0084221,
+            0.002,
+            0.0,
+            0.0,
+            -0.033398
+          ]
+        },
+        "paving_joint_38": {
+          "internal_sha256": "996137e0def1e5dad7dbb36dede591a44c77398f5ee207d8cdf4ebe14ee16c70",
+          "original_pose": [
+            17.25,
+            0.0084221,
+            0.0045,
+            0.0,
+            0.0,
+            -0.033398
+          ]
+        },
+        "market_paving_39": {
+          "internal_sha256": "b257e8279d6ec3d081eb3d6f56096c6f5c25da5e2c7164ca9d829f93f49c4c5a",
+          "original_pose": [
+            17.75,
+            0.00031537,
+            0.002,
+            0.0,
+            0.0,
+            -0.003781
+          ]
+        },
+        "market_paving_40": {
+          "internal_sha256": "b954f5b112778a897f4e1d5f633f004743dbd89a247330b24d20d851245c5a2d",
+          "original_pose": [
+            18.25,
+            -0.00031537,
+            0.002,
+            0.0,
+            0.0,
+            -0.003781
+          ]
+        },
+        "paving_joint_40": {
+          "internal_sha256": "88b7fa1770a4fac0ed7b6768af3954d99484a7834ee91d38984c68d925beb87e",
+          "original_pose": [
+            18.25,
+            -0.00031537,
+            0.0045,
+            0.0,
+            0.0,
+            -0.003781
+          ]
+        },
+        "market_paving_41": {
+          "internal_sha256": "81bed8fca9fb3e0c25c52a437052f5f2e95aefdae966e80481e12b4c1ce91a0b",
+          "original_pose": [
+            18.75,
+            -0.0084221,
+            0.002,
+            0.0,
+            0.0,
+            -0.033398
+          ]
+        },
+        "market_paving_42": {
+          "internal_sha256": "42854ec682ba29b574a287bc61408394aab7e8fd913ae09c22e7bb1e8f25224d",
+          "original_pose": [
+            19.25,
+            -0.038143,
+            0.002,
+            0.0,
+            0.0,
+            -0.089204
+          ]
+        },
+        "paving_joint_42": {
+          "internal_sha256": "b445a5bf30a9f088dda0f95540d36002cbdb86084d94606dffd8b9af458be219",
+          "original_pose": [
+            19.25,
+            -0.038143,
+            0.0045,
+            0.0,
+            0.0,
+            -0.089204
+          ]
+        },
+        "market_paving_43": {
+          "internal_sha256": "45bc6556664882fe4a74a77019a62547e796396da3ec18d5bba26832bf1bacbe",
+          "original_pose": [
+            19.75,
+            -0.10125,
+            0.002,
+            0.0,
+            0.0,
+            -0.16424
+          ]
+        },
+        "market_paving_44": {
+          "internal_sha256": "6363fca1b3ac44c8683cc8aa00b299a43eff5181e8a3fd310be232b74caae55d",
+          "original_pose": [
+            20.25,
+            -0.20586,
+            0.002,
+            0.0,
+            0.0,
+            -0.2486
+          ]
+        },
+        "paving_joint_44": {
+          "internal_sha256": "c7ea439cc437afd8d0f9c455010ad89c7e6b658e09b701b3d8b192b1d51e98b7",
+          "original_pose": [
+            20.25,
+            -0.20586,
+            0.0045,
+            0.0,
+            0.0,
+            -0.2486
+          ]
+        },
+        "market_paving_45": {
+          "internal_sha256": "de4d46c4f1e8da141de0388d6afa6f3fe2de7f8ef98a1ae88c166d1d72c91095",
+          "original_pose": [
+            20.75,
+            -0.35543,
+            0.002,
+            0.0,
+            0.0,
+            -0.33122
+          ]
+        },
+        "market_paving_46": {
+          "internal_sha256": "a53e383761daa0d95dc8301e83db0fb7ad229fcde734c9a833d97145376d008c",
+          "original_pose": [
+            21.25,
+            -0.54833,
+            0.002,
+            0.0,
+            0.0,
+            -0.40225
+          ]
+        },
+        "paving_joint_46": {
+          "internal_sha256": "31c22ec3e57ce872ae1522ef35d479ee95450a1fa6b9f505acc013649b9cca71",
+          "original_pose": [
+            21.25,
+            -0.54833,
+            0.0045,
+            0.0,
+            0.0,
+            -0.40225
+          ]
+        },
+        "market_paving_47": {
+          "internal_sha256": "eb93f36e58902fa92b54bff9d851caec79e8320877d62280a88868f856a45e2c",
+          "original_pose": [
+            21.75,
+            -0.77782,
+            0.002,
+            0.0,
+            0.0,
+            -0.45458
+          ]
+        },
+        "market_paving_48": {
+          "internal_sha256": "cce3eb0ae7b498979f29a2f630170c47ff45f6cd8d198369b61cc7173bb9bff1",
+          "original_pose": [
+            22.25,
+            -1.0326,
+            0.002,
+            0.0,
+            0.0,
+            -0.48375
+          ]
+        },
+        "paving_joint_48": {
+          "internal_sha256": "b78b5f70e857e9074cbfea88acf1f2055227dff9b2d55665583854417a5ecd7c",
+          "original_pose": [
+            22.25,
+            -1.0326,
+            0.0045,
+            0.0,
+            0.0,
+            -0.48375
+          ]
+        },
+        "market_paving_49": {
+          "internal_sha256": "b77c3fb59e7d35966d9bacd845193279aa54c2b30df76466c4f62d2733cb2565",
+          "original_pose": [
+            22.75,
+            -1.2978,
+            0.002,
+            0.0,
+            0.0,
+            -0.48699
+          ]
+        },
+        "market_paving_50": {
+          "internal_sha256": "f8796a13ec9f658ec3daab80997cf2c80f075f4794eb500bdded33f97bc38f90",
+          "original_pose": [
+            23.25,
+            -1.5562,
+            0.002,
+            0.0,
+            0.0,
+            -0.46221
+          ]
+        },
+        "paving_joint_50": {
+          "internal_sha256": "22022a3e6c525c7c11387fa2571f9bdacc3f410fab86aa803d4c81399dee7e27",
+          "original_pose": [
+            23.25,
+            -1.5562,
+            0.0045,
+            0.0,
+            0.0,
+            -0.46221
+          ]
+        },
+        "market_paving_51": {
+          "internal_sha256": "452e3a9b34bff94f35c3463f5ea5e5574aec4de4617b65a389485ecb564c6cff",
+          "original_pose": [
+            23.75,
+            -1.7901,
+            0.002,
+            0.0,
+            0.0,
+            -0.40758
+          ]
+        },
+        "market_paving_52": {
+          "internal_sha256": "7118c645ab398fcfc484bcaa51c65fbd431a3c7d2913443edd38a86ce4c72c9d",
+          "original_pose": [
+            24.25,
+            -1.9827,
+            0.002,
+            0.0,
+            0.0,
+            -0.32217
+          ]
+        },
+        "paving_joint_52": {
+          "internal_sha256": "fb1101a2afc06262344a59a77b11e77519a1e06f55ee8f0ac7615d76fff387ec",
+          "original_pose": [
+            24.25,
+            -1.9827,
+            0.0045,
+            0.0,
+            0.0,
+            -0.32217
+          ]
+        },
+        "market_paving_53": {
+          "internal_sha256": "f57b2e5542cfd47aeab385cafbccc8763e07da6a074c00dfff113e4ba623f08a",
+          "original_pose": [
+            24.75,
+            -2.1197,
+            0.002,
+            0.0,
+            0.0,
+            -0.2079
+          ]
+        },
+        "market_paving_54": {
+          "internal_sha256": "e8c8027278067648f840c31c097b38f6a2570d1976888bba1bfa28585fa64b40",
+          "original_pose": [
+            25.25,
+            -2.191,
+            0.002,
+            0.0,
+            0.0,
+            -0.072021
+          ]
+        },
+        "paving_joint_54": {
+          "internal_sha256": "d2d361b26e594555842a86c8555c54adaf1dbf462c0178f00d5cb525eb974e5a",
+          "original_pose": [
+            25.25,
+            -2.191,
+            0.0045,
+            0.0,
+            0.0,
+            -0.072021
+          ]
+        },
+        "market_paving_55": {
+          "internal_sha256": "c5230bb4c1ee06afc358754bb84c8660421ff85b8e076a4dbc80612e064b57f6",
+          "original_pose": [
+            25.75,
+            -2.191,
+            0.002,
+            0.0,
+            0.0,
+            0.072021
+          ]
+        },
+        "market_paving_56": {
+          "internal_sha256": "b4411524778b658567034e77179822b59f83b55efbc2a7a3bd1c0d9dfe88fe85",
+          "original_pose": [
+            26.25,
+            -2.1197,
+            0.002,
+            0.0,
+            0.0,
+            0.2079
+          ]
+        },
+        "paving_joint_56": {
+          "internal_sha256": "d1ff6284cdb27a344187747e806c232737ec9ce6a22999e05d9aae57cd6303bf",
+          "original_pose": [
+            26.25,
+            -2.1197,
+            0.0045,
+            0.0,
+            0.0,
+            0.2079
+          ]
+        },
+        "market_paving_57": {
+          "internal_sha256": "f25019426316372ceb0c862f6aecc415768d3d697f639258a55a1ee3517f1cf4",
+          "original_pose": [
+            26.75,
+            -1.9827,
+            0.002,
+            0.0,
+            0.0,
+            0.32217
+          ]
+        },
+        "market_paving_58": {
+          "internal_sha256": "f333e18ad78771ea2ca052ac78590acd56d558cd5f45f26e3cd33644f068f1ed",
+          "original_pose": [
+            27.25,
+            -1.7901,
+            0.002,
+            0.0,
+            0.0,
+            0.40758
+          ]
+        },
+        "paving_joint_58": {
+          "internal_sha256": "626828ec02427fefb0f081aafc2f172725b4dd4216908048d8491d31fbc2bd6e",
+          "original_pose": [
+            27.25,
+            -1.7901,
+            0.0045,
+            0.0,
+            0.0,
+            0.40758
+          ]
+        },
+        "market_paving_59": {
+          "internal_sha256": "3717fd06f23b1679d1ee8fc0878576b8061a282bc9c135e7e88c23dfd0700a07",
+          "original_pose": [
+            27.75,
+            -1.5562,
+            0.002,
+            0.0,
+            0.0,
+            0.46221
+          ]
+        },
+        "market_paving_60": {
+          "internal_sha256": "c22dd07f4d38c30385fcf328c802196dfd405af21810deed763dfdc76d60a5ff",
+          "original_pose": [
+            28.25,
+            -1.2978,
+            0.002,
+            0.0,
+            0.0,
+            0.48699
+          ]
+        },
+        "paving_joint_60": {
+          "internal_sha256": "998d37ab7433410dca4ea419c2513d602588911c4eef5b77528f0f05a1f22094",
+          "original_pose": [
+            28.25,
+            -1.2978,
+            0.0045,
+            0.0,
+            0.0,
+            0.48699
+          ]
+        },
+        "market_paving_61": {
+          "internal_sha256": "41cfa00ce3986def60ad0ee2f7b312dc0ae1ff9e2259860aa4e072f46e83b0a2",
+          "original_pose": [
+            28.75,
+            -1.0326,
+            0.002,
+            0.0,
+            0.0,
+            0.48375
+          ]
+        },
+        "market_paving_62": {
+          "internal_sha256": "c83fd2cc7554630e50455fbedb6a844733fc9132906c79bbdf57896a5c331030",
+          "original_pose": [
+            29.25,
+            -0.77782,
+            0.002,
+            0.0,
+            0.0,
+            0.45458
+          ]
+        },
+        "paving_joint_62": {
+          "internal_sha256": "4fd5fea388c3da396e28d08133a6a0bf631cb8864eea6442715c48bf7fea6535",
+          "original_pose": [
+            29.25,
+            -0.77782,
+            0.0045,
+            0.0,
+            0.0,
+            0.45458
+          ]
+        },
+        "market_paving_63": {
+          "internal_sha256": "e8bfef53a9147a58a80a4f0042ed475cb833fdc77a537312e2c8e52ae822e6df",
+          "original_pose": [
+            29.75,
+            -0.54833,
+            0.002,
+            0.0,
+            0.0,
+            0.40225
+          ]
+        },
+        "market_paving_64": {
+          "internal_sha256": "f7c4cb6702bff0909011e6bed7ca9f0a1eb236496e0190e437dd4407765c2f56",
+          "original_pose": [
+            30.25,
+            -0.35543,
+            0.002,
+            0.0,
+            0.0,
+            0.33122
+          ]
+        },
+        "paving_joint_64": {
+          "internal_sha256": "52ccf6062a4aa108ffd2af9589859f08731f4a8a0a189be4725a172fec7fa8c2",
+          "original_pose": [
+            30.25,
+            -0.35543,
+            0.0045,
+            0.0,
+            0.0,
+            0.33122
+          ]
+        },
+        "market_paving_65": {
+          "internal_sha256": "1982374cb31ca02870ff0f0d6860100e572033854e5502473c1cbe51c71a8270",
+          "original_pose": [
+            30.75,
+            -0.20586,
+            0.002,
+            0.0,
+            0.0,
+            0.2486
+          ]
+        },
+        "market_paving_66": {
+          "internal_sha256": "5fbdf42cb31085e8abaec6ac22da7eee24dd29a3ed8aec114c3ec336c666628f",
+          "original_pose": [
+            31.25,
+            -0.10125,
+            0.002,
+            0.0,
+            0.0,
+            0.16424
+          ]
+        },
+        "paving_joint_66": {
+          "internal_sha256": "8b7f16cecfb615ecb6b709f29aa5f95dec26ccf0061dfee9128e172630c98bea",
+          "original_pose": [
+            31.25,
+            -0.10125,
+            0.0045,
+            0.0,
+            0.0,
+            0.16424
+          ]
+        },
+        "market_paving_67": {
+          "internal_sha256": "cb2fb407a06d3e454ddb9d829e039c090aca4e3563367e1a824016d223fc5b6a",
+          "original_pose": [
+            31.75,
+            -0.038143,
+            0.002,
+            0.0,
+            0.0,
+            0.089204
+          ]
+        },
+        "market_paving_68": {
+          "internal_sha256": "3591985e7cce1b655d551dcc0d922e8d10a559416abbc1beecb136f048e98cbb",
+          "original_pose": [
+            32.25,
+            -0.0084221,
+            0.002,
+            0.0,
+            0.0,
+            0.033398
+          ]
+        },
+        "paving_joint_68": {
+          "internal_sha256": "5d7b03061ea4522fbb6f4906c39353b6eb81b528bda7b73cc3359ce651afea7d",
+          "original_pose": [
+            32.25,
+            -0.0084221,
+            0.0045,
+            0.0,
+            0.0,
+            0.033398
+          ]
+        },
+        "market_paving_69": {
+          "internal_sha256": "e404bffdb86b940d0c690ffa3f01a5e6a08c9a17f5a876d27bad81656f4df04f",
+          "original_pose": [
+            32.75,
+            -0.00031537,
+            0.002,
+            0.0,
+            0.0,
+            0.003781
+          ]
+        },
+        "market_paving_70": {
+          "internal_sha256": "b72a8c487046350e99ddcae0623c2175eebbcce75805b674fc59922bbebf0178",
+          "original_pose": [
+            33.25,
+            0.0,
+            0.002,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "paving_joint_70": {
+          "internal_sha256": "646e513ed05947e78703034c094490881e0fda72b149df04c0a4735c1f515a7e",
+          "original_pose": [
+            33.25,
+            0.0,
+            0.0045,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "market_paving_71": {
+          "internal_sha256": "8cef76e5d4990df76d85451d872f31984cd646bcc03ae93ed638ac79dc047495",
+          "original_pose": [
+            33.75,
+            0.0,
+            0.002,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "entrance_road": {
+          "internal_sha256": "79551c3d23c0a137ac4ba896993b3720675a6b56c925bba393c6f9920e6fd364",
+          "original_pose": [
+            -2.7,
+            0.0,
+            0.01,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "entrance_sidewalk_west": {
+          "internal_sha256": "59c2204513bd418dc6eb11c80c9cd567206671dd16dbceaf7346ef3f19979604",
+          "original_pose": [
+            -6.4,
+            0.0,
+            0.014,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "entrance_sidewalk_market": {
+          "internal_sha256": "e92d72daddbab2fd110a1e5bfd18469c829ccfb047036f0e0cfed791888eb125",
+          "original_pose": [
+            0.25,
+            0.0,
+            0.014,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "crosswalk_stripe_0": {
+          "internal_sha256": "5d2e9c0f33131a342bde99244b4863f2fef665fe3088b91c956bd16cdc95056f",
+          "original_pose": [
+            -4.57,
+            0.0,
+            0.016,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "crosswalk_stripe_1": {
+          "internal_sha256": "f3535fa0459cd691f1d4d9d5dc98c8acfc14c77ae95fa03b20d1b79c620b7e1e",
+          "original_pose": [
+            -3.97,
+            0.0,
+            0.016,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "crosswalk_stripe_2": {
+          "internal_sha256": "60a078bc03538cbdf1d8aad2c73d1203df483b108e42daccd8cef9a1f6457dab",
+          "original_pose": [
+            -3.37,
+            0.0,
+            0.016,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "crosswalk_stripe_3": {
+          "internal_sha256": "8841d2d9ca00294a3721c0d99e766889f6376ae7bf35e8b4ee9ab881cb3b7b1c",
+          "original_pose": [
+            -2.77,
+            0.0,
+            0.016,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "crosswalk_stripe_4": {
+          "internal_sha256": "41bb0b41ce7c19eaa525f108d26a072174ed8dced84cbe0ff633637a33232654",
+          "original_pose": [
+            -2.17,
+            0.0,
+            0.016,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "crosswalk_stripe_5": {
+          "internal_sha256": "feff5bb998dd2b91d8ec6e9a1035219b92ee90647c0d5e71c07d81b72ef805cb",
+          "original_pose": [
+            -1.57,
+            0.0,
+            0.016,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "crosswalk_stripe_6": {
+          "internal_sha256": "4de1862c94020872a1b08ff31186073fd135c6fca16ea119bb3d37f8f83f4e04",
+          "original_pose": [
+            -0.97,
+            0.0,
+            0.016,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "entrance_curb_-4.83_-1": {
+          "internal_sha256": "bdefeccdac1736e7ffbeb61b0bdae56aced1acd992ce19445d396680437c7e64",
+          "original_pose": [
+            -4.83,
+            -4.8,
+            0.07,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "entrance_curb_-0.57_-1": {
+          "internal_sha256": "80cef074a5d7a5e648c95b8e4450464dce21bef37cad6404877e517a6087a1c8",
+          "original_pose": [
+            -0.57,
+            -4.8,
+            0.07,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "road_stop_line_-1": {
+          "internal_sha256": "6f6608912713b03fe35595354293f1cb7b9e1395f0e8b4574a929d336ea8e8b8",
+          "original_pose": [
+            -1.65,
+            -2.0,
+            0.016,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "road_center_line_-1_0": {
+          "internal_sha256": "e0dffce05637a7c5af71543fbbad3da8d74d0c53ae3de98eeb97712ab1be81e0",
+          "original_pose": [
+            -2.7,
+            -3.2,
+            0.016,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "road_center_line_-1_1": {
+          "internal_sha256": "bedd665f65db704f6bc5fa353670912a16d4f7fd0c2fdd7ff7e3cecec606280b",
+          "original_pose": [
+            -2.7,
+            -4.45,
+            0.016,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "road_center_line_-1_2": {
+          "internal_sha256": "dbca469e61784c50f344484bb74600ff68f72da2c1352e0be78d17285e9917d5",
+          "original_pose": [
+            -2.7,
+            -5.7,
+            0.016,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "road_center_line_-1_3": {
+          "internal_sha256": "cee2b053f857f54e27b9be9d2c31615d614593ea2537dec9a5e011364301dcbd",
+          "original_pose": [
+            -2.7,
+            -6.95,
+            0.016,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "entrance_curb_-4.83_1": {
+          "internal_sha256": "7856a2fd30146b84b961048a0c2cb7c94e7bd758882d9ca7a5246237ac51633a",
+          "original_pose": [
+            -4.83,
+            4.8,
+            0.07,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "entrance_curb_-0.57_1": {
+          "internal_sha256": "aa13123ad69bf436333becef6654676579d8b9a318d649ae60bcc1a2efec602c",
+          "original_pose": [
+            -0.57,
+            4.8,
+            0.07,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "road_stop_line_1": {
+          "internal_sha256": "5184ce2a1caf9b68b46efc46a72b18b3c64b436a63ecedd2c8698ac71f8bc0cb",
+          "original_pose": [
+            -3.75,
+            2.0,
+            0.016,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "road_center_line_1_0": {
+          "internal_sha256": "0cafec364a3295afd8676c01217a0db912b766e7659945a7b3b63a8ed960b25a",
+          "original_pose": [
+            -2.7,
+            3.2,
+            0.016,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "road_center_line_1_1": {
+          "internal_sha256": "009f0cc420671a77f8658fd9833934a9f7b7b5a1d3b551fa41d0f074d6392ac5",
+          "original_pose": [
+            -2.7,
+            4.45,
+            0.016,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "road_center_line_1_2": {
+          "internal_sha256": "0f62c4e29f047f9d35f67d44cb64e354b31ee8348a70b2b69b85b67244391642",
+          "original_pose": [
+            -2.7,
+            5.7,
+            0.016,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "road_center_line_1_3": {
+          "internal_sha256": "97f719d2a5137c581ec80061d2b51909b0f60f23b241a909d49d8d5be7d3d93c",
+          "original_pose": [
+            -2.7,
+            6.95,
+            0.016,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "crosswalk_tactile_0": {
+          "internal_sha256": "0b4b59749e09164187ea24d5b926dcab559de54061540febe53d5e99949024ec",
+          "original_pose": [
+            -5.2,
+            0.0,
+            0.019,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "tactile_mark_0_0": {
+          "internal_sha256": "13b8cfc590ff9759df2b28d64bcc42373abe273f979fb3e2b0635532175c442c",
+          "original_pose": [
+            -5.2,
+            -1.3,
+            0.022,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "tactile_mark_0_1": {
+          "internal_sha256": "c0085c1c17e78823696531700a72e609ac670a87b121612f53a80d62aeb38f0f",
+          "original_pose": [
+            -5.2,
+            -1.065,
+            0.022,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "tactile_mark_0_2": {
+          "internal_sha256": "03669059af246a3f989ea9d93a4b21a80ac5943c2559e099cc2334fcf5d95734",
+          "original_pose": [
+            -5.2,
+            -0.83,
+            0.022,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "tactile_mark_0_3": {
+          "internal_sha256": "21b61ea0aec382c289f31fb6130e3f0d2a9360b95ae2fb7d4f38de983821bdd5",
+          "original_pose": [
+            -5.2,
+            -0.595,
+            0.022,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "tactile_mark_0_4": {
+          "internal_sha256": "ab0a5aae19c1e4bdb90652d2cb6a47b4f283dcd43a5005c84691fc1ae2a86c1c",
+          "original_pose": [
+            -5.2,
+            -0.36,
+            0.022,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "tactile_mark_0_5": {
+          "internal_sha256": "9ced99e4b25968d29bb6326604b9f035bb35c12ea15b65389388ac6bfc519738",
+          "original_pose": [
+            -5.2,
+            -0.125,
+            0.022,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "tactile_mark_0_6": {
+          "internal_sha256": "a50a249060ccffc1f35bc00a880a9ab873e8a83cecc67c1f18921e77be960488",
+          "original_pose": [
+            -5.2,
+            0.11,
+            0.022,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "tactile_mark_0_7": {
+          "internal_sha256": "666d187b249793f9758a6ff58a18e80943910820305eea560ffb673fa3795dfd",
+          "original_pose": [
+            -5.2,
+            0.345,
+            0.022,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "tactile_mark_0_8": {
+          "internal_sha256": "23f750c5c4d678c508e8edc0847159874f9289c520c78b6dfc7248f64ad0da7c",
+          "original_pose": [
+            -5.2,
+            0.58,
+            0.022,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "tactile_mark_0_9": {
+          "internal_sha256": "bf34622b33ebf33f85c020cbcb89825fb2028feba6858249fbcd70a140e730ce",
+          "original_pose": [
+            -5.2,
+            0.815,
+            0.022,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "tactile_mark_0_10": {
+          "internal_sha256": "7ca9d39223db79e20fc9b0e3f39e84b6460e815535aaf8737274430539c6179a",
+          "original_pose": [
+            -5.2,
+            1.05,
+            0.022,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "tactile_mark_0_11": {
+          "internal_sha256": "d3e2bdeb825d67d22fe1c5184e4acdabb8e0bcc3c135ecc5dbd2f298e6b47e1c",
+          "original_pose": [
+            -5.2,
+            1.285,
+            0.022,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "crosswalk_tactile_1": {
+          "internal_sha256": "fe92dd46037d31ddedbde9d1eed95b51cdecb0c4fe57335152d8a9aecfb0d77f",
+          "original_pose": [
+            -0.2,
+            0.0,
+            0.019,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "tactile_mark_1_0": {
+          "internal_sha256": "0e76847220cadcada49c6363c7b82c56bc1b13a10e3c147b69519ed85307e218",
+          "original_pose": [
+            -0.2,
+            -1.3,
+            0.022,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "tactile_mark_1_1": {
+          "internal_sha256": "7af034d9c9d641236ca338a44a8938017f87f3922419e54b57c14bf081f3ea96",
+          "original_pose": [
+            -0.2,
+            -1.065,
+            0.022,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "tactile_mark_1_2": {
+          "internal_sha256": "40c83bfcc3422cc44f05ab6338fefe72d10a75fc08a3a5e50e38cbe1e149df57",
+          "original_pose": [
+            -0.2,
+            -0.83,
+            0.022,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "tactile_mark_1_3": {
+          "internal_sha256": "b39b0f4374edbe342f13d3abd0e3f6a5926935a141409537ac9639109e6c60ad",
+          "original_pose": [
+            -0.2,
+            -0.595,
+            0.022,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "tactile_mark_1_4": {
+          "internal_sha256": "7bbcefd8059a545a79b420b0d02deb9f8624f0db7a6c328123c8443d5d6f9948",
+          "original_pose": [
+            -0.2,
+            -0.36,
+            0.022,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "tactile_mark_1_5": {
+          "internal_sha256": "600ae0714428819bdabedcd9298b50648699f598818eb5e08684cbe911de9377",
+          "original_pose": [
+            -0.2,
+            -0.125,
+            0.022,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "tactile_mark_1_6": {
+          "internal_sha256": "09bfb6fbd732480ff11a60bf859893ea464930234cd3139f0ae01dc37e351d96",
+          "original_pose": [
+            -0.2,
+            0.11,
+            0.022,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "tactile_mark_1_7": {
+          "internal_sha256": "1c35887e7580cdd5d61f30c73f492a521481dfc9660474a95ed188cce0bf1fb9",
+          "original_pose": [
+            -0.2,
+            0.345,
+            0.022,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "tactile_mark_1_8": {
+          "internal_sha256": "f202221a7a0122f9a1c708b091a5eb29057d857c6f3ca0f1824cef20b1344587",
+          "original_pose": [
+            -0.2,
+            0.58,
+            0.022,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "tactile_mark_1_9": {
+          "internal_sha256": "bacb65edb448d4f62e209659bd10f6043c063c72e4fafe13a90646c3f9cb54c1",
+          "original_pose": [
+            -0.2,
+            0.815,
+            0.022,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "tactile_mark_1_10": {
+          "internal_sha256": "cf31807fd82a703a638228b5173e6993d4a3a78d3cd5ff81cc6575cb98bec327",
+          "original_pose": [
+            -0.2,
+            1.05,
+            0.022,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "tactile_mark_1_11": {
+          "internal_sha256": "72f239e38b4c297ff869a95a5592a19cd9f0f63a10d0c0ef484562828e2942c2",
+          "original_pose": [
+            -0.2,
+            1.285,
+            0.022,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "crosswalk_sign_pole": {
+          "internal_sha256": "2f8b0ca772d58fd071600e182e6745030d9f17ad1170aeeed11faf5de49cd21e",
+          "original_pose": [
+            0.0,
+            2.1,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "crosswalk_sign_back": {
+          "internal_sha256": "39929c5700c4a3545d3639bb065d637e8aa6e14f3b7b008619b6aa410cb36164",
+          "original_pose": [
+            0.0,
+            2.1,
+            2.15,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "sign_crosswalk": {
+          "internal_sha256": "6307d6768d0bea59618ff3bba4750e36916c172170608e911f9389a207df91e2",
+          "original_pose": [
+            -0.048,
+            2.1,
+            2.15,
+            0.0,
+            0.0,
+            -1.5708
+          ]
+        },
+        "ped_signal_west_housing": {
+          "internal_sha256": "84c71881bb909e331b14f35ef74c7fc0ebe09d50a108dd37ff37c19af51fdeb3",
+          "original_pose": [
+            -5.35,
+            1.95,
+            0.0,
+            0.0,
+            0.0,
+            1.5708
+          ]
+        },
+        "ped_signal_west_red": {
+          "internal_sha256": "be9022a07499833c106ca0e02a264605de8719e0466fe4e2be63f14476ed311c",
+          "original_pose": [
+            -5.35,
+            1.95,
+            0.0,
+            0.0,
+            0.0,
+            1.5708
+          ]
+        },
+        "ped_signal_west_green": {
+          "internal_sha256": "c9dc9482964e27bd054c348382cd747af89e83c7b9e9c932e391fee0b2c76d0a",
+          "original_pose": [
+            -5.35,
+            1.95,
+            -5.0,
+            0.0,
+            0.0,
+            1.5708
+          ]
+        },
+        "ped_signal_east_housing": {
+          "internal_sha256": "f1fde8e169dd65c8a460c238e1d07cf5c6930412b5eaf05dbc5a5470af0c01ad",
+          "original_pose": [
+            0.1,
+            -1.95,
+            0.0,
+            0.0,
+            0.0,
+            -1.5708
+          ]
+        },
+        "ped_signal_east_red": {
+          "internal_sha256": "13d1118f95346f031ac14fd2dc4d7223e5f5d8d55cb1cc21b64ccbbe08628cc8",
+          "original_pose": [
+            0.1,
+            -1.95,
+            0.0,
+            0.0,
+            0.0,
+            -1.5708
+          ]
+        },
+        "ped_signal_east_green": {
+          "internal_sha256": "f1235b759d1a0a534d465b8e611df517fb6235afb10d27d7e2c12a34c53ed8f3",
+          "original_pose": [
+            0.1,
+            -1.95,
+            -5.0,
+            0.0,
+            0.0,
+            -1.5708
+          ]
+        },
+        "cross_aisle": {
+          "internal_sha256": "b99d42060ba2c24f0a07b37e5002fa09aa091c424eeae2d067bf83183e4cbfe1",
+          "original_pose": [
+            17.0,
+            0.019772,
+            0.006,
+            0.0,
+            0.0,
+            -0.058381
+          ]
+        },
+        "boundary_-1": {
+          "internal_sha256": "e28806939b236e0c4de21bc72009109a890bb22a3e1ebdb04359ac78bc2a0029",
+          "original_pose": [
+            16.0,
+            -10.5,
+            0.5,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "entrance_post_-1": {
+          "internal_sha256": "870ee3c87ef245aab20586e0dae9cc14ea13503cd6b2eb270e526f634cc1bca9",
+          "original_pose": [
+            1.5,
+            -3.25,
+            1.8,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "boundary_1": {
+          "internal_sha256": "c40abb7bfba5f1493ae1251515cec472ec384993f52e4f69f6e243a5a1cbf689",
+          "original_pose": [
+            16.0,
+            10.5,
+            0.5,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "entrance_post_1": {
+          "internal_sha256": "c15db0647265b77ee5e84e2ca17f4c5b5db5a600309777edb4a85a896be9599d",
+          "original_pose": [
+            1.5,
+            3.25,
+            1.8,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "entrance_header": {
+          "internal_sha256": "98de47a9abc666f728b05492b94137583cc6457a6fdc970522112c96ee33a9d8",
+          "original_pose": [
+            1.5,
+            0.0,
+            3.6,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "sign_entrance": {
+          "internal_sha256": "d86aa8164a0805025fdef293f34523024ffdd8a961cb955914f1d6e97b079a82",
+          "original_pose": [
+            1.365,
+            0.0,
+            3.6,
+            0.0,
+            0.0,
+            -1.5708
+          ]
+        },
+        "stall_00": {
+          "internal_sha256": "7fd7cbed912a7330d0417ce99ed607844d487c445c11177a727ff0f83d04268c",
+          "original_pose": [
+            6.0,
+            4.8968,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "signboard_0": {
+          "internal_sha256": "06e01caceefe6b6f755b140113de37270cac142e3689e922a15bd4204c38872c",
+          "original_pose": [
+            6.0,
+            3.1368,
+            2.24,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "sign_shop_0": {
+          "internal_sha256": "2665b40b65ab5831fce4408c8a46e22c6906de73be65e773a25b523e18658211",
+          "original_pose": [
+            6.0,
+            3.0888,
+            2.24,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "stall_01": {
+          "internal_sha256": "b8cb265f8731a92c5bdf1b2014154b338cb3bd7e8a1cc6793237a74c46a3d965",
+          "original_pose": [
+            12.0,
+            6.3425,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "signboard_1": {
+          "internal_sha256": "5aacee722cedf673dd8dbe23db2a9e2e1139fae4c9e6086d1d84bb442d8d9a5a",
+          "original_pose": [
+            12.0,
+            4.5825,
+            2.24,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "sign_shop_1": {
+          "internal_sha256": "3b5a007bb3475e30c5d292e127788384dfe7e32ae778eb487f44345d05a717da",
+          "original_pose": [
+            12.0,
+            4.5345,
+            2.24,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "stall_02": {
+          "internal_sha256": "ba2c960082b99764e505bffa3e1ba66239330dee62d51cd879be817dfa62a29d",
+          "original_pose": [
+            22.0,
+            3.5471,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "signboard_2": {
+          "internal_sha256": "c000844c9fd4fe7404c84c69a2c172f717faf01219a2a0f4036a1f2af9a3600e",
+          "original_pose": [
+            22.0,
+            1.7871,
+            2.24,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "sign_shop_2": {
+          "internal_sha256": "f3cf106861d1633b4b80df234c6e4b8be4dc431dc0f13e1f32a3f5ab259225e5",
+          "original_pose": [
+            22.0,
+            1.7391,
+            2.24,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "stall_03": {
+          "internal_sha256": "0c7d3ccee1854dfe267b3d32d6d8f00ad59610bb02c5ccdd3cf5fb65d0ecf2fa",
+          "original_pose": [
+            28.0,
+            3.0211,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "signboard_3": {
+          "internal_sha256": "bcb0701a88bfd64a8dd79ed17793f9c138fecfc4765c80535b40908a84851b6c",
+          "original_pose": [
+            28.0,
+            1.2611,
+            2.24,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "sign_shop_3": {
+          "internal_sha256": "3c56951cf61a6da074255a6dd351b4e020cd2dae05f518c0984a21e91a9c8b3f",
+          "original_pose": [
+            28.0,
+            1.2131,
+            2.24,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "stall_04": {
+          "internal_sha256": "343c4a7e5344f6d2b7fa94c7c538298e1cf507ddfe9e42ee453d95e459bfaf90",
+          "original_pose": [
+            6.0,
+            -4.0032,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "signboard_4": {
+          "internal_sha256": "6d235554c73d23eea1be9827a5422495b52de6fc71caefbdb4bf58e0f1310e93",
+          "original_pose": [
+            6.0,
+            -2.2432,
+            2.24,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "sign_shop_4": {
+          "internal_sha256": "3a6b1fb18e25fa88c8e019a5d3a328692f5737258be67581460630b3782afb31",
+          "original_pose": [
+            6.0,
+            -2.1952,
+            2.24,
+            0.0,
+            0.0,
+            3.1416
+          ]
+        },
+        "stall_05": {
+          "internal_sha256": "8067388d2bafcb75baab0b1a85d1daa6ec17f48083029119beec01fbec28687e",
+          "original_pose": [
+            12.0,
+            -2.5575,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "signboard_5": {
+          "internal_sha256": "09dc7799f9ba88dbc00580ebb535c69b285db2122f597d76c1f3bbeea9fcd7e9",
+          "original_pose": [
+            12.0,
+            -0.79747,
+            2.24,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "sign_shop_5": {
+          "internal_sha256": "f3ba724c097a3d4512bdd237d8a4eb9ca5379f3aaccea37aa5e3e90852c6d1d7",
+          "original_pose": [
+            12.0,
+            -0.74947,
+            2.24,
+            0.0,
+            0.0,
+            3.1416
+          ]
+        },
+        "stall_06": {
+          "internal_sha256": "a9caad85f5d4b1b6de2badf75e8b7a4d4b524664c1bd75017e51bacb4b7153c0",
+          "original_pose": [
+            22.0,
+            -5.3529,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "signboard_6": {
+          "internal_sha256": "8869d8c6b3c6c955ec63addb2efbcd58b012070737a90acfe0035b14b0e0f5d2",
+          "original_pose": [
+            22.0,
+            -3.5929,
+            2.24,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "sign_shop_6": {
+          "internal_sha256": "eedc60e62ceae6a7a7994653ea2441c1ab39510c23017b04556846e09d4dacf4",
+          "original_pose": [
+            22.0,
+            -3.5449,
+            2.24,
+            0.0,
+            0.0,
+            3.1416
+          ]
+        },
+        "stall_07": {
+          "internal_sha256": "b13b316642d703aea873e7b82a1a44e45bdd215edab3f8d20857c965a3c0f5c5",
+          "original_pose": [
+            28.0,
+            -5.8789,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "signboard_7": {
+          "internal_sha256": "d7dcbd5178e1d71eacd6354a3cba6c8f027dccf539ba757c77c57c6adc7073b0",
+          "original_pose": [
+            28.0,
+            -4.1189,
+            2.24,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "sign_shop_7": {
+          "internal_sha256": "bbed828dae25864a8eb48ec7a2474617dbfaaf56f7d117ebebd6d6793958fdc9",
+          "original_pose": [
+            28.0,
+            -4.0709,
+            2.24,
+            0.0,
+            0.0,
+            3.1416
+          ]
+        },
+        "shopper_fruit": {
+          "internal_sha256": "f13ec113f506caa90eae61a4da90fead78270a31372d1459b568978bd6a18f74",
+          "original_pose": [
+            5.4053,
+            1.9859,
+            0.0,
+            0.0,
+            0.0,
+            1.9395
+          ]
+        },
+        "shopper_crossing": {
+          "internal_sha256": "07f19ef13e12d211818a615926c7790df0d5543c338de842c42ae1d45403e7fd",
+          "original_pose": [
+            16.71,
+            1.0471,
+            0.0,
+            0.0,
+            0.0,
+            3.0315
+          ]
+        },
+        "shopper_grocery": {
+          "internal_sha256": "8cb76ec67d109820ab73a5df043146438e3baa2ce0cb94bac3e0b54570218669",
+          "original_pose": [
+            20.405,
+            -1.9859,
+            0.0,
+            0.0,
+            0.0,
+            -1.9395
+          ]
+        },
+        "shopper_flowers": {
+          "internal_sha256": "1e5d0294e3877972b40b11898621a0998aea8d336c09ce1f8ba4a6f5461fa227",
+          "original_pose": [
+            29.682,
+            -2.2387,
+            0.0,
+            0.0,
+            0.0,
+            -1.0985
+          ]
+        },
+        "shopper_exit": {
+          "internal_sha256": "9fcb19b48a8a85c886d0094839d33f3ee87f2deb3511d17fcabc515e9488c5c8",
+          "original_pose": [
+            31.901,
+            1.6773,
+            0.0,
+            0.0,
+            0.0,
+            0.058381
+          ]
+        },
+        "vendor_0": {
+          "internal_sha256": "632d86d2dbe8f217d51fadf669054981ac7a51cf6c1bb7e6f04ab4c98e8ad3d7",
+          "original_pose": [
+            4.3962,
+            4.5977,
+            0.0,
+            0.0,
+            0.0,
+            -1.2021
+          ]
+        },
+        "vendor_1": {
+          "internal_sha256": "3f75eccb6ef39a72d0d4858f7fedf4e3e57a829b1b31a89e7bce7d15f478a67c",
+          "original_pose": [
+            10.396,
+            -2.2584,
+            0.0,
+            0.0,
+            0.0,
+            1.2021
+          ]
+        },
+        "vendor_2": {
+          "internal_sha256": "8fbd05ab60c221949584f6e27d40f53f5c64fa74d84a4df78a4724003d86738b",
+          "original_pose": [
+            24.024,
+            3.06,
+            0.0,
+            0.0,
+            0.0,
+            -2.0431
+          ]
+        },
+        "vendor_3": {
+          "internal_sha256": "c2469603f188f7d0d0bfbbab5ab684f9c83dcd88e9534cdc350856caa40b0fc7",
+          "original_pose": [
+            30.048,
+            -5.3797,
+            0.0,
+            0.0,
+            0.0,
+            2.049
+          ]
+        },
+        "motorcycle_delivery": {
+          "internal_sha256": "e56ed6ae6df61b2cf9e7881e77e9866afce993df531c0c735b2f9a32dc13d986",
+          "original_pose": [
+            12.93,
+            -0.40058,
+            0.0,
+            0.0,
+            0.0,
+            -0.30528
+          ]
+        },
+        "motorcycle_parked": {
+          "internal_sha256": "9e450d574cfab2f106c0731bf92bfd9906bd0c63d27941057be209eac0d7e9cb",
+          "original_pose": [
+            25.448,
+            -0.54924,
+            0.0,
+            0.0,
+            0.0,
+            2.9627
+          ]
+        },
+        "aisle_display_-1": {
+          "internal_sha256": "8c556d8573d15f034f8c9861debde8c0b5009c159a1ec58077cb0b6dbc6906df",
+          "original_pose": [
+            10.233,
+            0.53064,
+            0.3,
+            0.0,
+            0.0,
+            0.14195
+          ]
+        },
+        "aisle_display_1": {
+          "internal_sha256": "8d3e392e79f3578aef494b62a4d8c964873989eb3a6cf9193bb7f73a36faa000",
+          "original_pose": [
+            9.7666,
+            3.7974,
+            0.3,
+            0.0,
+            0.0,
+            0.14195
+          ]
+        },
+        "handcart_unloading": {
+          "internal_sha256": "f0908aab464f5c5bb493b137a8e384cfba98007fbf3b066a49c5087f7fed63e3",
+          "original_pose": [
+            19.803,
+            1.3575,
+            0.0,
+            0.0,
+            0.0,
+            -0.14026
+          ]
+        },
+        "handcart_waiting": {
+          "internal_sha256": "ab19b610a20a8567755c9288c416f5ebe0de25eabecc67e9a7936587064d160f",
+          "original_pose": [
+            31.216,
+            -1.8932,
+            0.0,
+            0.0,
+            0.0,
+            0.36006
+          ]
+        },
+        "stock_stack_0_0": {
+          "internal_sha256": "8a04d1f7a3eaaf359c470ce9e09ab99fd7e227efe4cc8f30296f516afb2d5934",
+          "original_pose": [
+            9.5456,
+            -0.15392,
+            0.2,
+            0.0,
+            0.0,
+            0.41442
+          ]
+        },
+        "stock_stack_0_1": {
+          "internal_sha256": "40183c1ac214ff6f346bff9d5197895803f5783731296e86933faed2308f0b24",
+          "original_pose": [
+            9.5456,
+            -0.15392,
+            0.6,
+            0.0,
+            0.0,
+            0.41442
+          ]
+        },
+        "stock_stack_1_0": {
+          "internal_sha256": "3870827965ec4988ca37bfe9dcce2ca6aa34121fcabf32f9aa3d8cab99da9795",
+          "original_pose": [
+            15.648,
+            2.5571,
+            0.2,
+            0.0,
+            0.0,
+            -0.3959
+          ]
+        },
+        "stock_stack_1_1": {
+          "internal_sha256": "01322f132ae22967e31d1be0d26a076c72e78494693e1c0ef694309dc3991d82",
+          "original_pose": [
+            15.648,
+            2.5571,
+            0.6,
+            0.0,
+            0.0,
+            -0.3959
+          ]
+        },
+        "stock_stack_2_0": {
+          "internal_sha256": "5aed401f0042b4155e55a2f4f16660b8c03aa912bea74014b37f4e6d8c2354c2",
+          "original_pose": [
+            22.587,
+            -3.6237,
+            0.2,
+            0.0,
+            0.0,
+            -0.43872
+          ]
+        },
+        "stock_stack_2_1": {
+          "internal_sha256": "3cddeb3eb7508de8bd3cab663ee3597fce44795e774c41cc8997827bb636d634",
+          "original_pose": [
+            22.587,
+            -3.6237,
+            0.6,
+            0.0,
+            0.0,
+            -0.43872
+          ]
+        },
+        "stock_stack_3_0": {
+          "internal_sha256": "be2597a994d81a64046461e99f679fecc18fe928a589fc8ead35284ae850328b",
+          "original_pose": [
+            26.304,
+            -4.2924,
+            0.2,
+            0.0,
+            0.0,
+            0.14195
+          ]
+        },
+        "stock_stack_3_1": {
+          "internal_sha256": "ec68764b2d295a8ff8e4ed854f8bdfb373444cd5f70b560e7c20d5465a72f403",
+          "original_pose": [
+            26.304,
+            -4.2924,
+            0.6,
+            0.0,
+            0.0,
+            0.14195
+          ]
+        },
+        "crowd_00": {
+          "internal_sha256": "5d68b6f163ff54bfa0f9c30f4c3b7fc8127abef1c33ae71d872138c5b6cf1e79",
+          "original_pose": [
+            3.7356,
+            1.709,
+            0.0,
+            0.0,
+            0.0,
+            1.4379
+          ]
+        },
+        "crowd_01": {
+          "internal_sha256": "e259ac507c6216ff9f5248d72726dfcf5dcdc6c0c613f08651aed0625c9c450c",
+          "original_pose": [
+            4.0963,
+            -1.6274,
+            0.0,
+            0.0,
+            0.0,
+            -1.1416
+          ]
+        },
+        "crowd_02": {
+          "internal_sha256": "da76f2e4ea37b039e54e58e312cfa8c9be66d458407dc8c9a8faccec642b49f5",
+          "original_pose": [
+            7.988,
+            -0.49997,
+            0.0,
+            0.0,
+            0.0,
+            -1.018
+          ]
+        },
+        "crowd_03": {
+          "internal_sha256": "0f61dfab0f8701939bed8354a077660e1c454179a52b9bfc8305fc18ca886b19",
+          "original_pose": [
+            11.937,
+            3.6499,
+            0.0,
+            0.0,
+            0.0,
+            1.2317
+          ]
+        },
+        "crowd_04": {
+          "internal_sha256": "6ba82e02b222c06739a773a3a89c8066125a965fcb8a92a72fb92e26df005a08",
+          "original_pose": [
+            12.964,
+            3.2786,
+            0.0,
+            0.0,
+            0.0,
+            0.98558
+          ]
+        },
+        "crowd_05": {
+          "internal_sha256": "556dedf21b0c6e305d2c67adeb69af5400efffb3440b49a17173789ea351cc61",
+          "original_pose": [
+            14.744,
+            -1.3209,
+            0.0,
+            0.0,
+            0.0,
+            0.27667
+          ]
+        },
+        "crowd_06": {
+          "internal_sha256": "87c9252ad4ede4c0bafcf957ccbc8c15a033ef9b68905e3ee37338c250fa7b6f",
+          "original_pose": [
+            17.804,
+            1.4502,
+            0.0,
+            0.0,
+            0.0,
+            2.7976
+          ]
+        },
+        "crowd_07": {
+          "internal_sha256": "aadb03ea6d4011d3af75f51ccb992d7dae03554f2c35dec5053dd302bb72a17b",
+          "original_pose": [
+            18.0,
+            -1.45,
+            0.0,
+            0.0,
+            0.0,
+            0.2
+          ]
+        },
+        "crowd_08": {
+          "internal_sha256": "69e7174f31e0f9e73583c70cb9a70f45c12a9ea8800e7812e323fe6c5d2251f5",
+          "original_pose": [
+            23.851,
+            -0.011381,
+            0.0,
+            0.0,
+            0.0,
+            1.0273
+          ]
+        },
+        "crowd_09": {
+          "internal_sha256": "6a05044ce42e928ba08674c606b583423ac1f068023e09378067fbc44c76d371",
+          "original_pose": [
+            23.405,
+            -3.4316,
+            0.0,
+            0.0,
+            0.0,
+            -1.8687
+          ]
+        },
+        "crowd_10": {
+          "internal_sha256": "b0c1fe8a89b2eef036ce92f9d51e875431ea00ff7bc2de6ce788d00882555deb",
+          "original_pose": [
+            28.119,
+            0.55542,
+            0.0,
+            0.0,
+            0.0,
+            1.9776
+          ]
+        },
+        "crowd_11": {
+          "internal_sha256": "a146b32c77a3d4b3183a354c696b6f4d422f0fc2ef09fd8843cdf48ee248f92a",
+          "original_pose": [
+            31.169,
+            1.5555,
+            0.0,
+            0.0,
+            0.0,
+            0.34026
+          ]
+        },
+        "motorcycle_unloading": {
+          "internal_sha256": "46470eb1f0bf61615448ad78cb2c274491bb4c403e711724a0d3623ce21aceb3",
+          "original_pose": [
+            19.404,
+            -1.4645,
+            0.0,
+            0.0,
+            0.0,
+            -0.14026
+          ]
+        },
+        "crossing_pedestrian_1": {
+          "internal_sha256": "9e4d79252659efee0d809fc4a4fb87c0074f591e674f78924aea9bdd1be432e3",
+          "original_pose": [
+            -5.7,
+            -0.75,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "crossing_pedestrian_2": {
+          "internal_sha256": "68b3d59a64a26186075d53a1946abbe28b0fc497c23f9b16b4d91b904fa687b1",
+          "original_pose": [
+            0.5,
+            0.75,
+            0.0,
+            0.0,
+            0.0,
+            3.1416
+          ]
+        },
+        "traffic_motorcycle_1": {
+          "internal_sha256": "0e3abe24f9507432cb3ba1f128486433c51a7a1d60feb9368eabd9b2380378cb",
+          "original_pose": [
+            -1.65,
+            -5.8,
+            0.0,
+            0.0,
+            0.0,
+            1.5708
+          ]
+        },
+        "traffic_motorcycle_2": {
+          "internal_sha256": "3525cfbb158e397cbdcf7773b5c98694a9bc416579212c2cbac4d82c6f187cde",
+          "original_pose": [
+            -3.75,
+            5.8,
+            0.0,
+            0.0,
+            0.0,
+            -1.5708
+          ]
+        },
+        "stop_0_-0.7_0": {
+          "internal_sha256": "8390903fdf4b8467d0343f958d75ddf8a8ea85987377f1943e3f18c2deb7e0d6",
+          "original_pose": [
+            7.2183,
+            1.6947,
+            0.009,
+            0.0,
+            0.0,
+            0.48875
+          ]
+        },
+        "stop_0_0.7_0": {
+          "internal_sha256": "1a97132b4b29f5b746c57205a96cf8242fd629cd8476d54753c194150dd6e005",
+          "original_pose": [
+            8.6746,
+            2.409,
+            0.009,
+            0.0,
+            0.0,
+            0.38518
+          ]
+        },
+        "stop_0_0_-0.6": {
+          "internal_sha256": "e287af8a3887dc2ce62721020f28adbdfbfdc75e4f083be15357cc82d71c911d",
+          "original_pose": [
+            8.2,
+            1.5312,
+            0.009,
+            0.0,
+            0.0,
+            0.46601
+          ]
+        },
+        "stop_0_0_0.6": {
+          "internal_sha256": "02c57b7e4b45997e1102a7435c178dde055920ff5c3a1b64fbd8114762e8b11b",
+          "original_pose": [
+            7.6608,
+            2.6032,
+            0.009,
+            0.0,
+            0.0,
+            0.46601
+          ]
+        },
+        "stop_1_-0.7_0": {
+          "internal_sha256": "b0a080d8a121e4f0c8339c4711d1407d2bf0b2e20d1ed26cd659e441031c6648",
+          "original_pose": [
+            26.659,
+            -1.2728,
+            0.009,
+            0.0,
+            0.0,
+            0.35099
+          ]
+        },
+        "stop_1_0.7_0": {
+          "internal_sha256": "c62fee3bbffaae7df5a9c9dde0170a425eb23493866eaec1410df476172847d6",
+          "original_pose": [
+            27.972,
+            -0.65294,
+            0.009,
+            0.0,
+            0.0,
+            0.4879
+          ]
+        },
+        "stop_1_0_-0.6": {
+          "internal_sha256": "cb675edd29d88c5ef54d7fdc1ac67cab3eedd374a108686604666ee6b6abb1e2",
+          "original_pose": [
+            27.557,
+            -1.5397,
+            0.009,
+            0.0,
+            0.0,
+            0.44903
+          ]
+        },
+        "stop_1_0_0.6": {
+          "internal_sha256": "5bad58f3e624830a8a8d9091b38b72b7f32933906b7bec73b62d576c916bfeaa",
+          "original_pose": [
+            27.036,
+            -0.45861,
+            0.009,
+            0.0,
+            0.0,
+            0.44903
+          ]
+        },
+        "stop_2_-0.7_0": {
+          "internal_sha256": "0d8aa700f406006ff8f7c0d5348748119a0987886881fd24ece35d139bb3a14b",
+          "original_pose": [
+            32.3,
+            -0.0068584,
+            0.009,
+            0.0,
+            0.0,
+            0.029174
+          ]
+        },
+        "stop_2_0.7_0": {
+          "internal_sha256": "26dca54df54c73ef13ab7c9507861abef6d3f674f547c633e27b429410cfde94",
+          "original_pose": [
+            33.7,
+            0.0,
+            0.009,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "stop_2_0_-0.6": {
+          "internal_sha256": "17f555fd4786047750d44c6a95bfcfea232d19458bb680b2f225453ae4c051dd",
+          "original_pose": [
+            33.0,
+            -0.6,
+            0.009,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "stop_2_0_0.6": {
+          "internal_sha256": "c7f899936fe5fe56448f4eddab14702d565e42089989967d445611536aa8baca",
+          "original_pose": [
+            33.0,
+            0.6,
+            0.009,
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "source_robot_includes": []
+    }
+  ],
+  "starts": {
+    "apartment": {
+      "x": -45.78,
+      "y": 0,
+      "z": 0.82,
+      "yaw": 0
+    },
+    "market": {
+      "x": -6.2,
+      "y": 0,
+      "z": 0.3,
+      "yaw": 0
+    },
+    "city": {
+      "x": -18.5,
+      "y": 15.6,
+      "z": 0.375,
+      "yaw": 1.5707963267948966
+    }
+  },
+  "connectors": [
+    "integration_parking_market_path",
+    "integration_city_branch",
+    "integration_city_access_ramp"
+  ],
+  "notes": [
+    "All source environment models are retained. Only their top-level world pose is transformed.",
+    "World-level physics, lighting and renderer are shared from the market world; source worlds are unmodified.",
+    "Source robot includes are not duplicated. The dedicated launcher spawns one unchanged dayeong robot.",
+    "The city ground is at Z=-.025, apartment ground at Z=-.05; imported grounds and dimensions are preserved.",
+    "The latest apartment source has an open fixed door frame, not animated door panels."
+  ]
+}
