@@ -46,33 +46,149 @@
       </link>
     </model>
 
-    <model name="entrance_stairs">
-      <static>true</static>
-      <pose>5.0 0 0 0 0 -1.570796</pose>
-      <link name="landing">
-        <pose>0 3.5 0.25 0 0 0</pose> 
-        <collision name="collision"><geometry><box><size>4.6 6.0 0.5</size></box></geometry></collision>
-        <visual name="visual"><geometry><box><size>4.6 6.0 0.5</size></box></geometry>
-        <material><ambient>0.5 0.5 0.52 1</ambient><diffuse>0.5 0.5 0.52 1</diffuse></material></visual>
-      </link>
-      <link name="step1"><pose>0 -0.1 0.05 0 0 0</pose><collision name="collision"><geometry><box><size>2.8 0.3 0.1</size></box></geometry></collision><visual name="visual"><geometry><box><size>2.8 0.3 0.1</size></box></geometry><material><ambient>0.55 0.55 0.57 1</ambient><diffuse>0.55 0.55 0.57 1</diffuse></material></visual></link>
-      <link name="step2"><pose>0 0.2 0.15 0 0 0</pose><collision name="collision"><geometry><box><size>2.8 0.3 0.3</size></box></geometry></collision><visual name="visual"><geometry><box><size>2.8 0.3 0.3</size></box></geometry><material><ambient>0.55 0.55 0.57 1</ambient><diffuse>0.55 0.55 0.57 1</diffuse></material></visual></link>
-      <link name="step3"><pose>0 0.5 0.25 0 0 0</pose><collision name="collision"><geometry><box><size>2.8 0.3 0.5</size></box></geometry></collision><visual name="visual"><geometry><box><size>2.8 0.3 0.5</size></box></geometry><material><ambient>0.55 0.55 0.57 1</ambient><diffuse>0.55 0.55 0.57 1</diffuse></material></visual></link>
-      <link name="step4"><pose>0 0.8 0.35 0 0 0</pose><collision name="collision"><geometry><box><size>2.8 0.3 0.7</size></box></geometry></collision><visual name="visual"><geometry><box><size>2.8 0.3 0.7</size></box></geometry><material><ambient>0.55 0.55 0.57 1</ambient><diffuse>0.55 0.55 0.57 1</diffuse></material></visual></link>
-    </model>
-
+    <!-- ============================= -->
+    <!-- 공동현관 -> 접근 경사로 -> 인도 -> 차도 턱낮춤 경사로 -->
+    <!-- ============================= -->
     <model name="wheelchair_ramp">
       <static>true</static>
-      <pose>5.0 0 0 0 0 -1.570796</pose>
-      <link name="ramp_floor"><pose>5.1 1.0 0.25 0 0.0833 0</pose><collision name="collision"><geometry><box><size>5.6 1.5 0.1</size></box></geometry></collision><visual name="visual"><geometry><box><size>5.6 1.5 0.1</size></box></geometry><material><ambient>0.5 0.5 0.52 1</ambient><diffuse>0.5 0.5 0.52 1</diffuse></material></visual></link>
-      <link name="ramp_wall"><pose>5.1 0.15 0.5 0 0.0833 0</pose><collision name="collision"><geometry><box><size>5.6 0.2 0.6</size></box></geometry></collision><visual name="visual"><geometry><box><size>5.6 0.2 0.6</size></box></geometry><material><ambient>0.82 0.8 0.75 1</ambient><diffuse>0.82 0.8 0.75 1</diffuse></material></visual></link>
-      <link name="handrail_front"><pose>5.1 0.2 0.85 0 0.0833 0</pose><collision name="collision"><geometry><box><size>5.6 0.05 0.05</size></box></geometry></collision><visual name="visual"><geometry><box><size>5.6 0.05 0.05</size></box></geometry><material><ambient>0.8 0.8 0.85 1</ambient><diffuse>0.8 0.8 0.85 1</diffuse><pbr><metal><albedo_color>0.9 0.9 0.95 1</albedo_color><roughness>0.2</roughness><metalness>1.0</metalness></metal></pbr></material></visual></link>
-      <link name="handrail_back"><pose>5.1 1.8 0.85 0 0.0833 0</pose><collision name="collision"><geometry><box><size>5.6 0.05 0.05</size></box></geometry></collision><visual name="visual"><geometry><box><size>5.6 0.05 0.05</size></box></geometry><material><ambient>0.8 0.8 0.85 1</ambient><diffuse>0.8 0.8 0.85 1</diffuse><pbr><metal><albedo_color>0.9 0.9 0.95 1</albedo_color><roughness>0.2</roughness><metalness>1.0</metalness></metal></pbr></material></visual></link>
+
+      <!-- 자동문 바로 앞 랜딩 -->
+      <link name="entrance_landing">
+        <pose>7.20 0 0.46 0 0 0</pose>
+        <collision name="collision">
+          <geometry><box><size>1.0 3.0 0.22</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>1.0 3.0 0.22</size></box></geometry>
+          <material>
+            <ambient>0.72 0.70 0.66 1</ambient>
+            <diffuse>0.72 0.70 0.66 1</diffuse>
+          </material>
+        </visual>
+      </link>
+
+      <!-- 1차 경사로: 현관 랜딩 높이 약 0.57 m -> 인도 높이 약 0.20 m -->
+      <link name="ramp_floor">
+        <pose>4.45 0 0.325 0 -0.0686 0</pose>
+        <collision name="collision">
+          <geometry><box><size>5.4 2.65 0.12</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>5.4 2.65 0.12</size></box></geometry>
+          <material>
+            <ambient>0.66 0.64 0.60 1</ambient>
+            <diffuse>0.66 0.64 0.60 1</diffuse>
+            <pbr><metal><roughness>0.95</roughness></metal></pbr>
+          </material>
+        </visual>
+      </link>
+
+      <!-- 경사로 양옆 낮은 콘크리트 벽 -->
+      <link name="ramp_wall_left">
+        <pose>4.45 -1.43 0.60 0 -0.0686 0</pose>
+        <collision name="collision">
+          <geometry><box><size>5.4 0.20 0.70</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>5.4 0.20 0.70</size></box></geometry>
+          <material><ambient>0.82 0.79 0.73 1</ambient><diffuse>0.82 0.79 0.73 1</diffuse></material>
+        </visual>
+      </link>
+      <link name="ramp_wall_right">
+        <pose>4.45 1.43 0.60 0 -0.0686 0</pose>
+        <collision name="collision">
+          <geometry><box><size>5.4 0.20 0.70</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>5.4 0.20 0.70</size></box></geometry>
+          <material><ambient>0.82 0.79 0.73 1</ambient><diffuse>0.82 0.79 0.73 1</diffuse></material>
+        </visual>
+      </link>
+
+      <!-- 경사로가 끝난 뒤의 평평한 인도 -->
+      <link name="bottom_sidewalk">
+        <pose>1.30 0 0.10 0 0 0</pose>
+        <collision name="collision">
+          <geometry><box><size>0.90 3.40 0.20</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>0.90 3.40 0.20</size></box></geometry>
+          <material>
+            <ambient>0.78 0.78 0.75 1</ambient>
+            <diffuse>0.78 0.78 0.75 1</diffuse>
+          </material>
+        </visual>
+      </link>
+
+      <!-- 인도 -> 차도 턱낮춤 경사로: 인도 0.20 m -> 차도 0.05 m -->
+      <link name="curb_ramp">
+        <pose>0.45 0 0.085 0 -0.167 0</pose>
+        <collision name="collision">
+          <geometry><box><size>0.82 2.35 0.08</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>0.82 2.35 0.08</size></box></geometry>
+          <material>
+            <ambient>0.70 0.70 0.68 1</ambient>
+            <diffuse>0.70 0.70 0.68 1</diffuse>
+          </material>
+        </visual>
+      </link>
+
+      <!-- 턱낮춤 경사로 양옆에는 실제 경계석을 남겨 인도/차도 구분 -->
+      <link name="curb_left">
+        <pose>0.45 -1.48 0.17 0 0 0</pose>
+        <collision name="collision">
+          <geometry><box><size>0.82 0.18 0.34</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>0.82 0.18 0.34</size></box></geometry>
+          <material><ambient>0.90 0.90 0.87 1</ambient><diffuse>0.90 0.90 0.87 1</diffuse></material>
+        </visual>
+      </link>
+      <link name="curb_right">
+        <pose>0.45 1.48 0.17 0 0 0</pose>
+        <collision name="collision">
+          <geometry><box><size>0.82 0.18 0.34</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>0.82 0.18 0.34</size></box></geometry>
+          <material><ambient>0.90 0.90 0.87 1</ambient><diffuse>0.90 0.90 0.87 1</diffuse></material>
+        </visual>
+      </link>
     </model>
+
+
 
     <!-- ============================= -->
     <!-- 3. 실내 로비(Lobby) -->
     <!-- ============================= -->
+
+    <!-- ============================= -->
+    <!-- Raised lobby floor -->
+    <!-- ============================= -->
+    <!--
+      실내 바닥 상면 z = 0.57 m.
+      entrance_landing 상면과 동일하여 문턱 없이 바로 경사로로 이어진다.
+    -->
+    <model name="lobby_floor">
+      <static>true</static>
+      <link name="floor">
+        <pose>9.65 0 0.285 0 0 0</pose>
+        <collision name="collision">
+          <geometry><box><size>4.4 3.0 0.57</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>4.4 3.0 0.57</size></box></geometry>
+          <material>
+            <ambient>0.50 0.49 0.47 1</ambient>
+            <diffuse>0.50 0.49 0.47 1</diffuse>
+            <pbr><metal><roughness>0.92</roughness><metalness>0.0</metalness></metal></pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+
     <model name="building_structure">
       <static>true</static>
       <pose>5.0 0 0 0 0 -1.570796</pose>
@@ -144,65 +260,89 @@
     </model>
 
     <!-- ============================= -->
-    <!-- 4. 작동 가능한 '슬라이딩 자동문' 시스템 -->
+    <!-- 인도 / 차도 시각 경계 -->
     <!-- ============================= -->
-    <model name="automatic_doors">
-      <static>false</static>
-      <pose>5.0 0 0 0 0 -1.570796</pose>
-
-      <link name="door_base">
-        <pose>0 2.45 1.5 0 0 0</pose>
-        <inertial><mass>10.0</mass><inertia><ixx>1.0</ixx><iyy>1.0</iyy><izz>1.0</izz></inertia></inertial>
-      </link>
-      <joint name="base_fixed_to_world" type="fixed">
-        <parent>world</parent>
-        <child>door_base</child>
-      </joint>
-
-      <link name="left_door">
-        <pose>-0.65 2.45 1.5 0 0 0</pose>
-        <inertial><mass>2.0</mass><inertia><ixx>0.5</ixx><iyy>0.5</iyy><izz>0.5</izz></inertia></inertial>
-        <visual name="v1"><geometry><box><size>1.3 0.04 2.0</size></box></geometry><material><ambient>0.1 0.1 0.1 0.6</ambient><diffuse>0.1 0.1 0.1 0.6</diffuse></material></visual>
-        <collision name="c1"><geometry><box><size>1.3 0.04 2.0</size></box></geometry></collision>
-      </link>
-      <link name="right_door">
-        <pose>0.65 2.45 1.5 0 0 0</pose>
-        <inertial><mass>2.0</mass><inertia><ixx>0.5</ixx><iyy>0.5</iyy><izz>0.5</izz></inertia></inertial>
-        <visual name="v1"><geometry><box><size>1.3 0.04 2.0</size></box></geometry><material><ambient>0.1 0.1 0.1 0.6</ambient><diffuse>0.1 0.1 0.1 0.6</diffuse></material></visual>
-        <collision name="c1"><geometry><box><size>1.3 0.04 2.0</size></box></geometry></collision>
-      </link>
-
-      <joint name="left_door_joint" type="prismatic">
-        <parent>door_base</parent>
-        <child>left_door</child>
-        <axis><xyz>1 0 0</xyz><limit><lower>-1.2</lower><upper>0.0</upper><effort>100</effort><velocity>1.0</velocity></limit></axis>
-      </joint>
-      <joint name="right_door_joint" type="prismatic">
-        <parent>door_base</parent>
-        <child>right_door</child>
-        <axis><xyz>1 0 0</xyz><limit><lower>0.0</lower><upper>1.2</upper><effort>100</effort><velocity>1.0</velocity></limit></axis>
-      </joint>
-
-      <plugin filename="gz-sim-joint-position-controller-system" name="gz::sim::systems::JointPositionController">
-        <joint_name>left_door_joint</joint_name>
-        <p_gain>100</p_gain><i_gain>0</i_gain><d_gain>10</d_gain>
-      </plugin>
-      <plugin filename="gz-sim-joint-position-controller-system" name="gz::sim::systems::JointPositionController">
-        <joint_name>right_door_joint</joint_name>
-        <p_gain>100</p_gain><i_gain>0</i_gain><d_gain>10</d_gain>
-      </plugin>
-    </model>
-
-    <!-- 조경 (기존 동일) -->
-    <model name="landscaping">
+    <model name="pedestrian_connection">
       <static>true</static>
-      <pose>5.0 0 0 0 0 -1.570796</pose>
-      <link name="bush_left_1"><pose>-2.5 0 0.6 0 0 0</pose><visual name="visual"><geometry><sphere><radius>0.9</radius></sphere></geometry><material><ambient>0.22 0.38 0.18 1</ambient><diffuse>0.22 0.38 0.18 1</diffuse></material></visual></link>
-      <link name="bush_left_2"><pose>-3.2 -0.5 0.5 0 0 0</pose><visual name="visual"><geometry><sphere><radius>0.7</radius></sphere></geometry><material><ambient>0.2 0.35 0.15 1</ambient><diffuse>0.2 0.35 0.15 1</diffuse></material></visual></link>
-      <link name="hedge_right"><pose>5.1 -0.25 0.35 0 0.0833 0</pose><visual name="visual"><geometry><box><size>5.4 0.4 0.7</size></box></geometry><material><ambient>0.22 0.38 0.18 1</ambient><diffuse>0.22 0.38 0.18 1</diffuse></material></visual></link>
-      <link name="tree_trunk_1"><pose>-3.5 1.5 2.0 0 0 0</pose><visual name="visual"><geometry><cylinder><radius>0.15</radius><length>4.0</length></cylinder></geometry><material><ambient>0.25 0.2 0.15 1</ambient><diffuse>0.25 0.2 0.15 1</diffuse></material></visual></link>
-      <link name="tree_trunk_2"><pose>4.0 2.5 2.0 0 0 0</pose><visual name="visual"><geometry><cylinder><radius>0.12</radius><length>4.0</length></cylinder></geometry><material><ambient>0.25 0.2 0.15 1</ambient><diffuse>0.25 0.2 0.15 1</diffuse></material></visual></link>
+
+      <!-- 차도 시작 지점. 중앙의 curb_ramp는 끊지 않도록 얇은 선만 사용 -->
+      <link name="road_boundary_left">
+        <pose>0.02 -3.30 0.057 0 0 0</pose>
+        <visual name="visual">
+          <geometry><box><size>0.10 3.60 0.014</size></box></geometry>
+          <material><ambient>0.98 0.98 0.96 1</ambient><diffuse>0.98 0.98 0.96 1</diffuse></material>
+        </visual>
+      </link>
+      <link name="road_boundary_right">
+        <pose>0.02 3.30 0.057 0 0 0</pose>
+        <visual name="visual">
+          <geometry><box><size>0.10 3.60 0.014</size></box></geometry>
+          <material><ambient>0.98 0.98 0.96 1</ambient><diffuse>0.98 0.98 0.96 1</diffuse></material>
+        </visual>
+      </link>
     </model>
+
+
+    <!-- ============================= -->
+    <!-- 현관 정면 차도 + 좌우 주차면 -->
+    <!-- ============================= -->
+    <model name="parking_lot">
+      <static>true</static>
+
+      <!-- 경사로 바로 앞부터 시작하는 짙은 아스팔트 차도 -->
+      <link name="asphalt">
+        <pose>-7.98 0 0.025 0 0 0</pose>
+        <collision name="collision"><geometry><box><size>16.0 16.0 0.05</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>16.0 16.0 0.05</size></box></geometry>
+          <material><ambient>0.095 0.10 0.11 1</ambient><diffuse>0.095 0.10 0.11 1</diffuse><pbr><metal><roughness>0.99</roughness></metal></pbr></material>
+        </visual>
+      </link>
+
+      <!-- 중앙은 휠체어/차량이 이동하는 차로. 좌우에 주차면 배치 -->
+      <link name="left_lane_boundary"><pose>-6.5 -2.65 0.055 0 0 0</pose><visual name="visual"><geometry><box><size>14.0 0.09 0.015</size></box></geometry><material><ambient>0.95 0.95 0.92 1</ambient><diffuse>0.95 0.95 0.92 1</diffuse></material></visual></link>
+      <link name="right_lane_boundary"><pose>-6.5 2.65 0.055 0 0 0</pose><visual name="visual"><geometry><box><size>14.0 0.09 0.015</size></box></geometry><material><ambient>0.95 0.95 0.92 1</ambient><diffuse>0.95 0.95 0.92 1</diffuse></material></visual></link>
+
+      <!-- 왼쪽 주차면 구획선 -->
+      <link name="lp1"><pose>-1.5 -5.3 0.055 0 0 0</pose><visual name="visual"><geometry><box><size>0.09 5.2 0.015</size></box></geometry><material><ambient>0.96 0.96 0.93 1</ambient><diffuse>0.96 0.96 0.93 1</diffuse></material></visual></link>
+      <link name="lp2"><pose>-4.3 -5.3 0.055 0 0 0</pose><visual name="visual"><geometry><box><size>0.09 5.2 0.015</size></box></geometry><material><ambient>0.96 0.96 0.93 1</ambient><diffuse>0.96 0.96 0.93 1</diffuse></material></visual></link>
+      <link name="lp3"><pose>-7.1 -5.3 0.055 0 0 0</pose><visual name="visual"><geometry><box><size>0.09 5.2 0.015</size></box></geometry><material><ambient>0.96 0.96 0.93 1</ambient><diffuse>0.96 0.96 0.93 1</diffuse></material></visual></link>
+      <link name="lp4"><pose>-9.9 -5.3 0.055 0 0 0</pose><visual name="visual"><geometry><box><size>0.09 5.2 0.015</size></box></geometry><material><ambient>0.96 0.96 0.93 1</ambient><diffuse>0.96 0.96 0.93 1</diffuse></material></visual></link>
+
+      <!-- 오른쪽 주차면 구획선 -->
+      <link name="rp1"><pose>-1.5 5.3 0.055 0 0 0</pose><visual name="visual"><geometry><box><size>0.09 5.2 0.015</size></box></geometry><material><ambient>0.96 0.96 0.93 1</ambient><diffuse>0.96 0.96 0.93 1</diffuse></material></visual></link>
+      <link name="rp2"><pose>-4.3 5.3 0.055 0 0 0</pose><visual name="visual"><geometry><box><size>0.09 5.2 0.015</size></box></geometry><material><ambient>0.96 0.96 0.93 1</ambient><diffuse>0.96 0.96 0.93 1</diffuse></material></visual></link>
+      <link name="rp3"><pose>-7.1 5.3 0.055 0 0 0</pose><visual name="visual"><geometry><box><size>0.09 5.2 0.015</size></box></geometry><material><ambient>0.96 0.96 0.93 1</ambient><diffuse>0.96 0.96 0.93 1</diffuse></material></visual></link>
+      <link name="rp4"><pose>-9.9 5.3 0.055 0 0 0</pose><visual name="visual"><geometry><box><size>0.09 5.2 0.015</size></box></geometry><material><ambient>0.96 0.96 0.93 1</ambient><diffuse>0.96 0.96 0.93 1</diffuse></material></visual></link>
+
+      <!-- 주차면 뒤쪽 경계선 -->
+      <link name="left_parking_back"><pose>-6.0 -7.85 0.055 0 0 0</pose><visual name="visual"><geometry><box><size>10.0 0.09 0.015</size></box></geometry><material><ambient>0.96 0.96 0.93 1</ambient><diffuse>0.96 0.96 0.93 1</diffuse></material></visual></link>
+      <link name="right_parking_back"><pose>-6.0 7.85 0.055 0 0 0</pose><visual name="visual"><geometry><box><size>10.0 0.09 0.015</size></box></geometry><material><ambient>0.96 0.96 0.93 1</ambient><diffuse>0.96 0.96 0.93 1</diffuse></material></visual></link>
+    </model>
+
+
+    <!-- ============================= -->
+    <!-- 8. 주차 차량 / 볼라드 -->
+    <!-- ============================= -->
+    <model name="parking_objects">
+      <static>true</static>
+      <!-- 차량은 주차면 안쪽에 배치하여 중앙 통로는 비워둠 -->
+      <link name="parked_car_south_1"><pose>-8.0 -5.6 0.65 0 0 1.570796</pose><collision name="collision"><geometry><box><size>1.8 4.2 1.3</size></box></geometry></collision><visual name="body"><geometry><box><size>1.8 4.2 1.3</size></box></geometry><material><ambient>0.25 0.33 0.48 1</ambient><diffuse>0.25 0.33 0.48 1</diffuse><pbr><metal><roughness>0.45</roughness><metalness>0.25</metalness></metal></pbr></material></visual></link>
+      <link name="parked_car_north_1"><pose>-11.0 5.6 0.65 0 0 1.570796</pose><collision name="collision"><geometry><box><size>1.8 4.2 1.3</size></box></geometry></collision><visual name="body"><geometry><box><size>1.8 4.2 1.3</size></box></geometry><material><ambient>0.48 0.22 0.20 1</ambient><diffuse>0.48 0.22 0.20 1</diffuse><pbr><metal><roughness>0.45</roughness><metalness>0.25</metalness></metal></pbr></material></visual></link>
+    </model>
+
+
+    <!-- ============================= -->
+    <!-- SWAN wheelchair model -->
+    <!-- ============================= -->
+    <!--
+      공동현관 로비 안에서 문 / 경사로 방향(-X)을 바라보고 출발.
+      model://wheelchair 는 wheelchair_gazebo/models/wheelchair 을 사용한다.
+    -->
+    <include>
+      <uri>model://wheelchair</uri>
+      <name>wheelchair</name>
+      <pose>9.80 0 0.87 0 0 3.141593</pose>
+    </include>
 
   </world>
 </sdf>
