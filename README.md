@@ -1,4 +1,14 @@
-# SWAN 시장 시뮬레이션
+# SWAN 통합 월드
+
+`feature/world-integration`의 통합 완성 파일은 **[swan_town.sdf](src/swan_world_integration/worlds/swan_town.sdf)**다.
+아파트·도시·승현의 시장과 휠체어·카메라·LiDAR가 이 SDF 하나에 들어 있다. 통합 패키지에 별도 로봇 SDF는 없다.
+
+```bash
+gz sim -r src/swan_world_integration/worlds/swan_town.sdf
+```
+
+사람·오토바이 이동, 신호 점멸, ROS 연결과 운전에는 [통합 월드 실행 안내](src/swan_world_integration/README.md)의 촬영 런처를 사용한다.
+다른 팀원의 원본 패키지와 공통 launch는 그대로 보존했다. 아래는 이전 시장 단독 실행 방법이다.
 
 ## 맵 파일
 

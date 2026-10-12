@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Assemble pinned environment copies; change only each model's world pose."""
+"""Assemble one self-contained scene; change only each model's world pose."""
 import copy
 import hashlib
 import json
@@ -15,6 +15,8 @@ SOURCES = [
     ('city', '7adea9e', 'src/wheelchair_gazebo/worlds/wheelchair_world.sdf', [-14, 30, -0.025, 0]),
     ('market', '011fa32', 'src/wheelchair_gazebo/worlds/market_shopping.sdf', [0, 0, 0, 0]),
 ]
+ROBOT_REF = 'a23e859'
+ROBOT_PATH = 'src/wheelchair_gazebo/models/wheelchair/model.sdf'
 
 
 def read_git(ref, path):
@@ -107,10 +109,37 @@ def main():
         [-18.5, 14.25 + thickness/2*math.sin(angle), rise/2-thickness/2*math.cos(angle), angle, 0, 0],
         [2, run/math.cos(angle), thickness], '.62 .62 .61 1')
     manifest['connectors'].append('integration_city_access_ramp')
+    # Embed the original robot so opening this SDF needs no resource path or spawn.
+    robot_commit = subprocess.check_output(
+        ['git', 'rev-parse', ROBOT_REF], cwd=REPO, text=True).strip()
+    robot_data = read_git(robot_commit, ROBOT_PATH)
+    original_robot = ET.fromstring(robot_data).find('model')
+    robot = copy.deepcopy(original_robot)
+    if robot.get('name') != 'wheelchair' or robot.get('name') in names:
+        raise ValueError('Expected one unique wheelchair model')
+    pose = robot.find('pose')
+    if pose is None:
+        pose = ET.Element('pose')
+        robot.insert(0, pose)
+    if pose.attrib:
+        raise ValueError(f'Unexpected robot pose attributes: {pose.attrib}')
+    start = manifest['starts']['apartment']
+    pose.text = ' '.join(f'{v:.12g}' for v in
+                         [start['x'], start['y'], start['z'], 0, 0, start['yaw']])
+    assert internal_hash(original_robot) == internal_hash(robot)
+    world.append(robot)
+    manifest['robot'] = {
+        'commit': robot_commit, 'source_path': ROBOT_PATH,
+        'source_sha256': hashlib.sha256(robot_data).hexdigest(),
+        'internal_sha256': internal_hash(original_robot),
+        'name': robot.get('name'), 'default_start_zone': 'apartment',
+    }
     manifest['notes'] = [
         'All source environment models are retained. Only their top-level world pose is transformed.',
         'World-level physics, lighting and renderer are shared from the market world; source worlds are unmodified.',
-        'Source robot includes are not duplicated. The dedicated launcher spawns one unchanged dayeong robot.',
+        'One dayeong wheelchair is embedded, preserving its internals and changing only its top-level start pose.',
+        'The SDF has no external model, mesh or URI dependencies. Native Gazebo system plugins must be installed.',
+        'ROS control and moving market traffic use the preserved optional runtime scripts.',
         'The city ground is at Z=-.025, apartment ground at Z=-.05; imported grounds and dimensions are preserved.',
         'The latest apartment source has an open fixed door frame, not animated door panels.',
     ]
@@ -120,7 +149,8 @@ def main():
     traffic = json.loads(read_git('011fa32', 'src/swan_market/config/market_layout.json'))
     traffic['world'] = 'swan_town'
     (PACKAGE/'config/traffic_layout.json').write_text(json.dumps(traffic, ensure_ascii=False, indent=2)+'\n')
-    print(f'Integrated {len(names)} unchanged environment models + {len(manifest["connectors"])} new connectors.')
+    print(f'Integrated {len(names)} preserved environment models + '
+          f'{len(manifest["connectors"])} new connectors + 1 embedded wheelchair.')
 
 
 if __name__ == '__main__':

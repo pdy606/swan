@@ -74,15 +74,22 @@ class PreservationTests(unittest.TestCase):
         self.assertEqual(self.root.tag, 'sdf')
         self.assertEqual(len(self.root.findall('world')), 1)
         self.assertEqual(self.world.get('name'), self.manifest['world'])
+        package_sdfs = {path.relative_to(PACKAGE).as_posix()
+                        for path in PACKAGE.rglob('*.sdf') if path.is_file()}
+        self.assertEqual(package_sdfs, {'worlds/swan_town.sdf'},
+                         'The package must not require a separate robot or environment SDF')
 
-    def test_source_models_and_only_declared_connectors_are_present(self):
+    def test_source_models_connectors_and_one_embedded_robot_are_present(self):
         source_names = [name for source in self.manifest['sources'] for name in source['models']]
         self.assertEqual(len(source_names), len(set(source_names)), 'Source model name collision')
         self.assertEqual(len(self.models), len(self.by_name), 'Duplicate model in assembled world')
         connectors = self.manifest['connectors']
         self.assertEqual(len(connectors), len(set(connectors)))
         self.assertFalse(set(source_names) & set(connectors))
-        self.assertEqual(set(self.by_name), set(source_names) | set(connectors))
+        robot_name = self.manifest['robot']['name']
+        self.assertEqual(robot_name, 'wheelchair')
+        self.assertNotIn(robot_name, set(source_names) | set(connectors))
+        self.assertEqual(set(self.by_name), set(source_names) | set(connectors) | {robot_name})
 
     def test_model_internals_equal_preservation_manifest(self):
         for source in self.manifest['sources']:
@@ -130,7 +137,9 @@ class PreservationTests(unittest.TestCase):
     def test_vendor_files_match_byte_hashes(self):
         targets = [item['target_path'] for item in self.vendors]
         self.assertEqual(len(targets), len(set(targets)))
-        self.assertIn('models/wheelchair/model.sdf', targets)
+        self.assertEqual(set(targets), {
+            'scripts/swan_drive_controller.py', 'scripts/animate_crosswalk.py',
+        })
         for item in self.vendors:
             with self.subTest(file=item['target_path']):
                 copied = (PACKAGE / item['target_path']).read_bytes()
@@ -142,14 +151,46 @@ class PreservationTests(unittest.TestCase):
                 original = self.source_blob(item['commit'], item['source_path'])
                 self.assertEqual((PACKAGE / item['target_path']).read_bytes(), original)
 
-    def test_robot_is_separate_and_not_duplicated_in_world(self):
-        self.assertFalse(list(self.world.iter('include')), 'Environment must not spawn included robots')
-        self.assertFalse([model for model in self.world.iter('model')
-                          if 'wheelchair' == model.get('name')])
-        robot = ET.parse(PACKAGE / 'models/wheelchair/model.sdf').getroot()
-        self.assertEqual(len(robot.findall('model')), 1)
-        self.assertEqual(robot.find('model').get('name'), 'wheelchair')
-        self.assertFalse(robot.findall('world'))
+    def test_world_has_no_external_model_or_asset_references(self):
+        self.assertFalse(list(self.root.iter('include')),
+                         'The single-file world must not include external models')
+        self.assertFalse(list(self.root.iter('uri')),
+                         'The single-file world must not depend on model/mesh/material URIs')
+
+    def test_embedded_robot_is_unique_and_matches_manifest(self):
+        record = self.manifest['robot']
+        self.assertEqual(record['name'], 'wheelchair')
+        robots = [model for model in self.world.iter('model')
+                  if model.get('name') == record['name']]
+        self.assertEqual(len(robots), 1, 'Exactly one wheelchair must be embedded')
+        self.assertIs(robots[0], self.by_name[record['name']],
+                      'Wheelchair must be a direct world model, not a nested duplicate')
+        self.assertEqual(internal_digest(robots[0]), record['internal_sha256'])
+
+    def test_embedded_robot_starts_at_manifest_default_zone(self):
+        record = self.manifest['robot']
+        self.assertEqual(record['default_start_zone'], 'apartment')
+        start = self.manifest['starts'][record['default_start_zone']]
+        robot = self.by_name[record['name']]
+        self.assertEqual(len(robot.findall('pose')), 1)
+        self.assertFalse(robot.find('pose').attrib, 'Robot pose must use world-relative radians')
+        actual = pose_values(robot)
+        expected = [start['x'], start['y'], start['z'], 0.0, 0.0, start['yaw']]
+        self.assertEqual(len(actual), len(expected))
+        self.assertTrue(all(math.isfinite(value) for value in actual))
+        for measured, desired in zip(actual, expected):
+            self.assertAlmostEqual(measured, desired, delta=1e-8)
+
+    def test_embedded_robot_matches_pinned_git_model_when_available(self):
+        record = self.manifest['robot']
+        data = self.source_blob(record['commit'], record['source_path'])
+        self.assertEqual(hashlib.sha256(data).hexdigest(), record['source_sha256'])
+        source_root = ET.fromstring(data)
+        self.assertEqual(len(source_root.findall('model')), 1)
+        original = source_root.find('model')
+        self.assertEqual(original.get('name'), record['name'])
+        self.assertEqual(internal_digest(original), record['internal_sha256'])
+        self.assertEqual(internal_digest(self.by_name[record['name']]), internal_digest(original))
 
     def test_shared_world_settings_have_no_duplicate_systems(self):
         self.assertEqual(len(self.world.findall('physics')), 1)

@@ -1,8 +1,8 @@
 """Read the recording launch contract without importing ROS or changing assets."""
 import json
 import math
-import os
 from pathlib import Path
+import tempfile
 import xml.etree.ElementTree as ET
 
 
@@ -26,28 +26,54 @@ def start_pose(path, zone):
     return pose
 
 
-def resource_path(models, inherited=''):
-    """Prefer the preserved model even when another workspace has wheelchair."""
-    paths = [str(Path(models).resolve())]
-    paths.extend(part for part in inherited.split(os.pathsep) if part)
-    return os.pathsep.join(dict.fromkeys(paths))
-
-
-def world_name(path):
+def read_world(path):
+    """Require a standalone scene containing the single preserved robot inline."""
     root = ET.parse(path).getroot()
     worlds = root.findall('world')
     if root.tag != 'sdf' or len(worlds) != 1 or worlds[0].get('name') != 'swan_town':
         raise ValueError('The recording scene must contain exactly one world named swan_town')
     world = worlds[0]
-    # This launch owns robot creation. An include can otherwise create a second robot.
-    for model in world.iter('model'):
-        if model.get('name') == 'wheelchair':
-            raise ValueError('The recording world must not embed a wheelchair')
-    for included in world.iter('include'):
-        if (included.findtext('name') == 'wheelchair'
-                or 'wheelchair' in included.findtext('uri', '')):
-            raise ValueError('The recording world must not include a wheelchair')
-    return world.get('name')
+    if any(root.find(f'.//{tag}') is not None for tag in ('include', 'mesh', 'uri')):
+        raise ValueError('The recording SDF must not depend on includes, meshes or resource URIs')
+    robots = [model for model in world.iter('model') if model.get('name') == 'wheelchair']
+    if len(robots) != 1 or robots[0] not in list(world):
+        raise ValueError('The recording world must contain exactly one top-level wheelchair model')
+    local_pose(robots[0])
+    return root, world, robots[0]
+
+
+def world_name(path):
+    return read_world(path)[1].get('name')
+
+
+def prepare_scene(path, settings, zone):
+    """Return the original scene or a temporary copy with only its robot pose changed.
+
+    The caller owns the returned TemporaryDirectory, if any, and cleans it up
+    when the launch ends. The saved world and all model internals stay intact.
+    """
+    if zone not in START_ZONES:
+        raise ValueError(f'start_zone must be one of {", ".join(START_ZONES)}')
+    path = Path(path)
+    root, _, robot = read_world(path)
+    if zone == 'apartment':
+        return path, None
+    selected = start_pose(settings, zone)
+    values = list(local_pose(robot))
+    values[0:3] = [selected[key] for key in ('x', 'y', 'z')]
+    values[5] = selected['yaw']
+    pose = robot.find('pose')
+    if pose is None:
+        pose = ET.SubElement(robot, 'pose')
+    pose.text = ' '.join(format(value, '.17g') for value in values)
+    temporary = tempfile.TemporaryDirectory(prefix='swan-town-recording-')
+    try:
+        scene = Path(temporary.name) / 'swan_town.sdf'
+        ET.ElementTree(root).write(scene, encoding='utf-8', xml_declaration=True)
+    except Exception:
+        temporary.cleanup()
+        raise
+    return scene, temporary
 
 
 def local_pose(element):
@@ -64,11 +90,7 @@ def local_pose(element):
 
 
 def robot_contract(path):
-    robot = ET.parse(path).getroot().find('model')
-    if robot is None or robot.get('name') != 'wheelchair':
-        raise ValueError('The recording model must be named wheelchair')
-    if any(local_pose(robot)):
-        raise ValueError('The preserved robot must have a zero model-relative pose')
+    _, _, robot = read_world(path)
 
     arguments = ['/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock']
     remappings = []

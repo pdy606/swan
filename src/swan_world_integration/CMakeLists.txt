@@ -3,7 +3,7 @@ project(swan_world_integration)
 
 find_package(ament_cmake REQUIRED)
 
-install(DIRECTORY launch models worlds config
+install(DIRECTORY launch worlds config
   DESTINATION share/${PROJECT_NAME}
 )
 install(PROGRAMS

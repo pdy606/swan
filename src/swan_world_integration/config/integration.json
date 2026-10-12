@@ -3706,10 +3706,20 @@
     "integration_city_branch",
     "integration_city_access_ramp"
   ],
+  "robot": {
+    "commit": "a23e859957a4b6ccf9ee6e9dc29624d18b2ad26b",
+    "source_path": "src/wheelchair_gazebo/models/wheelchair/model.sdf",
+    "source_sha256": "98bdb69ca6c261e66251b07fc316c38f19bf3f4a486c23740258779cf0164042",
+    "internal_sha256": "ea5f2496a7b4a6317c702663aca5b6e6b029ac40d9085f24e904d98b5a3bc36a",
+    "name": "wheelchair",
+    "default_start_zone": "apartment"
+  },
   "notes": [
     "All source environment models are retained. Only their top-level world pose is transformed.",
     "World-level physics, lighting and renderer are shared from the market world; source worlds are unmodified.",
-    "Source robot includes are not duplicated. The dedicated launcher spawns one unchanged dayeong robot.",
+    "One dayeong wheelchair is embedded, preserving its internals and changing only its top-level start pose.",
+    "The SDF has no external model, mesh or URI dependencies. Native Gazebo system plugins must be installed.",
+    "ROS control and moving market traffic use the preserved optional runtime scripts.",
     "The city ground is at Z=-.025, apartment ground at Z=-.05; imported grounds and dimensions are preserved.",
     "The latest apartment source has an open fixed door frame, not animated door panels."
   ]

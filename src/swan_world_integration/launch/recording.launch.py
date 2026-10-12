@@ -1,13 +1,14 @@
 """Launch the integrated scene with the preserved team wheelchair for recording."""
 import importlib.util
-import os
 from pathlib import Path
 import tempfile
 
 from ament_index_python.packages import get_package_prefix, get_package_share_directory
 from launch import LaunchDescription
-from launch.actions import (DeclareLaunchArgument, ExecuteProcess, OpaqueFunction,
-                            SetEnvironmentVariable, UnsetEnvironmentVariable)
+from launch.actions import (DeclareLaunchArgument, EmitEvent, ExecuteProcess, OpaqueFunction,
+                            RegisterEventHandler, SetEnvironmentVariable, UnsetEnvironmentVariable)
+from launch.event_handlers import OnProcessExit, OnShutdown
+from launch.events import Shutdown
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 
@@ -24,18 +25,22 @@ def setup(context):
 
     share = Path(get_package_share_directory('swan_world_integration'))
     scene = share / 'worlds/swan_town.sdf'
-    model = share / 'models/wheelchair/model.sdf'
     world = _support.world_name(scene)
-    pose = _support.start_pose(share / 'config/integration.json', value('start_zone'))
-    contract = _support.robot_contract(model)
+    contract = _support.robot_contract(scene)
     software = _support.boolean(value('software_rendering'))
     headless = _support.boolean(value('headless'))
     show_camera = _support.boolean(value('show_camera'))
     moving_traffic = _support.boolean(value('moving_traffic'))
 
-    actions = [SetEnvironmentVariable(
-        'GZ_SIM_RESOURCE_PATH',
-        _support.resource_path(share / 'models', os.environ.get('GZ_SIM_RESOURCE_PATH', '')))]
+    scene, temporary = _support.prepare_scene(
+        scene, share / 'config/integration.json', value('start_zone'))
+    actions = []
+    if temporary is not None:
+        def cleanup(_context):
+            temporary.cleanup()
+            return []
+        actions.append(RegisterEventHandler(OnShutdown(
+            on_shutdown=[OpaqueFunction(function=cleanup)])))
     if software:
         # This Mesa setup is also used by the existing UTM market launcher.
         actions.extend([
@@ -46,13 +51,11 @@ def setup(context):
     command = ['gz', 'sim', '-r']
     if headless:
         command.extend(['-s', '--headless-rendering'])
-    actions.append(ExecuteProcess(cmd=command + [str(scene)], output='screen'))
-
-    actions.append(Node(
-        package='ros_gz_sim', executable='create', name='recording_wheelchair_spawn',
-        arguments=['-world', world, '-file', str(model), '-name', 'wheelchair',
-                   '-x', str(pose['x']), '-y', str(pose['y']), '-z', str(pose['z']),
-                   '-Y', str(pose['yaw'])], output='screen'))
+    gazebo = ExecuteProcess(cmd=command + [str(scene)], output='screen')
+    actions.append(RegisterEventHandler(OnProcessExit(
+        target_action=gazebo,
+        on_exit=[EmitEvent(event=Shutdown(reason='Gazebo recording session ended'))])))
+    actions.append(gazebo)
     actions.append(Node(
         package='ros_gz_bridge', executable='parameter_bridge',
         name='recording_wheelchair_bridge', arguments=contract['arguments'],
@@ -87,7 +90,7 @@ def generate_launch_description():
     return LaunchDescription([
         DeclareLaunchArgument('start_zone', default_value='apartment',
                               choices=list(_support.START_ZONES),
-                              description='Spawn once at the selected recording segment.'),
+                              description='Select the embedded robot start pose for this recording.'),
         DeclareLaunchArgument('software_rendering', default_value='false', choices=['true', 'false'],
                               description='Use Mesa llvmpipe on UTM when hardware rendering is unavailable.'),
         DeclareLaunchArgument('headless', default_value='false', choices=['true', 'false'],
