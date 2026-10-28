@@ -7,7 +7,6 @@ from rclpy.node import Node
 
 from geometry_msgs.msg import Twist
 from std_msgs.msg import Float64
-from sensor_msgs.msg import JointState
 
 
 class SwanDriveController(Node):
@@ -16,11 +15,11 @@ class SwanDriveController(Node):
         super().__init__('swan_drive_controller')
 
         # model.sdf 기준
-        self.wheel_radius = 0.20
+        self.wheel_radius = 0.18
 
         # 휠체어 큰바퀴 축 x=-0.13
-        # SWAN 조향축 x=0.79
-        self.wheelbase = 0.92
+        # SWAN 조향축(바퀴 중심) x=0.68
+        self.wheelbase = 0.81
 
         # 완전 90도에서는 수치적으로 너무 극단적이므로
         # 일반 최대 조향은 약 88도
@@ -52,42 +51,68 @@ class SwanDriveController(Node):
             10
         )
 
-        # Preserve the existing high-level nonzero/zero fold gate. The user
-        # stops the wheelchair before folding. No navigation control is added.
-        self.fold_request = None
-        self.fold_plan = []
-        self.fold_index = 0
-        self.fold_targets = {}
-        self.fold_active = False
-        self.fold_step_started = None
-        self.fold_settled_since = None
-        self.fold_warned = False
-        self.joint_positions = {}
-        self.joint_feedback_time = None
-        self.joint_feedback_serial = 0
-        self.fold_checked_serial = -1
-        self.fold_publishers = {
-            name: self.create_publisher(
-                Float64, '/model/wheelchair/fold/' + slug + '/cmd_pos', 10)
-            for name, slug in [
-                ('camera_fold_joint', 'camera'),
-                ('front_cover_fold_joint', 'cover'),
-                ('front_wheel_fold_joint', 'wheel'),
-                ('swan_fold_joint', 'main'),
-            ]
-        }
-        self.fold_joint_names = tuple(self.fold_publishers) + ('front_steering_joint',)
-        self.joint_subscription = self.create_subscription(
-            JointState,
-            '/world/swan_test_world/model/wheelchair/joint_state',
-            self.joint_state_callback, 10)
-        self.fold_timer = self.create_timer(0.05, self.fold_timer_callback)
+        # --------------------------------------------------
+        # 수납(stow) 시퀀스
+        #
+        # /model/wheelchair/fold/cmd_pos
+        #   0.0      -> 펼침 (주행 위치)
+        #   그 외 값 -> 수납
+        #
+        # 수납: 1) 카메라 접기 + 구동 바퀴를 본체 아래로
+        #       2) 본체(+바퀴)를 시트 아래로
+        # 펼침은 역순.
+        #
+        # Gazebo 쪽은 단순 위치 PID라서, 속도와 순서는
+        # 여기서 목표 위치를 조금씩 움직여 만든다.
+        # --------------------------------------------------
+
+        # model.sdf 관절 이동 범위
+        self.retract_travel = 0.18
+        self.slide_travel = 0.39
+        self.camera_fold_angle = 1.5708
+
+        self.retract_speed = 0.12   # [m/s]
+        self.slide_speed = 0.15     # [m/s]
+        self.camera_speed = 1.2     # [rad/s]
+
         self.folded = False
+
+        # 현재 목표 위치 (0 = 펼침)
+        self.retract_pos = 0.0
+        self.slide_pos = 0.0
+        self.camera_pos = 0.0
+        self.stow_moving = False
+
+        self.retract_pub = self.create_publisher(
+            Float64,
+            '/model/wheelchair/wheel_retract/cmd_pos',
+            10
+        )
+
+        self.slide_pub = self.create_publisher(
+            Float64,
+            '/model/wheelchair/slide/cmd_pos',
+            10
+        )
+
+        self.camera_fold_pub = self.create_publisher(
+            Float64,
+            '/model/wheelchair/camera_fold/cmd_pos',
+            10
+        )
+
         self.fold_sub = self.create_subscription(
             Float64,
             '/model/wheelchair/fold/cmd_pos',
             self.fold_callback,
             10
+        )
+
+        self.last_stow_time = None
+
+        self.stow_timer = self.create_timer(
+            0.02,
+            self.stow_callback
         )
 
         self.cmd_sub = self.create_subscription(
@@ -134,151 +159,111 @@ class SwanDriveController(Node):
         )
 
         self.drive_pub.publish(drive_msg)
-        # During storage the sequencer owns steering, including the exact
-        # 90-degree target; the normal driving clamp remains unchanged.
-        if self.folded or self.fold_active:
-            steer_msg.data = self.fold_targets.get('front_steering_joint', 0.0)
         self.steer_pub.publish(steer_msg)
 
-    def joint_state_callback(self, msg: JointState):
-        # Scoped joint names are accepted without changing existing SDF names.
-        positions = {name.rsplit('::', 1)[-1]: value
-                     for name, value in zip(msg.name, msg.position)
-                     if math.isfinite(value)}
-        if all(name in positions for name in self.fold_joint_names):
-            self.joint_positions = positions
-            self.joint_feedback_time = self.get_clock().now().nanoseconds / 1e9
-            self.joint_feedback_serial += 1
-
     def fold_callback(self, msg: Float64):
-        if not math.isfinite(msg.data):
-            self.get_logger().warning('Ignoring non-finite fold command')
-            return
-        requested = (msg.data != 0.0)
-        self.folded = requested  # Existing command-based gate, unchanged.
-        # Repeated terminal publications must not restart the current step.
-        if self.fold_request == requested:
-            return
-        self.fold_request = requested
-        self.fold_active = True
-        self.fold_targets = {}
-        self.fold_index = 0
-        self.fold_step_started = None
-        self.fold_settled_since = None
-        self.fold_warned = False
-        angle = math.pi / 2.0
-        self.fold_plan = [
-            ('camera down', {'camera_fold_joint': angle}),
-            ('steering and cover aligned', {'front_steering_joint': angle,
-                                             'front_cover_fold_joint': angle}),
-            ('wheel stacked', {'front_wheel_fold_joint': angle}),
-            ('package upright', {'swan_fold_joint': angle}),
-        ] if requested else [
-            ('package lowered', {'swan_fold_joint': 0.0}),
-            ('wheel deployed', {'front_wheel_fold_joint': 0.0}),
-            ('steering and cover centred', {'front_steering_joint': 0.0,
-                                            'front_cover_fold_joint': 0.0}),
-            ('camera upright', {'camera_fold_joint': 0.0}),
-        ]
-        # Preserve the existing stop-on-command behavior, retaining the current
-        # steering position until fresh feedback initializes the sequence.
-        self.fold_targets['front_steering_joint'] = self.joint_positions.get(
-            'front_steering_joint', 0.0)
+        self.folded = (msg.data != 0.0)
+        # Stop immediately on fold/unfold; never replay a pre-fold command.
         self.publish_commands(wheel_speed=0.0, steering=0.0)
-        self.get_logger().info('Folding requested' if requested else 'Unfolding requested')
 
-    def fold_position_tolerance(self, name, target):
-        # On unfolding the grounded steering wheel can retain a small static
-        # error under the existing PID. This is already a driving configuration:
-        # allow 3 degrees around centre before raising the camera. Keep sending
-        # the exact zero target; do not relax wheel/cover/main/camera hinges or
-        # the 90-degree alignment required before folding the wheel.
-        if (self.fold_request is False and self.fold_index >= 2
-                and name == 'front_steering_joint' and abs(target) < 1e-9):
-            return math.radians(3.0)
-        return 0.018
+    def drive_ready(self):
+        # 완전히 펼쳐진 상태에서만 주행 허용
+        return (
+            not self.folded and
+            self.retract_pos == 0.0 and
+            self.slide_pos == 0.0
+        )
 
-    def fold_timer_callback(self):
-        if self.fold_request is None:
+    def step_toward(self, value, goal, max_step):
+        # 도착 판정을 == 로 하므로 마지막 스텝은 goal 값을 그대로 반환
+        if abs(goal - value) <= max_step:
+            return goal
+
+        return value + math.copysign(max_step, goal - value)
+
+    def stow_callback(self):
+
+        now = self.get_clock().now()
+
+        if self.last_stow_time is None:
+            self.last_stow_time = now
             return
-        now = self.get_clock().now().nanoseconds / 1e9
-        fresh = (self.joint_feedback_time is not None
-                 and 0.0 <= now - self.joint_feedback_time < 0.5)
-        if self.fold_active and self.fold_step_started is None:
-            if not fresh:
-                if not self.fold_warned:
-                    self.get_logger().warning('Folding waits for joint feedback; check joint_state bridge')
-                    self.fold_warned = True
-                return
-            # On direction reversal, hold the measured position of every other
-            # hinge; never jump back to a guessed endpoint.
-            if len(self.fold_targets) < len(self.fold_joint_names):
-                self.fold_targets = {name: self.joint_positions[name]
-                                     for name in self.fold_joint_names}
-            label, targets = self.fold_plan[self.fold_index]
-            self.fold_targets.update(targets)
-            self.fold_step_started = now
-            self.fold_settled_since = None
-            self.fold_warned = False
-            self.fold_checked_serial = self.joint_feedback_serial
-            self.get_logger().info(f'Fold step {self.fold_index + 1}/4: {label}')
 
-        # Republish internal targets continuously, so startup discovery and
-        # single dropped samples cannot leave a hinge uncommanded.
-        for name, pub in self.fold_publishers.items():
-            if name in self.fold_targets:
-                pub.publish(Float64(data=self.fold_targets[name]))
-        if self.fold_active or self.folded:
-            self.publish_commands(wheel_speed=0.0, steering=0.0)
-        if not self.fold_active:
-            return
-        if not fresh:
-            self.fold_settled_since = None
-        elif self.joint_feedback_serial != self.fold_checked_serial:
-            self.fold_checked_serial = self.joint_feedback_serial
-            # Require every held joint to remain within its tolerance for
-            # 0.3 seconds of fresh simulation-time feedback.
-            arrived = all(abs(self.joint_positions[name] - target)
-                          < self.fold_position_tolerance(name, target)
-                          for name, target in self.fold_targets.items())
-            if arrived:
-                if self.fold_settled_since is None:
-                    self.fold_settled_since = now
-                elif now - self.fold_settled_since >= 0.3:
-                    self.fold_index += 1
-                    self.fold_step_started = None
-                    self.fold_settled_since = None
-                    if self.fold_index == len(self.fold_plan):
-                        self.fold_active = False
-                        self.last_cmd_time = self.get_clock().now()
-                        self.get_logger().info(
-                            'FOLD COMPLETE' if self.folded else 'UNFOLD COMPLETE')
-                    return
-            else:
-                self.fold_settled_since = None
-        if now - self.fold_step_started > 20.0 and not self.fold_warned:
-            label = self.fold_plan[self.fold_index][0]
-            if not fresh:
-                details = 'joint feedback missing/stale'
-            else:
-                details = '; '.join(
-                    f'{name}: actual={self.joint_positions[name]:.4f}, '
-                    f'target={target:.4f}, '
-                    f'error={self.joint_positions[name] - target:+.4f} rad, '
-                    f'tolerance={self.fold_position_tolerance(name, target):.4f}'
-                    for name, target in self.fold_targets.items()
-                    if abs(self.joint_positions[name] - target)
-                    >= self.fold_position_tolerance(name, target)
-                ) or 'positions have not stayed settled for 0.3 seconds'
-            self.get_logger().warning(
-                f'Fold step {self.fold_index + 1}/4 ({label}) still waiting: '
-                f'{details}. Holding this step; not skipping the sequence.')
-            self.fold_warned = True
+        dt = (now - self.last_stow_time).nanoseconds / 1e9
+        self.last_stow_time = now
+
+        # 시뮬레이션 일시정지/시간 점프 보호
+        dt = self.clamp(dt, 0.0, 0.1)
+
+        if self.folded:
+            retract_goal = self.retract_travel
+            camera_goal = self.camera_fold_angle
+
+            # 1단계가 끝난 뒤에만 본체를 넣는다
+            stage1_done = (
+                self.retract_pos == retract_goal and
+                self.camera_pos == camera_goal
+            )
+            slide_goal = (
+                self.slide_travel if stage1_done else self.slide_pos
+            )
+
+        else:
+            slide_goal = 0.0
+
+            # 본체가 다 나온 뒤에만 바퀴와 카메라를 편다
+            body_out = (self.slide_pos == 0.0)
+            retract_goal = 0.0 if body_out else self.retract_pos
+            camera_goal = 0.0 if body_out else self.camera_pos
+
+        kit_before = self.retract_pos + self.slide_pos
+        camera_before = self.camera_pos
+
+        self.retract_pos = self.step_toward(
+            self.retract_pos,
+            retract_goal,
+            self.retract_speed * dt
+        )
+        self.slide_pos = self.step_toward(
+            self.slide_pos,
+            slide_goal,
+            self.slide_speed * dt
+        )
+        self.camera_pos = self.step_toward(
+            self.camera_pos,
+            camera_goal,
+            self.camera_speed * dt
+        )
+
+        for pub, value in (
+            (self.retract_pub, self.retract_pos),
+            (self.slide_pub, self.slide_pos),
+            (self.camera_fold_pub, self.camera_pos),
+        ):
+            msg = Float64()
+            msg.data = value
+            pub.publish(msg)
+
+        kit_moved = self.retract_pos + self.slide_pos - kit_before
+
+        self.stow_moving = (
+            kit_moved != 0.0 or
+            self.camera_pos != camera_before
+        )
+
+        if kit_moved != 0.0 and dt > 0.0:
+            # 바퀴가 휠체어 쪽으로 들어오는 속도만큼 바퀴를 굴려서
+            # 휠체어는 제자리에 있고 구동기만 움직이게 한다.
+            kit_speed = kit_moved / dt
+
+            self.publish_commands(
+                wheel_speed=-kit_speed / self.wheel_radius,
+                steering=0.0
+            )
 
     def cmd_callback(self, msg: Twist):
 
-        if self.folded or self.fold_active:
-            self.publish_commands(wheel_speed=0.0, steering=0.0)
+        if not self.drive_ready():
             return
 
         self.last_cmd_time = self.get_clock().now()
@@ -379,8 +364,10 @@ class SwanDriveController(Node):
 
     def watchdog_callback(self):
 
-        if self.folded or self.fold_active:
-            self.publish_commands(wheel_speed=0.0, steering=0.0)
+        if not self.drive_ready():
+            # 이동 중에는 stow_callback이 바퀴를 굴린다
+            if not self.stow_moving:
+                self.publish_commands(wheel_speed=0.0, steering=0.0)
             return
 
         elapsed = (

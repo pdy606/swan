@@ -43,51 +43,56 @@ def generate_launch_description():
         name='wheelchair_bridge',
         output='screen',
         arguments=[
-            # ROS 2 -> Gazebo : SWAN drive wheel
+            # ROS 2 <-> Gazebo : 앞바퀴 구동
             '/model/wheelchair/front_drive/cmd_vel'
             '@std_msgs/msg/Float64'
             '@gz.msgs.Double',
 
-            # ROS 2 -> Gazebo : SWAN steering
+            # ROS 2 <-> Gazebo : 앞바퀴 조향
             '/model/wheelchair/front_steering/cmd_pos'
             '@std_msgs/msg/Float64'
             '@gz.msgs.Double',
 
-            # High-level fold/cmd_pos stays inside ROS (drive + situation).
-            # Only sequenced internal joint commands enter Gazebo.
-            '/model/wheelchair/fold/camera/cmd_pos'
-            '@std_msgs/msg/Float64]gz.msgs.Double',
-            '/model/wheelchair/fold/cover/cmd_pos'
-            '@std_msgs/msg/Float64]gz.msgs.Double',
-            '/model/wheelchair/fold/wheel/cmd_pos'
-            '@std_msgs/msg/Float64]gz.msgs.Double',
-            '/model/wheelchair/fold/main/cmd_pos'
-            '@std_msgs/msg/Float64]gz.msgs.Double',
-            # Existing JointStatePublisher, now also containing folding joints.
-            '/world/swan_test_world/model/wheelchair/joint_state'
-            '@sensor_msgs/msg/JointState[gz.msgs.Model',
+            # ROS 2 -> Gazebo : 바퀴 수납
+            '/model/wheelchair/wheel_retract/cmd_pos'
+            '@std_msgs/msg/Float64'
+            ']gz.msgs.Double',
 
-            # Gazebo -> ROS 2 odometry
+            # ROS 2 -> Gazebo : 키트 몸체 슬라이드
+            '/model/wheelchair/slide/cmd_pos'
+            '@std_msgs/msg/Float64'
+            ']gz.msgs.Double',
+
+            # ROS 2 -> Gazebo : 카메라 접기
+            '/model/wheelchair/camera_fold/cmd_pos'
+            '@std_msgs/msg/Float64'
+            ']gz.msgs.Double',
+
+            # /model/wheelchair/fold/cmd_pos는 ROS 내부 명령.
+            # 컨트롤러가 위의 세 관절 명령으로 변환하므로
+            # 이 토픽 자체는 Gazebo에 브리지하지 않는다.
+
+            # Gazebo -> ROS 2 : odometry
             '/model/wheelchair/odometry'
             '@nav_msgs/msg/Odometry'
             '[gz.msgs.Odometry',
 
-            # Gazebo -> ROS 2 TF
+            # Gazebo -> ROS 2 : TF
             '/model/wheelchair/tf'
             '@tf2_msgs/msg/TFMessage'
             '[gz.msgs.Pose_V',
 
-            # Gazebo -> ROS 2 LiDAR
+            # Gazebo -> ROS 2 : LiDAR
             '/model/wheelchair/scan'
             '@sensor_msgs/msg/LaserScan'
             '[gz.msgs.LaserScan',
 
-            # Gazebo -> ROS 2 Camera
+            # Gazebo -> ROS 2 : camera
             '/camera'
             '@sensor_msgs/msg/Image'
             '[gz.msgs.Image',
 
-            # Gazebo -> ROS 2 simulation clock
+            # Gazebo -> ROS 2 : simulation clock
             '/clock'
             '@rosgraph_msgs/msg/Clock'
             '[gz.msgs.Clock',
@@ -116,15 +121,17 @@ def generate_launch_description():
         parameters=[{'use_sim_time': True}],
     )
 
+    # 키트가 완전히 펼쳐진 상태의 LiDAR 센서 위치.
+    # 링크 높이 0.09 + 센서 내부 오프셋 0.03 = 0.12
     lidar_static_tf = Node(
         package='tf2_ros',
         executable='static_transform_publisher',
         name='lidar_static_tf',
         output='screen',
         arguments=[
-            '--x', '1.07',
+            '--x', '0.932',
             '--y', '0.0',
-            '--z', '0.10',
+            '--z', '0.12',
             '--roll', '0.0',
             '--pitch', '0.0',
             '--yaw', '0.0',
