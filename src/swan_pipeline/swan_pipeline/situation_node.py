@@ -184,8 +184,8 @@ class SituationNode(Node):
                 obj.get("class", "")
             ).strip().lower()
 
-            # 빨간불 확인
-            if class_name == "traffic light red":
+            # 빨간불 확인: 실제 모델 이름과 기존 이름 모두 지원
+            if class_name in {"red light stop", "traffic light red"}:
                 red_light_detected = True
 
             # 횡단보도 클래스가 아니면 거리 확인 불필요
