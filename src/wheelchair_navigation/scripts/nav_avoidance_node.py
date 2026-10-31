@@ -13,6 +13,7 @@ from rclpy.action import ActionClient
 from rclpy.node import Node
 from sensor_msgs.msg import LaserScan
 from std_msgs.msg import String
+from std_srvs.srv import SetBool
 
 
 class DrivingState(Enum):
@@ -29,9 +30,29 @@ class NavAvoidanceNode(Node):
     def __init__(self) -> None:
         super().__init__("nav_avoidance_node")
 
-        # 회피 시작 거리(현재 로컬에서 0.42m)는 situation_node 담당.
+        # 회피 시작 거리(현재 로컬에서 0.44m)는 situation_node 담당.
         # 이 노드는 C를 받은 뒤 회피 수행과 제어권 전환만 담당한다.
         self.avoidance_start_delay = 0.10
+
+        # 자율주행 ON/OFF (기본 ON)
+        # OFF에서는 Nav2 / 상황판단 / LiDAR 정지 조건을 모두 우회하고
+        # 사용자의 /cmd_vel_user만 최종 모터 토픽으로 전달한다.
+        self.autonomy_enabled = True
+        # 이전 모드의 Nav2 비동기 응답이 현재 모드를 덮어쓰지 않도록 세대 구분
+        self.control_epoch = 0
+        # OFF 도중 전송되거나 취소 중인 예전 목표가 정리될 때까지 새 목표를 보류
+        self.pending_nav_goal_accepts = 0
+        self.detached_goal_keys = set()
+
+        # OFF 중 무시한 C, 또는 OFF 직전 진행 중이던 회피를 기억한다.
+        # situation_node는 C를 한 번만 발행할 수 있어 ON 복귀 시
+        # 현재 LiDAR를 다시 평가해야 하는 경우에만 사용한다.
+        self.recheck_obstacle_on_enable = False
+        # situation_node의 현지 설정: 장애물 회피 시작 0.44m.
+        # 일반 주행 중 C의 판단은 계속 situation_node가 담당한다.
+        # 이 값은 OFF -> ON의 누락 C 복구에만 사용한다.
+        self.enable_recheck_stop_distance = 0.44
+        self.enable_recheck_release_distance = 0.56
 
         # --------------------------------------------------------------
         # 빨간 신호등 정지
@@ -281,6 +302,13 @@ class NavAvoidanceNode(Node):
             10,
         )
 
+        # ros2 service call /set_autonomy std_srvs/srv/SetBool "{data: false}"
+        self.autonomy_service = self.create_service(
+            SetBool,
+            "/set_autonomy",
+            self.set_autonomy_callback,
+        )
+
         self.navigate_client = ActionClient(
             self,
             NavigateToPose,
@@ -311,8 +339,124 @@ class NavAvoidanceNode(Node):
 
         self.get_logger().info(
             "Driving supervisor started: "
-            "stable LiDAR detection + manual safety + Nav2 avoidance"
+            "stable LiDAR detection + manual safety + Nav2 avoidance "
+            "+ /set_autonomy (default ON)"
         )
+
+    # ==============================================================
+    # ON/OFF 서비스 및 기존 Nav2 목표 정리
+    # ============================================================== 
+
+    def set_autonomy_callback(self, request, response):
+        """ON: 기존 회피 활성화 / OFF: 즉시 완전 수동 (전진 포함)."""
+        enable = bool(request.data)
+        if enable == self.autonomy_enabled:
+            response.success = True
+            response.message = "Already ON" if enable else "Already OFF"
+            return response
+
+        # 취소/결과가 느리게 도착하더라도 다른 모드 상태를 변경하지 못하게 한다.
+        self.control_epoch += 1
+        previous_goal = self.goal_handle
+        if not enable:
+            # OFF 직전 이미 진행 중이던 회피 / 실패 상태를 기억.
+            # OFF 시 전부 초기화하지만, ON 시 동일 장애물이 아직 앞에
+            # 있으면 situation_node의 C 재발행을 기다리지 않도록 한다.
+            self.recheck_obstacle_on_enable = (
+                self.recheck_obstacle_on_enable
+                or self.c_avoidance_requested
+                or self.state != DrivingState.MANUAL
+            )
+        self.autonomy_enabled = enable
+
+        # 성공/실패/회피 대기/신호 정지/전진 잠금 등 이번 세션 상태 전부 리셋.
+        # 최근 Teleop 입력은 그대로 보존해 OFF 직후 별도 키 없이 움직일 수 있다.
+        self.reset_avoidance_session()
+        self.c_avoidance_requested = False
+        self.traffic_stop_latched = False
+        self.forward_rearm_required = False
+        self.forward_release_seen = False
+        self.pending_block_reason = None
+        self.latest_nav_cmd = Twist()
+        self.last_nav_cmd_time = None
+        self.change_state(DrivingState.MANUAL)
+
+        if not enable:
+            # 취소 완료 전에도 /cmd_vel_nav는 출력을 통과할 수 없다.
+            # 기존 목표 취소는 비동기 실행; 늦게 승인되는 목표도 별도 취소함.
+            if previous_goal is not None:
+                self.cancel_detached_goal(previous_goal)
+            self.publish_avoidance_status("AUTONOMY_OFF")
+            self.get_logger().info(
+                "Autonomy OFF: unrestricted manual teleop; "
+                "previous avoidance state cleared"
+            )
+            self.publish_manual_or_stop()
+            response.message = "Autonomy OFF: unrestricted manual control"
+        else:
+            self.publish_avoidance_status("AUTONOMY_ON")
+            self.get_logger().info(
+                "Autonomy ON: fresh MANUAL session; "
+                + ("LiDAR recheck pending" if self.recheck_obstacle_on_enable
+                   else "awaiting new C")
+            )
+            # 전방에 이미 장애물이 있는 경우 다음 scan_callback에서 재판단.
+            response.message = "Autonomy ON: avoidance enabled"
+
+        response.success = True
+        return response
+
+    def cancel_detached_goal(self, handle) -> None:
+        """옛 Nav2 목표를 취소한다. 응답은 주행 상태를 변경하지 않는다."""
+        if not handle.accepted:
+            return
+        key = bytes(handle.goal_id.uuid)
+        if key in self.detached_goal_keys:
+            return
+        self.detached_goal_keys.add(key)
+
+        try:
+            done_future = handle.get_result_async()
+            done_future.add_done_callback(
+                lambda f, k=key: self.detached_goal_finished_callback(f, k)
+            )
+        except Exception as exc:
+            self.get_logger().warn(f"Could not watch old Nav2 goal: {exc}")
+            self.detached_goal_keys.discard(key)
+
+        try:
+            cancel_future = handle.cancel_goal_async()
+            cancel_future.add_done_callback(
+                lambda f: self.detached_cancel_response_callback(f)
+            )
+            self.get_logger().info("Cancellation requested for previous Nav2 goal")
+        except Exception as exc:
+            self.get_logger().error(f"Could not request old Nav2 goal cancel: {exc}")
+
+    def detached_cancel_response_callback(self, future) -> None:
+        # OFF 이후 늦게 들어온 cancel 응답은 절대 MANUAL/BLOCKED를 변경하지 않는다.
+        try:
+            answer = future.result()
+            if not answer.goals_canceling:
+                self.get_logger().warn(
+                    "Old Nav2 goal cancel not confirmed; manual output remains isolated"
+                )
+        except Exception as exc:
+            self.get_logger().warn(f"Old Nav2 cancel response error: {exc}")
+
+    def detached_goal_finished_callback(self, future, key: bytes) -> None:
+        self.detached_goal_keys.discard(key)
+        try:
+            status = future.result().status
+            self.get_logger().info(f"Previous Nav2 goal finished (status={status})")
+        except Exception as exc:
+            self.get_logger().warn(f"Old Nav2 result unavailable: {exc}")
+
+    def publish_manual_or_stop(self) -> None:
+        if self.is_user_cmd_fresh():
+            self.cmd_vel_publisher.publish(self.copy_twist(self.latest_user_cmd))
+        else:
+            self.publish_stop()
 
     # ==============================================================
     # 입력 콜백
@@ -320,6 +464,12 @@ class NavAvoidanceNode(Node):
 
     def situation_callback(self, msg: String) -> None:
         situation = msg.data.strip().upper()
+        # OFF면 RED / C / 기타 상황판단은 주행에 반영하지 않는다.
+        # 단, C가 1회만 발행될 수 있으므로 ON 전환 후 재판단할 흔적은 보존.
+        if not self.autonomy_enabled:
+            if situation == "C":
+                self.recheck_obstacle_on_enable = True
+            return
 
         # --------------------------------------------------------------
         # 빨간 신호등
@@ -464,6 +614,25 @@ class NavAvoidanceNode(Node):
 
         self.front_distance = self.get_stabilized_front_distance()
 
+        # OFF 동안 발생한 C가 다시 ON 시 재발행되지 않는 경우 복구.
+        # 평상시 회피 시작 판단 및 0.44m 조건은 situation_node가 담당.
+        if self.autonomy_enabled and self.recheck_obstacle_on_enable:
+            if self.state != DrivingState.MANUAL:
+                # 새로운 C가 먼저 정상 수신돼 회피를 시작한 상황.
+                self.recheck_obstacle_on_enable = False
+            elif (math.isfinite(self.front_distance)
+                  and self.front_distance <= self.enable_recheck_stop_distance):
+                self.recheck_obstacle_on_enable = False
+                self.get_logger().info(
+                    "Autonomy ON: obstacle still close; restarting avoidance"
+                )
+                self.c_avoidance_requested = True
+                self.enter_stopped_state()
+            elif (not math.isfinite(self.front_distance)
+                  or self.front_distance >= self.enable_recheck_release_distance):
+                # 장애물이 충분히 멀어져 situation_node도 다시 C 발행 가능.
+                self.recheck_obstacle_on_enable = False
+
     # ==============================================================
     # LiDAR 처리
     # ==============================================================
@@ -599,6 +768,8 @@ class NavAvoidanceNode(Node):
     # ==============================================================
 
     def supervisor_callback(self) -> None:
+        if not self.autonomy_enabled:
+            return
 
         if self.state == DrivingState.STOPPED:
             self.handle_stopped_state()
@@ -655,6 +826,15 @@ class NavAvoidanceNode(Node):
             return
 
         if self.goal_handle is not None:
+            return
+
+        # OFF 직전 전송된 Nav2 목표가 뒤늦게 승인될 수 있으므로,
+        # 이전 세션의 목표 취소/종료가 정리된 뒤에 새 목표를 생성한다.
+        if self.pending_nav_goal_accepts or self.detached_goal_keys:
+            self.get_logger().warn(
+                "Waiting for previous Nav2 goal cancellation...",
+                throttle_duration_sec=2.0,
+            )
             return
 
         if not (
@@ -1005,10 +1185,32 @@ class NavAvoidanceNode(Node):
             f"max_side={path_max_side:.2f}m"
         )
 
-        future = self.navigate_client.send_goal_async(goal_msg)
-        future.add_done_callback(self.goal_response_callback)
+        epoch = self.control_epoch
+        self.pending_nav_goal_accepts += 1
+        try:
+            future = self.navigate_client.send_goal_async(goal_msg)
+            future.add_done_callback(
+                lambda f, e=epoch: self.goal_response_callback(f, e)
+            )
+        except Exception as exc:
+            self.pending_nav_goal_accepts -= 1
+            self.goal_request_in_progress = False
+            self.get_logger().error(f"Failed to dispatch Nav2 goal: {exc}")
+            self.try_next_goal_candidate()
 
-    def goal_response_callback(self, future) -> None:
+    def goal_response_callback(self, future, epoch: int) -> None:
+        self.pending_nav_goal_accepts = max(0, self.pending_nav_goal_accepts - 1)
+
+        # 예전 ON 세션에서 보낸 목표가 OFF 뒤에 승인된 경우 즉시 취소.
+        # 결과가 이전 또는 현재 MANUAL 상태에 개입해서는 안 된다.
+        if epoch != self.control_epoch or not self.autonomy_enabled:
+            try:
+                stale_handle = future.result()
+                if stale_handle is not None and stale_handle.accepted:
+                    self.cancel_detached_goal(stale_handle)
+            except Exception as exc:
+                self.get_logger().warn(f"Old Nav2 goal response ignored: {exc}")
+            return
 
         self.goal_request_in_progress = False
 
@@ -1057,7 +1259,7 @@ class NavAvoidanceNode(Node):
         result_future = goal_handle.get_result_async()
 
         result_future.add_done_callback(
-            self.navigation_result_callback
+            lambda f, e=epoch: self.navigation_result_callback(f, e)
         )
 
     # ==============================================================
@@ -1201,8 +1403,9 @@ class NavAvoidanceNode(Node):
             self.goal_handle.cancel_goal_async()
         )
 
+        epoch = self.control_epoch
         cancel_future.add_done_callback(
-            self.cancel_response_callback
+            lambda f, e=epoch: self.cancel_response_callback(f, e)
         )
 
     def cancel_for_blocked_state(
@@ -1225,7 +1428,9 @@ class NavAvoidanceNode(Node):
 
         self.cancel_current_goal()
 
-    def cancel_response_callback(self, future) -> None:
+    def cancel_response_callback(self, future, epoch: int) -> None:
+        if epoch != self.control_epoch or not self.autonomy_enabled:
+            return
 
         try:
             future.result()
@@ -1248,7 +1453,9 @@ class NavAvoidanceNode(Node):
                 "Nav2 goal cancellation failed"
             )
 
-    def navigation_result_callback(self, future) -> None:
+    def navigation_result_callback(self, future, epoch: int) -> None:
+        if epoch != self.control_epoch or not self.autonomy_enabled:
+            return
 
         # 이미 다른 사유로 BLOCKED가 확정된 뒤 도착한 예전 결과는 무시.
         if self.state == DrivingState.BLOCKED:
@@ -1572,6 +1779,12 @@ class NavAvoidanceNode(Node):
     # ==============================================================
 
     def output_callback(self) -> None:
+        # OFF 상태에서는 scan timeout, RED latch, BLOCKED, STOPPED 등
+        # 모든 자동 주행 제한을 무시하고 Teleop을 모터에 그대로 중계.
+        # Teleop 입력 타임아웃만 유지하여 오래된 명령이 계속 남지 않게 한다.
+        if not self.autonomy_enabled:
+            self.publish_manual_or_stop()
+            return
 
         if not self.is_scan_fresh():
 
@@ -1811,6 +2024,7 @@ class NavAvoidanceNode(Node):
             )
 
         self.get_logger().info(
+            f"autonomy={'ON' if self.autonomy_enabled else 'OFF'}, "
             f"state={self.state.value}, "
             f"front_distance={distance_text}, "
             f"raw={raw_text}, "
