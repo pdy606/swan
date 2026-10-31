@@ -7,7 +7,7 @@ from typing import Optional
 import rclpy
 from action_msgs.msg import GoalStatus
 from geometry_msgs.msg import Twist
-from nav2_msgs.action import NavigateToPose
+from nav2_msgs.action import ComputePathToPose, NavigateToPose
 from nav_msgs.msg import Odometry
 from rclpy.action import ActionClient
 from rclpy.node import Node
@@ -22,23 +22,15 @@ class DrivingState(Enum):
     AVOIDING = "AVOIDING"
     REPLANNING = "REPLANNING"
     BLOCKED = "BLOCKED"
+    VERIFYING_CLEAR = "VERIFYING_CLEAR"
 
 
 class NavAvoidanceNode(Node):
     def __init__(self) -> None:
         super().__init__("nav_avoidance_node")
 
-        # --------------------------------------------------------------
-        # 일반 주행 안전 거리
-        # --------------------------------------------------------------
-
-        # 장애물 접근 정지 및 자동 회피 시작
-        self.stop_distance = 0.75
-
-        # 상태가 거리 경계에서 반복 전환되는 현상 방지
-        self.hysteresis = 0.12
-
-        # STOPPED 진입 후 Nav2 회피 시작까지 대기
+        # 회피 시작 거리(현재 로컬에서 0.42m)는 situation_node 담당.
+        # 이 노드는 C를 받은 뒤 회피 수행과 제어권 전환만 담당한다.
         self.avoidance_start_delay = 0.10
 
         # --------------------------------------------------------------
@@ -92,16 +84,64 @@ class NavAvoidanceNode(Node):
         self.maximum_replan_count = 3
 
         # --------------------------------------------------------------
-        # Nav2 목표 설정
+        # LiDAR 기반의 짧은 측면 회피 목표
         # --------------------------------------------------------------
 
-        # 현재 위치 기준 목표 거리 후보
-        # 첫 후보 실패 시 다른 거리로 다시 시도한다.
-        self.goal_distance_candidates = [
-            2.8,
-            3.2,
-            2.4,
-        ]
+        # 현재 모델 model.sdf: lidar_link x=0.932m, y=0.
+        # 센서 위치를 변경하면 이 값도 함께 수정할 것.
+        self.lidar_offset_x = 0.932
+
+        # 실제 footprint의 최대 측면 폭(half-width)은 0.39m.
+        self.robot_half_width = 0.39
+        # Nav2의 xy_goal_tolerance=0.40m를 고려해 목표 후보를
+        # 장애물 가장자리에서 충분히 떨어뜨린다.
+        # 0.20m의 측면 안전 여유 + 0.40m 목표 허용 오차 보정.
+        # 임의로 차체 Footprint를 줄이지 않고 목표점만 조금 가깝게 조정.
+        self.goal_clearance = 0.60
+        self.goal_side_variants = (0.0, 0.12)
+        self.goal_x_variants = (0.05, 0.20)
+        self.max_goal_side_offset = 1.60  # 과도한 측면 우회를 제한
+        self.max_goal_forward = 2.10      # 최초 회피 목표는 가까운 위치만
+        self.max_goal_path_length = 3.20  # 너무 멀리 도는 경로 제외
+        self.max_goal_path_side = 1.75    # 주행선으로부터의 최대 이탈 제한
+        # 원래 진행방향에서 ±50도 이내의 유효 목표를 우선 선택한다.
+        # 범위 안에 없으면 기존 최단 경로 순서를 그대로 사용한다.
+        self.preferred_goal_angle_deg = 50.0
+        # 선호 각도 내 유효 후보끼리 비교할 때만 측면 이탈에 작은 비용 부여.
+        # 경로 길이(m) + 0.50 * 최대 측면 이탈(m). 장애물 안전 여유는 유지.
+        self.lateral_deviation_weight = 0.50
+        self.goal_plan_timeout = 15.0   # 경로 검증 지연 시 정지 유지
+
+        # 목표 도착 후 전방에 새 위험이 없는지 확인하고 수동 복귀
+        self.return_clear_distance = 0.65
+        self.return_clear_duration = 0.50
+        self.return_clear_since = None
+
+        # BLOCKED 해제: 사용자의 실제 회피 조작과 공간 확보를 확인
+        self.blocked_clear_distance = 0.65
+        self.blocked_clear_duration = 0.60
+        self.blocked_min_translation = 0.15
+        self.blocked_min_rotation = 0.20  # rad
+        self.blocked_pose = None
+        self.blocked_clear_since = None
+
+        # BLOCKED 복구 뒤에는 전진을 새로 입력해야 한다.
+        # 정상 회피 성공 뒤에는 전진 잠금을 설정하지 않는다.
+        self.forward_rearm_required = False
+        self.forward_release_seen = False
+        self.pending_block_reason = None
+
+        # 이번 회피 시점의 LiDAR 스캔. 목표점 생성에만 사용한다.
+        self.latest_scan = None
+
+        # Nav2 검증을 통과한 (경로 길이, 목표 x, 목표 y, 최대 측면 이탈) 목표
+        self.goal_candidates = []
+        self.goal_plan_queue = []
+        self.goal_plan_index = 0
+        self.goal_plan_results = []
+        self.goal_plan_in_progress = False
+        self.goal_plan_started_at = None
+        self.goal_plan_generation = 0
 
         # --------------------------------------------------------------
         # 입력 타임아웃
@@ -247,6 +287,13 @@ class NavAvoidanceNode(Node):
             "/navigate_to_pose",
         )
 
+        # 후보 목표의 경로 존재 여부와 길이를 Nav2에 맡긴다.
+        self.path_client = ActionClient(
+            self,
+            ComputePathToPose,
+            "/compute_path_to_pose",
+        )
+
         self.output_timer = self.create_timer(
             self.output_period,
             self.output_callback,
@@ -328,6 +375,19 @@ class NavAvoidanceNode(Node):
         self.latest_user_cmd = self.copy_twist(msg)
         self.last_user_cmd_time = self.get_clock().now()
 
+        # BLOCKED에서 복구한 경우에만 전진키 해제 후 재입력을 요구.
+        # 정상 회피 성공은 아래 플래그를 꺼서 바로 재출발 가능.
+        if self.forward_rearm_required:
+            if msg.linear.x <= 0.01:
+                self.forward_release_seen = True
+            elif (
+                self.state == DrivingState.MANUAL
+                and self.forward_release_seen
+            ):
+                self.forward_rearm_required = False
+                self.forward_release_seen = False
+                self.get_logger().info("Fresh forward input accepted")
+
         # ----------------------------------------------------------
         # 빨간불 정지 latch 해제
         #
@@ -380,6 +440,7 @@ class NavAvoidanceNode(Node):
         now = self.get_clock().now()
 
         self.last_scan_time = now
+        self.latest_scan = msg
 
         if self.scan_timed_out:
             self.scan_timed_out = False
@@ -510,12 +571,21 @@ class NavAvoidanceNode(Node):
             self.avoidance_pose_saved = False
 
             self.goal_candidate_index = 0
+            self.goal_candidates = []
+            self.goal_plan_queue = []
+            self.goal_plan_index = 0
+            self.goal_plan_results = []
+            self.goal_plan_in_progress = False
+            self.goal_plan_started_at = None
+            self.goal_plan_generation += 1
             self.goal_request_in_progress = False
             self.goal_handle = None
             self.goal_cancel_requested = False
 
             self.replan_requested = False
             self.replan_count = 0
+            self.pending_block_reason = None
+            self.return_clear_since = None
 
             self.emergency_replan_armed = False
             self.nav_goal_accepted_time = None
@@ -538,6 +608,21 @@ class NavAvoidanceNode(Node):
 
         elif self.state == DrivingState.REPLANNING:
             self.handle_replanning_state()
+
+        elif self.state == DrivingState.BLOCKED:
+            self.handle_blocked_recovery()
+
+        elif self.state == DrivingState.VERIFYING_CLEAR:
+            self.handle_verify_clear()
+
+        elif (
+            self.state == DrivingState.WAITING_FOR_NAV
+            and self.goal_plan_in_progress
+            and self.goal_plan_started_at is not None
+            and self.get_age_seconds(self.goal_plan_started_at)
+            > self.goal_plan_timeout
+        ):
+            self.enter_blocked_state("Side-goal planning timed out")
 
     def handle_stopped_state(self) -> None:
 
@@ -572,16 +657,17 @@ class NavAvoidanceNode(Node):
         if self.goal_handle is not None:
             return
 
-        if not self.navigate_client.server_is_ready():
-
+        if not (
+            self.navigate_client.server_is_ready()
+            and self.path_client.server_is_ready()
+        ):
             self.get_logger().warn(
-                "Waiting for /navigate_to_pose action server...",
+                "Waiting for /navigate_to_pose and /compute_path_to_pose...",
                 throttle_duration_sec=2.0,
             )
-
             return
 
-        self.send_current_candidate_goal()
+        self.start_goal_search()
 
     def save_initial_avoidance_pose(self) -> None:
 
@@ -598,77 +684,329 @@ class NavAvoidanceNode(Node):
             f"yaw={self.original_travel_yaw:.2f}"
         )
 
-    # ==============================================================
-    # Nav2 목표 전송
-    # ==============================================================
+    # ============================================================== 
+    # 짧은 회피 목표 후보 생성 + Nav2 경로 검증
+    # ============================================================== 
 
-    def send_current_candidate_goal(self) -> None:
+    def generate_side_goal_candidates(self) -> list[tuple[float, float]]:
+        """최초 전방 장애물의 양옆에 짧은 임시 목표 후보를 만든다.
 
-        if (
-            self.goal_candidate_index
-            >= len(self.goal_distance_candidates)
-        ):
+        반환 좌표는 odom 기준이다. 좌/우를 미리 선택하지 않으며
+        실제 이동 가능 여부는 ComputePathToPose로 확인한다.
+        """
+        scan = self.latest_scan
+        if scan is None or not self.is_scan_fresh():
+            return []
 
-            self.enter_blocked_state(
-                "No feasible avoidance goal remains"
-            )
+        # LiDAR 스캔에서 인접 빔의 점들을 하나의 장애물로 묶는다.
+        # (일반적인 박스/사람/벽 모두 동일한 처리)
+        clusters = []
+        cluster = []
+        previous_index = None
+        previous_point = None
 
-            return
+        def append_cluster():
+            if len(cluster) >= self.minimum_cluster_points:
+                clusters.append(list(cluster))
 
-        goal_distance = self.goal_distance_candidates[
-            self.goal_candidate_index
+        for i, distance in enumerate(scan.ranges):
+            if not (
+                math.isfinite(distance)
+                and scan.range_min <= distance <= scan.range_max
+            ):
+                append_cluster()
+                cluster = []
+                previous_index = None
+                previous_point = None
+                continue
+
+            angle = scan.angle_min + i * scan.angle_increment
+            scan_x = distance * math.cos(angle)
+            scan_y = distance * math.sin(angle)
+
+            if scan_x <= 0.0 or scan_x > self.max_detection_distance:
+                append_cluster()
+                cluster = []
+                previous_index = None
+                previous_point = None
+                continue
+
+            point = (self.lidar_offset_x + scan_x, scan_y)
+            if previous_point is not None and previous_index == i - 1:
+                separation = math.hypot(
+                    point[0] - previous_point[0],
+                    point[1] - previous_point[1],
+                )
+                if separation > 0.18:
+                    append_cluster()
+                    cluster = []
+            else:
+                append_cluster()
+                cluster = []
+
+            cluster.append(point)
+            previous_point = point
+            previous_index = i
+
+        append_cluster()
+
+        # 정면 통로와 실제로 겹치는 장애물 중 가장 가까운 하나.
+        front_clusters = [
+            c for c in clusters
+            if any(abs(y) <= self.corridor_half_width for _, y in c)
         ]
+        if not front_clusters:
+            return []
 
-        goal_x = (
-            self.goal_start_x
-            + goal_distance
-            * math.cos(self.original_travel_yaw)
+        obstacle = min(
+            front_clusters,
+            key=lambda c: min(
+                x for x, y in c
+                if abs(y) <= self.corridor_half_width
+            ),
         )
+        near_x = min(x for x, _ in obstacle)
+        left_edge = max(y for _, y in obstacle)
+        right_edge = min(y for _, y in obstacle)
 
-        goal_y = (
-            self.goal_start_y
-            + goal_distance
-            * math.sin(self.original_travel_yaw)
-        )
+        # LiDAR로 본 물체 가장자리에 차체 반폭과 여유거리를 추가.
+        # 모델의 max Y footprint=0.39m와 goal tolerance=0.40m 고려.
+        left_y = left_edge + self.robot_half_width + self.goal_clearance
+        right_y = right_edge - self.robot_half_width - self.goal_clearance
 
-        goal_msg = NavigateToPose.Goal()
+        # 아주 짧은 측면 이동만 허용. 벽처럼 큰 장애물은 회피하지 않음.
+        local_candidates = []
+        for side in (+1, -1):
+            base_y = left_y if side > 0 else right_y
+            for extra_side in self.goal_side_variants:
+                target_y = base_y + side * extra_side
+                if abs(target_y) > self.max_goal_side_offset:
+                    continue
+                for extra_x in self.goal_x_variants:
+                    target_x = max(0.90, near_x + extra_x)
+                    if target_x > self.max_goal_forward:
+                        continue
+                    local_candidates.append((target_x, target_y))
 
-        goal_msg.pose.header.frame_id = "odom"
-
-        goal_msg.pose.header.stamp = (
-            self.get_clock().now().to_msg()
-        )
-
-        goal_msg.pose.pose.position.x = goal_x
-        goal_msg.pose.pose.position.y = goal_y
-        goal_msg.pose.pose.position.z = 0.0
-
-        half_yaw = self.original_travel_yaw / 2.0
-
-        goal_msg.pose.pose.orientation.z = math.sin(half_yaw)
-        goal_msg.pose.pose.orientation.w = math.cos(half_yaw)
-
-        self.goal_request_in_progress = True
-
-        self.change_state(
-            DrivingState.WAITING_FOR_NAV
-        )
+        # odom 위치로 변환. 회피 방향은 현재 차체 자세 기준.
+        cos_yaw = math.cos(self.current_yaw)
+        sin_yaw = math.sin(self.current_yaw)
+        goals = []
+        for x, y in local_candidates:
+            world_x = self.current_x + cos_yaw * x - sin_yaw * y
+            world_y = self.current_y + sin_yaw * x + cos_yaw * y
+            goals.append((world_x, world_y))
 
         self.get_logger().info(
-            "Sending avoidance goal "
-            f"{self.goal_candidate_index + 1}/"
-            f"{len(self.goal_distance_candidates)}: "
-            f"distance={goal_distance:.2f}m, "
-            f"goal=({goal_x:.2f}, {goal_y:.2f})"
+            f"Short avoidance goals: obstacle_x={near_x:.2f}, "
+            f"edges=({right_edge:.2f}, {left_edge:.2f}), "
+            f"candidates={len(goals)}"
+        )
+        return goals
+
+    def make_nav_pose(self, x: float, y: float):
+        """원래 주행 방향을 유지하는 odom 목표 PoseStamped."""
+        from geometry_msgs.msg import PoseStamped
+
+        pose = PoseStamped()
+        pose.header.frame_id = "odom"
+        pose.header.stamp = self.get_clock().now().to_msg()
+        pose.pose.position.x = x
+        pose.pose.position.y = y
+        half_yaw = self.original_travel_yaw * 0.5
+        pose.pose.orientation.z = math.sin(half_yaw)
+        pose.pose.orientation.w = math.cos(half_yaw)
+        return pose
+
+    def start_goal_search(self) -> None:
+        """후보를 계획 가능한지 검증하는 동안 휠체어는 정지."""
+        goals = self.generate_side_goal_candidates()
+        if not goals:
+            self.enter_blocked_state(
+                "No close side-goal candidate from LiDAR"
+            )
+            return
+
+        self.goal_plan_generation += 1
+        self.goal_plan_queue = goals
+        self.goal_plan_index = 0
+        self.goal_plan_results = []
+        self.goal_plan_in_progress = True
+        self.goal_plan_started_at = self.get_clock().now()
+        self.change_state(DrivingState.WAITING_FOR_NAV)
+        self.check_next_goal_path(self.goal_plan_generation)
+
+    def check_next_goal_path(self, generation: int) -> None:
+        if (
+            generation != self.goal_plan_generation
+            or self.state != DrivingState.WAITING_FOR_NAV
+        ):
+            return
+
+        if self.goal_plan_index >= len(self.goal_plan_queue):
+            self.goal_plan_in_progress = False
+            self.goal_plan_started_at = None
+            if not self.goal_plan_results:
+                self.enter_blocked_state(
+                    "Nav2 found no short feasible side-goal path"
+                )
+                return
+
+            # 기존 ±50도 목표 우선순위는 유지.
+            # 선호 범위 안의 유효 후보끼리만 측면 이탈 가중치를 반영한다.
+            # 선호 범위에 유효 후보가 없거나 모두 실패했다면
+            # 범위 밖 후보는 종전처럼 경로 길이 순으로 시도한다.
+            cos_yaw = math.cos(self.original_travel_yaw)
+            sin_yaw = math.sin(self.original_travel_yaw)
+            angle_limit = math.radians(self.preferred_goal_angle_deg)
+
+            def goal_heading_angle(candidate):
+                _, goal_x, goal_y, _ = candidate
+                dx = goal_x - self.goal_start_x
+                dy = goal_y - self.goal_start_y
+                forward = cos_yaw * dx + sin_yaw * dy
+                side = -sin_yaw * dx + cos_yaw * dy
+                return math.atan2(side, forward)
+
+            def goal_sort_key(candidate):
+                path_length, goal_x, goal_y, max_side = candidate
+                preferred = abs(goal_heading_angle(candidate)) <= angle_limit
+                # 선호 범위 안에서만 측면 이탈을 줄이도록 작은 가중치 부여.
+                # 범위 밖은 기존 최단 경로 순서를 그대로 유지한다.
+                score = (
+                    path_length + self.lateral_deviation_weight * max_side
+                    if preferred else path_length
+                )
+                return (0 if preferred else 1, score, path_length, goal_x, goal_y)
+
+            self.goal_candidates = sorted(
+                self.goal_plan_results,
+                key=goal_sort_key,
+            )
+            preferred_count = sum(
+                abs(goal_heading_angle(candidate)) <= angle_limit
+                for candidate in self.goal_candidates
+            )
+            self.goal_candidate_index = 0
+            chosen = self.goal_candidates[0]
+            chosen_angle = math.degrees(goal_heading_angle(chosen))
+            chosen_preferred = abs(goal_heading_angle(chosen)) <= angle_limit
+            chosen_score = (
+                chosen[0] + self.lateral_deviation_weight * chosen[3]
+                if chosen_preferred else chosen[0]
+            )
+            self.get_logger().info(
+                f"Selected short goal from {len(self.goal_candidates)} "
+                f"valid paths (within ±{self.preferred_goal_angle_deg:.0f}°: "
+                f"{preferred_count}); "
+                f"goal_angle={chosen_angle:.1f}°, "
+                f"path={chosen[0]:.2f}m, max_side={chosen[3]:.2f}m, "
+                f"score={chosen_score:.2f}, "
+                f"goal=({chosen[1]:.2f}, {chosen[2]:.2f})"
+            )
+            self.send_current_candidate_goal()
+            return
+
+        x, y = self.goal_plan_queue[self.goal_plan_index]
+        goal = ComputePathToPose.Goal()
+        goal.goal = self.make_nav_pose(x, y)
+        goal.planner_id = "GridBased"
+        goal.use_start = False
+
+        future = self.path_client.send_goal_async(goal)
+        future.add_done_callback(
+            lambda f: self.goal_path_response_callback(f, generation)
         )
 
-        send_future = self.navigate_client.send_goal_async(
-            goal_msg
+    def goal_path_response_callback(self, future, generation: int) -> None:
+        if generation != self.goal_plan_generation:
+            return
+        try:
+            handle = future.result()
+            if not handle.accepted:
+                raise RuntimeError("planner rejected candidate")
+            result_future = handle.get_result_async()
+            result_future.add_done_callback(
+                lambda f: self.goal_path_result_callback(f, generation)
+            )
+        except Exception as exc:
+            self.get_logger().warn(f"Goal path request failed: {exc}")
+            self.goal_plan_index += 1
+            self.check_next_goal_path(generation)
+
+    def goal_path_result_callback(self, future, generation: int) -> None:
+        if (
+            generation != self.goal_plan_generation
+            or self.state != DrivingState.WAITING_FOR_NAV
+        ):
+            return
+        try:
+            wrapped = future.result()
+            path = wrapped.result.path.poses
+            x, y = self.goal_plan_queue[self.goal_plan_index]
+
+            if wrapped.status == GoalStatus.STATUS_SUCCEEDED and len(path) >= 2:
+                length = sum(
+                    math.hypot(
+                        b.pose.position.x - a.pose.position.x,
+                        b.pose.position.y - a.pose.position.y,
+                    )
+                    for a, b in zip(path[:-1], path[1:])
+                )
+                endpoint_error = math.hypot(
+                    path[-1].pose.position.x - x,
+                    path[-1].pose.position.y - y,
+                )
+                # 선택 경로가 너무 멀리 돌아가면 '짧은 회피'가 아님.
+                yaw = self.original_travel_yaw
+                cos_yaw, sin_yaw = math.cos(yaw), math.sin(yaw)
+                max_side = max(
+                    abs(
+                        -sin_yaw * (p.pose.position.x - self.goal_start_x)
+                        + cos_yaw * (p.pose.position.y - self.goal_start_y)
+                    )
+                    for p in path
+                )
+
+                if (
+                    length <= self.max_goal_path_length
+                    and max_side <= self.max_goal_path_side
+                    and endpoint_error <= 0.25
+                ):
+                    self.goal_plan_results.append((length, x, y, max_side))
+        except Exception as exc:
+            self.get_logger().warn(f"Candidate path failed: {exc}")
+
+        self.goal_plan_index += 1
+        self.check_next_goal_path(generation)
+
+    # ============================================================== 
+    # Nav2 목표 전송
+    # ============================================================== 
+
+    def send_current_candidate_goal(self) -> None:
+        if self.goal_candidate_index >= len(self.goal_candidates):
+            self.enter_blocked_state("No feasible side-goal remains")
+            return
+
+        path_length, goal_x, goal_y, path_max_side = self.goal_candidates[
+            self.goal_candidate_index
+        ]
+        goal_msg = NavigateToPose.Goal()
+        goal_msg.pose = self.make_nav_pose(goal_x, goal_y)
+
+        self.goal_request_in_progress = True
+        self.change_state(DrivingState.WAITING_FOR_NAV)
+        self.get_logger().info(
+            f"Sending side-goal {self.goal_candidate_index + 1}/"
+            f"{len(self.goal_candidates)}: "
+            f"goal=({goal_x:.2f}, {goal_y:.2f}), "
+            f"path_length={path_length:.2f}m, "
+            f"max_side={path_max_side:.2f}m"
         )
 
-        send_future.add_done_callback(
-            self.goal_response_callback
-        )
+        future = self.navigate_client.send_goal_async(goal_msg)
+        future.add_done_callback(self.goal_response_callback)
 
     def goal_response_callback(self, future) -> None:
 
@@ -829,6 +1167,7 @@ class NavAvoidanceNode(Node):
         )
 
         self.publish_stop()
+        self.change_state(DrivingState.WAITING_FOR_NAV)
 
         self.replan_requested = True
         self.replan_count += 1
@@ -872,6 +1211,9 @@ class NavAvoidanceNode(Node):
     ) -> None:
 
         self.replan_requested = False
+        self.pending_block_reason = reason
+        self.change_state(DrivingState.WAITING_FOR_NAV)
+        self.publish_stop()
 
         if self.goal_handle is None:
 
@@ -908,6 +1250,10 @@ class NavAvoidanceNode(Node):
 
     def navigation_result_callback(self, future) -> None:
 
+        # 이미 다른 사유로 BLOCKED가 확정된 뒤 도착한 예전 결과는 무시.
+        if self.state == DrivingState.BLOCKED:
+            return
+
         try:
 
             wrapped_result = future.result()
@@ -922,6 +1268,12 @@ class NavAvoidanceNode(Node):
             self.goal_handle = None
             self.goal_request_in_progress = False
 
+            if self.pending_block_reason is not None:
+                reason = self.pending_block_reason
+                self.pending_block_reason = None
+                self.enter_blocked_state(reason)
+                return
+
             if self.replan_requested:
 
                 self.change_state(
@@ -935,6 +1287,23 @@ class NavAvoidanceNode(Node):
 
         self.goal_handle = None
         self.goal_request_in_progress = False
+
+        if self.pending_block_reason is not None:
+            reason = self.pending_block_reason
+            self.pending_block_reason = None
+            self.enter_blocked_state(reason)
+            return
+
+        if status == GoalStatus.STATUS_SUCCEEDED and self.goal_cancel_requested:
+            # 취소를 요청했는데 도착 결과가 먼저 나올 수 있다.
+            self.goal_cancel_requested = False
+            self.latest_nav_cmd = Twist()
+            self.last_nav_cmd_time = None
+            if self.replan_requested:
+                self.change_state(DrivingState.REPLANNING)
+            else:
+                self.enter_blocked_state("Nav2 finished while cancellation was pending")
+            return
 
         if status == GoalStatus.STATUS_SUCCEEDED:
 
@@ -1026,7 +1395,7 @@ class NavAvoidanceNode(Node):
             f"original_yaw={self.original_travel_yaw:.2f}"
         )
 
-        self.send_current_candidate_goal()
+        self.start_goal_search()
 
     def try_next_goal_candidate(self) -> None:
 
@@ -1040,7 +1409,7 @@ class NavAvoidanceNode(Node):
 
         if (
             self.goal_candidate_index
-            >= len(self.goal_distance_candidates)
+            >= len(self.goal_candidates)
         ):
 
             self.enter_blocked_state(
@@ -1056,29 +1425,82 @@ class NavAvoidanceNode(Node):
     # ==============================================================
 
     def handle_navigation_success(self) -> None:
-
-        self.get_logger().info(
-            "Avoidance completed successfully"
-        )
-
-        self.publish_avoidance_status(
-            "COMPLETED"
-        )
-
-        # 회피 전 teleop 명령이 다시 적용되지 않도록 초기화한다.
-        self.latest_user_cmd = Twist()
-        self.last_user_cmd_time = None
-
+        # Nav2의 0.40m 목표 허용 오차만으로는 회피 완료를
+        # 보장할 수 없다. 경로가 끝나도 바로 전진권을 넘기지 않는다.
         self.latest_nav_cmd = Twist()
         self.last_nav_cmd_time = None
-
-        self.c_avoidance_requested = False
-
-        self.reset_avoidance_session()
-
-        self.change_state(
-            DrivingState.MANUAL
+        # 정상 회피 성공과 BLOCKED 복구는 다르게 처리한다.
+        # 성공했을 때는 전진키 재입력 잠금이 없어야 한다.
+        self.forward_rearm_required = False
+        self.forward_release_seen = False
+        self.return_clear_since = None
+        self.change_state(DrivingState.VERIFYING_CLEAR)
+        self.get_logger().info(
+            "Short goal reached: verifying front corridor before MANUAL"
         )
+
+    def handle_verify_clear(self) -> None:
+        if not self.is_scan_fresh() or not self.is_odom_fresh():
+            self.return_clear_since = None
+            return
+        if (math.isfinite(self.raw_front_distance)
+                and self.raw_front_distance < self.return_clear_distance):
+            # 목표점에는 도착했지만 장애물과의 전방 간격이 부족하다.
+            self.enter_blocked_state("Goal reached but front corridor is still blocked")
+            return
+
+        if self.return_clear_since is None:
+            self.return_clear_since = self.get_clock().now()
+            return
+        if self.get_age_seconds(self.return_clear_since) < self.return_clear_duration:
+            return
+
+        self.publish_avoidance_status("COMPLETED")
+        self._return_to_manual("Avoidance completed successfully")
+
+    def _return_to_manual(self, message: str) -> None:
+        self.latest_user_cmd = Twist()
+        self.last_user_cmd_time = None
+        self.latest_nav_cmd = Twist()
+        self.last_nav_cmd_time = None
+        self.c_avoidance_requested = False
+        self.reset_avoidance_session()
+        self.change_state(DrivingState.MANUAL)
+        self.get_logger().info(message)
+
+    def handle_blocked_recovery(self) -> None:
+        # BLOCKED에서 자동 후진은 하지 않는다. 사용자가 직접
+        # 후진/회전해 실제로 위험 지점에서 벗어났을 때만 수동 복귀.
+        if not self.is_scan_fresh() or not self.is_odom_fresh():
+            self.blocked_clear_since = None
+            return
+
+        if self.blocked_pose is None:
+            # Odometry가 BLOCKED 진입 시 끊겼다가 복구된 경우
+            # 그때의 위치부터 복구 움직임을 확인한다.
+            self.blocked_pose = (self.current_x, self.current_y, self.current_yaw)
+            return
+        x0, y0, yaw0 = self.blocked_pose
+        moved = math.hypot(self.current_x - x0, self.current_y - y0)
+        dyaw = math.atan2(math.sin(self.current_yaw - yaw0),
+                          math.cos(self.current_yaw - yaw0))
+        escaped = (moved >= self.blocked_min_translation
+                   or abs(dyaw) >= self.blocked_min_rotation)
+        clear = (not math.isfinite(self.raw_front_distance)
+                 or self.raw_front_distance >= self.blocked_clear_distance)
+        if not escaped or not clear:
+            self.blocked_clear_since = None
+            return
+
+        if self.blocked_clear_since is None:
+            self.blocked_clear_since = self.get_clock().now()
+            return
+        if self.get_age_seconds(self.blocked_clear_since) < self.blocked_clear_duration:
+            return
+
+        # 전진 재시작은 사용자에게 맡긴다.
+        self.publish_avoidance_status("RECOVERED")
+        self._return_to_manual("BLOCKED recovered: MANUAL, fresh forward input required")
 
     def enter_blocked_state(
         self,
@@ -1092,6 +1514,21 @@ class NavAvoidanceNode(Node):
         self.goal_request_in_progress = False
         self.goal_cancel_requested = False
         self.replan_requested = False
+        self.pending_block_reason = None
+        self.blocked_pose = (self.current_x, self.current_y, self.current_yaw) if self.is_odom_fresh() else None
+        self.blocked_clear_since = None
+        self.return_clear_since = None
+        self.forward_rearm_required = True
+        self.forward_release_seen = False
+        self.latest_user_cmd = Twist()
+        self.last_user_cmd_time = None
+
+        # 대기 중이던 planner callback이 재진입하지 못하게 무효화.
+        self.goal_plan_generation += 1
+        self.goal_plan_in_progress = False
+        self.goal_plan_started_at = None
+        self.goal_plan_queue = []
+        self.goal_candidates = []
 
         self.change_state(
             DrivingState.BLOCKED
@@ -1108,6 +1545,13 @@ class NavAvoidanceNode(Node):
         self.avoidance_pose_saved = False
 
         self.goal_candidate_index = 0
+        self.goal_candidates = []
+        self.goal_plan_queue = []
+        self.goal_plan_results = []
+        self.goal_plan_index = 0
+        self.goal_plan_generation += 1
+        self.goal_plan_in_progress = False
+        self.goal_plan_started_at = None
         self.goal_request_in_progress = False
         self.goal_handle = None
         self.goal_cancel_requested = False
@@ -1119,6 +1563,9 @@ class NavAvoidanceNode(Node):
         self.nav_goal_accepted_time = None
         self.clear_condition_since = None
         self.emergency_condition_since = None
+        self.blocked_pose = None
+        self.blocked_clear_since = None
+        self.return_clear_since = None
 
     # ==============================================================
     # 최종 속도 출력
@@ -1149,10 +1596,10 @@ class NavAvoidanceNode(Node):
 
         if self.state == DrivingState.MANUAL:
 
-            if not self.is_user_cmd_fresh():
-
+            if not self.is_user_cmd_fresh() or (
+                self.forward_rearm_required and self.latest_user_cmd.linear.x > 0.01
+            ):
                 self.publish_stop()
-
                 return
 
             self.cmd_vel_publisher.publish(
@@ -1213,7 +1660,7 @@ class NavAvoidanceNode(Node):
 
             return
 
-        # WAITING_FOR_NAV와 REPLANNING에서는 완전 정지
+        # WAITING_FOR_NAV, REPLANNING, VERIFYING_CLEAR에서는 정지
         self.publish_stop()
 
     def make_recovery_cmd(
@@ -1444,6 +1891,7 @@ class NavAvoidanceNode(Node):
             DrivingState.AVOIDING,
             DrivingState.REPLANNING,
             DrivingState.BLOCKED,
+            DrivingState.VERIFYING_CLEAR,
         ):
 
             self.publish_avoidance_status(
