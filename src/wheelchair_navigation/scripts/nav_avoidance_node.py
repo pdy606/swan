@@ -11,7 +11,7 @@ from nav2_msgs.action import ComputePathToPose, NavigateToPose
 from nav_msgs.msg import Odometry
 from rclpy.action import ActionClient
 from rclpy.node import Node
-from sensor_msgs.msg import LaserScan
+from sensor_msgs.msg import Imu, LaserScan
 from std_msgs.msg import String
 from std_srvs.srv import SetBool
 
@@ -38,6 +38,24 @@ class NavAvoidanceNode(Node):
         # OFF에서는 Nav2 / 상황판단 / LiDAR 정지 조건을 모두 우회하고
         # 사용자의 /cmd_vel_user만 최종 모터 토픽으로 전달한다.
         self.autonomy_enabled = True
+
+        # --------------------------------------------------------------
+        # 휠체어 본체 IMU 기반 내리막 일시 수동 모드
+        # --------------------------------------------------------------
+        # 사용자가 설정한 autonomy_enabled와 별개로 유지한다.
+        # 측정값: 평지 -1.27도 / 일반 내리막 +2.65도 / 급경사 최대 +10.50도.
+        self.slope_bypass_active = False
+        self.flat_pitch_reference_deg = -1.27
+        self.downhill_enter_pitch_deg = +0.50    # 0.2초 지속 시 진입
+        self.downhill_enter_duration = 0.20
+        self.flat_pitch_tolerance_deg = 0.90    # 평지 범위 -2.17도 ~ -0.37도
+        self.flat_return_duration = 2.00       # 중간 평지 통과 시 재활성화 억제
+        self.imu_timeout = 1.00
+        self.latest_imu_pitch_deg = None
+        self.last_imu_time = None
+        self.downhill_since = None
+        self.flat_since = None
+
         # 이전 모드의 Nav2 비동기 응답이 현재 모드를 덮어쓰지 않도록 세대 구분
         self.control_epoch = 0
         # OFF 도중 전송되거나 취소 중인 예전 목표가 정리될 때까지 새 목표를 보류
@@ -289,6 +307,14 @@ class NavAvoidanceNode(Node):
             10,
         )
 
+        # 휠체어 본체(base_link)의 IMU. Gazebo에서 ROS2로 브리지해야 한다.
+        self.imu_subscription = self.create_subscription(
+            Imu,
+            "/model/wheelchair/imu",
+            self.imu_callback,
+            10,
+        )
+
         # 실제 휠체어 명령은 이 노드 하나만 발행한다.
         self.cmd_vel_publisher = self.create_publisher(
             Twist,
@@ -343,7 +369,107 @@ class NavAvoidanceNode(Node):
             "+ /set_autonomy (default ON)"
         )
 
-    # ==============================================================
+    # ============================================================== 
+    # IMU 내리막 판단 및 자동 회피 일시 중단
+    # ============================================================== 
+
+    def is_manual_bypass(self) -> bool:
+        """사용자 OFF 또는 내리막일 때는 완전 수동 명령만 통과시킨다."""
+        return (not self.autonomy_enabled) or self.slope_bypass_active
+
+    def imu_callback(self, msg: Imu) -> None:
+        now = self.get_clock().now()
+
+        # IMU가 끊겼다가 다시 들어오면 이전의 연속 측정 시간은 폐기한다.
+        if (self.last_imu_time is not None
+                and self.get_age_seconds(self.last_imu_time) > self.imu_timeout):
+            self.downhill_since = None
+            self.flat_since = None
+        self.last_imu_time = now
+
+        q = msg.orientation
+        if not all(math.isfinite(v) for v in (q.x, q.y, q.z, q.w)):
+            self.downhill_since = None
+            self.flat_since = None
+            return
+        norm_sq = q.x * q.x + q.y * q.y + q.z * q.z + q.w * q.w
+        if norm_sq < 1e-8:
+            return
+
+        # 모니터링에 사용했던 동일한 quaternion -> Pitch 공식.
+        sine = 2.0 * (q.w * q.y - q.z * q.x) / norm_sq
+        pitch_deg = math.degrees(math.asin(max(-1.0, min(1.0, sine))))
+        self.latest_imu_pitch_deg = pitch_deg
+
+        if not self.slope_bypass_active:
+            # 평지(-1.27도)보다 충분히 +방향으로 기울어진 내리막만 감지.
+            if pitch_deg >= self.downhill_enter_pitch_deg:
+                if self.downhill_since is None:
+                    self.downhill_since = now
+                elif (self.get_age_seconds(self.downhill_since)
+                      >= self.downhill_enter_duration):
+                    self.set_slope_bypass(True)
+            else:
+                self.downhill_since = None
+        else:
+            # 진입 임계값과 복귀 범위를 분리해 경계에서 반복 전환 방지.
+            if (abs(pitch_deg - self.flat_pitch_reference_deg)
+                    <= self.flat_pitch_tolerance_deg):
+                if self.flat_since is None:
+                    self.flat_since = now
+                elif (self.get_age_seconds(self.flat_since)
+                      >= self.flat_return_duration):
+                    self.set_slope_bypass(False)
+            else:
+                self.flat_since = None
+
+    def set_slope_bypass(self, active: bool) -> None:
+        """IMU 수동모드 전환: 사용자 ON/OFF 설정은 절대 변경하지 않음."""
+        if active == self.slope_bypass_active:
+            return
+
+        self.control_epoch += 1
+        previous_goal = self.goal_handle
+        self.slope_bypass_active = active
+
+        # 기존 회피/정지/BLOCKED 상태를 완전히 초기화한다.
+        # 최신 Teleop 명령은 보존하여 지연 없이 수동 조작 가능.
+        self.reset_avoidance_session()
+        self.c_avoidance_requested = False
+        self.traffic_stop_latched = False
+        self.forward_rearm_required = False
+        self.forward_release_seen = False
+        self.pending_block_reason = None
+        self.latest_nav_cmd = Twist()
+        self.last_nav_cmd_time = None
+        self.change_state(DrivingState.MANUAL)
+        self.downhill_since = None
+        self.flat_since = None
+
+        if previous_goal is not None:
+            # 이전 목표 취소 응답/결과가 늦어도 새 상태에 관여하지 않음.
+            self.cancel_detached_goal(previous_goal)
+
+        if active:
+            # 내리막 중 단발성 C를 무시해도 평지에서 다시 평가한다.
+            self.recheck_obstacle_on_enable = True
+            self.publish_avoidance_status("SLOPE_MANUAL")
+            self.get_logger().info(
+                f"Downhill detected (pitch={self.latest_imu_pitch_deg:+.2f} deg): "
+                "Nav2 avoidance bypassed, unrestricted teleop"
+            )
+            self.publish_manual_or_stop()
+        else:
+            # 상황판단 노드가 C를 다시 발행하지 않을 수도 있으므로 재검사.
+            self.recheck_obstacle_on_enable = True
+            self.publish_avoidance_status("SLOPE_CLEAR")
+            self.get_logger().info(
+                f"Flat surface confirmed (pitch={self.latest_imu_pitch_deg:+.2f} deg): "
+                + ("Nav2 avoidance resumed" if self.autonomy_enabled
+                   else "user OFF remains in effect")
+            )
+
+    # ============================================================== 
     # ON/OFF 서비스 및 기존 Nav2 목표 정리
     # ============================================================== 
 
@@ -401,7 +527,11 @@ class NavAvoidanceNode(Node):
                    else "awaiting new C")
             )
             # 전방에 이미 장애물이 있는 경우 다음 scan_callback에서 재판단.
-            response.message = "Autonomy ON: avoidance enabled"
+            response.message = (
+                "Autonomy ON: slope bypass active until flat"
+                if self.slope_bypass_active
+                else "Autonomy ON: avoidance enabled"
+            )
 
         response.success = True
         return response
@@ -464,9 +594,9 @@ class NavAvoidanceNode(Node):
 
     def situation_callback(self, msg: String) -> None:
         situation = msg.data.strip().upper()
-        # OFF면 RED / C / 기타 상황판단은 주행에 반영하지 않는다.
-        # 단, C가 1회만 발행될 수 있으므로 ON 전환 후 재판단할 흔적은 보존.
-        if not self.autonomy_enabled:
+        # 사용자 OFF / IMU 내리막은 RED, C 등 모든 자동 개입을 차단.
+        # 단발성 C는 평지 복귀 후 LiDAR 재판단에 대비한다.
+        if self.is_manual_bypass():
             if situation == "C":
                 self.recheck_obstacle_on_enable = True
             return
@@ -616,7 +746,7 @@ class NavAvoidanceNode(Node):
 
         # OFF 동안 발생한 C가 다시 ON 시 재발행되지 않는 경우 복구.
         # 평상시 회피 시작 판단 및 0.44m 조건은 situation_node가 담당.
-        if self.autonomy_enabled and self.recheck_obstacle_on_enable:
+        if not self.is_manual_bypass() and self.recheck_obstacle_on_enable:
             if self.state != DrivingState.MANUAL:
                 # 새로운 C가 먼저 정상 수신돼 회피를 시작한 상황.
                 self.recheck_obstacle_on_enable = False
@@ -768,7 +898,7 @@ class NavAvoidanceNode(Node):
     # ==============================================================
 
     def supervisor_callback(self) -> None:
-        if not self.autonomy_enabled:
+        if self.is_manual_bypass():
             return
 
         if self.state == DrivingState.STOPPED:
@@ -1203,7 +1333,7 @@ class NavAvoidanceNode(Node):
 
         # 예전 ON 세션에서 보낸 목표가 OFF 뒤에 승인된 경우 즉시 취소.
         # 결과가 이전 또는 현재 MANUAL 상태에 개입해서는 안 된다.
-        if epoch != self.control_epoch or not self.autonomy_enabled:
+        if epoch != self.control_epoch or self.is_manual_bypass():
             try:
                 stale_handle = future.result()
                 if stale_handle is not None and stale_handle.accepted:
@@ -1429,7 +1559,7 @@ class NavAvoidanceNode(Node):
         self.cancel_current_goal()
 
     def cancel_response_callback(self, future, epoch: int) -> None:
-        if epoch != self.control_epoch or not self.autonomy_enabled:
+        if epoch != self.control_epoch or self.is_manual_bypass():
             return
 
         try:
@@ -1454,7 +1584,7 @@ class NavAvoidanceNode(Node):
             )
 
     def navigation_result_callback(self, future, epoch: int) -> None:
-        if epoch != self.control_epoch or not self.autonomy_enabled:
+        if epoch != self.control_epoch or self.is_manual_bypass():
             return
 
         # 이미 다른 사유로 BLOCKED가 확정된 뒤 도착한 예전 결과는 무시.
@@ -1782,7 +1912,7 @@ class NavAvoidanceNode(Node):
         # OFF 상태에서는 scan timeout, RED latch, BLOCKED, STOPPED 등
         # 모든 자동 주행 제한을 무시하고 Teleop을 모터에 그대로 중계.
         # Teleop 입력 타임아웃만 유지하여 오래된 명령이 계속 남지 않게 한다.
-        if not self.autonomy_enabled:
+        if self.is_manual_bypass():
             self.publish_manual_or_stop()
             return
 

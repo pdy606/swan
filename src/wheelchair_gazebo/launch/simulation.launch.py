@@ -87,6 +87,11 @@ def generate_launch_description():
             '@sensor_msgs/msg/LaserScan'
             '[gz.msgs.LaserScan',
 
+            # Gazebo -> ROS 2 : IMU (휠체어 몸체 base_link)
+            '/model/wheelchair/imu'
+            '@sensor_msgs/msg/Imu'
+            '[gz.msgs.IMU',
+
             # Gazebo -> ROS 2 : camera
             '/camera'
             '@sensor_msgs/msg/Image'
