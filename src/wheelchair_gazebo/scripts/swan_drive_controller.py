@@ -15,11 +15,11 @@ class SwanDriveController(Node):
         super().__init__('swan_drive_controller')
 
         # model.sdf 기준
-        self.wheel_radius = 0.20
+        self.wheel_radius = 0.18
 
         # 휠체어 큰바퀴 축 x=-0.13
-        # SWAN 조향축 x=0.79
-        self.wheelbase = 0.92
+        # SWAN 조향축(바퀴 중심) x=0.68
+        self.wheelbase = 0.81
 
         # 완전 90도에서는 수치적으로 너무 극단적이므로
         # 일반 최대 조향은 약 88도
@@ -49,6 +49,70 @@ class SwanDriveController(Node):
             Float64,
             '/model/wheelchair/front_steering/cmd_pos',
             10
+        )
+
+        # --------------------------------------------------
+        # 수납(stow) 시퀀스
+        #
+        # /model/wheelchair/fold/cmd_pos
+        #   0.0      -> 펼침 (주행 위치)
+        #   그 외 값 -> 수납
+        #
+        # 수납: 1) 카메라 접기 + 구동 바퀴를 본체 아래로
+        #       2) 본체(+바퀴)를 시트 아래로
+        # 펼침은 역순.
+        #
+        # Gazebo 쪽은 단순 위치 PID라서, 속도와 순서는
+        # 여기서 목표 위치를 조금씩 움직여 만든다.
+        # --------------------------------------------------
+
+        # model.sdf 관절 이동 범위
+        self.retract_travel = 0.18
+        self.slide_travel = 0.39
+        self.camera_fold_angle = 1.5708
+
+        self.retract_speed = 0.12   # [m/s]
+        self.slide_speed = 0.15     # [m/s]
+        self.camera_speed = 1.2     # [rad/s]
+
+        self.folded = False
+
+        # 현재 목표 위치 (0 = 펼침)
+        self.retract_pos = 0.0
+        self.slide_pos = 0.0
+        self.camera_pos = 0.0
+        self.stow_moving = False
+
+        self.retract_pub = self.create_publisher(
+            Float64,
+            '/model/wheelchair/wheel_retract/cmd_pos',
+            10
+        )
+
+        self.slide_pub = self.create_publisher(
+            Float64,
+            '/model/wheelchair/slide/cmd_pos',
+            10
+        )
+
+        self.camera_fold_pub = self.create_publisher(
+            Float64,
+            '/model/wheelchair/camera_fold/cmd_pos',
+            10
+        )
+
+        self.fold_sub = self.create_subscription(
+            Float64,
+            '/model/wheelchair/fold/cmd_pos',
+            self.fold_callback,
+            10
+        )
+
+        self.last_stow_time = None
+
+        self.stow_timer = self.create_timer(
+            0.02,
+            self.stow_callback
         )
 
         self.cmd_sub = self.create_subscription(
@@ -97,7 +161,110 @@ class SwanDriveController(Node):
         self.drive_pub.publish(drive_msg)
         self.steer_pub.publish(steer_msg)
 
+    def fold_callback(self, msg: Float64):
+        self.folded = (msg.data != 0.0)
+        # Stop immediately on fold/unfold; never replay a pre-fold command.
+        self.publish_commands(wheel_speed=0.0, steering=0.0)
+
+    def drive_ready(self):
+        # 완전히 펼쳐진 상태에서만 주행 허용
+        return (
+            not self.folded and
+            self.retract_pos == 0.0 and
+            self.slide_pos == 0.0
+        )
+
+    def step_toward(self, value, goal, max_step):
+        # 도착 판정을 == 로 하므로 마지막 스텝은 goal 값을 그대로 반환
+        if abs(goal - value) <= max_step:
+            return goal
+
+        return value + math.copysign(max_step, goal - value)
+
+    def stow_callback(self):
+
+        now = self.get_clock().now()
+
+        if self.last_stow_time is None:
+            self.last_stow_time = now
+            return
+
+        dt = (now - self.last_stow_time).nanoseconds / 1e9
+        self.last_stow_time = now
+
+        # 시뮬레이션 일시정지/시간 점프 보호
+        dt = self.clamp(dt, 0.0, 0.1)
+
+        if self.folded:
+            retract_goal = self.retract_travel
+            camera_goal = self.camera_fold_angle
+
+            # 1단계가 끝난 뒤에만 본체를 넣는다
+            stage1_done = (
+                self.retract_pos == retract_goal and
+                self.camera_pos == camera_goal
+            )
+            slide_goal = (
+                self.slide_travel if stage1_done else self.slide_pos
+            )
+
+        else:
+            slide_goal = 0.0
+
+            # 본체가 다 나온 뒤에만 바퀴와 카메라를 편다
+            body_out = (self.slide_pos == 0.0)
+            retract_goal = 0.0 if body_out else self.retract_pos
+            camera_goal = 0.0 if body_out else self.camera_pos
+
+        kit_before = self.retract_pos + self.slide_pos
+        camera_before = self.camera_pos
+
+        self.retract_pos = self.step_toward(
+            self.retract_pos,
+            retract_goal,
+            self.retract_speed * dt
+        )
+        self.slide_pos = self.step_toward(
+            self.slide_pos,
+            slide_goal,
+            self.slide_speed * dt
+        )
+        self.camera_pos = self.step_toward(
+            self.camera_pos,
+            camera_goal,
+            self.camera_speed * dt
+        )
+
+        for pub, value in (
+            (self.retract_pub, self.retract_pos),
+            (self.slide_pub, self.slide_pos),
+            (self.camera_fold_pub, self.camera_pos),
+        ):
+            msg = Float64()
+            msg.data = value
+            pub.publish(msg)
+
+        kit_moved = self.retract_pos + self.slide_pos - kit_before
+
+        self.stow_moving = (
+            kit_moved != 0.0 or
+            self.camera_pos != camera_before
+        )
+
+        if kit_moved != 0.0 and dt > 0.0:
+            # 바퀴가 휠체어 쪽으로 들어오는 속도만큼 바퀴를 굴려서
+            # 휠체어는 제자리에 있고 구동기만 움직이게 한다.
+            kit_speed = kit_moved / dt
+
+            self.publish_commands(
+                wheel_speed=-kit_speed / self.wheel_radius,
+                steering=0.0
+            )
+
     def cmd_callback(self, msg: Twist):
+
+        if not self.drive_ready():
+            return
 
         self.last_cmd_time = self.get_clock().now()
 
@@ -196,6 +363,12 @@ class SwanDriveController(Node):
         )
 
     def watchdog_callback(self):
+
+        if not self.drive_ready():
+            # 이동 중에는 stow_callback이 바퀴를 굴린다
+            if not self.stow_moving:
+                self.publish_commands(wheel_speed=0.0, steering=0.0)
+            return
 
         elapsed = (
             self.get_clock().now() -

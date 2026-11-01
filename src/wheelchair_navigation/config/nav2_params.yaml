@@ -84,7 +84,7 @@ controller_server:
     #  stateful: True
     general_goal_checker:
       stateful: True
-      plugin: "nav2_controller::SimpleGoalChecker"
+      plugin: "nav2_controller::PositionGoalChecker"
       xy_goal_tolerance: 0.40
     FollowPath:
       plugin: "nav2_mppi_controller::MPPIController"
@@ -132,7 +132,7 @@ controller_server:
       GoalAngleCritic:
         enabled: true
         cost_power: 1
-        cost_weight: 3.0
+        cost_weight: 1.0
         threshold_to_consider: 0.5
       PreferForwardCritic:
         enabled: true
@@ -188,16 +188,18 @@ local_costmap:
       width: 5
       height: 5
       resolution: 0.05
-      footprint: "[[1.14, 0.08],
-                  [0.95, 0.23],
-                  [0.30, 0.23],
-                  [0.18, 0.40],
-                  [-0.46, 0.40],
-                  [-0.46, -0.40],
-                  [0.18, -0.40],
-                  [0.30, -0.23],
-                  [0.95, -0.23],
-                  [1.14, -0.08]]"
+      footprint: "[[0.99, 0.08],
+                  [0.88, 0.24],
+                  [0.48, 0.26],
+                  [0.25, 0.32],
+                  [0.17, 0.39],
+                  [-0.46, 0.39],
+                  [-0.46, -0.39],
+                  [0.17, -0.39],
+                  [0.25, -0.32],
+                  [0.48, -0.26],
+                  [0.88, -0.24],
+                  [0.99, -0.08]]"
       plugins: ["voxel_layer", "inflation_layer"]
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
@@ -241,16 +243,18 @@ global_costmap:
       height: 6
       resolution: 0.05
 
-      footprint: "[[1.14, 0.08],
-                  [0.95, 0.23],
-                  [0.30, 0.23],
-                  [0.18, 0.40],
-                  [-0.46, 0.40],
-                  [-0.46, -0.40],
-                  [0.18, -0.40],
-                  [0.30, -0.23],
-                  [0.95, -0.23],
-                  [1.14, -0.08]]"
+      footprint: "[[0.99, 0.08],
+                  [0.88, 0.24],
+                  [0.48, 0.26],
+                  [0.25, 0.32],
+                  [0.17, 0.39],
+                  [-0.46, 0.39],
+                  [-0.46, -0.39],
+                  [0.17, -0.39],
+                  [0.25, -0.32],
+                  [0.48, -0.26],
+                  [0.88, -0.24],
+                  [0.99, -0.08]]"
 
       track_unknown_space: false
 
