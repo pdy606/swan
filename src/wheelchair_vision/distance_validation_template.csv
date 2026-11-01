@@ -1,0 +1,5 @@
+class,method,true_x,true_z,pred_x,pred_z
+Person,BEV,0.0,2.0,,
+Person,BEV,0.5,3.0,,
+Red light STOP,AIR,0.0,4.0,,
+green light GO,AIR,-0.5,5.0,,

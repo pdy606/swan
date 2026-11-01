@@ -16,7 +16,7 @@ def generate_launch_description():
     world_file = os.path.join(
         pkg_share,
         'worlds',
-        'dy_scene2.sdf'
+        'wheelchair_world.sdf'
     )
 
     models_path = os.path.join(
