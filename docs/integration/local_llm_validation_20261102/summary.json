@@ -1,0 +1,376 @@
+{
+  "finished_at": "2026-11-02T23:53:40.321431+09:00",
+  "total_requests": 66,
+  "errors": 0,
+  "scope": "Offline local inference. Selected sensor-rule fixtures and six saved Gazebo PNGs, each repeated three times. Not autonomous driving or representative recognition accuracy.",
+  "groups": [
+    {
+      "model": "qwen3:8b",
+      "track": "sensor_text",
+      "requests": 24,
+      "schema_valid": 24,
+      "matches_expected": 18,
+      "timing_all": {
+        "n": 24,
+        "median_s": 2.157635833369568,
+        "min_s": 1.3542725001461804,
+        "max_s": 9.28571783285588,
+        "p95_s_nearest_rank": 3.1912762918509543
+      },
+      "first_request_s": 9.28571783285588,
+      "first_load_s": 4.951978834,
+      "unique_cases": 8,
+      "timing_after_first_request": {
+        "n": 23,
+        "median_s": 2.1514180419035256,
+        "min_s": 1.3542725001461804,
+        "max_s": 3.1912762918509543,
+        "p95_s_nearest_rank": 3.0857890001498163
+      }
+    },
+    {
+      "model": "gemma3:4b",
+      "track": "sensor_text",
+      "requests": 24,
+      "schema_valid": 24,
+      "matches_expected": 12,
+      "timing_all": {
+        "n": 24,
+        "median_s": 1.6405373958405107,
+        "min_s": 1.4046662086620927,
+        "max_s": 4.319482041988522,
+        "p95_s_nearest_rank": 2.467396416235715
+      },
+      "first_request_s": 4.319482041988522,
+      "first_load_s": 3.551187666,
+      "unique_cases": 8,
+      "timing_after_first_request": {
+        "n": 23,
+        "median_s": 1.6379252918995917,
+        "min_s": 1.4046662086620927,
+        "max_s": 2.467396416235715,
+        "p95_s_nearest_rank": 2.330259291920811
+      }
+    },
+    {
+      "model": "gemma3:4b",
+      "track": "saved_image",
+      "requests": 18,
+      "schema_valid": 18,
+      "matches_expected": 9,
+      "timing_all": {
+        "n": 18,
+        "median_s": 1.382832333445549,
+        "min_s": 1.0336598749272525,
+        "max_s": 5.664362334180623,
+        "p95_s_nearest_rank": 5.664362334180623
+      },
+      "first_request_s": 5.154493291862309,
+      "first_load_s": 0.00501125,
+      "unique_cases": 6,
+      "color_matches": 12,
+      "advice_matches": 9,
+      "first_image_pass": {
+        "n": 6,
+        "median_s": 5.1240306668914855,
+        "min_s": 5.0613048751838505,
+        "max_s": 5.664362334180623,
+        "p95_s_nearest_rank": 5.664362334180623
+      },
+      "repeated_image_passes": {
+        "n": 12,
+        "median_s": 1.3533956459723413,
+        "min_s": 1.0336598749272525,
+        "max_s": 1.4319507079198956,
+        "p95_s_nearest_rank": 1.4319507079198956
+      }
+    }
+  ],
+  "cases": [
+    {
+      "model": "qwen3:8b",
+      "track": "sensor_text",
+      "case": "recorded_clear_forward",
+      "matches": 3,
+      "requests": 3,
+      "first_output": {
+        "action": "forward",
+        "reason": "goal_distance_m > 0.30 and front_clearance_m >= 1.0 and heading_error_rad is 0"
+      },
+      "exact_output_repeat_stability": true
+    },
+    {
+      "model": "qwen3:8b",
+      "track": "sensor_text",
+      "case": "front_blocked",
+      "matches": 0,
+      "requests": 3,
+      "first_output": {
+        "action": "forward",
+        "reason": "No sensor age violation, goal distance is sufficient, and heading error is within acceptable range."
+      },
+      "exact_output_repeat_stability": true
+    },
+    {
+      "model": "qwen3:8b",
+      "track": "sensor_text",
+      "case": "goal_left",
+      "matches": 0,
+      "requests": 3,
+      "first_output": {
+        "action": "stop",
+        "reason": "sensor_age_s > 2.0"
+      },
+      "exact_output_repeat_stability": true
+    },
+    {
+      "model": "qwen3:8b",
+      "track": "sensor_text",
+      "case": "goal_right",
+      "matches": 3,
+      "requests": 3,
+      "first_output": {
+        "action": "right",
+        "reason": "heading_error_rad < -0.20 and right_clearance_m >= 0.55"
+      },
+      "exact_output_repeat_stability": true
+    },
+    {
+      "model": "qwen3:8b",
+      "track": "sensor_text",
+      "case": "near_goal",
+      "matches": 3,
+      "requests": 3,
+      "first_output": {
+        "action": "stop",
+        "reason": "goal_distance_m <= 0.30"
+      },
+      "exact_output_repeat_stability": true
+    },
+    {
+      "model": "qwen3:8b",
+      "track": "sensor_text",
+      "case": "left_blocked",
+      "matches": 3,
+      "requests": 3,
+      "first_output": {
+        "action": "stop",
+        "reason": "heading_error_rad > 0.20 and left_clearance_m < 0.55"
+      },
+      "exact_output_repeat_stability": true
+    },
+    {
+      "model": "qwen3:8b",
+      "track": "sensor_text",
+      "case": "stale_sensor",
+      "matches": 3,
+      "requests": 3,
+      "first_output": {
+        "action": "stop",
+        "reason": "sensor_age_s > 2.0"
+      },
+      "exact_output_repeat_stability": true
+    },
+    {
+      "model": "qwen3:8b",
+      "track": "sensor_text",
+      "case": "right_blocked",
+      "matches": 3,
+      "requests": 3,
+      "first_output": {
+        "action": "stop",
+        "reason": "heading_error_rad < -0.20 and right_clearance_m < 0.55"
+      },
+      "exact_output_repeat_stability": true
+    },
+    {
+      "model": "gemma3:4b",
+      "track": "sensor_text",
+      "case": "recorded_clear_forward",
+      "matches": 3,
+      "requests": 3,
+      "first_output": {
+        "action": "forward",
+        "reason": "No stop conditions met"
+      },
+      "exact_output_repeat_stability": true
+    },
+    {
+      "model": "gemma3:4b",
+      "track": "sensor_text",
+      "case": "front_blocked",
+      "matches": 0,
+      "requests": 3,
+      "first_output": {
+        "action": "forward",
+        "reason": "sensor_age_s < 2.0 and heading_error_rad <= 0.20"
+      },
+      "exact_output_repeat_stability": true
+    },
+    {
+      "model": "gemma3:4b",
+      "track": "sensor_text",
+      "case": "goal_left",
+      "matches": 0,
+      "requests": 3,
+      "first_output": {
+        "action": "stop",
+        "reason": "heading_error_rad > 0.20"
+      },
+      "exact_output_repeat_stability": true
+    },
+    {
+      "model": "gemma3:4b",
+      "track": "sensor_text",
+      "case": "goal_right",
+      "matches": 0,
+      "requests": 3,
+      "first_output": {
+        "action": "stop",
+        "reason": "sensor_age_s > 2.0"
+      },
+      "exact_output_repeat_stability": true
+    },
+    {
+      "model": "gemma3:4b",
+      "track": "sensor_text",
+      "case": "near_goal",
+      "matches": 0,
+      "requests": 3,
+      "first_output": {
+        "action": "forward",
+        "reason": "sensor_age_s < 2.0"
+      },
+      "exact_output_repeat_stability": true
+    },
+    {
+      "model": "gemma3:4b",
+      "track": "sensor_text",
+      "case": "left_blocked",
+      "matches": 3,
+      "requests": 3,
+      "first_output": {
+        "action": "stop",
+        "reason": "heading_error_rad > 0.20"
+      },
+      "exact_output_repeat_stability": true
+    },
+    {
+      "model": "gemma3:4b",
+      "track": "sensor_text",
+      "case": "stale_sensor",
+      "matches": 3,
+      "requests": 3,
+      "first_output": {
+        "action": "stop",
+        "reason": "sensor_age_s > 2.0"
+      },
+      "exact_output_repeat_stability": true
+    },
+    {
+      "model": "gemma3:4b",
+      "track": "sensor_text",
+      "case": "right_blocked",
+      "matches": 3,
+      "requests": 3,
+      "first_output": {
+        "action": "stop",
+        "reason": "heading_error_rad > 0.20"
+      },
+      "exact_output_repeat_stability": true
+    },
+    {
+      "model": "gemma3:4b",
+      "track": "saved_image",
+      "case": "clear_green",
+      "matches": 3,
+      "requests": 3,
+      "first_output": {
+        "signal_color": "green_or_cyan",
+        "advice": "green_observed",
+        "reason": "Central pedestrian signal is green"
+      },
+      "exact_output_repeat_stability": true
+    },
+    {
+      "model": "gemma3:4b",
+      "track": "saved_image",
+      "case": "clear_cyan",
+      "matches": 3,
+      "requests": 3,
+      "first_output": {
+        "signal_color": "green_or_cyan",
+        "advice": "green_observed",
+        "reason": "Green pedestrian glyph is visible."
+      },
+      "exact_output_repeat_stability": true
+    },
+    {
+      "model": "gemma3:4b",
+      "track": "saved_image",
+      "case": "red_render_control",
+      "matches": 3,
+      "requests": 3,
+      "first_output": {
+        "signal_color": "red",
+        "advice": "wait",
+        "reason": "Red pedestrian signal is lit"
+      },
+      "exact_output_repeat_stability": true
+    },
+    {
+      "model": "gemma3:4b",
+      "track": "saved_image",
+      "case": "blue_render_control",
+      "matches": 0,
+      "requests": 3,
+      "first_output": {
+        "signal_color": "blue",
+        "advice": "wait",
+        "reason": "Blue walking glyph is visible."
+      },
+      "exact_output_repeat_stability": true
+    },
+    {
+      "model": "gemma3:4b",
+      "track": "saved_image",
+      "case": "no_central_signal",
+      "matches": 0,
+      "requests": 3,
+      "first_output": {
+        "signal_color": "green_or_cyan",
+        "advice": "green_observed",
+        "reason": "Green pedestrian signal is visible."
+      },
+      "exact_output_repeat_stability": true
+    },
+    {
+      "model": "gemma3:4b",
+      "track": "saved_image",
+      "case": "cropped_signal",
+      "matches": 0,
+      "requests": 3,
+      "first_output": {
+        "signal_color": "green_or_cyan",
+        "advice": "green_observed",
+        "reason": "Pedestrian signal is lit green"
+      },
+      "exact_output_repeat_stability": true
+    }
+  ],
+  "limits": [
+    "Only one observed sensor row, with synthetic age, plus seven synthetic sensor cases.",
+    "Same new explicit rule prompt for both text models; differs from the October 8 pilot prompt.",
+    "Image labels fixed by assistant visual inspection and fixture metadata before inference, not independently annotated dataset.",
+    "Red and blue walking glyphs are artificial color controls, not a standard traffic-signal test.",
+    "Cropped image expected unknown is an abstention policy; some green pixels are visible.",
+    "Fixed inputs, deterministic settings and model-side caching mean three repeats are not independent trials.",
+    "No simultaneous Gazebo/YOLO workload benchmark, no energy measurement, no ROS publication.",
+    "Wall timing includes image file read/base64 and local HTTP; excludes manual data preparation."
+  ],
+  "integrity": {
+    "source_files_checked": 91,
+    "source_differences": [],
+    "installed_model_tags_and_digests_unchanged": true
+  }
+}
