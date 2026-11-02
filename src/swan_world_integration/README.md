@@ -1,137 +1,74 @@
-# SWAN 통합 월드 촬영 준비
+# SWAN 통합 월드 — 재현용 촬영 패키지
 
-통합 패키지의 SDF는 **`worlds/swan_town.sdf` 하나**다. 아파트·주차장, 도시, 승현의 시장과 연결로, 휠체어·카메라·LiDAR를 이 파일 안에 담았다. 별도 `model.sdf`, 모델 다운로드, 리소스 경로 설정 없이 Gazebo Harmonic에서 열 수 있다. 작업 브랜치는 `feature/world-integration`이다. 다른 팀원의 원본 패키지는 그대로 둔다.
+2026-11-02 제출 브랜치: **`seunghyun`**. 팀 전체 코드는 `dayeong da3fd917` 기준이다. 이 패키지는 기존 통합 월드와 10월 검증 조건을 보존하는 별도 실행 방식이며, 공통 `simulation.launch.py`나 최신 휠체어 모델을 교체하지 않는다.
 
-```bash
-gz sim -r ~/world_integration_ws/src/swan_world_integration/worlds/swan_town.sdf
-```
+## 구성과 리소스
 
-기본 시작점은 아파트다. Gazebo 기본 시스템 플러그인이 설치돼 있어야 하며, 센서는 Gazebo 토픽으로 출력한다. **시장 보행자·오토바이 이동, 신호 점멸, ROS 토픽 연결과 키보드 운전**에는 아래 촬영 런처와 보존한 원본 Python 스크립트를 사용한다. SDF만 열면 시장 교통 모델은 초기 상태로 배치된다.
+**[worlds/swan_town.sdf](worlds/swan_town.sdf)** 한 개에 아파트·주차장, 도시, 시장, 연결로, 기존 휠체어·카메라·LiDAR가 들어 있다. 별도 로봇 SDF, 외부 mesh·텍스처·모델 URI와 다운로드 없이 실행한다. Gazebo Harmonic 시스템 플러그인은 설치되어 있어야 한다.
 
-**2026-10-13 촬영 전 화면·주행 점검 완료:** 커밋 `475e54d`를 UTM의 `swan` 데스크톱 로그인 상태에서 `start_recording.sh market`으로 실행했다. Gazebo 시장 화면과 카메라 창을 직접 확인했고 실행 로그에 치명적 오류가 없었다. [실측 로그](../../docs/integration/recording_check_20261013.json)를 함께 보관한다.
-
-| 확인 항목 | 실제 결과 |
-|---|---|
-| 단일 월드·로봇 | 배포 SDF 해시 일치, 휠체어 ID 한 개 |
-| 카메라·LiDAR | RGB 320×240 영상 43프레임, 720개 거리값 43회 수신 |
-| 저속 이동·정지 | 0.12m/s 명령으로 약 0.186m 전진, 정지 후 속도 0m/s |
-| 실제 키보드 운전 | 터미널의 `i`·`k` 입력으로 약 0.084m 전진, 마지막 속도 명령·구동 출력·측정 속도 모두 0 |
-| 시장 교통·신호 | 실제 pose에서 보행자 2명·오토바이 2대 이동, 적색·녹색·녹색 점멸 확인 |
-| 관찰 시간·성능 | 시뮬레이션 34.088초 / 실제 128.325초, 관찰 종료 시 교통 갱신 누적 1,339회 성공·0회 실패 |
-
-시장 구간 시연은 촬영할 수 있다. 기본 카메라 뷰어는 자동 크기 창의 툴바가 넓어 맵을 가릴 수 있으므로 맵 촬영 때 최소화하고, 카메라 장면은 `Alt+Tab`으로 전환해 별도로 찍는다. 전체 연결 경로 완주·YOLO·안전 제어는 이번 점검 범위에 포함되지 않는다. 영상 녹화 자체는 아직 하지 않았다.
-
-**2026-10-12 단일 SDF 전환:** 환경 모델 330개·연결로 3개·휠체어 1개를 내장하고 별도 휠체어 모델 파일과 런처의 로봇 생성 단계를 제거했다. 원본 Git 대조를 포함한 호스트 검사 20개가 통과했다.
-
-UTM 빌드와 `gz sdf -k`도 통과했다. ROS 런처 없이 이 SDF를 직접 실행하여 휠체어 한 대, 카메라 320×240 RGB 영상 3프레임, LiDAR 720개 거리값 3회 수신을 확인했다. 로그인 전 VM의 일반 사용자에게 EGL 장치 접근 권한이 없어 이 초기화 검사는 게스트 관리자 권한의 격리된 headless 프로세스에서 수행했다. 시스템 권한과 원본 SDF는 변경하지 않았다. 게스트 정적 검사도 성공했고 원본 Git이 없어 대조 항목 7개는 건너뛰었다. 이번 확인에는 GUI 촬영·주행·전체 경로 완주가 포함되지 않는다.
-
-**아래는 2026-10-09의 별도 로봇 생성 방식에서 확인한 기록이다.** UTM에서 통합 월드·카메라 실행과 저속 주행을 확인했다. VM 빌드, `gz sdf -k`, 당시 호스트 검사 15개가 통과했다. 게스트 검사도 통과했으며 원본 Git 대조 8개 하위 검사는 커밋이 없어 건너뛰었다. 전체 동선 완주나 안전 기능 검증 결과는 아니다.
-
-| 확인 항목 | 실제 결과 |
-|---|---|
-| 원본 보존 | 환경 모델 330개 내부 해시와 원본 파일 바이트 대조 통과 |
-| 카메라 | `/camera` RGB 320×240 영상 수신·화면 출력 |
-| LiDAR | `/scan` 720개 거리값 수신, 검사 시 유한값 670개 |
-| 세 시작 위치 | 아파트·시장·도심에서 각각 로봇 생성, 카메라·LiDAR 수신 확인 |
-| 이동·정지 | 0.12m/s 명령으로 약 0.135m 전진, 정지 후 속도 약 -0.00010m/s |
-| 시장 교통 | 보행자 2명·오토바이 2대의 위치 변화 확인 |
-| 보행 신호 | 적색·녹색·녹색 점멸 상태 확인, 시뮬레이션 약 47초 동안 교통 갱신 913회 성공·0회 실패 |
-
-UTM 소프트웨어 렌더링에서는 실시간 비율이 화면상 약 19~28%로 느렸다. 영상의 벽시계 시간을 실험 주행 시간으로 사용하지 않는다. 결과 영상 자체는 아직 녹화하지 않았다.
-
-## 남은 작업과 타임라인
-
-기본 화면·센서·저속 이동 확인을 마쳤다. 남은 작업은 연결 동선 완주 점검, 구간별 영상 촬영, 실행 명령과 미해결 오류 제출이다. 아래 개별 작업일은 목표안이며 굵은 날짜는 팀 확정 일정이다. 담당 범위의 초기 예상 작업량은 총 **8~12시간**이다.
-
-| 날짜 | 남은 작업·제출물 |
-|---|---|
-| 10/9~10/11 · 목표안 | 아파트→시장 및 도시 연결로 연속 주행 점검, 원본 단차 등 미해결 오류 기록 |
-| 10/12~10/17 · 목표안 | 구간별 짧은 영상 촬영, API 제공 모델·멀티모달 입력·비용 조사표 정리(구현 없음) |
-| **10/18 · 중간점검** | 실행 방법, 원본 보존 범위, 촬영 가능 장면과 남은 오류 공유 |
-| 10/19~10/30 · 목표안 | 필요한 재촬영, 영상·로그 정리, 팀원 재실행 확인 |
-| **10/31 · 팀 내부 제출** | 각자 본인 브랜치 Push + 실행 명령 + 영상 또는 로그 + 미해결 오류 제출 |
-| **11/1 · 전체 통합회의** | 연결 동선, 로봇·센서 연결 방식, 남은 오류와 담당 확정 |
-| **11/2(월) 23:59 · 최종 제출** | 최종 코드와 영상 제출 |
-| **11/3 · 통합 테스트** | PR 통합 및 전체 시스템 테스트 |
-| **11/3~11/10 · 후속 예정** | 멀티모달 AI 가상 운전자 연동 검토·준비. 지표 실험은 11월 이후 별도 실행 요청과 준비가 완료된 뒤 진행 |
-
-**현재 API는 제공 여부·사용법·비용 조사만 한다.** AI 운전 제어 설계·구현, 유료 API 호출과 지표 실험은 이번 촬영 준비에 포함하지 않는다.
-
-## UTM에서 화면 열기
-
-ROS 2 Jazzy / Gazebo Harmonic VM의 배포 폴더는 `~/world_integration_ws`다. 기존 팀 런처를 종료한 상태에서 촬영 런처 하나를 실행한다.
-
-```bash
-~/world_integration_ws/src/swan_world_integration/scripts/start_recording.sh apartment
-```
-
-이 명령이 ROS와 작업공간을 자동으로 불러오고 UTM용 소프트웨어 렌더링으로 실행한다. 처음 받거나 패키지를 수정했을 때는 먼저 한 번 빌드한다.
-
-```bash
-cd ~/world_integration_ws
-source /opt/ros/jazzy/setup.bash
-colcon build --packages-select swan_world_integration --symlink-install
-```
-
-| 첫 번째 인자 | 촬영 시작 구간 |
-|---|---|
-| `apartment` | 로비 → 경사로 → 주차장 → 연결로 → 시장 입구 |
-| `market` | 시장 서쪽 횡단보도 → 굽은 시장 통로 |
-| `city` | 도시 남쪽 인도 → 장애물·횡단보도 구간 |
-
-다른 구간을 찍을 때는 `Ctrl+C`로 종료한 뒤 마지막 인자 `apartment`를 `market` 또는 `city`로 바꿔 실행한다. `apartment`는 저장된 SDF를 바로 연다. 다른 구간은 임시 복사본에서 로봇 시작점만 바꾸고 종료 시 복사본을 정리한다. 저장된 SDF는 바뀌지 않는다.
-
-`show_camera:=true`, `moving_traffic:=true`가 기본값이다. 추가 launch 인자는 구역 뒤에 붙인다. 예를 들어 카메라 창 없이 도시 구간을 띄우려면:
-
-```bash
-~/world_integration_ws/src/swan_world_integration/scripts/start_recording.sh city show_camera:=false
-```
-
-시장 동작을 생략하려면 `moving_traffic:=false`, 일반 Linux에서 하드웨어 렌더링을 사용하려면 `software_rendering:=false`를 붙인다. 이미 ROS와 작업공간을 불러온 터미널에서는 설치된 실행 파일도 사용할 수 있다.
-
-```bash
-source /opt/ros/jazzy/setup.bash
-source ~/world_integration_ws/install/setup.bash
-ros2 run swan_world_integration start_recording.sh apartment
-```
-
-## 운전과 녹화
-
-별도 터미널에서 아래 명령을 실행하고 그 터미널에 키보드 포커스를 둔다. `teleop_twist_keyboard`가 설치돼 있어야 한다.
-
-```bash
-~/world_integration_ws/src/swan_world_integration/scripts/start_recording.sh drive
-```
-
-`i` 전진, `,` 후진, `j/l` 회전, `k` 정지다. 기본 속도는 0.15m/s이며 키를 놓으면 0.2초 후 정지 명령을 보낸다. 생성 직후 휠체어가 바닥에 정착한 뒤 조작한다. 원본 앞바퀴 조향을 사용하므로 회전키는 완전한 제자리 회전과 다를 수 있다.
-
-정지 상태에서 Gazebo 또는 카메라 창의 구도를 잡고, Mac의 `Shift+Command+5`에서 UTM 화면 영역을 선택해 녹화한다. **아파트 출발 / 시장 입구 / 시장 내부 / 도시**를 각각 짧게 찍으면 재촬영하기 쉽다. 영상에는 사용 커밋·촬영일·시작 구간을 기록한다.
-
-현재 런처에는 YOLO, 반자율 안전 기능 ON/OFF 비교와 AI 운전이 연결돼 있지 않다.
-
-## 원본 보존과 알려진 제한
-
-| 구역 | 원본 커밋 | 보존 환경 모델 |
+| 원본 | 고정 커밋 | 환경 모델 |
 |---|---|---:|
-| 아파트·주차장 | `dayeong a23e859` | 7 |
-| 도시 | `yeonho 7adea9e` | 72 |
-| 시장 | `seunghyun 011fa32` | 251 |
+| 아파트·주차장 | `a23e859` | 7 |
+| 도시 | `7adea9e` | 72 |
+| 시장 | `011fa32` | 251 |
 
-원본 팀 파일과 공통 launch는 수정하지 않았다. 환경 모델 **330개의 내부 형상·링크·조인트·충돌체·재질·설정과 이름을 그대로 유지**하고, 지면을 포함한 구역 전체 이동·회전만 적용했다. 추가한 것은 연결로 2개와 도시 진입 경사로 1개다. 통합 월드의 전역 물리·조명·렌더링 설정은 시장 원본을 공유한다.
+환경 모델 330개 내부는 보존하고 구역 전체에 이동·회전만 적용했다. 연결로·경사로 3개를 추가하고 `a23e859` 휠체어 한 대를 내장했다. 출처·해시·좌표는 [integration.json](config/integration.json), 스크립트 출처는 [vendor_sources.json](config/vendor_sources.json)에 있다. 구동 제어기와 시장 교통 스크립트는 원본 바이트를 유지한다. 월드 SHA-256:
 
-원본 로봇 include를 중복 생성하지 않고 `dayeong a23e859`의 휠체어를 월드 안에 한 번 내장했다. 로봇의 최상위 위치만 바꾸고 내부 형상·조인트·센서·플러그인 설정은 그대로 유지한다. XML 재저장으로 공백 형식은 달라질 수 있어 내부 정규화 해시로 원본과 대조한다. 휠체어 제어기와 시장 동작 스크립트는 원본 바이트를 유지한다. 출처·해시·좌표는 `config/integration.json`, `config/vendor_sources.json`에 기록했다.
+```text
+d7b9b54f720abb059779acf650dffee4bb46076c64b86374dccbbc60cc2716f2
+```
 
-- **현재 아파트 입구는 고정 개방 상태**다. 고정 문틀만 있고 움직이는 문짝·계단은 없어 자동문 개폐를 촬영할 수 없다.
-- 아파트 원본에는 랜딩–경사로 약 **3.03cm 단차**, 경사로–인도 약 **2.24mm 틈**, 턱낮춤 경사로–주차장 약 **1.91cm 틈과 6.3mm 높이 차**가 남아 있다. XML 수치이며 실제 주행 실패를 관찰한 결과는 아니다. 원본 내부이므로 수정하지 않았다.
-- 도시의 원본 보행자와 신호등은 정적이다. 움직이는 보행자·오토바이·신호는 시장 구역에 해당한다.
-- **전체 연결 동선 완주는 아직 검증하지 않았다.** 센서 수신 확인은 거리 정확도·자기 몸체 검출 제외·안전 제어 성능 검증과 별개다. 막힌 원본 구간은 기록하고 형상이나 공통 launch를 임의로 바꾸지 않는다.
-- 원본 `building_structure`의 모델 바로 아래 `lobby_light` 태그에서 SDF 경고가 발생한다. 월드 실행은 성공했으며 원본 구조는 유지했다.
+기존 `integration`의 `src/wheelchair_gazebo/worlds/swan_town.sdf`는 다시 복사하지 않았다. 여기서는 자체 SDF와 촬영 설정을 사용한다.
 
-## 재현 검사
+## 빌드·실행·종료
+
+Ubuntu 24.04 / ROS 2 Jazzy / Gazebo Harmonic 작업공간 루트에서:
 
 ```bash
-cd ~/world_integration_ws
+source /opt/ros/jazzy/setup.bash
+colcon build --symlink-install --packages-select swan_world_integration
+source install/setup.bash
+ros2 launch swan_world_integration recording.launch.py start_zone:=apartment moving_traffic:=false
+```
+
+출발 구역은 `apartment` / `market` / `city`다. 다른 구역은 임시 복사본의 로봇 시작점만 바꾸며 저장된 SDF는 유지한다. `show_camera:=true`가 기본이다. 시장 이동 교통·신호 전환은 `moving_traffic:=true`, 렌더링 문제가 있으면 `software_rendering:=true`를 추가한다. 이 명령은 자동 경로 주행기가 아니다.
+
+운전용 별도 터미널:
+
+```bash
+source /opt/ros/jazzy/setup.bash
+source ~/swan_seunghyun_ws/install/setup.bash
+ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args \
+  -r cmd_vel:=/model/wheelchair/cmd_vel \
+  -p speed:=0.15 -p turn:=0.3 -p repeat_rate:=10.0 -p key_timeout:=0.2
+```
+
+`i` 전진 / `,` 후진 / `j`·`l` 회전 / `k` 정지. `k`로 정지한 뒤 운전 터미널 `Ctrl+C`, 월드 터미널 `Ctrl+C` 순서로 종료하고 프롬프트 복귀를 확인한다. 다른 폴더를 썼다면 source 경로를 바꾼다. [설치·YOLO 별도 실행·종료 안내](../../docs/integration/LINUX_RUN_GUIDE.txt)를 참고한다.
+
+SDF와 센서만 열려면 작업공간 루트에서 `gz sim -r src/swan_world_integration/worlds/swan_town.sdf`를 사용한다. ROS 브리지·교통 제어는 이 단독 명령에 포함되지 않는다. 기존 `start_recording.sh`도 유지하며 `SWAN_INTEGRATION_WS=~/swan_seunghyun_ws`로 작업공간을 지정할 수 있다.
+
+## 기존 실행 근거
+
+- **10/24:** 아파트 경사로·주차장 → 시장 끝 → 같은 골목을 후진해 도시 분기점 → 도시 북쪽 보행로, 약 **180.635m**, 4/4 구간. 시뮬레이션 457.165초 / 실제 1,233.814초. 중간 위치 강제 이동과 드라이버 재시작 없음. 설치된 월드·제어기 해시가 검증 대상과 일치했다.
+- **10/13:** GUI·카메라·LiDAR·저속 이동·정지·키보드 운전·시장 교통·신호 점멸 확인. 당시 [실측 로그](../../docs/integration/recording_check_20261013.json)를 보존한다.
+- **11/2:** 기존 영상·로그·해시 검토와 정적 검사 20개 통과. 이번 제출에서 VM·Gazebo·YOLO를 실행하지 않았다.
+
+10/24는 **정지 교통에서 고정 경로 속도 명령을 사용한 연결 동선 검증**이다. 시장→도시는 후진으로 돌아왔으며 골목 U턴 시험이 아니다. 접촉 이벤트를 수집하지 않아 무충돌이라고 판정하지 않는다. 최신 Vision 거리 측정·Gap 계산·신호 판단·Nav2 회피·API 운전자·이동 장애물 대응·안전 기능 비교는 별도 검증이다. 조건과 영상·로그는 [검증 요약](../../docs/integration/CONNECTED_ROUTE_CHECK_20261024.txt)에 있다.
+
+## 알려진 제한과 남은 확인
+
+- 재현용 로봇·제어기는 10월 버전이다. 최신 팀 전체 실행은 `ros2 launch swan_bringup swan.launch.py`를 사용하며 촬영 런처와 동시에 켜지 않는다.
+- 아파트 입구는 고정 개방 상태다. 자동문 개폐는 재현하지 않는다. 원본의 약 3.03cm 단차와 일부 틈을 유지했다.
+- 도시 원본 보행자·신호등은 정적이다. 이동 교통·신호 전환은 시장 구역 기능이다.
+- 원본 `building_structure` 아래 `lobby_light` SDF 경고는 기존 실행에서 관찰했으며 원본을 보존했다.
+- 팀원 PC 새 설치·빌드·종료, 최신 전체 스택 실행·인식 정확도는 확인이 남아 있다. 표본 영상 재생 길이를 실제 실행 시간으로 해석하지 않는다.
+
+## 시뮬레이터 없이 검사
+
+작업공간 루트에서:
+
+```bash
 python3 -m unittest discover -s src/swan_world_integration/test -p 'test_*.py' -v
 ```
 
-ROS/Gazebo를 실행하지 않고 환경·내장 로봇 내부 해시, 구역별 pose, 누락/중복, 패키지 내 SDF가 하나인지, 외부 자산 참조 유무, 런처 연결과 임시 복사본 정리를 검사한다. Git 원본이 있는 경우 실제 소스와도 대조하며, 별도 저장소는 `SWAN_SOURCE_REPO=/기존/저장소/경로`로 지정한다. 배포 폴더에 원본 Git이 없으면 원본 대조만 건너뛰고 manifest 검사는 수행한다. 네트워크 다운로드는 하지 않는다.
+환경·내장 로봇 내부 해시, 구역별 위치, 누락·중복, 외부 자산 참조, 런처 연결과 임시 복사본 정리를 검사한다. Git 원본이 있으면 실제 소스 바이트와 대조한다. 별도 저장소는 `SWAN_SOURCE_REPO=/기존/저장소/경로`로 지정한다. 원본 Git이 없으면 대조 항목만 건너뛴다. 네트워크 다운로드·VM·Gazebo를 실행하지 않는다.

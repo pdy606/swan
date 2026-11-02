@@ -1,0 +1,40 @@
+[INFO] [launch]: All log files can be found below /tmp/swan_route_validation_20261024/ros_logs/2026-10-24-20-00-33-240100-swan-QEMU-Virtual-Machine-1977
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [gz-1]: process started with pid [1980]
+[INFO] [parameter_bridge-2]: process started with pid [1981]
+[INFO] [swan_drive_controller.py-3]: process started with pid [1982]
+[INFO] [static_transform_publisher-4]: process started with pid [1983]
+[INFO] [static_transform_publisher-5]: process started with pid [1984]
+[INFO] [static_transform_publisher-6]: process started with pid [1985]
+[INFO] [static_transform_publisher-7]: process started with pid [1986]
+[parameter_bridge-2] [INFO] [1792839633.324858270] [recording_wheelchair_bridge]: Creating GZ->ROS Bridge: [/clock (gz.msgs.Clock) -> /clock (rosgraph_msgs/msg/Clock)] (Lazy 0)
+[parameter_bridge-2] [INFO] [1792839633.325451279] [recording_wheelchair_bridge]: Creating ROS->GZ Bridge: [/model/wheelchair/front_drive/cmd_vel (std_msgs/msg/Float64) -> /model/wheelchair/front_drive/cmd_vel (gz.msgs.Double)] (Lazy 0)
+[parameter_bridge-2] [INFO] [1792839633.327022010] [recording_wheelchair_bridge]: Creating ROS->GZ Bridge: [/model/wheelchair/front_steering/cmd_pos (std_msgs/msg/Float64) -> /model/wheelchair/front_steering/cmd_pos (gz.msgs.Double)] (Lazy 0)
+[parameter_bridge-2] [INFO] [1792839633.327581393] [recording_wheelchair_bridge]: Creating GZ->ROS Bridge: [/model/wheelchair/odometry (gz.msgs.Odometry) -> /model/wheelchair/odometry (nav_msgs/msg/Odometry)] (Lazy 0)
+[static_transform_publisher-6] [INFO] [1792839633.329364128] [lidar_link_mount_tf]: Spinning until stopped - publishing transform
+[static_transform_publisher-6] translation: ('1.070000', '0.000000', '0.100000')
+[static_transform_publisher-6] rotation: ('0.000000', '0.000000', '0.000000', '1.000000')
+[static_transform_publisher-6] from 'base_link' to 'wheelchair/lidar_link'
+[static_transform_publisher-4] [INFO] [1792839633.329571214] [camera_link_mount_tf]: Spinning until stopped - publishing transform
+[static_transform_publisher-4] translation: ('0.550000', '0.000000', '0.640000')
+[static_transform_publisher-4] rotation: ('0.000000', '0.084898', '0.000000', '0.996390')
+[static_transform_publisher-4] from 'base_link' to 'wheelchair/camera_link'
+[static_transform_publisher-7] [INFO] [1792839633.329661757] [lidar_link_sensor_tf]: Spinning until stopped - publishing transform
+[static_transform_publisher-7] translation: ('0.000000', '0.000000', '0.030000')
+[static_transform_publisher-7] rotation: ('0.000000', '0.000000', '0.000000', '1.000000')
+[static_transform_publisher-7] from 'wheelchair/lidar_link' to 'wheelchair/lidar_link/lidar_sensor'
+[static_transform_publisher-5] [INFO] [1792839633.329735050] [camera_link_sensor_tf]: Spinning until stopped - publishing transform
+[static_transform_publisher-5] translation: ('0.000000', '0.000000', '0.000000')
+[static_transform_publisher-5] rotation: ('0.000000', '0.000000', '0.000000', '1.000000')
+[static_transform_publisher-5] from 'wheelchair/camera_link' to 'wheelchair/camera_link/camera_sensor'
+[parameter_bridge-2] [INFO] [1792839633.329945053] [recording_wheelchair_bridge]: Creating GZ->ROS Bridge: [/model/wheelchair/tf (gz.msgs.Pose_V) -> /model/wheelchair/tf (tf2_msgs/msg/TFMessage)] (Lazy 0)
+[parameter_bridge-2] [INFO] [1792839633.330639980] [recording_wheelchair_bridge]: Creating GZ->ROS Bridge: [/camera (gz.msgs.Image) -> /camera (sensor_msgs/msg/Image)] (Lazy 0)
+[parameter_bridge-2] [INFO] [1792839633.332578175] [recording_wheelchair_bridge]: Creating GZ->ROS Bridge: [/model/wheelchair/scan (gz.msgs.LaserScan) -> /model/wheelchair/scan (sensor_msgs/msg/LaserScan)] (Lazy 0)
+[gz-1] No HOME defined in the environment. Will not log.
+[swan_drive_controller.py-3] [INFO] [1792839633.404646350] [swan_drive_controller]: SWAN drive controller started
+[gz-1] [1;33mWarning [Utils.cc:132][0m [/sdf/world[@name="swan_town"]/model[@name="building_structure"]/light[@name="lobby_light"]:/home/swan/world_integration_ws/install/swan_world_integration/share/swan_world_integration/worlds/swan_town.sdf:L415]: XML Element[light], child of element[model], not defined in SDF. Copying[light] as children of [model].
+[parameter_bridge-2] [INFO] [1792839633.731851288] [recording_wheelchair_bridge]: Passing message from ROS std_msgs/msg/Float64 to Gazebo gz.msgs.Double (showing msg only once per type)
+[gz-1] libEGL warning: egl: failed to create dri2 screen
+[gz-1] libEGL warning: NEEDS EXTENSION: falling back to kms_swrast
+[gz-1] libEGL warning: egl: failed to create dri2 screen
+[gz-1] libEGL warning: NEEDS EXTENSION: falling back to kms_swrast

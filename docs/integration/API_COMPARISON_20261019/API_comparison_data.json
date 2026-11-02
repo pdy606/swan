@@ -1,0 +1,365 @@
+{
+  "verified_date_kst": "2026-10-19",
+  "source_check_period_kst": "2026-10-18 밤~2026-10-19",
+  "scope": "기존 프로젝트 메모의 멀티모달 AI 운전자 후보 API 조사. 기능·사용법·비용 비교.",
+  "api_calls_made": false,
+  "performance_benchmarks_run": false,
+  "cost_assumptions": {
+    "calls": 10000,
+    "billable_input_tokens_per_call": 1000,
+    "billable_output_tokens_per_call": 200,
+    "image_tokens_included_in_assumed_input": true,
+    "reasoning_tokens_included_in_assumed_output": true,
+    "mode": "Standard, uncached, prompts <=100K tokens",
+    "currency": "USD",
+    "excludes": [
+      "tax",
+      "FX",
+      "retries",
+      "extra tool fees",
+      "cache storage/writes",
+      "higher token counts than assumed"
+    ]
+  },
+  "models": [
+    {
+      "provider": "OpenAI",
+      "name": "GPT-6 Luna",
+      "model_id": "gpt-6-luna",
+      "input_usd_per_million": "0.10",
+      "output_usd_per_million": "0.50",
+      "inputs": "텍스트·이미지",
+      "output": "텍스트",
+      "json_schema": "지원",
+      "function_calling": "지원(공식 문서 기준, 모델별 제약 있음)",
+      "position": "저비용 1차 비교",
+      "note": "Responses API 사용 권장. 영상 직접 입력은 미지원.",
+      "feature_sources": [
+        "luna"
+      ],
+      "price_source": "openai_price",
+      "local": false,
+      "announced_future_price": null,
+      "price_context": "272K 이하 입력의 표준 요금",
+      "normalized_10000_calls_usd": "2.00"
+    },
+    {
+      "provider": "Anthropic",
+      "name": "Claude Haiku 5.5",
+      "model_id": "claude-haiku-5-5",
+      "input_usd_per_million": "0.10",
+      "output_usd_per_million": "0.50",
+      "inputs": "텍스트·이미지",
+      "output": "텍스트",
+      "json_schema": "지원",
+      "function_calling": "지원(공식 문서 기준, 모델별 제약 있음)",
+      "position": "저비용 1차 비교",
+      "note": "입력 100K 초과 시 $0.50 / $2.50. 10/7 출시 모델.",
+      "feature_sources": [
+        "haiku",
+        "claude_json"
+      ],
+      "price_source": "claude_price",
+      "local": false,
+      "announced_future_price": null,
+      "price_context": "100K 이하 입력의 표준 요금",
+      "normalized_10000_calls_usd": "2.00"
+    },
+    {
+      "provider": "Google",
+      "name": "Gemini 3.5 Flash-Lite",
+      "model_id": "gemini-3.5-flash-lite",
+      "input_usd_per_million": "0.30",
+      "output_usd_per_million": "2.50",
+      "inputs": "텍스트·이미지·영상·음성·PDF",
+      "output": "텍스트",
+      "json_schema": "지원",
+      "function_calling": "지원(공식 문서 기준, 모델별 제약 있음)",
+      "position": "영상 입력 비교",
+      "note": "Stable. 무료 구간 표기 있음. Live API는 미지원.",
+      "feature_sources": [
+        "flash_lite"
+      ],
+      "price_source": "gemini_price",
+      "local": false,
+      "announced_future_price": null,
+      "price_context": "",
+      "normalized_10000_calls_usd": "8.00"
+    },
+    {
+      "provider": "Google",
+      "name": "Gemini 3.8 Flash",
+      "model_id": "gemini-3.8-flash",
+      "input_usd_per_million": "0.75",
+      "output_usd_per_million": "3.75",
+      "inputs": "텍스트·이미지·영상·음성·PDF",
+      "output": "텍스트",
+      "json_schema": "지원",
+      "function_calling": "지원(공식 문서 기준, 모델별 제약 있음)",
+      "position": "영상·균형형 비교",
+      "note": "Stable. 현재 가격은 12/31까지. Live API는 별도 모델.",
+      "feature_sources": [
+        "flash"
+      ],
+      "price_source": "gemini_price",
+      "local": false,
+      "announced_future_price": {
+        "effective_date": "2027-01-01",
+        "input": "1.50",
+        "output": "7.50"
+      },
+      "price_context": "",
+      "normalized_10000_calls_usd": "15.00"
+    },
+    {
+      "provider": "OpenAI",
+      "name": "GPT-6.1 Sol",
+      "model_id": "gpt-6.1-sol",
+      "input_usd_per_million": "2.00",
+      "output_usd_per_million": "10.00",
+      "inputs": "텍스트·이미지",
+      "output": "텍스트",
+      "json_schema": "지원",
+      "function_calling": "지원(공식 문서 기준, 모델별 제약 있음)",
+      "position": "상위 비교 기준",
+      "note": "문서상 균형형. 프로젝트 정확도·지연은 미측정.",
+      "feature_sources": [
+        "sol"
+      ],
+      "price_source": "openai_price",
+      "local": false,
+      "announced_future_price": null,
+      "price_context": "272K 이하 입력의 표준 요금",
+      "normalized_10000_calls_usd": "40.00"
+    },
+    {
+      "provider": "Anthropic",
+      "name": "Claude Sonnet 5.5",
+      "model_id": "claude-sonnet-5-5",
+      "input_usd_per_million": "2.00",
+      "output_usd_per_million": "10.00",
+      "inputs": "텍스트·이미지",
+      "output": "텍스트",
+      "json_schema": "지원",
+      "function_calling": "지원(공식 문서 기준, 모델별 제약 있음)",
+      "position": "상위 비교 기준",
+      "note": "9/28 출시 모델. 모델별 도구 호출 제약을 확인해야 함.",
+      "feature_sources": [
+        "sonnet",
+        "claude_json"
+      ],
+      "price_source": "claude_price",
+      "local": false,
+      "announced_future_price": null,
+      "price_context": "",
+      "normalized_10000_calls_usd": "40.00"
+    },
+    {
+      "provider": "Google",
+      "name": "Gemini Robotics ER 2 Preview",
+      "model_id": "gemini-robotics-er-2-preview",
+      "input_usd_per_million": "1.00",
+      "output_usd_per_million": "5.00",
+      "inputs": "텍스트·이미지·영상·음성",
+      "output": "텍스트",
+      "json_schema": "지원",
+      "function_calling": "지원(공식 문서 기준, 모델별 제약 있음)",
+      "position": "공간 추론 추가 후보",
+      "note": "Preview. 일반형은 Live 미지원. 현재 가격은 12/31까지.",
+      "feature_sources": [
+        "robotics"
+      ],
+      "price_source": "gemini_price",
+      "local": false,
+      "announced_future_price": {
+        "effective_date": "2027-01-01",
+        "input": "2.00",
+        "output": "10.00"
+      },
+      "price_context": "",
+      "normalized_10000_calls_usd": "20.00"
+    },
+    {
+      "provider": "Google",
+      "name": "Gemini Robotics ER 2 Streaming Preview",
+      "model_id": "gemini-robotics-er-2-streaming-preview",
+      "input_usd_per_million": "1.00",
+      "output_usd_per_million": "5.00",
+      "inputs": "텍스트·이미지·영상·음성",
+      "output": "텍스트",
+      "json_schema": "미지원",
+      "function_calling": "지원(공식 문서 기준, 모델별 제약 있음)",
+      "position": "Live 기능 조사용",
+      "note": "Live API·양방향 스트리밍·함수 호출 지원. JSON Schema 출력 미지원. Preview.",
+      "feature_sources": [
+        "robotics"
+      ],
+      "price_source": "gemini_price",
+      "local": false,
+      "announced_future_price": {
+        "effective_date": "2027-01-01",
+        "input": "2.00",
+        "output": "10.00"
+      },
+      "price_context": "",
+      "normalized_10000_calls_usd": "20.00"
+    },
+    {
+      "provider": "OpenAI",
+      "name": "GPT-6 Astra",
+      "model_id": "gpt-6-astra",
+      "input_usd_per_million": "10.00",
+      "output_usd_per_million": "50.00",
+      "inputs": "텍스트·이미지",
+      "output": "텍스트",
+      "json_schema": "지원",
+      "function_calling": "지원(공식 문서 기준, 모델별 제약 있음)",
+      "position": "고비용 참조 후보",
+      "note": "기존 조사 후보 유지. 문서상의 상위 모델이며 프로젝트 성능은 미측정.",
+      "feature_sources": [
+        "astra"
+      ],
+      "price_source": "openai_price",
+      "local": false,
+      "announced_future_price": null,
+      "price_context": "272K 이하 입력의 표준 요금",
+      "normalized_10000_calls_usd": "200.00"
+    },
+    {
+      "provider": "Ollama 로컬",
+      "name": "Qwen3.5 9B",
+      "model_id": "qwen3.5:9b",
+      "input_usd_per_million": null,
+      "output_usd_per_million": null,
+      "inputs": "텍스트·이미지",
+      "output": "텍스트",
+      "json_schema": "로컬 런타임 지원·실제 준수 검증 필요",
+      "function_calling": "지원(공식 문서 기준, 모델별 제약 있음)",
+      "position": "로컬 API 비교 후보",
+      "note": "종량 API료 없음. 모델 파일 약 6.6~7.6GB 표기; 실행 메모리는 추가 필요. 하드웨어·전력 비용 별도.",
+      "feature_sources": [
+        "qwen35",
+        "ollama_vision",
+        "ollama_json"
+      ],
+      "price_source": "ollama_price",
+      "local": true,
+      "announced_future_price": null,
+      "price_context": "",
+      "normalized_10000_calls_usd": null
+    },
+    {
+      "provider": "Ollama 로컬",
+      "name": "Qwen3.8 27B",
+      "model_id": "qwen3.8:27b",
+      "input_usd_per_million": null,
+      "output_usd_per_million": null,
+      "inputs": "텍스트·이미지",
+      "output": "텍스트",
+      "json_schema": "로컬 런타임 지원·실제 준수 검증 필요",
+      "function_calling": "지원(공식 문서 기준, 모델별 제약 있음)",
+      "position": "최근 로컬 모델 비교 후보",
+      "note": "종량 API료 없음. 27B 모델 실행 자원과 지연을 별도 확인. 모델의 영상 이해와 Ollama의 직접 영상 파일 입력을 동일시하지 않음.",
+      "feature_sources": [
+        "qwen38",
+        "ollama_vision",
+        "ollama_json"
+      ],
+      "price_source": "ollama_price",
+      "local": true,
+      "announced_future_price": null,
+      "price_context": "",
+      "normalized_10000_calls_usd": null
+    }
+  ],
+  "sources": {
+    "openai_price": {
+      "title": "OpenAI 표준 요금",
+      "url": "https://developers.openai.com/api/docs/pricing"
+    },
+    "luna": {
+      "title": "GPT-6 Luna 기능",
+      "url": "https://developers.openai.com/api/docs/models/gpt-6-luna"
+    },
+    "sol": {
+      "title": "GPT-6.1 Sol 기능",
+      "url": "https://developers.openai.com/api/docs/models/gpt-6.1-sol"
+    },
+    "astra": {
+      "title": "GPT-6 Astra 기능",
+      "url": "https://developers.openai.com/api/docs/models/gpt-6-astra"
+    },
+    "openai_vision": {
+      "title": "OpenAI 이미지 과금 규칙",
+      "url": "https://developers.openai.com/api/docs/guides/images-vision"
+    },
+    "openai_start": {
+      "title": "OpenAI 시작 안내",
+      "url": "https://developers.openai.com/api/docs/quickstart"
+    },
+    "claude_price": {
+      "title": "Claude 표준 요금",
+      "url": "https://platform.claude.com/docs/en/about-claude/pricing"
+    },
+    "haiku": {
+      "title": "Claude Haiku 5.5 기능",
+      "url": "https://platform.claude.com/docs/en/models/haiku-5-5/overview"
+    },
+    "sonnet": {
+      "title": "Claude Sonnet 5.5 기능",
+      "url": "https://platform.claude.com/docs/en/models/sonnet-5-5/overview"
+    },
+    "claude_json": {
+      "title": "Claude 구조화 출력 지원",
+      "url": "https://platform.claude.com/docs/en/build-with-claude/structured-outputs"
+    },
+    "claude_api": {
+      "title": "Claude API·인증",
+      "url": "https://platform.claude.com/docs/en/api/overview"
+    },
+    "gemini_price": {
+      "title": "Gemini 표준 요금",
+      "url": "https://ai.google.dev/gemini-api/docs/pricing"
+    },
+    "flash_lite": {
+      "title": "Gemini 3.5 Flash-Lite 기능",
+      "url": "https://ai.google.dev/gemini-api/docs/models/gemini-3.5-flash-lite"
+    },
+    "flash": {
+      "title": "Gemini 3.8 Flash 기능",
+      "url": "https://ai.google.dev/gemini-api/docs/models/gemini-3.8-flash"
+    },
+    "robotics": {
+      "title": "Gemini Robotics ER 2 일반형·Streaming형",
+      "url": "https://ai.google.dev/gemini-api/docs/models/gemini-robotics-er-2-preview"
+    },
+    "gemini_start": {
+      "title": "Gemini API 시작·인증",
+      "url": "https://ai.google.dev/gemini-api/docs/get-started"
+    },
+    "qwen35": {
+      "title": "Ollama Qwen3.5 9B",
+      "url": "https://ollama.com/library/qwen3.5:9b"
+    },
+    "qwen38": {
+      "title": "Ollama Qwen3.8 27B",
+      "url": "https://ollama.com/library/qwen3.8:27b"
+    },
+    "ollama_vision": {
+      "title": "Ollama 이미지 입력",
+      "url": "https://docs.ollama.com/capabilities/vision"
+    },
+    "ollama_json": {
+      "title": "Ollama 로컬 구조화 출력",
+      "url": "https://docs.ollama.com/capabilities/structured-outputs"
+    },
+    "ollama_price": {
+      "title": "Ollama 로컬 실행·클라우드 요금 구분",
+      "url": "https://ollama.com/pricing"
+    },
+    "ollama_api": {
+      "title": "Ollama Chat API",
+      "url": "https://docs.ollama.com/api/chat"
+    }
+  }
+}

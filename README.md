@@ -1,83 +1,47 @@
-# SWAN 통합 월드
+# SWAN — 승현 최종 작업 정리 (2026-11-02)
 
-`feature/world-integration`의 통합 완성 파일은 **[swan_town.sdf](src/swan_world_integration/worlds/swan_town.sdf)**다.
-아파트·도시·승현의 시장과 휠체어·카메라·LiDAR가 이 SDF 하나에 들어 있다. 통합 패키지에 별도 로봇 SDF는 없다.
+제출 브랜치는 **`seunghyun`**이다. 공지 작성자의 최신 `dayeong da3fd917`(2026-11-02 02:18 KST, `integration-final` 통합 포함)을 기준으로 팀 파일을 유지하고, 기존 통합 월드 작업 `58af269`·`475e54d`·`62452ad`를 이력 그대로 포함했다. 이미 `integration`에 있는 SDF를 공통 월드 경로에 다시 복사하지 않았다.
 
-```bash
-gz sim -r src/swan_world_integration/worlds/swan_town.sdf
-```
+## 실행
 
-사람·오토바이 이동, 신호 점멸, ROS 연결과 운전에는 [통합 월드 실행 안내](src/swan_world_integration/README.md)의 촬영 런처를 사용한다.
-다른 팀원의 원본 패키지와 공통 launch는 그대로 보존했다. 아래는 이전 시장 단독 실행 방법이다.
-
-## 맵 파일
-
-**[market_shopping.sdf](src/wheelchair_gazebo/worlds/market_shopping.sdf)** 하나가 시장 월드다.
-
-```text
-src/wheelchair_gazebo/worlds/
-└── market_shopping.sdf
-```
-
-시장 환경·가게·한글 간판·횡단보도·인물·오토바이·보행신호 형상이 이 SDF에 들어 있다.
-외부 메시·텍스처 다운로드 없이 맵 파일만 Gazebo에서 열 수 있다.
-기존 시험 월드 10개와 해당 생성 스크립트 2개는 제거했다. 이전 파일은 Git 이력에서 복원할 수 있다.
+Ubuntu 24.04 / ROS 2 Jazzy / Gazebo Harmonic 환경에서 새 폴더에 받는다. 기존 미커밋 작업 폴더는 그대로 두고, 아래 폴더가 이미 있다면 다른 새 이름을 쓴다.
 
 ```bash
-gz sim -r src/wheelchair_gazebo/worlds/market_shopping.sdf
+git clone --branch seunghyun --single-branch https://github.com/pdy606/swan.git ~/swan_seunghyun_ws
+cd ~/swan_seunghyun_ws
+source /opt/ros/jazzy/setup.bash
+rosdep install --from-paths src/swan_world_integration --ignore-src -r -y
+colcon build --symlink-install --packages-select swan_world_integration
+source install/setup.bash
+ros2 launch swan_world_integration recording.launch.py start_zone:=apartment moving_traffic:=false
 ```
 
-이 명령은 환경과 초기 배치를 연다. 휠체어·센서 연결·교통 이동·신호 전환은 아래 ROS 런처를 사용한다.
-`models/wheelchair/model.sdf`는 런처가 생성하는 로봇 정의이고, `CMakeLists.txt`와 `package.xml`은 ROS 패키지 빌드에 필요하다.
+위 명령은 기존 연결 동선을 재현할 **별도 촬영 월드**를 연다. 자동으로 180.6m 경로를 주행하지는 않는다. 운전·종료·의존성 설치는 [Linux 실행 안내](docs/integration/LINUX_RUN_GUIDE.txt)를 참고한다.
 
-## 휠체어와 이동 교통 실행
-
-ROS2 Jazzy / Gazebo Harmonic 환경의 워크스페이스 루트에서 실행한다.
+최신 팀 전체 스택은 Nav2·Vision 등 ROS/Python 의존성이 준비된 작업공간에서 다음처럼 실행한다.
 
 ```bash
 source /opt/ros/jazzy/setup.bash
-rosdep install --from-paths src --ignore-src -r -y
-colcon build --packages-select wheelchair_gazebo swan_market --symlink-install
-source install/setup.bash
-ros2 launch swan_market world.launch.py
-```
-
-기본 맵은 시장이다. `world:=market` 또는 `ros2 launch swan_market market.launch.py`도 사용할 수 있다.
-UTM에서는 `software_rendering:=true`를 추가한다. 기존 Gazebo 실행은 종료한 뒤 새로 실행한다.
-
-## 관련 문서
-
-- [실행 옵션·월드 교체](src/swan_market/WORLDS.md)
-- [시장 구성·센서 화면·맵 수정](src/swan_market/README.md)
-- [이전 검증 요약·장면 사진](docs/market/README.md)
-- [AI를 사람 조종자 대용으로 쓴 주행 시험·재현 방법](docs/market/ai_operator/README.md)
-- [판단 파이프라인](src/swan_pipeline/README.md)
-
-## integration과의 관계
-
-`integration`의 `ff1df55`를 병합한 구조를 유지한다. 이번 정리로 이 브랜치의 `worlds/`에는 시장 SDF만 남겼고,
-`wheelchair_gazebo/launch/simulation.launch.py`의 기본 맵과 로봇 생성도 시장 기준으로 변경했다.
-`integration` 브랜치 자체와 다른 체크아웃은 수정하지 않았다.
-
-`wheelchair_navigation`, `wheelchair_vision`, `swan_bringup`의 기존 구성을 사용할 수 있다.
-기본 `situation_node`는 integration 버전이며, 기존 C 전용 판단은 `situation_c_node`에 보존돼 있다.
-기본 통합 실행과 기존 3노드 판단 런치를 동시에 실행하지 않는다.
-
-```bash
-colcon build --packages-up-to swan_bringup --symlink-install
+colcon build --symlink-install --packages-up-to swan_bringup
 source install/setup.bash
 ros2 launch swan_bringup swan.launch.py
 ```
 
-이 통합 명령도 시장 맵과 휠체어를 연다. 이동 교통·신호 전환 제어기는 자동으로 포함하지 않는다.
-전체 교통 시나리오는 위 시장 런처가 담당하며, 두 명령으로 Gazebo를 중복 실행하지 않는다.
-이 통합 조합의 실제 Gazebo·Nav2·YOLO 실행 검증은 별도다.
+팀 런처는 `wheelchair_gazebo/worlds/wheelchair_world.sdf`와 최신 로봇·Vision·판단·주행을 사용한다. 별도 촬영 런처와 동시에 켜지 않는다. **11/2에는 VM·Gazebo·YOLO를 실행하지 않았으며, 이 최종 조합의 실행 성공·거리 정확도를 검증한 결과는 없다.**
 
-## 오프라인 검사
+## 제출 내용
+
+- [통합 월드 패키지](src/swan_world_integration/README.md): 아파트·주차장·시장·도시와 기존 휠체어·센서를 SDF 한 개로 보존한다. 외부 mesh·모델 다운로드가 필요하지 않다. 재현용 로봇·제어기는 10월 버전이며 최신 팀 모델을 대체하지 않는다.
+- [10/24 연결 동선 검증](docs/integration/CONNECTED_ROUTE_CHECK_20261024.txt): 정지 교통·고정 경로 명령으로 약 **180.635m**, 4/4 구간 이동. 중간 위치 강제 이동·드라이버 재시작 없음. [요약 수치](docs/integration/route_validation_20261024/summary.json), [검증 조건](docs/integration/route_validation_20261024/metadata.json), [주행 로그](docs/integration/route_validation_20261024/driver.log)를 보존했다.
+- [API 비교자료](docs/integration/API_COMPARISON_20261019/README.txt): **10/19 조사 당시** 기능·가격·계산 가정. 11/2 가격 재확인, 유료 호출, 최종 모델 선정·주행 연동·응답 속도 실측은 수행하지 않았다. HTML은 내려받아 브라우저로 연다.
+- [최종 전달 안내](docs/integration/SEUNGHYUN_HANDOFF_20261102.md): 변경 파일, 기존 영상·로그 위치, 이번 정적 검사와 남은 검증.
+
+기존 영상은 `SWAN_seunghyun_handoff_20261102.zip`으로 별도 첨부한다. 영상 바이너리는 Git에 중복 추가하지 않는다. **180.6m 기록은 최신 Vision 거리 측정·Gap 정확도·신호 판단·장애물 회피·무충돌·자율주행의 검증 결과가 아니다.**
+
+## 시뮬레이터 없이 검사
 
 ```bash
-python3 -m unittest discover -s src/swan_market/test -v
+python3 -m unittest discover -s src/swan_world_integration/test -p 'test_*.py' -v
 ```
 
-단일 맵 구성, 기본 런처의 맵·로봇 경로, 초기 위치, 센서 연결, 신호 주기를 검사한다.
-오프라인 검사는 실제 Gazebo 주행을 실행하지 않는다. Qwen을 사용한 Gazebo 주행 결과는 [별도 실험 README](docs/market/ai_operator/README.md)에 기록했다. 새 `preview/` 출력은 커밋하지 않는다.
+단일 SDF, 원본 모델·제어기 보존, 외부 자산 참조, 런처 연결과 임시 복사본 정리를 검사한다. 실제 주행·인식 정확도 검사를 대신하지 않는다. 기존 시장 단독 실험은 [과거 기록](docs/market/README.md)으로 보존하며 최신 실행 지침은 위 안내를 따른다.
