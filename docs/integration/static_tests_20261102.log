@@ -1,0 +1,25 @@
+test_embedded_robot_is_unique_and_matches_manifest (test_preservation.PreservationTests.test_embedded_robot_is_unique_and_matches_manifest) ... ok
+test_embedded_robot_matches_pinned_git_model_when_available (test_preservation.PreservationTests.test_embedded_robot_matches_pinned_git_model_when_available) ... ok
+test_embedded_robot_starts_at_manifest_default_zone (test_preservation.PreservationTests.test_embedded_robot_starts_at_manifest_default_zone) ... ok
+test_manifest_matches_pinned_git_sources_when_available (test_preservation.PreservationTests.test_manifest_matches_pinned_git_sources_when_available) ... ok
+test_model_internals_equal_preservation_manifest (test_preservation.PreservationTests.test_model_internals_equal_preservation_manifest) ... ok
+test_shared_world_settings_equal_market_source_when_available (test_preservation.PreservationTests.test_shared_world_settings_equal_market_source_when_available) ... ok
+test_shared_world_settings_have_no_duplicate_systems (test_preservation.PreservationTests.test_shared_world_settings_have_no_duplicate_systems) ... ok
+test_source_models_connectors_and_one_embedded_robot_are_present (test_preservation.PreservationTests.test_source_models_connectors_and_one_embedded_robot_are_present) ... ok
+test_top_level_poses_follow_one_rigid_transform_per_zone (test_preservation.PreservationTests.test_top_level_poses_follow_one_rigid_transform_per_zone) ... ok
+test_vendor_files_equal_pinned_git_bytes_when_available (test_preservation.PreservationTests.test_vendor_files_equal_pinned_git_bytes_when_available) ... ok
+test_vendor_files_match_byte_hashes (test_preservation.PreservationTests.test_vendor_files_match_byte_hashes) ... ok
+test_world_directory_has_exactly_one_sdf (test_preservation.PreservationTests.test_world_directory_has_exactly_one_sdf) ... ok
+test_world_has_no_external_model_or_asset_references (test_preservation.PreservationTests.test_world_has_no_external_model_or_asset_references) ... ok
+test_apartment_uses_original_file_and_default_pose (test_recording_launch.RecordingContractTest.test_apartment_uses_original_file_and_default_pose) ... ok
+test_original_steering_model_does_not_receive_gazebo_twist (test_recording_launch.RecordingContractTest.test_original_steering_model_does_not_receive_gazebo_twist) ... ok
+test_other_starts_only_change_robot_pose_and_clean_up (test_recording_launch.RecordingContractTest.test_other_starts_only_change_robot_pose_and_clean_up) ... ok
+test_saved_world_is_standalone_with_one_embedded_robot (test_recording_launch.RecordingContractTest.test_saved_world_is_standalone_with_one_embedded_robot) ... ok
+test_sensor_offsets_are_preserved_in_two_tf_edges (test_recording_launch.RecordingContractTest.test_sensor_offsets_are_preserved_in_two_tf_edges) ... ok
+test_spawn_uses_selected_segment_and_rejects_invalid_inputs (test_recording_launch.RecordingContractTest.test_spawn_uses_selected_segment_and_rejects_invalid_inputs) ... ok
+test_world_rejects_missing_duplicate_nested_or_external_robot (test_recording_launch.RecordingContractTest.test_world_rejects_missing_duplicate_nested_or_external_robot) ... ok
+
+----------------------------------------------------------------------
+Ran 20 tests in 0.590s
+
+OK

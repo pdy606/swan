@@ -1,0 +1,46 @@
+{
+  "date_kst": "2026-10-24",
+  "scope": "Connected route geometry traversal; scripted commands, static traffic. No YOLO, API, Nav2 or contact collision evaluation.",
+  "git_commit": "62452ad4b68786a57c396129ad1b1611bef92016",
+  "files": {
+    "src/swan_world_integration/worlds/swan_town.sdf": "d7b9b54f720abb059779acf650dffee4bb46076c64b86374dccbbc60cc2716f2",
+    "src/swan_world_integration/scripts/swan_drive_controller.py": "1994d539db5fc91551f4fc8697509d52f0870e62fe2923109cab59eeb6c1d9ea",
+    "src/swan_world_integration/config/integration.json": "270ca73ead7a60c970094d5930a02b8fdab029542c315f18f6b9748debe2ed4a",
+    "src/swan_world_integration/launch/recording.launch.py": "681ff2da805cacc18c16c57549f84c0e060bef9fd7f02be71b54879da3f0b349"
+  },
+  "host_tests": {
+    "passed": 20,
+    "scope": "Original preservation and static launch contract tests, earlier in this chat"
+  },
+  "initial_world_state": "VM started fresh; no robot pose changes requested.",
+  "route": "apartment -> market end -> reverse to junction -> city north",
+  "motion_limits": {
+    "straight_max_m_s": 0.5,
+    "apartment_ramp_max_m_s": 0.28,
+    "market_max_m_s": 0.42,
+    "city_upper_max_m_s": 0.32
+  },
+  "installed_world_sha256": "d7b9b54f720abb059779acf650dffee4bb46076c64b86374dccbbc60cc2716f2",
+  "installed_drive_controller_sha256": "1994d539db5fc91551f4fc8697509d52f0870e62fe2923109cab59eeb6c1d9ea",
+  "installed_world_matches_local": true,
+  "installed_drive_controller_matches_local": true,
+  "gui_display_obstruction": "Guest desktop was locked. User asked to unlock swan session. GUI and image viewer attached after native camera and route recording had already started.",
+  "cleanup_supervisor_temporarily_suspended_for_gui_inspection": true,
+  "gui_start_requested_during_final_leg": true,
+  "gui_on_screen_confirmed": false,
+  "video_validation": {
+    "codec": "avc1",
+    "decoded_frames": 1785,
+    "duration_s": 357,
+    "first_frame_s": 0,
+    "height": 480,
+    "last_frame_s": 356.8,
+    "nominal_fps": 5,
+    "reader_completed": true,
+    "reader_error": "",
+    "thumbnails": 5,
+    "width": 640
+  },
+  "world_paused_after_completion_for_user_view": true,
+  "world_pause_service_confirmed": true
+}

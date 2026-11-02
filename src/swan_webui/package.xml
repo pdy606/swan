@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>swan_webui</name>
+  <version>0.0.1</version>
+  <description>폰 브라우저용 SWAN 원격 조종·모니터링 UI (rosbridge + 정적 웹)</description>
+  <maintainer email="swan@swan.local">swan</maintainer>
+  <license>MIT</license>
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <exec_depend>rosbridge_server</exec_depend>
+  <exec_depend>swan_interfaces</exec_depend>
+  <export><build_type>ament_cmake</build_type></export>
+</package>

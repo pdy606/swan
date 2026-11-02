@@ -1,0 +1,28 @@
+{
+  "date_kst": "2026-11-02",
+  "scope": "Offline source/document/evidence review only; no VM, Gazebo, YOLO inference, ROS build or paid API execution.",
+  "latest_team_base": "da3fd91750955b6d4dd6f5e744b2baa0b186d381",
+  "latest_team_files_byte_and_mode_equal": 43,
+  "world_feature_commit": "62452ad4b68786a57c396129ad1b1611bef92016",
+  "world_package_code_configs_resources_unchanged": true,
+  "world_sha256": "d7b9b54f720abb059779acf650dffee4bb46076c64b86374dccbbc60cc2716f2",
+  "existing_local_uncommitted_work_unchanged": true,
+  "original_route_evidence_files_equal": 5,
+  "existing_world_unit_tests": {
+    "passed": 20,
+    "skipped": 0
+  },
+  "python_ast_files": 7,
+  "shell_syntax": "passed",
+  "package_xml": "parsed",
+  "document_links_checked": 20,
+  "own_document_diff_check": "passed",
+  "runtime_not_validated": [
+    "clean Linux build/start/stop",
+    "latest full team stack",
+    "latest Vision BEV/AIR/Gap accuracy",
+    "signal/avoidance/dynamic traffic/safety integration",
+    "new API cost/latency/perception benchmarks"
+  ],
+  "api_csv_line_endings_normalized_without_data_changes": true
+}

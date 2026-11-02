@@ -1,0 +1,283 @@
+{
+  "date": "2026-10-13",
+  "tested_commit": "475e54ddec71a87253cebf4faeccdcc160a380f9",
+  "start_zone": "market",
+  "gui_observed": true,
+  "camera_window_observed": true,
+  "guest_user": "swan",
+  "world_sha256": "d7b9b54f720abb059779acf650dffee4bb46076c64b86374dccbbc60cc2716f2",
+  "ros_probe": {
+    "sim_time": 39.759,
+    "odom": {
+      "x": -6.008177839108465,
+      "y": 8.148033540338401e-06,
+      "z": 0.0,
+      "linear_x": 0.0
+    },
+    "image": {
+      "width": 320,
+      "height": 240,
+      "encoding": "rgb8",
+      "bytes": 230400,
+      "stamp": 39.7
+    },
+    "scan": {
+      "samples": 720,
+      "finite": 458,
+      "minimum": 0.1300574094057083,
+      "frame": "wheelchair/lidar_link/lidar_sensor"
+    },
+    "drive_check": {
+      "start": {
+        "x": -6.199469804107401,
+        "y": 7.521724128200114e-08,
+        "z": 0.0,
+        "linear_x": 0.0
+      },
+      "after_drive": {
+        "x": -6.01316585282331,
+        "y": 8.151399958184715e-06,
+        "z": 0.0,
+        "linear_x": 0.11999978230145816
+      },
+      "after_stop": {
+        "x": -6.008177839108465,
+        "y": 8.148033540338401e-06,
+        "z": 0.0,
+        "linear_x": 0.0
+      },
+      "distance_m": 0.1863039514591404,
+      "sim_elapsed_s": 2.6850000000000023
+    },
+    "counts": {
+      "image": 43,
+      "scan": 43,
+      "odom": 126,
+      "clock": 4295
+    }
+  },
+  "keyboard_probe": {
+    "cmd_count": 70,
+    "nonzero_cmd_count": 69,
+    "zero_cmd_count": 1,
+    "max_drive": 0.7499999999999999,
+    "odom_count": 566,
+    "wall_seconds": 74.88174440899991,
+    "first_xy": [
+      -5.912093518791931,
+      1.2831683701495363e-05
+    ],
+    "last_xy": [
+      -5.827625711800411,
+      1.5949810286148494e-05
+    ],
+    "linear_x": -0.0012779524298420595,
+    "distance_m": 0.08446780704907268,
+    "last_drive": 0.0,
+    "last_cmd": [
+      0.0,
+      0.0
+    ]
+  },
+  "traffic_probe": {
+    "actors": {
+      "crossing_pedestrian_1": {
+        "min": [
+          -5.7,
+          -0.75
+        ],
+        "max": [
+          0.5,
+          -0.75
+        ],
+        "first": [
+          0.5,
+          -0.75
+        ],
+        "last": [
+          -5.7,
+          -0.75
+        ]
+      },
+      "crossing_pedestrian_2": {
+        "min": [
+          -5.7,
+          0.75
+        ],
+        "max": [
+          0.5,
+          0.7500000000000001
+        ],
+        "first": [
+          -5.7,
+          0.75
+        ],
+        "last": [
+          0.5,
+          0.75
+        ]
+      },
+      "traffic_motorcycle_1": {
+        "min": [
+          -3.7500000000000004,
+          -6.849913704299041
+        ],
+        "max": [
+          -1.65,
+          2.95832657259891
+        ],
+        "first": [
+          -3.75,
+          2.95832657259891
+        ],
+        "last": [
+          -1.6500000000000001,
+          -0.6490323682271564
+        ]
+      },
+      "traffic_motorcycle_2": {
+        "min": [
+          -3.7500000000000004,
+          -2.958326572598909
+        ],
+        "max": [
+          -1.65,
+          6.849913704299041
+        ],
+        "first": [
+          -1.6500000000000001,
+          -2.958326572598909
+        ],
+        "last": [
+          -3.75,
+          0.6490323682271573
+        ]
+      }
+    },
+    "signal_z": {
+      "ped_signal_west_red": {
+        "min": -5.0,
+        "max": 0.0,
+        "transitions": 2,
+        "last": 0.0
+      },
+      "ped_signal_west_green": {
+        "min": -5.0,
+        "max": 0.0,
+        "transitions": 6,
+        "last": -5.0
+      },
+      "ped_signal_east_red": {
+        "min": -5.0,
+        "max": 0.0,
+        "transitions": 2,
+        "last": 0.0
+      },
+      "ped_signal_east_green": {
+        "min": -5.0,
+        "max": 0.0,
+        "transitions": 6,
+        "last": -5.0
+      }
+    },
+    "robot_ids": [
+      2894
+    ],
+    "pose_messages": 6841,
+    "sim_start": 35.135,
+    "sim_end": 69.223,
+    "wall_seconds": 128.32530051600003,
+    "sim_elapsed": 34.088,
+    "animator_status": {
+      "elapsed_sim_s": 69.13300000000001,
+      "phase": "motorcycles",
+      "cycle_phase_s": 5.13300000000001,
+      "signal_state": [
+        "red",
+        true,
+        false
+      ],
+      "commanded": {
+        "traffic_motorcycle_1": [
+          -1.6500000000000001,
+          -0.7016743436386461,
+          1.5707963267948966
+        ],
+        "traffic_motorcycle_2": [
+          -3.75,
+          0.701674343638647,
+          -1.5707963267948966
+        ],
+        "crossing_pedestrian_1": [
+          -5.7,
+          -0.75,
+          0
+        ],
+        "crossing_pedestrian_2": [
+          0.5,
+          0.75,
+          3.141592653589793
+        ],
+        "ped_signal_west_red": [
+          -5.35,
+          1.95,
+          1.5707963267948966,
+          0.0
+        ],
+        "ped_signal_west_green": [
+          -5.35,
+          1.95,
+          1.5707963267948966,
+          -5.0
+        ],
+        "ped_signal_east_red": [
+          0.1,
+          -1.95,
+          -1.5707963267948966,
+          0.0
+        ],
+        "ped_signal_east_green": [
+          0.1,
+          -1.95,
+          -1.5707963267948966,
+          -5.0
+        ]
+      },
+      "observed": {
+        "crossing_pedestrian_1": [
+          -5.7,
+          -0.75
+        ],
+        "crossing_pedestrian_2": [
+          0.5,
+          0.75
+        ],
+        "traffic_motorcycle_1": [
+          -1.6500000000000001,
+          -0.7533230742310435
+        ],
+        "traffic_motorcycle_2": [
+          -3.75,
+          0.7533230742310444
+        ]
+      },
+      "successful_updates": 1339,
+      "failed_updates": 0
+    },
+    "complete": true,
+    "observed_signal_states": [
+      "flashing_green",
+      "green",
+      "red"
+    ]
+  },
+  "runtime_fatal_log_lines": [],
+  "known_warning": "Original building_structure/lobby_light tag is not defined under model; preserved unchanged.",
+  "limitations": [
+    "Full apartment-to-market-to-city route not tested.",
+    "YOLO, Nav2, semi-autonomous safety and AI driving are not part of this launch.",
+    "Camera image_tools window is autosized and wide; use Alt+Tab for separate camera shots.",
+    "Simulation runs slower than wall time in UTM software rendering.",
+    "No recording produced; GUI and keyboard terminal left running for recording."
+  ]
+}
