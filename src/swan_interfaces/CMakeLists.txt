@@ -7,10 +7,6 @@ find_package(std_msgs REQUIRED)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/VisionStatus.msg"
-  "msg/Detection.msg"
-  "msg/DetectionArray.msg"
-  "msg/DriveTarget.msg"
-  DEPENDENCIES std_msgs
 )
 
 ament_package()

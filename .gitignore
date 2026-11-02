@@ -5,7 +5,3 @@ log/
 .vscode/
 *.pyc
 __pycache__/
-
-# Local previews and validation output; keep source and concise docs in Git.
-src/swan_market/preview/
-.DS_Store

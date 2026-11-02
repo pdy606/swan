@@ -1,5 +1,3 @@
-import os
-from glob import glob
 from setuptools import find_packages, setup
 
 package_name = 'swan_pipeline'
@@ -12,7 +10,6 @@ setup(
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
-        (os.path.join('share', package_name, 'launch'), glob('launch/*.launch.py')),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -28,9 +25,6 @@ setup(
     entry_points={
         'console_scripts': [
             'situation_node = swan_pipeline.situation_node:main',
-            'fusion_node = swan_pipeline.fusion_node:main',
-            'situation_c_node = swan_pipeline.situation_c_node:main',
-            'signal_node = swan_pipeline.signal_node:main',
         ],
     },
 )

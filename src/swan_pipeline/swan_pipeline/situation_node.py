@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 
+import json
 import math
 from typing import Optional
 
 import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import LaserScan
-from std_msgs.msg import String
+from std_msgs.msg import Float64, String
 
 
 class SituationNode(Node):
@@ -19,7 +20,7 @@ class SituationNode(Node):
         # --------------------------------------------------------------
 
         # 장애물 접근 시 C 상황 발생 거리
-        self.stop_distance = 0.55
+        self.stop_distance = 0.44
 
         # 거리 경계에서 C 상태가 반복되는 현상 방지
         self.hysteresis = 0.12
@@ -45,6 +46,24 @@ class SituationNode(Node):
         self.obstacle_hold_duration = 0.60
 
         # --------------------------------------------------------------
+        # 횡단보도 / 신호등 설정
+        # --------------------------------------------------------------
+
+        # 이 거리 이내에서 횡단보도가 감지된 경우에만
+        # 빨간불 정지 조건을 판단
+        self.crosswalk_stop_distance = 1.60
+
+        # 같은 빨간불 + 횡단보도 상황에서 RED가 반복 발행되는 것 방지
+        self.red_crosswalk_active = False
+
+        # 횡단보도로 판단할 YOLO 클래스
+        self.crosswalk_classes = {
+            "faded_crosswalk",
+            "intact_crosswalk",
+            "zebra crossing",
+        }
+
+        # --------------------------------------------------------------
         # 현재 장애물 상태
         # --------------------------------------------------------------
 
@@ -61,16 +80,18 @@ class SituationNode(Node):
         # 같은 장애물에 C를 반복 발행하지 않도록 사용
         self.c_active = False
 
-        # 마지막으로 확인한 신호등 상태
-        self.last_traffic_state = None
-
-        # 최근 횡단보도 감지 여부
-        self.last_crosswalk_seen_time = None
-        self.crosswalk_hold_duration = 2.0
-
         # --------------------------------------------------------------
         # ROS 통신
         # --------------------------------------------------------------
+
+        # No fold state machine: nonzero command pauses new sensor decisions.
+        self.folded = False
+        self.fold_subscription = self.create_subscription(
+            Float64,
+            "/model/wheelchair/fold/cmd_pos",
+            self.fold_callback,
+            10,
+        )
 
         self.scan_subscription = self.create_subscription(
             LaserScan,
@@ -94,66 +115,161 @@ class SituationNode(Node):
 
         self.get_logger().info(
             "Situation node started: "
-            "stable LiDAR detection -> driving situation"
+            "stable LiDAR detection + crosswalk traffic light detection"
         )
 
+    def fold_callback(self, msg: Float64) -> None:
+        self.folded = (msg.data != 0.0)
+
+        if self.folded:
+            # Discard pre-fold obstacle/vision history without publishing C.
+            self.front_distance = math.inf
+            self.raw_front_distance = math.inf
+            self.last_detected_distance = math.inf
+            self.last_obstacle_seen_time = None
+            self.c_active = False
+
+            # 횡단보도 / 신호등 상태 초기화
+            self.red_crosswalk_active = False
+
+    # ==============================================================
+    # YOLO 입력
+    # ==============================================================
 
     def yolo_callback(self, msg: String) -> None:
-        detected = msg.data.strip().lower()
-        now = self.get_clock().now()
 
-        crosswalk_detected = (
-            "faded_crosswalk" in detected
-            or "intact_crosswalk" in detected
-            or "zebra crossing" in detected
-        )
+        if self.folded:
+            return
 
-        if crosswalk_detected:
-            self.last_crosswalk_seen_time = now
+        # ----------------------------------------------------------
+        # YOLO 노드에서 발행한 JSON 파싱
+        #
+        # 예:
+        # [
+        #   {"class": "intact_crosswalk", "x": 0.1, "z": 1.4},
+        #   {"class": "traffic light red", "x": 0.3, "z": 3.2}
+        # ]
+        # ----------------------------------------------------------
 
-        # 최근 2초 이내 횡단보도를 봤는지 확인
-        crosswalk_active = False
+        try:
+            detected_objects = json.loads(msg.data)
 
-        if self.last_crosswalk_seen_time is not None:
-            crosswalk_age = (
-                now - self.last_crosswalk_seen_time
-            ).nanoseconds / 1_000_000_000.0
+        except json.JSONDecodeError as exc:
+            self.get_logger().warn(
+                f"Invalid YOLO JSON: {exc}"
+            )
+            return
 
-            crosswalk_active = (
-                crosswalk_age <= self.crosswalk_hold_duration
+        if not isinstance(detected_objects, list):
+            self.get_logger().warn(
+                "YOLO detected_objects is not a list"
+            )
+            return
+
+        close_crosswalk_detected = False
+        red_light_detected = False
+
+        nearest_crosswalk_distance = math.inf
+
+        # ----------------------------------------------------------
+        # 현재 한 프레임에 들어온 객체 전체 확인
+        # ----------------------------------------------------------
+
+        for obj in detected_objects:
+
+            if not isinstance(obj, dict):
+                continue
+
+            class_name = str(
+                obj.get("class", "")
+            ).strip().lower()
+
+            # 빨간불 확인: 실제 모델 이름과 기존 이름 모두 지원
+            if class_name in {"red light stop", "traffic light red"}:
+                red_light_detected = True
+
+            # 횡단보도 클래스가 아니면 거리 확인 불필요
+            if class_name not in self.crosswalk_classes:
+                continue
+
+            try:
+                crosswalk_distance = float(
+                    obj.get("z", math.inf)
+                )
+
+            except (TypeError, ValueError):
+                continue
+
+            if not math.isfinite(crosswalk_distance):
+                continue
+
+            # 가장 가까운 횡단보도 거리 기록
+            nearest_crosswalk_distance = min(
+                nearest_crosswalk_distance,
+                crosswalk_distance,
             )
 
-        # 횡단보도 주변이 아니면 신호등 무시
-        if not crosswalk_active:
-            return
+            # 횡단보도가 1.6m 이내에 있는지 확인
+            if (
+                0.0 <= crosswalk_distance
+                <= self.crosswalk_stop_distance
+            ):
+                close_crosswalk_detected = True
 
-        # 빨간불 우선
-        if "traffic light red" in detected:
-            traffic_state = "RED"
+        # ----------------------------------------------------------
+        # 정지 조건
+        #
+        # 1. 횡단보도가 1.6m 이내
+        # 2. 같은 YOLO 프레임에 빨간불 검출
+        # ----------------------------------------------------------
 
-        elif "traffic light green" in detected:
-            traffic_state = "GREEN"
-
-        else:
-            return
-
-        if traffic_state == self.last_traffic_state:
-            return
-
-        self.last_traffic_state = traffic_state
-        self.publish_situation(traffic_state)
-
-        self.get_logger().info(
-            "Crosswalk traffic light -> "
-            f"{traffic_state}"
+        stop_condition = (
+            close_crosswalk_detected
+            and red_light_detected
         )
 
+        # ----------------------------------------------------------
+        # 조건이 처음 성립한 순간에만 RED 한 번 발행
+        # ----------------------------------------------------------
+
+        if stop_condition:
+
+            if not self.red_crosswalk_active:
+
+                self.red_crosswalk_active = True
+
+                self.publish_situation("RED")
+
+                self.get_logger().info(
+                    "Crosswalk stop: "
+                    f"{nearest_crosswalk_distance:.2f}m "
+                    "+ RED traffic light -> RED"
+                )
+
+            return
+
+        # ----------------------------------------------------------
+        # 횡단보도가 멀어짐 / 사라짐 / 초록불 / 신호 없음
+        # → 다음 RED 상황을 받을 수 있도록 초기화
+        # ----------------------------------------------------------
+
+        if self.red_crosswalk_active:
+
+            self.red_crosswalk_active = False
+
+            self.get_logger().info(
+                "Crosswalk RED condition cleared"
+            )
 
     # ==============================================================
     # LiDAR 입력
     # ==============================================================
 
     def scan_callback(self, msg: LaserScan) -> None:
+
+        if self.folded:
+            return
+
         now = self.get_clock().now()
 
         corridor_distances = self.extract_corridor_distances(msg)
