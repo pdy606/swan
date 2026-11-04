@@ -1,0 +1,195 @@
+{
+  "images": [
+    {
+      "id": "clear_green",
+      "sha256": "baf0430f3744924a6c2893f4ecab74a6d899f2e1eeeb05ea7b90a55dfcae6274",
+      "size": [
+        640,
+        480
+      ],
+      "expected_color": "green_or_cyan",
+      "expected_advice": "green_observed",
+      "annotation_basis": "Assistant visual inspection of raw saved PNG and known fixture metadata, before model inference.",
+      "note": "Native-height original green signal, focused camera.",
+      "file": "images/clear_green.png"
+    },
+    {
+      "id": "clear_cyan",
+      "sha256": "df96d647cbd144aa5931e2f82d7e7e98d67c686f035a0ba906df2b2d0806aa20",
+      "size": [
+        640,
+        480
+      ],
+      "expected_color": "green_or_cyan",
+      "expected_advice": "green_observed",
+      "annotation_basis": "Assistant visual inspection of raw saved PNG and known fixture metadata, before model inference.",
+      "note": "Native-height cyan signal, focused camera.",
+      "file": "images/clear_cyan.png"
+    },
+    {
+      "id": "red_render_control",
+      "sha256": "ca1bf2b84c78f86a63860907a5b8760f150d407cc461383b9afaf366edbc5a9f",
+      "size": [
+        320,
+        240
+      ],
+      "expected_color": "red",
+      "expected_advice": "wait",
+      "annotation_basis": "Assistant visual inspection of raw saved PNG and known fixture metadata, before model inference.",
+      "note": "Red-colored walking glyph, artificial color control; not a normal red standing-pedestrian signal.",
+      "file": "images/red_render_control.png"
+    },
+    {
+      "id": "blue_render_control",
+      "sha256": "cb565613c48b57baa77c8c72bd415f468161ff38042186ad8c31455517f4d4b4",
+      "size": [
+        320,
+        240
+      ],
+      "expected_color": "blue",
+      "expected_advice": "review",
+      "annotation_basis": "Assistant visual inspection of raw saved PNG and known fixture metadata, before model inference.",
+      "note": "Blue-colored walking glyph, artificial color control.",
+      "file": "images/blue_render_control.png"
+    },
+    {
+      "id": "no_central_signal",
+      "sha256": "631cbf72877043438d6f086bc67f5d7aa4a695ac286b86352f08c157df5e6d00",
+      "size": [
+        640,
+        480
+      ],
+      "expected_color": "none",
+      "expected_advice": "review",
+      "annotation_basis": "Assistant visual inspection of raw saved PNG and known fixture metadata, before model inference.",
+      "note": "Sky and market sign; no central pedestrian signal.",
+      "file": "images/no_central_signal.png"
+    },
+    {
+      "id": "cropped_signal",
+      "sha256": "986d91d6345f22c5b53e23463ee3d5d256782781f6eecb0d16f35949993a4243",
+      "size": [
+        320,
+        240
+      ],
+      "expected_color": "unknown",
+      "expected_advice": "review",
+      "annotation_basis": "Assistant visual inspection of raw saved PNG and known fixture metadata, before model inference.",
+      "note": "Nearest signal active glyph cut by image top; policy requires unknown when cut, not proof that no color is visible.",
+      "file": "images/cropped_signal.png"
+    }
+  ],
+  "text_cases": [
+    {
+      "id": "recorded_clear_forward",
+      "observation": {
+        "goal_distance_m": 0.795,
+        "heading_error_rad": 0.0,
+        "front_clearance_m": 5.594,
+        "left_clearance_m": 1.915,
+        "right_clearance_m": 4.777,
+        "sensor_age_s": 0.1
+      },
+      "expected_action": "forward",
+      "origin": "Recorded sensor values from first row of 2026-10-08 filtered pilot; sensor_age_s is synthetic."
+    },
+    {
+      "id": "front_blocked",
+      "observation": {
+        "goal_distance_m": 3.0,
+        "heading_error_rad": 0.0,
+        "front_clearance_m": 0.6,
+        "left_clearance_m": 1.5,
+        "right_clearance_m": 1.5,
+        "sensor_age_s": 0.1
+      },
+      "expected_action": "stop",
+      "origin": "Synthetic sensor-rule fixture, not new Gazebo sensor capture."
+    },
+    {
+      "id": "goal_left",
+      "observation": {
+        "goal_distance_m": 3.0,
+        "heading_error_rad": 0.55,
+        "front_clearance_m": 3.0,
+        "left_clearance_m": 1.5,
+        "right_clearance_m": 1.5,
+        "sensor_age_s": 0.1
+      },
+      "expected_action": "left",
+      "origin": "Synthetic sensor-rule fixture, not new Gazebo sensor capture."
+    },
+    {
+      "id": "goal_right",
+      "observation": {
+        "goal_distance_m": 3.0,
+        "heading_error_rad": -0.55,
+        "front_clearance_m": 3.0,
+        "left_clearance_m": 1.5,
+        "right_clearance_m": 1.5,
+        "sensor_age_s": 0.1
+      },
+      "expected_action": "right",
+      "origin": "Synthetic sensor-rule fixture, not new Gazebo sensor capture."
+    },
+    {
+      "id": "near_goal",
+      "observation": {
+        "goal_distance_m": 0.2,
+        "heading_error_rad": 0.0,
+        "front_clearance_m": 3.0,
+        "left_clearance_m": 1.5,
+        "right_clearance_m": 1.5,
+        "sensor_age_s": 0.1
+      },
+      "expected_action": "stop",
+      "origin": "Synthetic sensor-rule fixture, not new Gazebo sensor capture."
+    },
+    {
+      "id": "left_blocked",
+      "observation": {
+        "goal_distance_m": 3.0,
+        "heading_error_rad": 0.55,
+        "front_clearance_m": 3.0,
+        "left_clearance_m": 0.3,
+        "right_clearance_m": 1.5,
+        "sensor_age_s": 0.1
+      },
+      "expected_action": "stop",
+      "origin": "Synthetic sensor-rule fixture, not new Gazebo sensor capture."
+    },
+    {
+      "id": "stale_sensor",
+      "observation": {
+        "goal_distance_m": 3.0,
+        "heading_error_rad": 0.0,
+        "front_clearance_m": 3.0,
+        "left_clearance_m": 1.5,
+        "right_clearance_m": 1.5,
+        "sensor_age_s": 2.5
+      },
+      "expected_action": "stop",
+      "origin": "Synthetic sensor-rule fixture, not new Gazebo sensor capture."
+    },
+    {
+      "id": "right_blocked",
+      "observation": {
+        "goal_distance_m": 3.0,
+        "heading_error_rad": -0.55,
+        "front_clearance_m": 3.0,
+        "left_clearance_m": 1.5,
+        "right_clearance_m": 0.3,
+        "sensor_age_s": 0.1
+      },
+      "expected_action": "stop",
+      "origin": "Synthetic sensor-rule fixture, not new Gazebo sensor capture."
+    }
+  ],
+  "repeats": 3,
+  "temperature": 0,
+  "seed": 42,
+  "scope": "Local offline tasks only. No cloud calls, no source changes, no ROS publisher, no new simulation. Repeated fixed inputs are not independent accuracy or driving trials.",
+  "capture_source_commit": "b865185c79b5279386e4a55a96c1969ba3673ccc",
+  "capture_date": "2026-11-02",
+  "provenance": "Own saved Gazebo camera PNGs, no overlaid YOLO labels, copied byte-for-byte. Independent test fixtures and cameras; no original world edits."
+}

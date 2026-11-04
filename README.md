@@ -27,7 +27,14 @@ source install/setup.bash
 ros2 launch swan_bringup swan.launch.py
 ```
 
-팀 런처는 `wheelchair_gazebo/worlds/wheelchair_world.sdf`와 최신 로봇·Vision·판단·주행을 사용한다. 별도 촬영 런처와 동시에 켜지 않는다. **11/2에는 VM·Gazebo·YOLO를 실행하지 않았으며, 이 최종 조합의 실행 성공·거리 정확도를 검증한 결과는 없다.**
+팀 런처는 `wheelchair_gazebo/worlds/wheelchair_world.sdf`와 최신 로봇·Vision·판단·주행을 사용한다. 별도 촬영 런처와 동시에 켜지 않는다. **11/2 제출 작업 당시에는 VM·Gazebo·YOLO를 실행하지 않았으며, 그 제출 작업의 정적 검사는 실행 성공·거리 정확도 검증을 뜻하지 않는다.**
+
+## 로컬 LLM 연결 — 11/3 추가
+
+- [팀원용 연결 가이드](docs/integration/LOCAL_LLM_GUIDE.md): Ollama 준비, 저장소 자료로 오프라인 검사, 기존 `ai_market_driver`와 `/cmd_vel_user` 연결, UTM 주소 설정과 종료 명령.
+- [11/2 로컬 오프라인 실측](docs/integration/local_llm_validation_20261102/): 66회 답변과 지연, 실패 사례. 주행 시험과 구분한다.
+
+기본 `swan.launch.py`는 LLM을 실행하지 않는다. 기존 AI 조종자는 LiDAR·오도메트리·목표 텍스트를 사용하며 카메라를 직접 입력받지 않는다.
 
 ## 제출 내용
 

@@ -1,0 +1,67 @@
+{
+  "text_system": "This is an OFFLINE sensor-rule check for a simulated wheelchair, not a driving command. All distances are metres and heading is radians, positive means left. Apply this exact priority: if sensor_age_s > 2.0, choose stop; if goal_distance_m <= 0.30, choose stop; if front_clearance_m < 1.0, choose stop. Otherwise if heading_error_rad > 0.20 choose left only when left_clearance_m >= 0.55, else stop. If heading_error_rad < -0.20 choose right only when right_clearance_m >= 0.55, else stop. Otherwise choose forward. Return the requested JSON with one brief reason.",
+  "image_system": "Analyze the saved simulation image for OFFLINE visual inspection only. Identify the nearest/central pedestrian signal, not smaller background signals. Report the actual lit glyph color: green_or_cyan, red, blue, none, or unknown. Use none when no central pedestrian signal is visible. If the nearest active glyph is cut off by the image boundary or cannot be identified confidently, use unknown. A walking glyph can be artificially rendered red or blue: classify its actual color, do not assume a walking shape is green. Advice is green_observed for green_or_cyan, wait for red, and review for blue, none or unknown. This is not permission to move. Return only the requested JSON with one brief visual reason.",
+  "text_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string",
+        "enum": [
+          "stop",
+          "forward",
+          "left",
+          "right"
+        ]
+      },
+      "reason": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action",
+      "reason"
+    ],
+    "additionalProperties": false
+  },
+  "image_schema": {
+    "type": "object",
+    "properties": {
+      "signal_color": {
+        "type": "string",
+        "enum": [
+          "green_or_cyan",
+          "red",
+          "blue",
+          "none",
+          "unknown"
+        ]
+      },
+      "advice": {
+        "type": "string",
+        "enum": [
+          "wait",
+          "review",
+          "green_observed"
+        ]
+      },
+      "reason": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "signal_color",
+      "advice",
+      "reason"
+    ],
+    "additionalProperties": false
+  },
+  "options": {
+    "temperature": 0,
+    "seed": 42,
+    "num_ctx": 4096,
+    "num_predict": 128
+  },
+  "keep_alive": "30s",
+  "timeout_s": 60,
+  "notes": "Fresh request with no conversation history; no retries. Wall latency includes image read/base64 and HTTP request/response, excludes manual annotation. No ROS or simulator execution. Rule fixtures do not demonstrate the need for an LLM."
+}
