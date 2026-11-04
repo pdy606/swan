@@ -1,17 +1,23 @@
 #!/usr/bin/env python3
 """
-SWAN 휠체어 탑승자 더미 (Hybrid III 50th 남성 충돌시험 더미 스타일)
+SWAN 휠체어 탑승자 더미 (Hybrid III 50th 남성 충돌시험 더미 스타일) + 사람 눈 카메라
 사용법 (swan 저장소 루트에서):
   python3 tools/dummy/add_dummy.py           # 78 kg 장착 (기존 더미 교체)
   python3 tools/dummy/add_dummy.py 90        # 질량 지정
   python3 tools/dummy/add_dummy.py --remove  # 제거
-visual은 상세 형상, collision은 박스 5개, 질량은 Hybrid III 분절 비율.
+눈 카메라: Gazebo 토픽 /dummy/eye/image
+  시야각 120도(사람 양안 유효 시야), 10도 아래를 바라봄, 320x240 @ 10 Hz
 """
 import math, re, sys
 
 SDF = "src/wheelchair_gazebo/models/wheelchair/model.sdf"
 BEGIN, END = "<!-- BEGIN SWAN DUMMY -->", "<!-- END SWAN DUMMY -->"
 SKIN, JACKET, JOINT, SHOE = "0.96 0.76 0.16", "0.10 0.13 0.20", "0.08 0.08 0.08", "0.15 0.15 0.15"
+EYE_POS = (-0.028, 0.0, 1.37)
+EYE_PITCH = 0.17
+EYE_HFOV = 1.047
+EYE_W, EYE_H, EYE_HZ = 320, 240, 10
+EYE_TOPIC = "/dummy/eye/image"
 
 def mat(rgb):
     return f"<material><ambient>{rgb} 1</ambient><diffuse>{rgb} 1</diffuse><specular>0.25 0.25 0.25 1</specular></material>"
@@ -55,6 +61,8 @@ for s, side in ((1, "l"), (-1, "r")):
     target(f"tgt_head_{side}", (-0.135, s*0.098, 1.355), (math.pi/2, 0, 0))
     target(f"tgt_knee_{side}", (0.28, s*0.175, 0.62), (math.pi/2, 0, 0), r=0.022)
     target(f"tgt_shoulder_{side}", (-0.17, s*0.252, 1.10), (math.pi/2, 0, 0), r=0.024)
+    sphere(f"eye_{side}", (-0.044, s*0.032, 1.37), 0.016, JOINT)
+    sphere(f"eye_lens_{side}", (-0.034, s*0.032, 1.37), 0.009, "0.35 0.55 0.75")
 ellipsoid("pelvis", (-0.11, 0, 0.66), (0.14, 0.18, 0.10), SKIN)
 capsule("abdomen", (-0.15, 0, 0.70), (-0.17, 0, 0.86), 0.12, SKIN)
 ellipsoid("chest", (-0.17, 0, 0.98), (0.12, 0.19, 0.19), JACKET, pitch=-0.07)
@@ -62,6 +70,19 @@ box("sternum", (-0.055, 0, 0.98), (0.02, 0.12, 0.20), JOINT, rpy=(0, -0.07, 0))
 capsule("neck", (-0.17, 0, 1.14), (-0.15, 0, 1.24), 0.045, JOINT)
 ellipsoid("head", (-0.135, 0, 1.345), (0.100, 0.082, 0.118), SKIN)
 ellipsoid("jaw", (-0.10, 0, 1.275), (0.065, 0.068, 0.05), SKIN)
+
+EYE_SENSOR = f"""      <sensor name="dummy_eye_camera" type="camera">
+        <pose>{f(*EYE_POS, 0, EYE_PITCH, 0)}</pose>
+        <topic>{EYE_TOPIC}</topic>
+        <always_on>true</always_on>
+        <update_rate>{EYE_HZ}</update_rate>
+        <visualize>false</visualize>
+        <camera>
+          <horizontal_fov>{EYE_HFOV}</horizontal_fov>
+          <image><width>{EYE_W}</width><height>{EYE_H}</height><format>R8G8B8</format></image>
+          <clip><near>0.03</near><far>60</far></clip>
+        </camera>
+      </sensor>"""
 
 COLL = [("thighs", f(0.07, 0, 0.635, 0, 0, 0), f(0.44, 0.36, 0.14)),
         ("torso", f(-0.16, 0, 0.93, 0, 0, 0), f(0.22, 0.38, 0.50)),
@@ -82,7 +103,7 @@ def block(M):
     ixx += 0.12*M/78; iyy += 0.12*M/78; izz += 0.10*M/78
     coll = "\n".join(f'      <collision name="dummy_{n}_collision"><pose>{p}</pose><geometry><box><size>{s}</size></box></geometry></collision>' for n, p, s in COLL)
     return f"""    {BEGIN}
-    <!-- 탑승자 더미 (Hybrid III 50th 스타일), 질량 {M:.0f} kg, base_link 고정 -->
+    <!-- 탑승자 더미 (Hybrid III 50th 스타일), 질량 {M:.0f} kg, base_link 고정, 눈 카메라 {EYE_TOPIC} -->
     <link name="dummy_occupant">
       <pose relative_to="base_link">0 0 0 0 0 0</pose>
       <inertial>
@@ -92,6 +113,7 @@ def block(M):
       </inertial>
 {coll}
 {chr(10).join(VIS)}
+{EYE_SENSOR}
     </link>
     <joint name="dummy_occupant_joint" type="fixed">
       <parent>base_link</parent>
@@ -113,7 +135,7 @@ def main():
     anchor = '    <link name="swan_slide_link">'
     assert src.count(anchor) == 1, "삽입 위치(swan_slide_link)를 못 찾음"
     open(SDF, "w", encoding="utf-8").write(src.replace(anchor, block(M) + anchor))
-    print(f"더미 장착 완료: {M:.0f} kg, visual {len(VIS)}개, collision {len(COLL)}개")
+    print(f"더미 장착 완료: {M:.0f} kg, visual {len(VIS)}개, collision {len(COLL)}개, 눈 카메라 {EYE_TOPIC}")
 
 if __name__ == "__main__":
     main()
