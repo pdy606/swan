@@ -1,0 +1,8 @@
+.venv_mbra/
+runtime/
+
+# Keep model metadata and official inference source; fetch weights separately.
+assets/navigation_model_zoo/**/*.onnx
+
+# Each computer owns its CSVs, records, fingerprints and logs.
+/results/

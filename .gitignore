@@ -5,3 +5,20 @@ log/
 .vscode/
 *.pyc
 __pycache__/
+
+# Python environments and generated package/test metadata
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+
+# Temporary logs and editor files (keep experiment CSVs)
+*.log
+*.swp
+*.swo
+*~
+
+# Machine-local credentials and assistant state
+/.aws/
+/.codex/
+/.agents/

@@ -1,0 +1,5 @@
+# Installed only in .venv_mbra; the ROS interpreter is left untouched.
+numpy
+Pillow
+PyYAML
+onnxruntime
