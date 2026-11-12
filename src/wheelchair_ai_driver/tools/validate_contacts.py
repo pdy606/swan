@@ -54,7 +54,8 @@ try:
   time.sleep(.1)
  wait_sim(1)
  (OUT/'armed').touch();wait_sim(.3)
- baseline=state();assert len(baseline['registered_collisions'])==12,baseline
+ baseline=state();expected=sorted(json.loads((OUT/'evaluation_manifest.json').read_text())['chair_collisions'])
+ assert sorted(baseline['registered_collisions'])==expected,(expected,baseline)
  assert baseline['collision_count']==0,baseline
  results=[{'case':'normal_ground','count':0,'support_pairs':baseline['excluded_support_pairs']}]
  def wheel_command(value):

@@ -48,6 +48,11 @@ class Recorder(Node):
     def event(self,kind,**values):
         self.events.write(json.dumps(dict(kind=kind,wall_time=time.time(),**values),allow_nan=False)+'\n');self.events.flush()
 
+    def expected_collisions(self):
+        """Wheelchair collision set from this run's evaluation manifest (12 without the dummy)."""
+        try:return sorted(json.loads((self.output/'evaluation_manifest.json').read_text())['chair_collisions'])
+        except (FileNotFoundError,json.JSONDecodeError,KeyError):return None
+
     def contacts(self):
         try:return json.loads((self.output/'contacts_state.json').read_text())
         except (FileNotFoundError,json.JSONDecodeError):return {}
@@ -113,7 +118,8 @@ class Recorder(Node):
                 self.done=True;return
             s=self.status
             if (s.get('state')=='DISABLED' and s.get('stop_autonomy_off_acknowledged') and s.get('predictions',0)>0
-                and s.get('sim_time',0)>=4.1 and self.odom and len(c.get('registered_collisions',[]))==12
+                and s.get('sim_time',0)>=4.1 and self.odom and self.expected_collisions() is not None
+                and sorted(c.get('registered_collisions',[]))==self.expected_collisions()
                 and c.get('physics_steps',0)>100 and not c.get('active_objects')
                 and abs(c['sim_time']-s['sim_time'])<.5 and self.start_client.service_is_ready()):
                 if s['assistance_enabled']!=self.get_parameter('assistance').value:raise RuntimeError('Assistance mode mismatch')

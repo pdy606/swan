@@ -32,7 +32,7 @@ def fingerprint():
             'goal':[53,0],'max_user_speed':.30,'camera_hfov_deg':90,'physics_step_sec':.001,
             'run_sim_timeout_sec':600,'run_wall_timeout_sec':3000,
             'progress':'furthest ordered course projection; 2m corridor; guide radius .8; final .5',
-            'contacts':'all 12 source collisions; external-model event; exact solver-step separation',
+            'contacts':'all source wheelchair collisions incl. mounted occupant dummy; external-model event; exact solver-step separation',
             'avoidance_interventions':'first Nav2-accepted AVOIDING per episode; replans do not increment',
             'gui':False,'camera_viewer':False,'video_recording':False,'nav2_launched_both_modes':True}
 
