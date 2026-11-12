@@ -14,14 +14,14 @@
     <scene>
       <ambient>0.65 0.65 0.65 1</ambient>
       <background>0.74 0.82 0.86 1</background>
-      <shadows>true</shadows>
+      <shadows>false</shadows>
     </scene>
     <light name="sun" type="directional">
       <pose>0 0 15 0 0 0</pose>
       <direction>-.3 -.5 -1</direction>
       <diffuse>.85 .82 .75 1</diffuse>
       <specular>.1 .1 .1 1</specular>
-      <cast_shadows>true</cast_shadows>
+      <cast_shadows>false</cast_shadows>
     </light>
     <model name="ground_environment">
       <pose>-35.98 0 -0.05 0 0 3.14159265359</pose>
@@ -421,6 +421,7 @@
           <constant>0.5</constant>
           <linear>0.1</linear>
         </attenuation>
+        <cast_shadows>false</cast_shadows>
       </light>
       <link name="pillar_left_1">
         <pose>-1.8 2.0 0.74 0 0 0</pose>
@@ -739,18 +740,18 @@
       <pose>-35.98 0 -0.05 0 0 3.14159265359</pose>
       <static>true</static>
       <link name="asphalt">
-        <pose>-7.98 0 0.025 0 0 0</pose>
+        <pose>-6.98 0 0.025 0 0 0</pose>
         <collision name="collision">
           <geometry>
             <box>
-              <size>16.0 16.0 0.05</size>
+              <size>14 16 0.05</size>
             </box>
           </geometry>
         </collision>
         <visual name="visual">
           <geometry>
             <box>
-              <size>16.0 16.0 0.05</size>
+              <size>14 16 0.05</size>
             </box>
           </geometry>
           <material>
@@ -765,11 +766,11 @@
         </visual>
       </link>
       <link name="left_lane_boundary">
-        <pose>-6.5 -2.65 0.055 0 0 0</pose>
+        <pose>-6.98 -2.65 0.055 0 0 0</pose>
         <visual name="visual">
           <geometry>
             <box>
-              <size>14.0 0.09 0.015</size>
+              <size>13.5 0.09 0.015</size>
             </box>
           </geometry>
           <material>
@@ -779,11 +780,11 @@
         </visual>
       </link>
       <link name="right_lane_boundary">
-        <pose>-6.5 2.65 0.055 0 0 0</pose>
+        <pose>-6.98 2.65 0.055 0 0 0</pose>
         <visual name="visual">
           <geometry>
             <box>
-              <size>14.0 0.09 0.015</size>
+              <size>13.5 0.09 0.015</size>
             </box>
           </geometry>
           <material>
@@ -992,14 +993,14 @@
       </link>
     </model>
     <model name="ground_plane">
-      <pose>-14 30 -0.025 0 0 0</pose>
+      <pose>-1.74 0 -0.025 0 0 -1.57079632679</pose>
       <static>true</static>
       <link name="link">
         <collision name="collision">
           <geometry>
             <plane>
               <normal>0 0 1</normal>
-              <size>100 100</size>
+              <size>60 125</size>
             </plane>
           </geometry>
         </collision>
@@ -1007,7 +1008,7 @@
           <geometry>
             <plane>
               <normal>0 0 1</normal>
-              <size>100 100</size>
+              <size>60 125</size>
             </plane>
           </geometry>
           <material>
@@ -1019,7 +1020,7 @@
     </model>
     <model name="road">
       <static>true</static>
-      <pose>-14 30 -0.015 0 0 0</pose>
+      <pose>-5 -4.5 -0.015 0 0 -1.57079632679</pose>
       <link name="link">
         <collision name="collision">
           <geometry>
@@ -1043,7 +1044,7 @@
     </model>
     <model name="sidewalk_left">
       <static>true</static>
-      <pose>-18.5 30 0.025 0 0 0</pose>
+      <pose>-5 0 -0.05 0 0 -1.57079632679</pose>
       <link name="link">
         <collision name="collision">
           <geometry>
@@ -1067,7 +1068,7 @@
     </model>
     <model name="sidewalk_right">
       <static>true</static>
-      <pose>-9.5 30 0.025 0 0 0</pose>
+      <pose>-5 -9 -0.05 0 0 -1.57079632679</pose>
       <link name="link">
         <collision name="collision">
           <geometry>
@@ -1091,7 +1092,7 @@
     </model>
     <model name="crosswalk_1">
       <static>true</static>
-      <pose>-16.4 30 -0.005 0 0 0</pose>
+      <pose>-5 -2.1 -0.005 0 0 -1.57079632679</pose>
       <link name="link">
         <visual name="visual">
           <geometry>
@@ -1108,7 +1109,7 @@
     </model>
     <model name="crosswalk_2">
       <static>true</static>
-      <pose>-15.6 30 -0.005 0 0 0</pose>
+      <pose>-5 -2.9 -0.005 0 0 -1.57079632679</pose>
       <link name="link">
         <visual name="visual">
           <geometry>
@@ -1125,7 +1126,7 @@
     </model>
     <model name="crosswalk_3">
       <static>true</static>
-      <pose>-14.8 30 -0.005 0 0 0</pose>
+      <pose>-5 -3.7 -0.005 0 0 -1.57079632679</pose>
       <link name="link">
         <visual name="visual">
           <geometry>
@@ -1142,7 +1143,7 @@
     </model>
     <model name="crosswalk_4">
       <static>true</static>
-      <pose>-14 30 -0.005 0 0 0</pose>
+      <pose>-5 -4.5 -0.005 0 0 -1.57079632679</pose>
       <link name="link">
         <visual name="visual">
           <geometry>
@@ -1159,7 +1160,7 @@
     </model>
     <model name="crosswalk_5">
       <static>true</static>
-      <pose>-13.2 30 -0.005 0 0 0</pose>
+      <pose>-5 -5.3 -0.005 0 0 -1.57079632679</pose>
       <link name="link">
         <visual name="visual">
           <geometry>
@@ -1176,7 +1177,7 @@
     </model>
     <model name="crosswalk_6">
       <static>true</static>
-      <pose>-12.4 30 -0.005 0 0 0</pose>
+      <pose>-5 -6.1 -0.005 0 0 -1.57079632679</pose>
       <link name="link">
         <visual name="visual">
           <geometry>
@@ -1193,7 +1194,7 @@
     </model>
     <model name="crosswalk_7">
       <static>true</static>
-      <pose>-11.6 30 -0.005 0 0 0</pose>
+      <pose>-5 -6.9 -0.005 0 0 -1.57079632679</pose>
       <link name="link">
         <visual name="visual">
           <geometry>
@@ -1210,7 +1211,7 @@
     </model>
     <model name="curb_left_south">
       <static>true</static>
-      <pose>-17.1 20.75 0.085 0 0 0</pose>
+      <pose>-14.25 -1.4 0.085 0 0 -1.57079632679</pose>
       <link name="link">
         <collision name="collision">
           <geometry>
@@ -1234,7 +1235,7 @@
     </model>
     <model name="curb_left_north">
       <static>true</static>
-      <pose>-17.1 39.25 0.085 0 0 0</pose>
+      <pose>4.25 -1.4 0.085 0 0 -1.57079632679</pose>
       <link name="link">
         <collision name="collision">
           <geometry>
@@ -1258,7 +1259,7 @@
     </model>
     <model name="curb_right_south">
       <static>true</static>
-      <pose>-10.9 20.75 0.085 0 0 0</pose>
+      <pose>-14.25 -7.6 0.085 0 0 -1.57079632679</pose>
       <link name="link">
         <collision name="collision">
           <geometry>
@@ -1282,7 +1283,7 @@
     </model>
     <model name="curb_right_north">
       <static>true</static>
-      <pose>-10.9 39.25 0.085 0 0 0</pose>
+      <pose>4.25 -7.6 0.085 0 0 -1.57079632679</pose>
       <link name="link">
         <collision name="collision">
           <geometry>
@@ -1304,57 +1305,9 @@
         </visual>
       </link>
     </model>
-    <model name="curb_ramp_left">
-      <static>true</static>
-      <pose>-17.1 30 0.075 0 0.5 0</pose>
-      <link name="link">
-        <collision name="collision">
-          <geometry>
-            <box>
-              <size>0.4 3 0.18</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <box>
-              <size>0.4 3 0.18</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.75 0.72 0.65 1</ambient>
-            <diffuse>0.75 0.72 0.65 1</diffuse>
-          </material>
-        </visual>
-      </link>
-    </model>
-    <model name="curb_ramp_right">
-      <static>true</static>
-      <pose>-10.9 30 0.075 0 -0.5 0</pose>
-      <link name="link">
-        <collision name="collision">
-          <geometry>
-            <box>
-              <size>0.4 3 0.18</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <box>
-              <size>0.4 3 0.18</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.75 0.72 0.65 1</ambient>
-            <diffuse>0.75 0.72 0.65 1</diffuse>
-          </material>
-        </visual>
-      </link>
-    </model>
     <model name="building_left_1">
       <static>true</static>
-      <pose>-20.5 22 1.475 0 0 0</pose>
+      <pose>-13 2.5 1.475 0 0 -1.57079632679</pose>
       <link name="link">
         <collision name="collision">
           <geometry>
@@ -1378,7 +1331,7 @@
     </model>
     <model name="building_left_2">
       <static>true</static>
-      <pose>-20.5 32 1.975 0 0 0</pose>
+      <pose>-3 2.5 1.975 0 0 -1.57079632679</pose>
       <link name="link">
         <collision name="collision">
           <geometry>
@@ -1402,7 +1355,7 @@
     </model>
     <model name="building_right_1">
       <static>true</static>
-      <pose>-7.5 24 1.725 0 0 0</pose>
+      <pose>-11 -11 1.725 0 0 -1.57079632679</pose>
       <link name="link">
         <collision name="collision">
           <geometry>
@@ -1426,7 +1379,7 @@
     </model>
     <model name="building_right_2">
       <static>true</static>
-      <pose>-7.5 34 1.225 0 0 0</pose>
+      <pose>-1 -11 1.225 0 0 -1.57079632679</pose>
       <link name="link">
         <collision name="collision">
           <geometry>
@@ -1450,7 +1403,7 @@
     </model>
     <model name="tree_1">
       <static>true</static>
-      <pose>-17.7 20 0.125 0 0 0</pose>
+      <pose>-15 -0.8 0.125 0 0 -1.57079632679</pose>
       <link name="link">
         <collision name="collision">
           <geometry>
@@ -1474,7 +1427,7 @@
     </model>
     <model name="tree_1_trunk">
       <static>true</static>
-      <pose>-17.7 20 1.075 0 0 0</pose>
+      <pose>-15 -0.8 1.075 0 0 -1.57079632679</pose>
       <link name="link">
         <collision name="collision">
           <geometry>
@@ -1500,7 +1453,7 @@
     </model>
     <model name="tree_2">
       <static>true</static>
-      <pose>-10.3 26 0.125 0 0 0</pose>
+      <pose>-9 -8.2 0.125 0 0 -1.57079632679</pose>
       <link name="link">
         <collision name="collision">
           <geometry>
@@ -1524,7 +1477,7 @@
     </model>
     <model name="tree_2_trunk">
       <static>true</static>
-      <pose>-10.3 26 1.075 0 0 0</pose>
+      <pose>-9 -8.2 1.075 0 0 -1.57079632679</pose>
       <link name="link">
         <collision name="collision">
           <geometry>
@@ -1550,7 +1503,7 @@
     </model>
     <model name="tree_3">
       <static>true</static>
-      <pose>-17.7 33 0.125 0 0 0</pose>
+      <pose>-2 -0.8 0.125 0 0 -1.57079632679</pose>
       <link name="link">
         <collision name="collision">
           <geometry>
@@ -1574,7 +1527,7 @@
     </model>
     <model name="tree_3_trunk">
       <static>true</static>
-      <pose>-17.7 33 1.075 0 0 0</pose>
+      <pose>-2 -0.8 1.075 0 0 -1.57079632679</pose>
       <link name="link">
         <collision name="collision">
           <geometry>
@@ -1600,7 +1553,7 @@
     </model>
     <model name="tree_4">
       <static>true</static>
-      <pose>-10.3 38 0.125 0 0 0</pose>
+      <pose>3 -8.2 0.125 0 0 -1.57079632679</pose>
       <link name="link">
         <collision name="collision">
           <geometry>
@@ -1624,7 +1577,7 @@
     </model>
     <model name="tree_4_trunk">
       <static>true</static>
-      <pose>-10.3 38 1.075 0 0 0</pose>
+      <pose>3 -8.2 1.075 0 0 -1.57079632679</pose>
       <link name="link">
         <collision name="collision">
           <geometry>
@@ -1648,33 +1601,9 @@
         </visual>
       </link>
     </model>
-    <model name="bench_1">
-      <static>true</static>
-      <pose>-17.5 27 0.225 0 0 0</pose>
-      <link name="link">
-        <collision name="collision">
-          <geometry>
-            <box>
-              <size>1.5 0.5 0.5</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <box>
-              <size>1.5 0.5 0.5</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.45 0.3 0.2 1</ambient>
-            <diffuse>0.45 0.3 0.2 1</diffuse>
-          </material>
-        </visual>
-      </link>
-    </model>
     <model name="bench_2">
       <static>true</static>
-      <pose>-10.5 41 0.225 0 0 1.5708</pose>
+      <pose>6 -8 0.225 0 0 3.67320510342e-06</pose>
       <link name="link">
         <collision name="collision">
           <geometry>
@@ -1698,7 +1627,7 @@
     </model>
     <model name="trash_bin_1">
       <static>true</static>
-      <pose>-17.8 17 0.275 0 0 0</pose>
+      <pose>-18 -0.7 0.275 0 0 -1.57079632679</pose>
       <link name="link">
         <collision name="collision">
           <geometry>
@@ -1724,7 +1653,7 @@
     </model>
     <model name="trash_bin_2">
       <static>true</static>
-      <pose>-10.2 22 0.275 0 0 0</pose>
+      <pose>-13 -8.3 0.275 0 0 -1.57079632679</pose>
       <link name="link">
         <collision name="collision">
           <geometry>
@@ -1750,7 +1679,7 @@
     </model>
     <model name="hydrant_1">
       <static>true</static>
-      <pose>-17.6 35 0.225 0 0 0</pose>
+      <pose>0 -0.9 0.225 0 0 -1.57079632679</pose>
       <link name="link">
         <collision name="collision">
           <geometry>
@@ -1776,7 +1705,7 @@
     </model>
     <model name="parked_bike_1">
       <static>true</static>
-      <pose>-10.1 31 0.275 0 0 0.2</pose>
+      <pose>-4 -8.4 0.275 0 0 -1.37079632679</pose>
       <link name="link">
         <collision name="collision">
           <geometry>
@@ -1800,7 +1729,7 @@
     </model>
     <model name="sign_board_1">
       <static>true</static>
-      <pose>-17.5 39 0.375 0.3 0 0</pose>
+      <pose>4 -1 0.375 0.3 0 -1.57079632679</pose>
       <link name="link">
         <collision name="collision">
           <geometry>
@@ -1824,7 +1753,7 @@
     </model>
     <model name="pedestrian_1">
       <static>true</static>
-      <pose>-10.4 18 0.825 0 0 0</pose>
+      <pose>-17 -8.1 0.825 0 0 -1.57079632679</pose>
       <link name="link">
         <collision name="collision">
           <geometry>
@@ -1850,7 +1779,7 @@
     </model>
     <model name="pedestrian_2">
       <static>true</static>
-      <pose>-17.6 43 0.825 0 0 0</pose>
+      <pose>8 -0.9 0.825 0 0 -1.57079632679</pose>
       <link name="link">
         <collision name="collision">
           <geometry>
@@ -1874,61 +1803,9 @@
         </visual>
       </link>
     </model>
-    <model name="pole_1">
-      <static>true</static>
-      <pose>-17.2 29 2.475 0 0 0</pose>
-      <link name="link">
-        <collision name="collision">
-          <geometry>
-            <cylinder>
-              <radius>0.1</radius>
-              <length>5</length>
-            </cylinder>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <cylinder>
-              <radius>0.1</radius>
-              <length>5</length>
-            </cylinder>
-          </geometry>
-          <material>
-            <ambient>0.3 0.3 0.3 1</ambient>
-            <diffuse>0.3 0.3 0.3 1</diffuse>
-          </material>
-        </visual>
-      </link>
-    </model>
-    <model name="pole_2">
-      <static>true</static>
-      <pose>-10.8 33 2.475 0 0 0</pose>
-      <link name="link">
-        <collision name="collision">
-          <geometry>
-            <cylinder>
-              <radius>0.1</radius>
-              <length>5</length>
-            </cylinder>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <cylinder>
-              <radius>0.1</radius>
-              <length>5</length>
-            </cylinder>
-          </geometry>
-          <material>
-            <ambient>0.3 0.3 0.3 1</ambient>
-            <diffuse>0.3 0.3 0.3 1</diffuse>
-          </material>
-        </visual>
-      </link>
-    </model>
     <model name="extra_rock_1">
       <static>true</static>
-      <pose>-19 16 0.075 0 0 0</pose>
+      <pose>-19 -1.05 0.075 0 0 -1.57079632679</pose>
       <link name="link">
         <collision name="collision">
           <geometry>
@@ -1952,7 +1829,7 @@
     </model>
     <model name="extra_debris_1">
       <static>true</static>
-      <pose>-18.2 18.5 0.035 0 0 0.5</pose>
+      <pose>-16.5 -1.05 0.035 0 0 -1.07079632679</pose>
       <link name="link">
         <collision name="collision">
           <geometry>
@@ -1976,7 +1853,7 @@
     </model>
     <model name="extra_box_1">
       <static>true</static>
-      <pose>-17.6 21.5 0.075 0 0 0.2</pose>
+      <pose>-13.5 -1.05 0.075 0 0 -1.37079632679</pose>
       <link name="link">
         <collision name="collision">
           <geometry>
@@ -2000,7 +1877,7 @@
     </model>
     <model name="extra_cylinder_1">
       <static>true</static>
-      <pose>-19.5 24.5 0.075 0 0 0</pose>
+      <pose>-10.5 -1.05 0.075 0 0 -1.57079632679</pose>
       <link name="link">
         <collision name="collision">
           <geometry>
@@ -2026,7 +1903,7 @@
     </model>
     <model name="extra_rock_2">
       <static>true</static>
-      <pose>-18.8 29.5 0.095 0 0 0</pose>
+      <pose>-5.5 -1.05 0.095 0 0 -1.57079632679</pose>
       <link name="link">
         <collision name="collision">
           <geometry>
@@ -2050,7 +1927,7 @@
     </model>
     <model name="extra_debris_2">
       <static>true</static>
-      <pose>-17.5 34.5 0.035 0 0 0.9</pose>
+      <pose>-0.5 -1.05 0.035 0 0 -0.670796326795</pose>
       <link name="link">
         <collision name="collision">
           <geometry>
@@ -2074,7 +1951,7 @@
     </model>
     <model name="extra_box_2">
       <static>true</static>
-      <pose>-19.2 37.5 0.075 0 0 0.7</pose>
+      <pose>2.5 -1.05 0.075 0 0 -0.870796326795</pose>
       <link name="link">
         <collision name="collision">
           <geometry>
@@ -2098,7 +1975,7 @@
     </model>
     <model name="extra_cylinder_2">
       <static>true</static>
-      <pose>-18 40.5 0.075 0 0 0</pose>
+      <pose>5.5 -1.05 0.075 0 0 -1.57079632679</pose>
       <link name="link">
         <collision name="collision">
           <geometry>
@@ -2124,7 +2001,7 @@
     </model>
     <model name="extra_rock_3">
       <static>true</static>
-      <pose>-9.7 17 0.075 0 0 0</pose>
+      <pose>-18 -8.8 0.075 0 0 -1.57079632679</pose>
       <link name="link">
         <collision name="collision">
           <geometry>
@@ -2148,7 +2025,7 @@
     </model>
     <model name="extra_debris_3">
       <static>true</static>
-      <pose>-8.5 20 0.035 0 0 0.3</pose>
+      <pose>-15 -10 0.035 0 0 -1.27079632679</pose>
       <link name="link">
         <collision name="collision">
           <geometry>
@@ -2172,7 +2049,7 @@
     </model>
     <model name="extra_box_3">
       <static>true</static>
-      <pose>-9.5 23.5 0.075 0 0 0.4</pose>
+      <pose>-11.5 -9 0.075 0 0 -1.17079632679</pose>
       <link name="link">
         <collision name="collision">
           <geometry>
@@ -2196,7 +2073,7 @@
     </model>
     <model name="extra_cylinder_3">
       <static>true</static>
-      <pose>-10.3 26.5 0.075 0 0 0</pose>
+      <pose>-8.5 -8.2 0.075 0 0 -1.57079632679</pose>
       <link name="link">
         <collision name="collision">
           <geometry>
@@ -2222,7 +2099,7 @@
     </model>
     <model name="extra_rock_4">
       <static>true</static>
-      <pose>-8.7 32 0.105 0 0 0</pose>
+      <pose>-3 -9.8 0.105 0 0 -1.57079632679</pose>
       <link name="link">
         <collision name="collision">
           <geometry>
@@ -2246,7 +2123,7 @@
     </model>
     <model name="extra_debris_4">
       <static>true</static>
-      <pose>-9.4 35.5 0.035 0 0 0.6</pose>
+      <pose>0.5 -9.1 0.035 0 0 -0.970796326795</pose>
       <link name="link">
         <collision name="collision">
           <geometry>
@@ -2270,7 +2147,7 @@
     </model>
     <model name="extra_box_4">
       <static>true</static>
-      <pose>-10.2 39.5 0.075 0 0 1</pose>
+      <pose>4.5 -8.3 0.075 0 0 -0.570796326795</pose>
       <link name="link">
         <collision name="collision">
           <geometry>
@@ -2294,7 +2171,7 @@
     </model>
     <model name="extra_cylinder_4">
       <static>true</static>
-      <pose>-8.4 42 0.075 0 0 0</pose>
+      <pose>7 -10.1 0.075 0 0 -1.57079632679</pose>
       <link name="link">
         <collision name="collision">
           <geometry>
@@ -2318,321 +2195,9 @@
         </visual>
       </link>
     </model>
-    <model name="traffic_light_1">
-      <static>true</static>
-      <pose>-17.6 28 1.475 0 0 0</pose>
-      <link name="link">
-        <collision name="collision">
-          <geometry>
-            <cylinder>
-              <radius>0.08</radius>
-              <length>3</length>
-            </cylinder>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <cylinder>
-              <radius>0.08</radius>
-              <length>3</length>
-            </cylinder>
-          </geometry>
-          <material>
-            <ambient>0.2 0.2 0.2 1</ambient>
-            <diffuse>0.2 0.2 0.2 1</diffuse>
-          </material>
-        </visual>
-      </link>
-    </model>
-    <model name="traffic_light_1_head">
-      <static>true</static>
-      <pose>-17.6 28 2.875 0 0 0</pose>
-      <link name="link">
-        <visual name="visual">
-          <geometry>
-            <box>
-              <size>0.25 0.25 0.7</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.1 0.1 0.1 1</ambient>
-            <diffuse>0.1 0.1 0.1 1</diffuse>
-          </material>
-        </visual>
-      </link>
-    </model>
-    <model name="traffic_light_1_red">
-      <static>true</static>
-      <pose>-17.6 28.13 3.125 0 0 0</pose>
-      <link name="link">
-        <visual name="visual">
-          <geometry>
-            <sphere>
-              <radius>0.06</radius>
-            </sphere>
-          </geometry>
-          <material>
-            <ambient>1 0 0 1</ambient>
-            <diffuse>1 0 0 1</diffuse>
-            <emissive>0.6 0 0 1</emissive>
-          </material>
-        </visual>
-      </link>
-    </model>
-    <model name="traffic_light_1_green">
-      <static>true</static>
-      <pose>-17.6 28.13 2.625 0 0 0</pose>
-      <link name="link">
-        <visual name="visual">
-          <geometry>
-            <sphere>
-              <radius>0.06</radius>
-            </sphere>
-          </geometry>
-          <material>
-            <ambient>0.1 0.1 0.1 1</ambient>
-            <diffuse>0.1 0.1 0.1 1</diffuse>
-          </material>
-        </visual>
-      </link>
-    </model>
-    <model name="traffic_light_2">
-      <static>true</static>
-      <pose>-10.4 32 1.475 0 0 0</pose>
-      <link name="link">
-        <collision name="collision">
-          <geometry>
-            <cylinder>
-              <radius>0.08</radius>
-              <length>3</length>
-            </cylinder>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <cylinder>
-              <radius>0.08</radius>
-              <length>3</length>
-            </cylinder>
-          </geometry>
-          <material>
-            <ambient>0.2 0.2 0.2 1</ambient>
-            <diffuse>0.2 0.2 0.2 1</diffuse>
-          </material>
-        </visual>
-      </link>
-    </model>
-    <model name="traffic_light_2_head">
-      <static>true</static>
-      <pose>-10.4 32 2.875 0 0 0</pose>
-      <link name="link">
-        <visual name="visual">
-          <geometry>
-            <box>
-              <size>0.25 0.25 0.7</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.1 0.1 0.1 1</ambient>
-            <diffuse>0.1 0.1 0.1 1</diffuse>
-          </material>
-        </visual>
-      </link>
-    </model>
-    <model name="traffic_light_2_red">
-      <static>true</static>
-      <pose>-10.4 31.87 3.125 0 0 0</pose>
-      <link name="link">
-        <visual name="visual">
-          <geometry>
-            <sphere>
-              <radius>0.06</radius>
-            </sphere>
-          </geometry>
-          <material>
-            <ambient>0.1 0.1 0.1 1</ambient>
-            <diffuse>0.1 0.1 0.1 1</diffuse>
-          </material>
-        </visual>
-      </link>
-    </model>
-    <model name="traffic_light_2_green">
-      <static>true</static>
-      <pose>-10.4 31.87 2.625 0 0 0</pose>
-      <link name="link">
-        <visual name="visual">
-          <geometry>
-            <sphere>
-              <radius>0.06</radius>
-            </sphere>
-          </geometry>
-          <material>
-            <ambient>0 1 0 1</ambient>
-            <diffuse>0 1 0 1</diffuse>
-            <emissive>0 0.6 0 1</emissive>
-          </material>
-        </visual>
-      </link>
-    </model>
-    <model name="traffic_light_3">
-      <static>true</static>
-      <pose>-17.6 32 1.475 0 0 0</pose>
-      <link name="link">
-        <collision name="collision">
-          <geometry>
-            <cylinder>
-              <radius>0.08</radius>
-              <length>3</length>
-            </cylinder>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <cylinder>
-              <radius>0.08</radius>
-              <length>3</length>
-            </cylinder>
-          </geometry>
-          <material>
-            <ambient>0.2 0.2 0.2 1</ambient>
-            <diffuse>0.2 0.2 0.2 1</diffuse>
-          </material>
-        </visual>
-      </link>
-    </model>
-    <model name="traffic_light_3_head">
-      <static>true</static>
-      <pose>-17.6 32 2.875 0 0 0</pose>
-      <link name="link">
-        <visual name="visual">
-          <geometry>
-            <box>
-              <size>0.25 0.25 0.7</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.1 0.1 0.1 1</ambient>
-            <diffuse>0.1 0.1 0.1 1</diffuse>
-          </material>
-        </visual>
-      </link>
-    </model>
-    <model name="traffic_light_3_red">
-      <static>true</static>
-      <pose>-17.6 31.87 3.125 0 0 0</pose>
-      <link name="link">
-        <visual name="visual">
-          <geometry>
-            <sphere>
-              <radius>0.06</radius>
-            </sphere>
-          </geometry>
-          <material>
-            <ambient>1 0 0 1</ambient>
-            <diffuse>1 0 0 1</diffuse>
-            <emissive>0.6 0 0 1</emissive>
-          </material>
-        </visual>
-      </link>
-    </model>
-    <model name="traffic_light_3_green">
-      <static>true</static>
-      <pose>-17.6 31.87 2.625 0 0 0</pose>
-      <link name="link">
-        <visual name="visual">
-          <geometry>
-            <sphere>
-              <radius>0.06</radius>
-            </sphere>
-          </geometry>
-          <material>
-            <ambient>0.1 0.1 0.1 1</ambient>
-            <diffuse>0.1 0.1 0.1 1</diffuse>
-          </material>
-        </visual>
-      </link>
-    </model>
-    <model name="traffic_light_4">
-      <static>true</static>
-      <pose>-10.4 28 1.475 0 0 0</pose>
-      <link name="link">
-        <collision name="collision">
-          <geometry>
-            <cylinder>
-              <radius>0.08</radius>
-              <length>3</length>
-            </cylinder>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <cylinder>
-              <radius>0.08</radius>
-              <length>3</length>
-            </cylinder>
-          </geometry>
-          <material>
-            <ambient>0.2 0.2 0.2 1</ambient>
-            <diffuse>0.2 0.2 0.2 1</diffuse>
-          </material>
-        </visual>
-      </link>
-    </model>
-    <model name="traffic_light_4_head">
-      <static>true</static>
-      <pose>-10.4 28 2.875 0 0 0</pose>
-      <link name="link">
-        <visual name="visual">
-          <geometry>
-            <box>
-              <size>0.25 0.25 0.7</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.1 0.1 0.1 1</ambient>
-            <diffuse>0.1 0.1 0.1 1</diffuse>
-          </material>
-        </visual>
-      </link>
-    </model>
-    <model name="traffic_light_4_red">
-      <static>true</static>
-      <pose>-10.4 28.13 3.125 0 0 0</pose>
-      <link name="link">
-        <visual name="visual">
-          <geometry>
-            <sphere>
-              <radius>0.06</radius>
-            </sphere>
-          </geometry>
-          <material>
-            <ambient>1 0 0 1</ambient>
-            <diffuse>1 0 0 1</diffuse>
-            <emissive>0.6 0 0 1</emissive>
-          </material>
-        </visual>
-      </link>
-    </model>
-    <model name="traffic_light_4_green">
-      <static>true</static>
-      <pose>-10.4 28.13 2.625 0 0 0</pose>
-      <link name="link">
-        <visual name="visual">
-          <geometry>
-            <sphere>
-              <radius>0.06</radius>
-            </sphere>
-          </geometry>
-          <material>
-            <ambient>0.1 0.1 0.1 1</ambient>
-            <diffuse>0.1 0.1 0.1 1</diffuse>
-          </material>
-        </visual>
-      </link>
-    </model>
     <model name="ground">
       <static>true</static>
-      <pose>15 0 -0.1 0 0 0</pose>
+      <pose>34.5 0 -0.1 0 0 0</pose>
       <link name="body">
         <collision name="box_collision">
           <pose>0 0 0 0 0 0</pose>
@@ -2658,7 +2223,7 @@
     </model>
     <model name="market_paving_0">
       <static>true</static>
-      <pose>-1.75 0 0.002 0 0 0</pose>
+      <pose>17.75 0 0.002 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -2676,7 +2241,7 @@
     </model>
     <model name="paving_joint_0">
       <static>true</static>
-      <pose>-1.75 0 0.0045 0 0 0</pose>
+      <pose>17.75 0 0.0045 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -2694,7 +2259,7 @@
     </model>
     <model name="market_paving_1">
       <static>true</static>
-      <pose>-1.25 0 0.002 0 0 0</pose>
+      <pose>18.25 0 0.002 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -2712,7 +2277,7 @@
     </model>
     <model name="market_paving_2">
       <static>true</static>
-      <pose>-0.75 0 0.002 0 0 0</pose>
+      <pose>18.75 0 0.002 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -2730,7 +2295,7 @@
     </model>
     <model name="paving_joint_2">
       <static>true</static>
-      <pose>-0.75 0 0.0045 0 0 0</pose>
+      <pose>18.75 0 0.0045 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -2748,7 +2313,7 @@
     </model>
     <model name="market_paving_3">
       <static>true</static>
-      <pose>-0.25 0 0.002 0 0 0</pose>
+      <pose>19.25 0 0.002 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -2766,7 +2331,7 @@
     </model>
     <model name="market_paving_4">
       <static>true</static>
-      <pose>0.25 0 0.002 0 0 0</pose>
+      <pose>19.75 0 0.002 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -2784,7 +2349,7 @@
     </model>
     <model name="paving_joint_4">
       <static>true</static>
-      <pose>0.25 0 0.0045 0 0 0</pose>
+      <pose>19.75 0 0.0045 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -2802,7 +2367,7 @@
     </model>
     <model name="market_paving_5">
       <static>true</static>
-      <pose>0.75 0 0.002 0 0 0</pose>
+      <pose>20.25 0 0.002 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -2820,7 +2385,7 @@
     </model>
     <model name="market_paving_6">
       <static>true</static>
-      <pose>1.25 0 0.002 0 0 0</pose>
+      <pose>20.75 0 0.002 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -2838,7 +2403,7 @@
     </model>
     <model name="paving_joint_6">
       <static>true</static>
-      <pose>1.25 0 0.0045 0 0 0</pose>
+      <pose>20.75 0 0.0045 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -2856,7 +2421,7 @@
     </model>
     <model name="market_paving_7">
       <static>true</static>
-      <pose>1.75 0 0.002 0 0 0</pose>
+      <pose>21.25 0 0.002 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -2874,7 +2439,7 @@
     </model>
     <model name="market_paving_8">
       <static>true</static>
-      <pose>2.25 0 0.002 0 0 0</pose>
+      <pose>21.75 0 0.002 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -2892,7 +2457,7 @@
     </model>
     <model name="paving_joint_8">
       <static>true</static>
-      <pose>2.25 0 0.0045 0 0 0</pose>
+      <pose>21.75 0 0.0045 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -2910,7 +2475,7 @@
     </model>
     <model name="market_paving_9">
       <static>true</static>
-      <pose>2.75 0 0.002 0 0 0</pose>
+      <pose>22.25 0 0.002 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -2928,7 +2493,7 @@
     </model>
     <model name="market_paving_10">
       <static>true</static>
-      <pose>3.25 0.00031537 0.002 0 0 0.003781</pose>
+      <pose>22.75 0.00031537 0.002 0 0 0.003781</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -2946,7 +2511,7 @@
     </model>
     <model name="paving_joint_10">
       <static>true</static>
-      <pose>3.25 0.00031537 0.0045 0 0 0.003781</pose>
+      <pose>22.75 0.00031537 0.0045 0 0 0.003781</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -2964,7 +2529,7 @@
     </model>
     <model name="market_paving_11">
       <static>true</static>
-      <pose>3.75 0.0084221 0.002 0 0 0.033398</pose>
+      <pose>23.25 0.0084221 0.002 0 0 0.033398</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -2982,7 +2547,7 @@
     </model>
     <model name="market_paving_12">
       <static>true</static>
-      <pose>4.25 0.038143 0.002 0 0 0.089204</pose>
+      <pose>23.75 0.038143 0.002 0 0 0.089204</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3000,7 +2565,7 @@
     </model>
     <model name="paving_joint_12">
       <static>true</static>
-      <pose>4.25 0.038143 0.0045 0 0 0.089204</pose>
+      <pose>23.75 0.038143 0.0045 0 0 0.089204</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3018,7 +2583,7 @@
     </model>
     <model name="market_paving_13">
       <static>true</static>
-      <pose>4.75 0.10125 0.002 0 0 0.16424</pose>
+      <pose>24.25 0.10125 0.002 0 0 0.16424</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3036,7 +2601,7 @@
     </model>
     <model name="market_paving_14">
       <static>true</static>
-      <pose>5.25 0.20586 0.002 0 0 0.2486</pose>
+      <pose>24.75 0.20586 0.002 0 0 0.2486</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3054,7 +2619,7 @@
     </model>
     <model name="paving_joint_14">
       <static>true</static>
-      <pose>5.25 0.20586 0.0045 0 0 0.2486</pose>
+      <pose>24.75 0.20586 0.0045 0 0 0.2486</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3072,7 +2637,7 @@
     </model>
     <model name="market_paving_15">
       <static>true</static>
-      <pose>5.75 0.35543 0.002 0 0 0.33122</pose>
+      <pose>25.25 0.35543 0.002 0 0 0.33122</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3090,7 +2655,7 @@
     </model>
     <model name="market_paving_16">
       <static>true</static>
-      <pose>6.25 0.54833 0.002 0 0 0.40225</pose>
+      <pose>25.75 0.54833 0.002 0 0 0.40225</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3108,7 +2673,7 @@
     </model>
     <model name="paving_joint_16">
       <static>true</static>
-      <pose>6.25 0.54833 0.0045 0 0 0.40225</pose>
+      <pose>25.75 0.54833 0.0045 0 0 0.40225</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3126,7 +2691,7 @@
     </model>
     <model name="market_paving_17">
       <static>true</static>
-      <pose>6.75 0.77782 0.002 0 0 0.45458</pose>
+      <pose>26.25 0.77782 0.002 0 0 0.45458</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3144,7 +2709,7 @@
     </model>
     <model name="market_paving_18">
       <static>true</static>
-      <pose>7.25 1.0326 0.002 0 0 0.48375</pose>
+      <pose>26.75 1.0326 0.002 0 0 0.48375</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3162,7 +2727,7 @@
     </model>
     <model name="paving_joint_18">
       <static>true</static>
-      <pose>7.25 1.0326 0.0045 0 0 0.48375</pose>
+      <pose>26.75 1.0326 0.0045 0 0 0.48375</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3180,7 +2745,7 @@
     </model>
     <model name="market_paving_19">
       <static>true</static>
-      <pose>7.75 1.2978 0.002 0 0 0.48699</pose>
+      <pose>27.25 1.2978 0.002 0 0 0.48699</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3198,7 +2763,7 @@
     </model>
     <model name="market_paving_20">
       <static>true</static>
-      <pose>8.25 1.5562 0.002 0 0 0.46221</pose>
+      <pose>27.75 1.5562 0.002 0 0 0.46221</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3216,7 +2781,7 @@
     </model>
     <model name="paving_joint_20">
       <static>true</static>
-      <pose>8.25 1.5562 0.0045 0 0 0.46221</pose>
+      <pose>27.75 1.5562 0.0045 0 0 0.46221</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3234,7 +2799,7 @@
     </model>
     <model name="market_paving_21">
       <static>true</static>
-      <pose>8.75 1.7901 0.002 0 0 0.40758</pose>
+      <pose>28.25 1.7901 0.002 0 0 0.40758</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3252,7 +2817,7 @@
     </model>
     <model name="market_paving_22">
       <static>true</static>
-      <pose>9.25 1.9827 0.002 0 0 0.32217</pose>
+      <pose>28.75 1.9827 0.002 0 0 0.32217</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3270,7 +2835,7 @@
     </model>
     <model name="paving_joint_22">
       <static>true</static>
-      <pose>9.25 1.9827 0.0045 0 0 0.32217</pose>
+      <pose>28.75 1.9827 0.0045 0 0 0.32217</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3288,7 +2853,7 @@
     </model>
     <model name="market_paving_23">
       <static>true</static>
-      <pose>9.75 2.1197 0.002 0 0 0.2079</pose>
+      <pose>29.25 2.1197 0.002 0 0 0.2079</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3306,7 +2871,7 @@
     </model>
     <model name="market_paving_24">
       <static>true</static>
-      <pose>10.25 2.191 0.002 0 0 0.072021</pose>
+      <pose>29.75 2.191 0.002 0 0 0.072021</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3324,7 +2889,7 @@
     </model>
     <model name="paving_joint_24">
       <static>true</static>
-      <pose>10.25 2.191 0.0045 0 0 0.072021</pose>
+      <pose>29.75 2.191 0.0045 0 0 0.072021</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3342,7 +2907,7 @@
     </model>
     <model name="market_paving_25">
       <static>true</static>
-      <pose>10.75 2.191 0.002 0 0 -0.072021</pose>
+      <pose>30.25 2.191 0.002 0 0 -0.072021</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3360,7 +2925,7 @@
     </model>
     <model name="market_paving_26">
       <static>true</static>
-      <pose>11.25 2.1197 0.002 0 0 -0.2079</pose>
+      <pose>30.75 2.1197 0.002 0 0 -0.2079</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3378,7 +2943,7 @@
     </model>
     <model name="paving_joint_26">
       <static>true</static>
-      <pose>11.25 2.1197 0.0045 0 0 -0.2079</pose>
+      <pose>30.75 2.1197 0.0045 0 0 -0.2079</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3396,7 +2961,7 @@
     </model>
     <model name="market_paving_27">
       <static>true</static>
-      <pose>11.75 1.9827 0.002 0 0 -0.32217</pose>
+      <pose>31.25 1.9827 0.002 0 0 -0.32217</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3414,7 +2979,7 @@
     </model>
     <model name="market_paving_28">
       <static>true</static>
-      <pose>12.25 1.7901 0.002 0 0 -0.40758</pose>
+      <pose>31.75 1.7901 0.002 0 0 -0.40758</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3432,7 +2997,7 @@
     </model>
     <model name="paving_joint_28">
       <static>true</static>
-      <pose>12.25 1.7901 0.0045 0 0 -0.40758</pose>
+      <pose>31.75 1.7901 0.0045 0 0 -0.40758</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3450,7 +3015,7 @@
     </model>
     <model name="market_paving_29">
       <static>true</static>
-      <pose>12.75 1.5562 0.002 0 0 -0.46221</pose>
+      <pose>32.25 1.5562 0.002 0 0 -0.46221</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3468,7 +3033,7 @@
     </model>
     <model name="market_paving_30">
       <static>true</static>
-      <pose>13.25 1.2978 0.002 0 0 -0.48699</pose>
+      <pose>32.75 1.2978 0.002 0 0 -0.48699</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3486,7 +3051,7 @@
     </model>
     <model name="paving_joint_30">
       <static>true</static>
-      <pose>13.25 1.2978 0.0045 0 0 -0.48699</pose>
+      <pose>32.75 1.2978 0.0045 0 0 -0.48699</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3504,7 +3069,7 @@
     </model>
     <model name="market_paving_31">
       <static>true</static>
-      <pose>13.75 1.0326 0.002 0 0 -0.48375</pose>
+      <pose>33.25 1.0326 0.002 0 0 -0.48375</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3522,7 +3087,7 @@
     </model>
     <model name="market_paving_32">
       <static>true</static>
-      <pose>14.25 0.77782 0.002 0 0 -0.45458</pose>
+      <pose>33.75 0.77782 0.002 0 0 -0.45458</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3540,7 +3105,7 @@
     </model>
     <model name="paving_joint_32">
       <static>true</static>
-      <pose>14.25 0.77782 0.0045 0 0 -0.45458</pose>
+      <pose>33.75 0.77782 0.0045 0 0 -0.45458</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3558,7 +3123,7 @@
     </model>
     <model name="market_paving_33">
       <static>true</static>
-      <pose>14.75 0.54833 0.002 0 0 -0.40225</pose>
+      <pose>34.25 0.54833 0.002 0 0 -0.40225</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3576,7 +3141,7 @@
     </model>
     <model name="market_paving_34">
       <static>true</static>
-      <pose>15.25 0.35543 0.002 0 0 -0.33122</pose>
+      <pose>34.75 0.35543 0.002 0 0 -0.33122</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3594,7 +3159,7 @@
     </model>
     <model name="paving_joint_34">
       <static>true</static>
-      <pose>15.25 0.35543 0.0045 0 0 -0.33122</pose>
+      <pose>34.75 0.35543 0.0045 0 0 -0.33122</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3612,7 +3177,7 @@
     </model>
     <model name="market_paving_35">
       <static>true</static>
-      <pose>15.75 0.20586 0.002 0 0 -0.2486</pose>
+      <pose>35.25 0.20586 0.002 0 0 -0.2486</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3630,7 +3195,7 @@
     </model>
     <model name="market_paving_36">
       <static>true</static>
-      <pose>16.25 0.10125 0.002 0 0 -0.16424</pose>
+      <pose>35.75 0.10125 0.002 0 0 -0.16424</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3648,7 +3213,7 @@
     </model>
     <model name="paving_joint_36">
       <static>true</static>
-      <pose>16.25 0.10125 0.0045 0 0 -0.16424</pose>
+      <pose>35.75 0.10125 0.0045 0 0 -0.16424</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3666,7 +3231,7 @@
     </model>
     <model name="market_paving_37">
       <static>true</static>
-      <pose>16.75 0.038143 0.002 0 0 -0.089204</pose>
+      <pose>36.25 0.038143 0.002 0 0 -0.089204</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3684,7 +3249,7 @@
     </model>
     <model name="market_paving_38">
       <static>true</static>
-      <pose>17.25 0.0084221 0.002 0 0 -0.033398</pose>
+      <pose>36.75 0.0084221 0.002 0 0 -0.033398</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3702,7 +3267,7 @@
     </model>
     <model name="paving_joint_38">
       <static>true</static>
-      <pose>17.25 0.0084221 0.0045 0 0 -0.033398</pose>
+      <pose>36.75 0.0084221 0.0045 0 0 -0.033398</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3720,7 +3285,7 @@
     </model>
     <model name="market_paving_39">
       <static>true</static>
-      <pose>17.75 0.00031537 0.002 0 0 -0.003781</pose>
+      <pose>37.25 0.00031537 0.002 0 0 -0.003781</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3738,7 +3303,7 @@
     </model>
     <model name="market_paving_40">
       <static>true</static>
-      <pose>18.25 -0.00031537 0.002 0 0 -0.003781</pose>
+      <pose>37.75 -0.00031537 0.002 0 0 -0.003781</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3756,7 +3321,7 @@
     </model>
     <model name="paving_joint_40">
       <static>true</static>
-      <pose>18.25 -0.00031537 0.0045 0 0 -0.003781</pose>
+      <pose>37.75 -0.00031537 0.0045 0 0 -0.003781</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3774,7 +3339,7 @@
     </model>
     <model name="market_paving_41">
       <static>true</static>
-      <pose>18.75 -0.0084221 0.002 0 0 -0.033398</pose>
+      <pose>38.25 -0.0084221 0.002 0 0 -0.033398</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3792,7 +3357,7 @@
     </model>
     <model name="market_paving_42">
       <static>true</static>
-      <pose>19.25 -0.038143 0.002 0 0 -0.089204</pose>
+      <pose>38.75 -0.038143 0.002 0 0 -0.089204</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3810,7 +3375,7 @@
     </model>
     <model name="paving_joint_42">
       <static>true</static>
-      <pose>19.25 -0.038143 0.0045 0 0 -0.089204</pose>
+      <pose>38.75 -0.038143 0.0045 0 0 -0.089204</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3828,7 +3393,7 @@
     </model>
     <model name="market_paving_43">
       <static>true</static>
-      <pose>19.75 -0.10125 0.002 0 0 -0.16424</pose>
+      <pose>39.25 -0.10125 0.002 0 0 -0.16424</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3846,7 +3411,7 @@
     </model>
     <model name="market_paving_44">
       <static>true</static>
-      <pose>20.25 -0.20586 0.002 0 0 -0.2486</pose>
+      <pose>39.75 -0.20586 0.002 0 0 -0.2486</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3864,7 +3429,7 @@
     </model>
     <model name="paving_joint_44">
       <static>true</static>
-      <pose>20.25 -0.20586 0.0045 0 0 -0.2486</pose>
+      <pose>39.75 -0.20586 0.0045 0 0 -0.2486</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3882,7 +3447,7 @@
     </model>
     <model name="market_paving_45">
       <static>true</static>
-      <pose>20.75 -0.35543 0.002 0 0 -0.33122</pose>
+      <pose>40.25 -0.35543 0.002 0 0 -0.33122</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3900,7 +3465,7 @@
     </model>
     <model name="market_paving_46">
       <static>true</static>
-      <pose>21.25 -0.54833 0.002 0 0 -0.40225</pose>
+      <pose>40.75 -0.54833 0.002 0 0 -0.40225</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3918,7 +3483,7 @@
     </model>
     <model name="paving_joint_46">
       <static>true</static>
-      <pose>21.25 -0.54833 0.0045 0 0 -0.40225</pose>
+      <pose>40.75 -0.54833 0.0045 0 0 -0.40225</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3936,7 +3501,7 @@
     </model>
     <model name="market_paving_47">
       <static>true</static>
-      <pose>21.75 -0.77782 0.002 0 0 -0.45458</pose>
+      <pose>41.25 -0.77782 0.002 0 0 -0.45458</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3954,7 +3519,7 @@
     </model>
     <model name="market_paving_48">
       <static>true</static>
-      <pose>22.25 -1.0326 0.002 0 0 -0.48375</pose>
+      <pose>41.75 -1.0326 0.002 0 0 -0.48375</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3972,7 +3537,7 @@
     </model>
     <model name="paving_joint_48">
       <static>true</static>
-      <pose>22.25 -1.0326 0.0045 0 0 -0.48375</pose>
+      <pose>41.75 -1.0326 0.0045 0 0 -0.48375</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -3990,7 +3555,7 @@
     </model>
     <model name="market_paving_49">
       <static>true</static>
-      <pose>22.75 -1.2978 0.002 0 0 -0.48699</pose>
+      <pose>42.25 -1.2978 0.002 0 0 -0.48699</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -4008,7 +3573,7 @@
     </model>
     <model name="market_paving_50">
       <static>true</static>
-      <pose>23.25 -1.5562 0.002 0 0 -0.46221</pose>
+      <pose>42.75 -1.5562 0.002 0 0 -0.46221</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -4026,7 +3591,7 @@
     </model>
     <model name="paving_joint_50">
       <static>true</static>
-      <pose>23.25 -1.5562 0.0045 0 0 -0.46221</pose>
+      <pose>42.75 -1.5562 0.0045 0 0 -0.46221</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -4044,7 +3609,7 @@
     </model>
     <model name="market_paving_51">
       <static>true</static>
-      <pose>23.75 -1.7901 0.002 0 0 -0.40758</pose>
+      <pose>43.25 -1.7901 0.002 0 0 -0.40758</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -4062,7 +3627,7 @@
     </model>
     <model name="market_paving_52">
       <static>true</static>
-      <pose>24.25 -1.9827 0.002 0 0 -0.32217</pose>
+      <pose>43.75 -1.9827 0.002 0 0 -0.32217</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -4080,7 +3645,7 @@
     </model>
     <model name="paving_joint_52">
       <static>true</static>
-      <pose>24.25 -1.9827 0.0045 0 0 -0.32217</pose>
+      <pose>43.75 -1.9827 0.0045 0 0 -0.32217</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -4098,7 +3663,7 @@
     </model>
     <model name="market_paving_53">
       <static>true</static>
-      <pose>24.75 -2.1197 0.002 0 0 -0.2079</pose>
+      <pose>44.25 -2.1197 0.002 0 0 -0.2079</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -4116,7 +3681,7 @@
     </model>
     <model name="market_paving_54">
       <static>true</static>
-      <pose>25.25 -2.191 0.002 0 0 -0.072021</pose>
+      <pose>44.75 -2.191 0.002 0 0 -0.072021</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -4134,7 +3699,7 @@
     </model>
     <model name="paving_joint_54">
       <static>true</static>
-      <pose>25.25 -2.191 0.0045 0 0 -0.072021</pose>
+      <pose>44.75 -2.191 0.0045 0 0 -0.072021</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -4152,7 +3717,7 @@
     </model>
     <model name="market_paving_55">
       <static>true</static>
-      <pose>25.75 -2.191 0.002 0 0 0.072021</pose>
+      <pose>45.25 -2.191 0.002 0 0 0.072021</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -4170,7 +3735,7 @@
     </model>
     <model name="market_paving_56">
       <static>true</static>
-      <pose>26.25 -2.1197 0.002 0 0 0.2079</pose>
+      <pose>45.75 -2.1197 0.002 0 0 0.2079</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -4188,7 +3753,7 @@
     </model>
     <model name="paving_joint_56">
       <static>true</static>
-      <pose>26.25 -2.1197 0.0045 0 0 0.2079</pose>
+      <pose>45.75 -2.1197 0.0045 0 0 0.2079</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -4206,7 +3771,7 @@
     </model>
     <model name="market_paving_57">
       <static>true</static>
-      <pose>26.75 -1.9827 0.002 0 0 0.32217</pose>
+      <pose>46.25 -1.9827 0.002 0 0 0.32217</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -4224,7 +3789,7 @@
     </model>
     <model name="market_paving_58">
       <static>true</static>
-      <pose>27.25 -1.7901 0.002 0 0 0.40758</pose>
+      <pose>46.75 -1.7901 0.002 0 0 0.40758</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -4242,7 +3807,7 @@
     </model>
     <model name="paving_joint_58">
       <static>true</static>
-      <pose>27.25 -1.7901 0.0045 0 0 0.40758</pose>
+      <pose>46.75 -1.7901 0.0045 0 0 0.40758</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -4260,7 +3825,7 @@
     </model>
     <model name="market_paving_59">
       <static>true</static>
-      <pose>27.75 -1.5562 0.002 0 0 0.46221</pose>
+      <pose>47.25 -1.5562 0.002 0 0 0.46221</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -4278,7 +3843,7 @@
     </model>
     <model name="market_paving_60">
       <static>true</static>
-      <pose>28.25 -1.2978 0.002 0 0 0.48699</pose>
+      <pose>47.75 -1.2978 0.002 0 0 0.48699</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -4296,7 +3861,7 @@
     </model>
     <model name="paving_joint_60">
       <static>true</static>
-      <pose>28.25 -1.2978 0.0045 0 0 0.48699</pose>
+      <pose>47.75 -1.2978 0.0045 0 0 0.48699</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -4314,7 +3879,7 @@
     </model>
     <model name="market_paving_61">
       <static>true</static>
-      <pose>28.75 -1.0326 0.002 0 0 0.48375</pose>
+      <pose>48.25 -1.0326 0.002 0 0 0.48375</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -4332,7 +3897,7 @@
     </model>
     <model name="market_paving_62">
       <static>true</static>
-      <pose>29.25 -0.77782 0.002 0 0 0.45458</pose>
+      <pose>48.75 -0.77782 0.002 0 0 0.45458</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -4350,7 +3915,7 @@
     </model>
     <model name="paving_joint_62">
       <static>true</static>
-      <pose>29.25 -0.77782 0.0045 0 0 0.45458</pose>
+      <pose>48.75 -0.77782 0.0045 0 0 0.45458</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -4368,7 +3933,7 @@
     </model>
     <model name="market_paving_63">
       <static>true</static>
-      <pose>29.75 -0.54833 0.002 0 0 0.40225</pose>
+      <pose>49.25 -0.54833 0.002 0 0 0.40225</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -4386,7 +3951,7 @@
     </model>
     <model name="market_paving_64">
       <static>true</static>
-      <pose>30.25 -0.35543 0.002 0 0 0.33122</pose>
+      <pose>49.75 -0.35543 0.002 0 0 0.33122</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -4404,7 +3969,7 @@
     </model>
     <model name="paving_joint_64">
       <static>true</static>
-      <pose>30.25 -0.35543 0.0045 0 0 0.33122</pose>
+      <pose>49.75 -0.35543 0.0045 0 0 0.33122</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -4422,7 +3987,7 @@
     </model>
     <model name="market_paving_65">
       <static>true</static>
-      <pose>30.75 -0.20586 0.002 0 0 0.2486</pose>
+      <pose>50.25 -0.20586 0.002 0 0 0.2486</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -4440,7 +4005,7 @@
     </model>
     <model name="market_paving_66">
       <static>true</static>
-      <pose>31.25 -0.10125 0.002 0 0 0.16424</pose>
+      <pose>50.75 -0.10125 0.002 0 0 0.16424</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -4458,7 +4023,7 @@
     </model>
     <model name="paving_joint_66">
       <static>true</static>
-      <pose>31.25 -0.10125 0.0045 0 0 0.16424</pose>
+      <pose>50.75 -0.10125 0.0045 0 0 0.16424</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -4476,7 +4041,7 @@
     </model>
     <model name="market_paving_67">
       <static>true</static>
-      <pose>31.75 -0.038143 0.002 0 0 0.089204</pose>
+      <pose>51.25 -0.038143 0.002 0 0 0.089204</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -4494,7 +4059,7 @@
     </model>
     <model name="market_paving_68">
       <static>true</static>
-      <pose>32.25 -0.0084221 0.002 0 0 0.033398</pose>
+      <pose>51.75 -0.0084221 0.002 0 0 0.033398</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -4512,7 +4077,7 @@
     </model>
     <model name="paving_joint_68">
       <static>true</static>
-      <pose>32.25 -0.0084221 0.0045 0 0 0.033398</pose>
+      <pose>51.75 -0.0084221 0.0045 0 0 0.033398</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -4530,7 +4095,7 @@
     </model>
     <model name="market_paving_69">
       <static>true</static>
-      <pose>32.75 -0.00031537 0.002 0 0 0.003781</pose>
+      <pose>52.25 -0.00031537 0.002 0 0 0.003781</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -4548,7 +4113,7 @@
     </model>
     <model name="market_paving_70">
       <static>true</static>
-      <pose>33.25 0 0.002 0 0 0</pose>
+      <pose>52.75 0 0.002 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -4566,7 +4131,7 @@
     </model>
     <model name="paving_joint_70">
       <static>true</static>
-      <pose>33.25 0 0.0045 0 0 0</pose>
+      <pose>52.75 0 0.0045 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -4584,7 +4149,7 @@
     </model>
     <model name="market_paving_71">
       <static>true</static>
-      <pose>33.75 0 0.002 0 0 0</pose>
+      <pose>53.25 0 0.002 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -4602,7 +4167,7 @@
     </model>
     <model name="entrance_road">
       <static>true</static>
-      <pose>-2.7 0 0.01 0 0 0</pose>
+      <pose>16.8 0 0.01 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -4620,7 +4185,7 @@
     </model>
     <model name="entrance_sidewalk_west">
       <static>true</static>
-      <pose>-6.4 0 0.014 0 0 0</pose>
+      <pose>13.1 0 0.014 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -4638,7 +4203,7 @@
     </model>
     <model name="entrance_sidewalk_market">
       <static>true</static>
-      <pose>0.25 0 0.014 0 0 0</pose>
+      <pose>19.75 0 0.014 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -4656,7 +4221,7 @@
     </model>
     <model name="crosswalk_stripe_0">
       <static>true</static>
-      <pose>-4.57 0 0.016 0 0 0</pose>
+      <pose>14.93 0 0.016 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -4674,7 +4239,7 @@
     </model>
     <model name="crosswalk_stripe_1">
       <static>true</static>
-      <pose>-3.97 0 0.016 0 0 0</pose>
+      <pose>15.53 0 0.016 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -4692,7 +4257,7 @@
     </model>
     <model name="crosswalk_stripe_2">
       <static>true</static>
-      <pose>-3.37 0 0.016 0 0 0</pose>
+      <pose>16.13 0 0.016 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -4710,7 +4275,7 @@
     </model>
     <model name="crosswalk_stripe_3">
       <static>true</static>
-      <pose>-2.77 0 0.016 0 0 0</pose>
+      <pose>16.73 0 0.016 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -4728,7 +4293,7 @@
     </model>
     <model name="crosswalk_stripe_4">
       <static>true</static>
-      <pose>-2.17 0 0.016 0 0 0</pose>
+      <pose>17.33 0 0.016 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -4746,7 +4311,7 @@
     </model>
     <model name="crosswalk_stripe_5">
       <static>true</static>
-      <pose>-1.57 0 0.016 0 0 0</pose>
+      <pose>17.93 0 0.016 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -4764,7 +4329,7 @@
     </model>
     <model name="crosswalk_stripe_6">
       <static>true</static>
-      <pose>-0.97 0 0.016 0 0 0</pose>
+      <pose>18.53 0 0.016 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -4782,7 +4347,7 @@
     </model>
     <model name="entrance_curb_-4.83_-1">
       <static>true</static>
-      <pose>-4.83 -4.8 0.07 0 0 0</pose>
+      <pose>14.67 -4.8 0.07 0 0 0</pose>
       <link name="body">
         <collision name="box_collision">
           <pose>0 0 0 0 0 0</pose>
@@ -4808,7 +4373,7 @@
     </model>
     <model name="entrance_curb_-0.57_-1">
       <static>true</static>
-      <pose>-0.57 -4.8 0.07 0 0 0</pose>
+      <pose>18.93 -4.8 0.07 0 0 0</pose>
       <link name="body">
         <collision name="box_collision">
           <pose>0 0 0 0 0 0</pose>
@@ -4834,7 +4399,7 @@
     </model>
     <model name="road_stop_line_-1">
       <static>true</static>
-      <pose>-1.65 -2 0.016 0 0 0</pose>
+      <pose>17.85 -2 0.016 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -4852,7 +4417,7 @@
     </model>
     <model name="road_center_line_-1_0">
       <static>true</static>
-      <pose>-2.7 -3.2 0.016 0 0 0</pose>
+      <pose>16.8 -3.2 0.016 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -4870,7 +4435,7 @@
     </model>
     <model name="road_center_line_-1_1">
       <static>true</static>
-      <pose>-2.7 -4.45 0.016 0 0 0</pose>
+      <pose>16.8 -4.45 0.016 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -4888,7 +4453,7 @@
     </model>
     <model name="road_center_line_-1_2">
       <static>true</static>
-      <pose>-2.7 -5.7 0.016 0 0 0</pose>
+      <pose>16.8 -5.7 0.016 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -4906,7 +4471,7 @@
     </model>
     <model name="road_center_line_-1_3">
       <static>true</static>
-      <pose>-2.7 -6.95 0.016 0 0 0</pose>
+      <pose>16.8 -6.95 0.016 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -4924,7 +4489,7 @@
     </model>
     <model name="entrance_curb_-4.83_1">
       <static>true</static>
-      <pose>-4.83 4.8 0.07 0 0 0</pose>
+      <pose>14.67 4.8 0.07 0 0 0</pose>
       <link name="body">
         <collision name="box_collision">
           <pose>0 0 0 0 0 0</pose>
@@ -4950,7 +4515,7 @@
     </model>
     <model name="entrance_curb_-0.57_1">
       <static>true</static>
-      <pose>-0.57 4.8 0.07 0 0 0</pose>
+      <pose>18.93 4.8 0.07 0 0 0</pose>
       <link name="body">
         <collision name="box_collision">
           <pose>0 0 0 0 0 0</pose>
@@ -4976,7 +4541,7 @@
     </model>
     <model name="road_stop_line_1">
       <static>true</static>
-      <pose>-3.75 2 0.016 0 0 0</pose>
+      <pose>15.75 2 0.016 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -4994,7 +4559,7 @@
     </model>
     <model name="road_center_line_1_0">
       <static>true</static>
-      <pose>-2.7 3.2 0.016 0 0 0</pose>
+      <pose>16.8 3.2 0.016 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -5012,7 +4577,7 @@
     </model>
     <model name="road_center_line_1_1">
       <static>true</static>
-      <pose>-2.7 4.45 0.016 0 0 0</pose>
+      <pose>16.8 4.45 0.016 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -5030,7 +4595,7 @@
     </model>
     <model name="road_center_line_1_2">
       <static>true</static>
-      <pose>-2.7 5.7 0.016 0 0 0</pose>
+      <pose>16.8 5.7 0.016 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -5048,7 +4613,7 @@
     </model>
     <model name="road_center_line_1_3">
       <static>true</static>
-      <pose>-2.7 6.95 0.016 0 0 0</pose>
+      <pose>16.8 6.95 0.016 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -5066,7 +4631,7 @@
     </model>
     <model name="crosswalk_tactile_0">
       <static>true</static>
-      <pose>-5.2 0 0.019 0 0 0</pose>
+      <pose>14.3 0 0.019 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -5084,7 +4649,7 @@
     </model>
     <model name="tactile_mark_0_0">
       <static>true</static>
-      <pose>-5.2 -1.3 0.022 0 0 0</pose>
+      <pose>14.3 -1.3 0.022 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -5102,7 +4667,7 @@
     </model>
     <model name="tactile_mark_0_1">
       <static>true</static>
-      <pose>-5.2 -1.065 0.022 0 0 0</pose>
+      <pose>14.3 -1.065 0.022 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -5120,7 +4685,7 @@
     </model>
     <model name="tactile_mark_0_2">
       <static>true</static>
-      <pose>-5.2 -0.83 0.022 0 0 0</pose>
+      <pose>14.3 -0.83 0.022 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -5138,7 +4703,7 @@
     </model>
     <model name="tactile_mark_0_3">
       <static>true</static>
-      <pose>-5.2 -0.595 0.022 0 0 0</pose>
+      <pose>14.3 -0.595 0.022 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -5156,7 +4721,7 @@
     </model>
     <model name="tactile_mark_0_4">
       <static>true</static>
-      <pose>-5.2 -0.36 0.022 0 0 0</pose>
+      <pose>14.3 -0.36 0.022 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -5174,7 +4739,7 @@
     </model>
     <model name="tactile_mark_0_5">
       <static>true</static>
-      <pose>-5.2 -0.125 0.022 0 0 0</pose>
+      <pose>14.3 -0.125 0.022 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -5192,7 +4757,7 @@
     </model>
     <model name="tactile_mark_0_6">
       <static>true</static>
-      <pose>-5.2 0.11 0.022 0 0 0</pose>
+      <pose>14.3 0.11 0.022 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -5210,7 +4775,7 @@
     </model>
     <model name="tactile_mark_0_7">
       <static>true</static>
-      <pose>-5.2 0.345 0.022 0 0 0</pose>
+      <pose>14.3 0.345 0.022 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -5228,7 +4793,7 @@
     </model>
     <model name="tactile_mark_0_8">
       <static>true</static>
-      <pose>-5.2 0.58 0.022 0 0 0</pose>
+      <pose>14.3 0.58 0.022 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -5246,7 +4811,7 @@
     </model>
     <model name="tactile_mark_0_9">
       <static>true</static>
-      <pose>-5.2 0.815 0.022 0 0 0</pose>
+      <pose>14.3 0.815 0.022 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -5264,7 +4829,7 @@
     </model>
     <model name="tactile_mark_0_10">
       <static>true</static>
-      <pose>-5.2 1.05 0.022 0 0 0</pose>
+      <pose>14.3 1.05 0.022 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -5282,7 +4847,7 @@
     </model>
     <model name="tactile_mark_0_11">
       <static>true</static>
-      <pose>-5.2 1.285 0.022 0 0 0</pose>
+      <pose>14.3 1.285 0.022 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -5300,7 +4865,7 @@
     </model>
     <model name="crosswalk_tactile_1">
       <static>true</static>
-      <pose>-0.2 0 0.019 0 0 0</pose>
+      <pose>19.3 0 0.019 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -5318,7 +4883,7 @@
     </model>
     <model name="tactile_mark_1_0">
       <static>true</static>
-      <pose>-0.2 -1.3 0.022 0 0 0</pose>
+      <pose>19.3 -1.3 0.022 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -5336,7 +4901,7 @@
     </model>
     <model name="tactile_mark_1_1">
       <static>true</static>
-      <pose>-0.2 -1.065 0.022 0 0 0</pose>
+      <pose>19.3 -1.065 0.022 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -5354,7 +4919,7 @@
     </model>
     <model name="tactile_mark_1_2">
       <static>true</static>
-      <pose>-0.2 -0.83 0.022 0 0 0</pose>
+      <pose>19.3 -0.83 0.022 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -5372,7 +4937,7 @@
     </model>
     <model name="tactile_mark_1_3">
       <static>true</static>
-      <pose>-0.2 -0.595 0.022 0 0 0</pose>
+      <pose>19.3 -0.595 0.022 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -5390,7 +4955,7 @@
     </model>
     <model name="tactile_mark_1_4">
       <static>true</static>
-      <pose>-0.2 -0.36 0.022 0 0 0</pose>
+      <pose>19.3 -0.36 0.022 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -5408,7 +4973,7 @@
     </model>
     <model name="tactile_mark_1_5">
       <static>true</static>
-      <pose>-0.2 -0.125 0.022 0 0 0</pose>
+      <pose>19.3 -0.125 0.022 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -5426,7 +4991,7 @@
     </model>
     <model name="tactile_mark_1_6">
       <static>true</static>
-      <pose>-0.2 0.11 0.022 0 0 0</pose>
+      <pose>19.3 0.11 0.022 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -5444,7 +5009,7 @@
     </model>
     <model name="tactile_mark_1_7">
       <static>true</static>
-      <pose>-0.2 0.345 0.022 0 0 0</pose>
+      <pose>19.3 0.345 0.022 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -5462,7 +5027,7 @@
     </model>
     <model name="tactile_mark_1_8">
       <static>true</static>
-      <pose>-0.2 0.58 0.022 0 0 0</pose>
+      <pose>19.3 0.58 0.022 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -5480,7 +5045,7 @@
     </model>
     <model name="tactile_mark_1_9">
       <static>true</static>
-      <pose>-0.2 0.815 0.022 0 0 0</pose>
+      <pose>19.3 0.815 0.022 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -5498,7 +5063,7 @@
     </model>
     <model name="tactile_mark_1_10">
       <static>true</static>
-      <pose>-0.2 1.05 0.022 0 0 0</pose>
+      <pose>19.3 1.05 0.022 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -5516,7 +5081,7 @@
     </model>
     <model name="tactile_mark_1_11">
       <static>true</static>
-      <pose>-0.2 1.285 0.022 0 0 0</pose>
+      <pose>19.3 1.285 0.022 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -5534,7 +5099,7 @@
     </model>
     <model name="crosswalk_sign_pole">
       <static>true</static>
-      <pose>0 2.1 0 0 0 0</pose>
+      <pose>19.5 2.1 0 0 0 0</pose>
       <link name="body">
         <collision name="post_collision">
           <pose>0 0 1.1 0 0 0</pose>
@@ -5562,7 +5127,7 @@
     </model>
     <model name="crosswalk_sign_back">
       <static>true</static>
-      <pose>0 2.1 2.15 0 0 0</pose>
+      <pose>19.5 2.1 2.15 0 0 0</pose>
       <link name="body">
         <collision name="box_collision">
           <pose>0 0 0 0 0 0</pose>
@@ -5588,7 +5153,7 @@
     </model>
     <model name="sign_crosswalk">
       <static>true</static>
-      <pose>-0.048 2.1 2.15 0 0 -1.5708</pose>
+      <pose>19.452 2.1 2.15 0 0 -1.5708</pose>
       <link name="body">
         <visual name="top_visual">
           <pose>0 -0.003 0.10687 0 0 0</pose>
@@ -6194,7 +5759,7 @@
     </model>
     <model name="ped_signal_west_housing">
       <static>true</static>
-      <pose>-5.35 1.95 0 0 0 1.5708</pose>
+      <pose>14.15 1.95 0 0 0 1.5708</pose>
       <link name="body">
         <collision name="pole_collision">
           <pose>0 0 1.025 0 0 0</pose>
@@ -6292,7 +5857,7 @@
     </model>
     <model name="ped_signal_west_red">
       <static>true</static>
-      <pose>-5.35 1.95 0 0 0 1.5708</pose>
+      <pose>14.15 1.95 0 0 0 1.5708</pose>
       <link name="body">
         <visual name="head_visual">
           <pose>-0.012 -0.132 2.457 1.5708 0 0</pose>
@@ -6383,7 +5948,7 @@
     </model>
     <model name="ped_signal_west_green">
       <static>true</static>
-      <pose>-5.35 1.95 -5 0 0 1.5708</pose>
+      <pose>14.15 1.95 -5 0 0 1.5708</pose>
       <link name="body">
         <visual name="head_visual">
           <pose>0.025 -0.132 1.977 1.5708 0 0</pose>
@@ -6516,7 +6081,7 @@
     </model>
     <model name="ped_signal_east_housing">
       <static>true</static>
-      <pose>0.1 -1.95 0 0 0 -1.5708</pose>
+      <pose>19.6 -1.95 0 0 0 -1.5708</pose>
       <link name="body">
         <collision name="pole_collision">
           <pose>0 0 1.025 0 0 0</pose>
@@ -6614,7 +6179,7 @@
     </model>
     <model name="ped_signal_east_red">
       <static>true</static>
-      <pose>0.1 -1.95 0 0 0 -1.5708</pose>
+      <pose>19.6 -1.95 0 0 0 -1.5708</pose>
       <link name="body">
         <visual name="head_visual">
           <pose>-0.012 -0.132 2.457 1.5708 0 0</pose>
@@ -6705,7 +6270,7 @@
     </model>
     <model name="ped_signal_east_green">
       <static>true</static>
-      <pose>0.1 -1.95 -5 0 0 -1.5708</pose>
+      <pose>19.6 -1.95 -5 0 0 -1.5708</pose>
       <link name="body">
         <visual name="head_visual">
           <pose>0.025 -0.132 1.977 1.5708 0 0</pose>
@@ -6838,7 +6403,7 @@
     </model>
     <model name="cross_aisle">
       <static>true</static>
-      <pose>17 0.019772 0.006 0 0 -0.058381</pose>
+      <pose>36.5 0.019772 0.006 0 0 -0.058381</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -6856,7 +6421,7 @@
     </model>
     <model name="boundary_-1">
       <static>true</static>
-      <pose>16 -10.5 0.5 0 0 0</pose>
+      <pose>35.5 -10.5 0.5 0 0 0</pose>
       <link name="body">
         <collision name="box_collision">
           <pose>0 0 0 0 0 0</pose>
@@ -6882,7 +6447,7 @@
     </model>
     <model name="entrance_post_-1">
       <static>true</static>
-      <pose>1.5 -3.25 1.8 0 0 0</pose>
+      <pose>21 -3.25 1.8 0 0 0</pose>
       <link name="body">
         <collision name="box_collision">
           <pose>0 0 0 0 0 0</pose>
@@ -6908,7 +6473,7 @@
     </model>
     <model name="boundary_1">
       <static>true</static>
-      <pose>16 10.5 0.5 0 0 0</pose>
+      <pose>35.5 10.5 0.5 0 0 0</pose>
       <link name="body">
         <collision name="box_collision">
           <pose>0 0 0 0 0 0</pose>
@@ -6934,7 +6499,7 @@
     </model>
     <model name="entrance_post_1">
       <static>true</static>
-      <pose>1.5 3.25 1.8 0 0 0</pose>
+      <pose>21 3.25 1.8 0 0 0</pose>
       <link name="body">
         <collision name="box_collision">
           <pose>0 0 0 0 0 0</pose>
@@ -6960,7 +6525,7 @@
     </model>
     <model name="entrance_header">
       <static>true</static>
-      <pose>1.5 0 3.6 0 0 0</pose>
+      <pose>21 0 3.6 0 0 0</pose>
       <link name="body">
         <collision name="box_collision">
           <pose>0 0 0 0 0 0</pose>
@@ -6986,7 +6551,7 @@
     </model>
     <model name="sign_entrance">
       <static>true</static>
-      <pose>1.365 0 3.6 0 0 -1.5708</pose>
+      <pose>20.865 0 3.6 0 0 -1.5708</pose>
       <link name="body">
         <visual name="top_visual">
           <pose>0 -0.003 0.58781 0 0 0</pose>
@@ -8084,7 +7649,7 @@
     </model>
     <model name="stall_00">
       <static>true</static>
-      <pose>6 4.8968 0 0 0 0</pose>
+      <pose>25.5 4.8968 0 0 0 0</pose>
       <link name="body">
         <collision name="rear_collision">
           <pose>0 1.65 1.4 0 0 0</pose>
@@ -8666,7 +8231,7 @@
     </model>
     <model name="signboard_0">
       <static>true</static>
-      <pose>6 3.1368 2.24 0 0 0</pose>
+      <pose>25.5 3.1368 2.24 0 0 0</pose>
       <link name="body">
         <collision name="box_collision">
           <pose>0 0 0 0 0 0</pose>
@@ -8692,7 +8257,7 @@
     </model>
     <model name="sign_shop_0">
       <static>true</static>
-      <pose>6 3.0888 2.24 0 0 0</pose>
+      <pose>25.5 3.0888 2.24 0 0 0</pose>
       <link name="body">
         <visual name="top_visual">
           <pose>0 -0.003 0.32062 0 0 0</pose>
@@ -9490,7 +9055,7 @@
     </model>
     <model name="stall_01">
       <static>true</static>
-      <pose>12 6.3425 0 0 0 0</pose>
+      <pose>31.5 6.3425 0 0 0 0</pose>
       <link name="body">
         <collision name="rear_collision">
           <pose>0 1.65 1.4 0 0 0</pose>
@@ -10072,7 +9637,7 @@
     </model>
     <model name="signboard_1">
       <static>true</static>
-      <pose>12 4.5825 2.24 0 0 0</pose>
+      <pose>31.5 4.5825 2.24 0 0 0</pose>
       <link name="body">
         <collision name="box_collision">
           <pose>0 0 0 0 0 0</pose>
@@ -10098,7 +9663,7 @@
     </model>
     <model name="sign_shop_1">
       <static>true</static>
-      <pose>12 4.5345 2.24 0 0 0</pose>
+      <pose>31.5 4.5345 2.24 0 0 0</pose>
       <link name="body">
         <visual name="top_visual">
           <pose>0 -0.003 0.32062 0 0 0</pose>
@@ -10704,7 +10269,7 @@
     </model>
     <model name="stall_02">
       <static>true</static>
-      <pose>22 3.5471 0 0 0 0</pose>
+      <pose>41.5 3.5471 0 0 0 0</pose>
       <link name="body">
         <collision name="rear_collision">
           <pose>0 1.65 1.4 0 0 0</pose>
@@ -11286,7 +10851,7 @@
     </model>
     <model name="signboard_2">
       <static>true</static>
-      <pose>22 1.7871 2.24 0 0 0</pose>
+      <pose>41.5 1.7871 2.24 0 0 0</pose>
       <link name="body">
         <collision name="box_collision">
           <pose>0 0 0 0 0 0</pose>
@@ -11312,7 +10877,7 @@
     </model>
     <model name="sign_shop_2">
       <static>true</static>
-      <pose>22 1.7391 2.24 0 0 0</pose>
+      <pose>41.5 1.7391 2.24 0 0 0</pose>
       <link name="body">
         <visual name="top_visual">
           <pose>0 -0.003 0.32062 0 0 0</pose>
@@ -11966,7 +11531,7 @@
     </model>
     <model name="stall_03">
       <static>true</static>
-      <pose>28 3.0211 0 0 0 0</pose>
+      <pose>47.5 3.0211 0 0 0 0</pose>
       <link name="body">
         <collision name="rear_collision">
           <pose>0 1.65 1.4 0 0 0</pose>
@@ -12548,7 +12113,7 @@
     </model>
     <model name="signboard_3">
       <static>true</static>
-      <pose>28 1.2611 2.24 0 0 0</pose>
+      <pose>47.5 1.2611 2.24 0 0 0</pose>
       <link name="body">
         <collision name="box_collision">
           <pose>0 0 0 0 0 0</pose>
@@ -12574,7 +12139,7 @@
     </model>
     <model name="sign_shop_3">
       <static>true</static>
-      <pose>28 1.2131 2.24 0 0 0</pose>
+      <pose>47.5 1.2131 2.24 0 0 0</pose>
       <link name="body">
         <visual name="top_visual">
           <pose>0 -0.003 0.32062 0 0 0</pose>
@@ -13252,7 +12817,7 @@
     </model>
     <model name="stall_04">
       <static>true</static>
-      <pose>6 -4.0032 0 0 0 0</pose>
+      <pose>25.5 -4.0032 0 0 0 0</pose>
       <link name="body">
         <collision name="rear_collision">
           <pose>0 -1.65 1.4 0 0 0</pose>
@@ -13834,7 +13399,7 @@
     </model>
     <model name="signboard_4">
       <static>true</static>
-      <pose>6 -2.2432 2.24 0 0 0</pose>
+      <pose>25.5 -2.2432 2.24 0 0 0</pose>
       <link name="body">
         <collision name="box_collision">
           <pose>0 0 0 0 0 0</pose>
@@ -13860,7 +13425,7 @@
     </model>
     <model name="sign_shop_4">
       <static>true</static>
-      <pose>6 -2.1952 2.24 0 0 -3.14158530718</pose>
+      <pose>25.5 -2.1952 2.24 0 0 -3.14158530718</pose>
       <link name="body">
         <visual name="top_visual">
           <pose>0 -0.003 0.32062 0 0 0</pose>
@@ -14754,7 +14319,7 @@
     </model>
     <model name="stall_05">
       <static>true</static>
-      <pose>12 -2.5575 0 0 0 0</pose>
+      <pose>31.5 -2.5575 0 0 0 0</pose>
       <link name="body">
         <collision name="rear_collision">
           <pose>0 -1.65 1.4 0 0 0</pose>
@@ -15336,7 +14901,7 @@
     </model>
     <model name="signboard_5">
       <static>true</static>
-      <pose>12 -0.79747 2.24 0 0 0</pose>
+      <pose>31.5 -0.79747 2.24 0 0 0</pose>
       <link name="body">
         <collision name="box_collision">
           <pose>0 0 0 0 0 0</pose>
@@ -15362,7 +14927,7 @@
     </model>
     <model name="sign_shop_5">
       <static>true</static>
-      <pose>12 -0.74947 2.24 0 0 -3.14158530718</pose>
+      <pose>31.5 -0.74947 2.24 0 0 -3.14158530718</pose>
       <link name="body">
         <visual name="top_visual">
           <pose>0 -0.003 0.32062 0 0 0</pose>
@@ -16112,7 +15677,7 @@
     </model>
     <model name="stall_06">
       <static>true</static>
-      <pose>22 -5.3529 0 0 0 0</pose>
+      <pose>41.5 -5.3529 0 0 0 0</pose>
       <link name="body">
         <collision name="rear_collision">
           <pose>0 -1.65 1.4 0 0 0</pose>
@@ -16694,7 +16259,7 @@
     </model>
     <model name="signboard_6">
       <static>true</static>
-      <pose>22 -3.5929 2.24 0 0 0</pose>
+      <pose>41.5 -3.5929 2.24 0 0 0</pose>
       <link name="body">
         <collision name="box_collision">
           <pose>0 0 0 0 0 0</pose>
@@ -16720,7 +16285,7 @@
     </model>
     <model name="sign_shop_6">
       <static>true</static>
-      <pose>22 -3.5449 2.24 0 0 -3.14158530718</pose>
+      <pose>41.5 -3.5449 2.24 0 0 -3.14158530718</pose>
       <link name="body">
         <visual name="top_visual">
           <pose>0 -0.003 0.32062 0 0 0</pose>
@@ -17590,7 +17155,7 @@
     </model>
     <model name="stall_07">
       <static>true</static>
-      <pose>28 -5.8789 0 0 0 0</pose>
+      <pose>47.5 -5.8789 0 0 0 0</pose>
       <link name="body">
         <collision name="rear_collision">
           <pose>0 -1.65 1.4 0 0 0</pose>
@@ -18172,7 +17737,7 @@
     </model>
     <model name="signboard_7">
       <static>true</static>
-      <pose>28 -4.1189 2.24 0 0 0</pose>
+      <pose>47.5 -4.1189 2.24 0 0 0</pose>
       <link name="body">
         <collision name="box_collision">
           <pose>0 0 0 0 0 0</pose>
@@ -18198,7 +17763,7 @@
     </model>
     <model name="sign_shop_7">
       <static>true</static>
-      <pose>28 -4.0709 2.24 0 0 -3.14158530718</pose>
+      <pose>47.5 -4.0709 2.24 0 0 -3.14158530718</pose>
       <link name="body">
         <visual name="top_visual">
           <pose>0 -0.003 0.32062 0 0 0</pose>
@@ -18912,7 +18477,7 @@
     </model>
     <model name="shopper_fruit">
       <static>true</static>
-      <pose>5.4053 1.9859 0 0 0 1.9395</pose>
+      <pose>24.9053 1.9859 0 0 0 1.9395</pose>
       <link name="body">
         <collision name="leg_-1_collision">
           <pose>0 -0.12 0.4 0 0 0</pose>
@@ -19131,7 +18696,7 @@
     </model>
     <model name="shopper_crossing">
       <static>true</static>
-      <pose>16.71 1.0471 0 0 0 3.0315</pose>
+      <pose>36.21 1.0471 0 0 0 3.0315</pose>
       <link name="body">
         <collision name="leg_-1_collision">
           <pose>0 -0.12 0.4 0 0 0</pose>
@@ -19350,7 +18915,7 @@
     </model>
     <model name="shopper_grocery">
       <static>true</static>
-      <pose>20.405 -1.9859 0 0 0 -1.9395</pose>
+      <pose>39.905 -1.9859 0 0 0 -1.9395</pose>
       <link name="body">
         <collision name="leg_-1_collision">
           <pose>0 -0.12 0.4 0 0 0</pose>
@@ -19569,7 +19134,7 @@
     </model>
     <model name="shopper_flowers">
       <static>true</static>
-      <pose>29.682 -2.2387 0 0 0 -1.0985</pose>
+      <pose>49.182 -2.2387 0 0 0 -1.0985</pose>
       <link name="body">
         <collision name="leg_-1_collision">
           <pose>0 -0.12 0.4 0 0 0</pose>
@@ -19788,7 +19353,7 @@
     </model>
     <model name="shopper_exit">
       <static>true</static>
-      <pose>31.901 1.6773 0 0 0 0.058381</pose>
+      <pose>51.401 1.6773 0 0 0 0.058381</pose>
       <link name="body">
         <collision name="leg_-1_collision">
           <pose>0 -0.12 0.4 0 0 0</pose>
@@ -20007,7 +19572,7 @@
     </model>
     <model name="vendor_0">
       <static>true</static>
-      <pose>4.3962 4.5977 0 0 0 -1.2021</pose>
+      <pose>23.8962 4.5977 0 0 0 -1.2021</pose>
       <link name="body">
         <collision name="leg_-1_collision">
           <pose>0 -0.12 0.4 0 0 0</pose>
@@ -20206,7 +19771,7 @@
     </model>
     <model name="vendor_1">
       <static>true</static>
-      <pose>10.396 -2.2584 0 0 0 1.2021</pose>
+      <pose>29.896 -2.2584 0 0 0 1.2021</pose>
       <link name="body">
         <collision name="leg_-1_collision">
           <pose>0 -0.12 0.4 0 0 0</pose>
@@ -20405,7 +19970,7 @@
     </model>
     <model name="vendor_2">
       <static>true</static>
-      <pose>24.024 3.06 0 0 0 -2.0431</pose>
+      <pose>43.524 3.06 0 0 0 -2.0431</pose>
       <link name="body">
         <collision name="leg_-1_collision">
           <pose>0 -0.12 0.4 0 0 0</pose>
@@ -20604,7 +20169,7 @@
     </model>
     <model name="vendor_3">
       <static>true</static>
-      <pose>30.048 -5.3797 0 0 0 2.049</pose>
+      <pose>49.548 -5.3797 0 0 0 2.049</pose>
       <link name="body">
         <collision name="leg_-1_collision">
           <pose>0 -0.12 0.4 0 0 0</pose>
@@ -20803,7 +20368,7 @@
     </model>
     <model name="motorcycle_delivery">
       <static>true</static>
-      <pose>12.93 -0.40058 0 0 0 -0.30528</pose>
+      <pose>32.43 -0.40058 0 0 0 -0.30528</pose>
       <link name="body">
         <collision name="tire_0_collision">
           <pose>-0.61 0 0.25 1.5708 0 0</pose>
@@ -21033,7 +20598,7 @@
     </model>
     <model name="motorcycle_parked">
       <static>true</static>
-      <pose>25.448 -0.54924 0 0 0 2.9627</pose>
+      <pose>44.948 -0.54924 0 0 0 2.9627</pose>
       <link name="body">
         <collision name="tire_0_collision">
           <pose>-0.61 0 0.25 1.5708 0 0</pose>
@@ -21263,7 +20828,7 @@
     </model>
     <model name="aisle_display_-1">
       <static>true</static>
-      <pose>10.233 0.53064 0.3 0 0 0.14195</pose>
+      <pose>29.733 0.53064 0.3 0 0 0.14195</pose>
       <link name="body">
         <collision name="box_collision">
           <pose>0 0 0 0 0 0</pose>
@@ -21457,7 +21022,7 @@
     </model>
     <model name="aisle_display_1">
       <static>true</static>
-      <pose>9.7666 3.7974 0.3 0 0 0.14195</pose>
+      <pose>29.2666 3.7974 0.3 0 0 0.14195</pose>
       <link name="body">
         <collision name="box_collision">
           <pose>0 0 0 0 0 0</pose>
@@ -21651,7 +21216,7 @@
     </model>
     <model name="handcart_unloading">
       <static>true</static>
-      <pose>19.803 1.3575 0 0 0 -0.14026</pose>
+      <pose>39.303 1.3575 0 0 0 -0.14026</pose>
       <link name="body">
         <collision name="bed_collision">
           <pose>0 0 0.2 0 0 0</pose>
@@ -21871,7 +21436,7 @@
     </model>
     <model name="handcart_waiting">
       <static>true</static>
-      <pose>31.216 -1.8932 0 0 0 0.36006</pose>
+      <pose>50.716 -1.8932 0 0 0 0.36006</pose>
       <link name="body">
         <collision name="bed_collision">
           <pose>0 0 0.2 0 0 0</pose>
@@ -22091,7 +21656,7 @@
     </model>
     <model name="stock_stack_0_0">
       <static>true</static>
-      <pose>9.5456 -0.15392 0.2 0 0 0.41442</pose>
+      <pose>29.0456 -0.15392 0.2 0 0 0.41442</pose>
       <link name="body">
         <collision name="box_collision">
           <pose>0 0 0 0 0 0</pose>
@@ -22117,7 +21682,7 @@
     </model>
     <model name="stock_stack_0_1">
       <static>true</static>
-      <pose>9.5456 -0.15392 0.6 0 0 0.41442</pose>
+      <pose>29.0456 -0.15392 0.6 0 0 0.41442</pose>
       <link name="body">
         <collision name="box_collision">
           <pose>0 0 0 0 0 0</pose>
@@ -22143,7 +21708,7 @@
     </model>
     <model name="stock_stack_1_0">
       <static>true</static>
-      <pose>15.648 2.5571 0.2 0 0 -0.3959</pose>
+      <pose>35.148 2.5571 0.2 0 0 -0.3959</pose>
       <link name="body">
         <collision name="box_collision">
           <pose>0 0 0 0 0 0</pose>
@@ -22169,7 +21734,7 @@
     </model>
     <model name="stock_stack_1_1">
       <static>true</static>
-      <pose>15.648 2.5571 0.6 0 0 -0.3959</pose>
+      <pose>35.148 2.5571 0.6 0 0 -0.3959</pose>
       <link name="body">
         <collision name="box_collision">
           <pose>0 0 0 0 0 0</pose>
@@ -22195,7 +21760,7 @@
     </model>
     <model name="stock_stack_2_0">
       <static>true</static>
-      <pose>22.587 -3.6237 0.2 0 0 -0.43872</pose>
+      <pose>42.087 -3.6237 0.2 0 0 -0.43872</pose>
       <link name="body">
         <collision name="box_collision">
           <pose>0 0 0 0 0 0</pose>
@@ -22221,7 +21786,7 @@
     </model>
     <model name="stock_stack_2_1">
       <static>true</static>
-      <pose>22.587 -3.6237 0.6 0 0 -0.43872</pose>
+      <pose>42.087 -3.6237 0.6 0 0 -0.43872</pose>
       <link name="body">
         <collision name="box_collision">
           <pose>0 0 0 0 0 0</pose>
@@ -22247,7 +21812,7 @@
     </model>
     <model name="stock_stack_3_0">
       <static>true</static>
-      <pose>26.304 -4.2924 0.2 0 0 0.14195</pose>
+      <pose>45.804 -4.2924 0.2 0 0 0.14195</pose>
       <link name="body">
         <collision name="box_collision">
           <pose>0 0 0 0 0 0</pose>
@@ -22273,7 +21838,7 @@
     </model>
     <model name="stock_stack_3_1">
       <static>true</static>
-      <pose>26.304 -4.2924 0.6 0 0 0.14195</pose>
+      <pose>45.804 -4.2924 0.6 0 0 0.14195</pose>
       <link name="body">
         <collision name="box_collision">
           <pose>0 0 0 0 0 0</pose>
@@ -22299,7 +21864,7 @@
     </model>
     <model name="crowd_00">
       <static>true</static>
-      <pose>3.7356 1.709 0 0 0 1.4379</pose>
+      <pose>23.2356 1.709 0 0 0 1.4379</pose>
       <link name="body">
         <collision name="leg_-1_collision">
           <pose>0 -0.12 0.4 0 0 0</pose>
@@ -22518,7 +22083,7 @@
     </model>
     <model name="crowd_01">
       <static>true</static>
-      <pose>4.0963 -1.6274 0 0 0 -1.1416</pose>
+      <pose>23.5963 -1.6274 0 0 0 -1.1416</pose>
       <link name="body">
         <collision name="leg_-1_collision">
           <pose>0 -0.12 0.4 0 0 0</pose>
@@ -22717,7 +22282,7 @@
     </model>
     <model name="crowd_02">
       <static>true</static>
-      <pose>7.988 -0.49997 0 0 0 -1.018</pose>
+      <pose>27.488 -0.49997 0 0 0 -1.018</pose>
       <link name="body">
         <collision name="leg_-1_collision">
           <pose>0 -0.12 0.4 0 0 0</pose>
@@ -22916,7 +22481,7 @@
     </model>
     <model name="crowd_03">
       <static>true</static>
-      <pose>11.937 3.6499 0 0 0 1.2317</pose>
+      <pose>31.437 3.6499 0 0 0 1.2317</pose>
       <link name="body">
         <collision name="leg_-1_collision">
           <pose>0 -0.12 0.4 0 0 0</pose>
@@ -23135,7 +22700,7 @@
     </model>
     <model name="crowd_04">
       <static>true</static>
-      <pose>12.964 3.2786 0 0 0 0.98558</pose>
+      <pose>32.464 3.2786 0 0 0 0.98558</pose>
       <link name="body">
         <collision name="leg_-1_collision">
           <pose>0 -0.12 0.4 0 0 0</pose>
@@ -23334,7 +22899,7 @@
     </model>
     <model name="crowd_05">
       <static>true</static>
-      <pose>14.744 -1.3209 0 0 0 0.27667</pose>
+      <pose>34.244 -1.3209 0 0 0 0.27667</pose>
       <link name="body">
         <collision name="leg_-1_collision">
           <pose>0 -0.12 0.4 0 0 0</pose>
@@ -23533,7 +23098,7 @@
     </model>
     <model name="crowd_06">
       <static>true</static>
-      <pose>17.804 1.4502 0 0 0 2.7976</pose>
+      <pose>37.304 1.4502 0 0 0 2.7976</pose>
       <link name="body">
         <collision name="leg_-1_collision">
           <pose>0 -0.12 0.4 0 0 0</pose>
@@ -23752,7 +23317,7 @@
     </model>
     <model name="crowd_07">
       <static>true</static>
-      <pose>18 -1.45 0 0 0 0.2</pose>
+      <pose>37.5 -1.45 0 0 0 0.2</pose>
       <link name="body">
         <collision name="leg_-1_collision">
           <pose>0 -0.12 0.4 0 0 0</pose>
@@ -23951,7 +23516,7 @@
     </model>
     <model name="crowd_08">
       <static>true</static>
-      <pose>23.851 -0.011381 0 0 0 1.0273</pose>
+      <pose>43.351 -0.011381 0 0 0 1.0273</pose>
       <link name="body">
         <collision name="leg_-1_collision">
           <pose>0 -0.12 0.4 0 0 0</pose>
@@ -24150,7 +23715,7 @@
     </model>
     <model name="crowd_09">
       <static>true</static>
-      <pose>23.405 -3.4316 0 0 0 -1.8687</pose>
+      <pose>42.905 -3.4316 0 0 0 -1.8687</pose>
       <link name="body">
         <collision name="leg_-1_collision">
           <pose>0 -0.12 0.4 0 0 0</pose>
@@ -24369,7 +23934,7 @@
     </model>
     <model name="crowd_10">
       <static>true</static>
-      <pose>28.119 0.55542 0 0 0 1.9776</pose>
+      <pose>47.619 0.55542 0 0 0 1.9776</pose>
       <link name="body">
         <collision name="leg_-1_collision">
           <pose>0 -0.12 0.4 0 0 0</pose>
@@ -24568,7 +24133,7 @@
     </model>
     <model name="crowd_11">
       <static>true</static>
-      <pose>31.169 1.5555 0 0 0 0.34026</pose>
+      <pose>50.669 1.5555 0 0 0 0.34026</pose>
       <link name="body">
         <collision name="leg_-1_collision">
           <pose>0 -0.12 0.4 0 0 0</pose>
@@ -24767,7 +24332,7 @@
     </model>
     <model name="motorcycle_unloading">
       <static>true</static>
-      <pose>19.404 -1.4645 0 0 0 -0.14026</pose>
+      <pose>38.904 -1.4645 0 0 0 -0.14026</pose>
       <link name="body">
         <collision name="tire_0_collision">
           <pose>-0.61 0 0.25 1.5708 0 0</pose>
@@ -24995,1131 +24560,9 @@
         </visual>
       </link>
     </model>
-    <model name="crossing_pedestrian_1">
-      <static>true</static>
-      <pose>-5.7 -0.75 0 0 0 0</pose>
-      <link name="body">
-        <collision name="leg_-1_collision">
-          <pose>0 -0.12 0.4 0 0 0</pose>
-          <geometry>
-            <cylinder>
-              <radius>0.085</radius>
-              <length>0.68</length>
-            </cylinder>
-          </geometry>
-        </collision>
-        <visual name="leg_-1_visual">
-          <pose>0 -0.12 0.4 0 0 0</pose>
-          <geometry>
-            <cylinder>
-              <radius>0.085</radius>
-              <length>0.68</length>
-            </cylinder>
-          </geometry>
-          <material>
-            <ambient>0.12 0.15 0.18 1</ambient>
-            <diffuse>0.12 0.15 0.18 1</diffuse>
-          </material>
-        </visual>
-        <collision name="shoe_-1_collision">
-          <pose>0.06 -0.12 0.055 0 0 0</pose>
-          <geometry>
-            <box>
-              <size>0.28 0.17 0.11</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="shoe_-1_visual">
-          <pose>0.06 -0.12 0.055 0 0 0</pose>
-          <geometry>
-            <box>
-              <size>0.28 0.17 0.11</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.08 0.07 0.06 1</ambient>
-            <diffuse>0.08 0.07 0.06 1</diffuse>
-          </material>
-        </visual>
-        <collision name="arm_-1_collision">
-          <pose>0.02 -0.27 1.02 0 -0.12 0</pose>
-          <geometry>
-            <cylinder>
-              <radius>0.068</radius>
-              <length>0.48</length>
-            </cylinder>
-          </geometry>
-        </collision>
-        <visual name="arm_-1_visual">
-          <pose>0.02 -0.27 1.02 0 -0.12 0</pose>
-          <geometry>
-            <cylinder>
-              <radius>0.068</radius>
-              <length>0.48</length>
-            </cylinder>
-          </geometry>
-          <material>
-            <ambient>0.73 0.29 0.17 1</ambient>
-            <diffuse>0.73 0.29 0.17 1</diffuse>
-          </material>
-        </visual>
-        <collision name="leg_1_collision">
-          <pose>0 0.12 0.4 0 0 0</pose>
-          <geometry>
-            <cylinder>
-              <radius>0.085</radius>
-              <length>0.68</length>
-            </cylinder>
-          </geometry>
-        </collision>
-        <visual name="leg_1_visual">
-          <pose>0 0.12 0.4 0 0 0</pose>
-          <geometry>
-            <cylinder>
-              <radius>0.085</radius>
-              <length>0.68</length>
-            </cylinder>
-          </geometry>
-          <material>
-            <ambient>0.12 0.15 0.18 1</ambient>
-            <diffuse>0.12 0.15 0.18 1</diffuse>
-          </material>
-        </visual>
-        <collision name="shoe_1_collision">
-          <pose>0.06 0.12 0.055 0 0 0</pose>
-          <geometry>
-            <box>
-              <size>0.28 0.17 0.11</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="shoe_1_visual">
-          <pose>0.06 0.12 0.055 0 0 0</pose>
-          <geometry>
-            <box>
-              <size>0.28 0.17 0.11</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.08 0.07 0.06 1</ambient>
-            <diffuse>0.08 0.07 0.06 1</diffuse>
-          </material>
-        </visual>
-        <collision name="arm_1_collision">
-          <pose>0.02 0.27 1.02 0 0.12 0</pose>
-          <geometry>
-            <cylinder>
-              <radius>0.068</radius>
-              <length>0.48</length>
-            </cylinder>
-          </geometry>
-        </collision>
-        <visual name="arm_1_visual">
-          <pose>0.02 0.27 1.02 0 0.12 0</pose>
-          <geometry>
-            <cylinder>
-              <radius>0.068</radius>
-              <length>0.48</length>
-            </cylinder>
-          </geometry>
-          <material>
-            <ambient>0.73 0.29 0.17 1</ambient>
-            <diffuse>0.73 0.29 0.17 1</diffuse>
-          </material>
-        </visual>
-        <collision name="torso_collision">
-          <pose>0 0 1.02 0 0 0</pose>
-          <geometry>
-            <box>
-              <size>0.3 0.43 0.58</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="torso_visual">
-          <pose>0 0 1.02 0 0 0</pose>
-          <geometry>
-            <box>
-              <size>0.3 0.43 0.58</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.73 0.29 0.17 1</ambient>
-            <diffuse>0.73 0.29 0.17 1</diffuse>
-          </material>
-        </visual>
-        <visual name="neck_visual">
-          <pose>0 0 1.37 0 0 0</pose>
-          <geometry>
-            <cylinder>
-              <radius>0.07</radius>
-              <length>0.13</length>
-            </cylinder>
-          </geometry>
-          <material>
-            <ambient>0.77 0.56 0.4 1</ambient>
-            <diffuse>0.77 0.56 0.4 1</diffuse>
-          </material>
-        </visual>
-        <collision name="head_collision">
-          <pose>0 0 1.57 0 0 0</pose>
-          <geometry>
-            <sphere>
-              <radius>0.16</radius>
-            </sphere>
-          </geometry>
-        </collision>
-        <visual name="head_visual">
-          <pose>0 0 1.57 0 0 0</pose>
-          <geometry>
-            <sphere>
-              <radius>0.16</radius>
-            </sphere>
-          </geometry>
-          <material>
-            <ambient>0.77 0.56 0.4 1</ambient>
-            <diffuse>0.77 0.56 0.4 1</diffuse>
-          </material>
-        </visual>
-        <visual name="hair_visual">
-          <pose>-0.025 0 1.63 0 0 0</pose>
-          <geometry>
-            <sphere>
-              <radius>0.155</radius>
-            </sphere>
-          </geometry>
-          <material>
-            <ambient>0.1 0.08 0.06 1</ambient>
-            <diffuse>0.1 0.08 0.06 1</diffuse>
-          </material>
-        </visual>
-        <collision name="shopping_bag_collision">
-          <pose>0.04 -0.38 0.6 0 0 0</pose>
-          <geometry>
-            <box>
-              <size>0.24 0.17 0.33</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="shopping_bag_visual">
-          <pose>0.04 -0.38 0.6 0 0 0</pose>
-          <geometry>
-            <box>
-              <size>0.24 0.17 0.33</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.78 0.65 0.39 1</ambient>
-            <diffuse>0.78 0.65 0.39 1</diffuse>
-          </material>
-        </visual>
-      </link>
-    </model>
-    <model name="crossing_pedestrian_2">
-      <static>true</static>
-      <pose>0.5 0.75 0 0 0 -3.14158530718</pose>
-      <link name="body">
-        <collision name="leg_-1_collision">
-          <pose>0 -0.12 0.4 0 0 0</pose>
-          <geometry>
-            <cylinder>
-              <radius>0.085</radius>
-              <length>0.68</length>
-            </cylinder>
-          </geometry>
-        </collision>
-        <visual name="leg_-1_visual">
-          <pose>0 -0.12 0.4 0 0 0</pose>
-          <geometry>
-            <cylinder>
-              <radius>0.085</radius>
-              <length>0.68</length>
-            </cylinder>
-          </geometry>
-          <material>
-            <ambient>0.12 0.15 0.18 1</ambient>
-            <diffuse>0.12 0.15 0.18 1</diffuse>
-          </material>
-        </visual>
-        <collision name="shoe_-1_collision">
-          <pose>0.06 -0.12 0.055 0 0 0</pose>
-          <geometry>
-            <box>
-              <size>0.28 0.17 0.11</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="shoe_-1_visual">
-          <pose>0.06 -0.12 0.055 0 0 0</pose>
-          <geometry>
-            <box>
-              <size>0.28 0.17 0.11</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.08 0.07 0.06 1</ambient>
-            <diffuse>0.08 0.07 0.06 1</diffuse>
-          </material>
-        </visual>
-        <collision name="arm_-1_collision">
-          <pose>0.02 -0.27 1.02 0 -0.12 0</pose>
-          <geometry>
-            <cylinder>
-              <radius>0.068</radius>
-              <length>0.48</length>
-            </cylinder>
-          </geometry>
-        </collision>
-        <visual name="arm_-1_visual">
-          <pose>0.02 -0.27 1.02 0 -0.12 0</pose>
-          <geometry>
-            <cylinder>
-              <radius>0.068</radius>
-              <length>0.48</length>
-            </cylinder>
-          </geometry>
-          <material>
-            <ambient>0.23 0.47 0.64 1</ambient>
-            <diffuse>0.23 0.47 0.64 1</diffuse>
-          </material>
-        </visual>
-        <collision name="leg_1_collision">
-          <pose>0 0.12 0.4 0 0 0</pose>
-          <geometry>
-            <cylinder>
-              <radius>0.085</radius>
-              <length>0.68</length>
-            </cylinder>
-          </geometry>
-        </collision>
-        <visual name="leg_1_visual">
-          <pose>0 0.12 0.4 0 0 0</pose>
-          <geometry>
-            <cylinder>
-              <radius>0.085</radius>
-              <length>0.68</length>
-            </cylinder>
-          </geometry>
-          <material>
-            <ambient>0.12 0.15 0.18 1</ambient>
-            <diffuse>0.12 0.15 0.18 1</diffuse>
-          </material>
-        </visual>
-        <collision name="shoe_1_collision">
-          <pose>0.06 0.12 0.055 0 0 0</pose>
-          <geometry>
-            <box>
-              <size>0.28 0.17 0.11</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="shoe_1_visual">
-          <pose>0.06 0.12 0.055 0 0 0</pose>
-          <geometry>
-            <box>
-              <size>0.28 0.17 0.11</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.08 0.07 0.06 1</ambient>
-            <diffuse>0.08 0.07 0.06 1</diffuse>
-          </material>
-        </visual>
-        <collision name="arm_1_collision">
-          <pose>0.02 0.27 1.02 0 0.12 0</pose>
-          <geometry>
-            <cylinder>
-              <radius>0.068</radius>
-              <length>0.48</length>
-            </cylinder>
-          </geometry>
-        </collision>
-        <visual name="arm_1_visual">
-          <pose>0.02 0.27 1.02 0 0.12 0</pose>
-          <geometry>
-            <cylinder>
-              <radius>0.068</radius>
-              <length>0.48</length>
-            </cylinder>
-          </geometry>
-          <material>
-            <ambient>0.23 0.47 0.64 1</ambient>
-            <diffuse>0.23 0.47 0.64 1</diffuse>
-          </material>
-        </visual>
-        <collision name="torso_collision">
-          <pose>0 0 1.02 0 0 0</pose>
-          <geometry>
-            <box>
-              <size>0.3 0.43 0.58</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="torso_visual">
-          <pose>0 0 1.02 0 0 0</pose>
-          <geometry>
-            <box>
-              <size>0.3 0.43 0.58</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.23 0.47 0.64 1</ambient>
-            <diffuse>0.23 0.47 0.64 1</diffuse>
-          </material>
-        </visual>
-        <visual name="neck_visual">
-          <pose>0 0 1.37 0 0 0</pose>
-          <geometry>
-            <cylinder>
-              <radius>0.07</radius>
-              <length>0.13</length>
-            </cylinder>
-          </geometry>
-          <material>
-            <ambient>0.77 0.56 0.4 1</ambient>
-            <diffuse>0.77 0.56 0.4 1</diffuse>
-          </material>
-        </visual>
-        <collision name="head_collision">
-          <pose>0 0 1.57 0 0 0</pose>
-          <geometry>
-            <sphere>
-              <radius>0.16</radius>
-            </sphere>
-          </geometry>
-        </collision>
-        <visual name="head_visual">
-          <pose>0 0 1.57 0 0 0</pose>
-          <geometry>
-            <sphere>
-              <radius>0.16</radius>
-            </sphere>
-          </geometry>
-          <material>
-            <ambient>0.77 0.56 0.4 1</ambient>
-            <diffuse>0.77 0.56 0.4 1</diffuse>
-          </material>
-        </visual>
-        <visual name="hair_visual">
-          <pose>-0.025 0 1.63 0 0 0</pose>
-          <geometry>
-            <sphere>
-              <radius>0.155</radius>
-            </sphere>
-          </geometry>
-          <material>
-            <ambient>0.1 0.08 0.06 1</ambient>
-            <diffuse>0.1 0.08 0.06 1</diffuse>
-          </material>
-        </visual>
-        <collision name="shopping_bag_collision">
-          <pose>0.04 -0.38 0.6 0 0 0</pose>
-          <geometry>
-            <box>
-              <size>0.24 0.17 0.33</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="shopping_bag_visual">
-          <pose>0.04 -0.38 0.6 0 0 0</pose>
-          <geometry>
-            <box>
-              <size>0.24 0.17 0.33</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.78 0.65 0.39 1</ambient>
-            <diffuse>0.78 0.65 0.39 1</diffuse>
-          </material>
-        </visual>
-      </link>
-    </model>
-    <model name="traffic_motorcycle_1">
-      <static>true</static>
-      <pose>-1.65 -5.8 0 0 0 1.5708</pose>
-      <link name="body">
-        <collision name="tire_0_collision">
-          <pose>-0.61 0 0.25 1.5708 0 0</pose>
-          <geometry>
-            <cylinder>
-              <radius>0.25</radius>
-              <length>0.14</length>
-            </cylinder>
-          </geometry>
-        </collision>
-        <visual name="tire_0_visual">
-          <pose>-0.61 0 0.25 1.5708 0 0</pose>
-          <geometry>
-            <cylinder>
-              <radius>0.25</radius>
-              <length>0.14</length>
-            </cylinder>
-          </geometry>
-          <material>
-            <ambient>0.075 0.075 0.07 1</ambient>
-            <diffuse>0.075 0.075 0.07 1</diffuse>
-          </material>
-        </visual>
-        <visual name="hub_0_visual">
-          <pose>-0.61 0 0.25 1.5708 0 0</pose>
-          <geometry>
-            <cylinder>
-              <radius>0.13</radius>
-              <length>0.145</length>
-            </cylinder>
-          </geometry>
-          <material>
-            <ambient>0.57 0.59 0.6 1</ambient>
-            <diffuse>0.57 0.59 0.6 1</diffuse>
-          </material>
-        </visual>
-        <collision name="tire_1_collision">
-          <pose>0.62 0 0.25 1.5708 0 0</pose>
-          <geometry>
-            <cylinder>
-              <radius>0.25</radius>
-              <length>0.14</length>
-            </cylinder>
-          </geometry>
-        </collision>
-        <visual name="tire_1_visual">
-          <pose>0.62 0 0.25 1.5708 0 0</pose>
-          <geometry>
-            <cylinder>
-              <radius>0.25</radius>
-              <length>0.14</length>
-            </cylinder>
-          </geometry>
-          <material>
-            <ambient>0.075 0.075 0.07 1</ambient>
-            <diffuse>0.075 0.075 0.07 1</diffuse>
-          </material>
-        </visual>
-        <visual name="hub_1_visual">
-          <pose>0.62 0 0.25 1.5708 0 0</pose>
-          <geometry>
-            <cylinder>
-              <radius>0.13</radius>
-              <length>0.145</length>
-            </cylinder>
-          </geometry>
-          <material>
-            <ambient>0.57 0.59 0.6 1</ambient>
-            <diffuse>0.57 0.59 0.6 1</diffuse>
-          </material>
-        </visual>
-        <collision name="deck_collision">
-          <pose>0 0 0.33 0 0 0</pose>
-          <geometry>
-            <box>
-              <size>1.2 0.43 0.17</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="deck_visual">
-          <pose>0 0 0.33 0 0 0</pose>
-          <geometry>
-            <box>
-              <size>1.2 0.43 0.17</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.18 0.18 0.18 1</ambient>
-            <diffuse>0.18 0.18 0.18 1</diffuse>
-          </material>
-        </visual>
-        <collision name="rear_body_collision">
-          <pose>-0.36 0 0.59 0 0 0</pose>
-          <geometry>
-            <box>
-              <size>0.65 0.46 0.4</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="rear_body_visual">
-          <pose>-0.36 0 0.59 0 0 0</pose>
-          <geometry>
-            <box>
-              <size>0.65 0.46 0.4</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.76 0.19 0.12 1</ambient>
-            <diffuse>0.76 0.19 0.12 1</diffuse>
-          </material>
-        </visual>
-        <collision name="seat_collision">
-          <pose>-0.2 0 0.83 0 0 0</pose>
-          <geometry>
-            <box>
-              <size>0.8 0.4 0.12</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="seat_visual">
-          <pose>-0.2 0 0.83 0 0 0</pose>
-          <geometry>
-            <box>
-              <size>0.8 0.4 0.12</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.1 0.1 0.1 1</ambient>
-            <diffuse>0.1 0.1 0.1 1</diffuse>
-          </material>
-        </visual>
-        <collision name="front_fairing_collision">
-          <pose>0.53 0 0.69 0 -0.2 0</pose>
-          <geometry>
-            <box>
-              <size>0.23 0.43 0.69</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="front_fairing_visual">
-          <pose>0.53 0 0.69 0 -0.2 0</pose>
-          <geometry>
-            <box>
-              <size>0.23 0.43 0.69</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.76 0.19 0.12 1</ambient>
-            <diffuse>0.76 0.19 0.12 1</diffuse>
-          </material>
-        </visual>
-        <collision name="handlebar_collision">
-          <pose>0.56 0 1.12 1.5708 0 0</pose>
-          <geometry>
-            <cylinder>
-              <radius>0.035</radius>
-              <length>0.72</length>
-            </cylinder>
-          </geometry>
-        </collision>
-        <visual name="handlebar_visual">
-          <pose>0.56 0 1.12 1.5708 0 0</pose>
-          <geometry>
-            <cylinder>
-              <radius>0.035</radius>
-              <length>0.72</length>
-            </cylinder>
-          </geometry>
-          <material>
-            <ambient>0.18 0.18 0.18 1</ambient>
-            <diffuse>0.18 0.18 0.18 1</diffuse>
-          </material>
-        </visual>
-        <visual name="headlight_visual">
-          <pose>0.7 0 0.94 0 0 0</pose>
-          <geometry>
-            <sphere>
-              <radius>0.095</radius>
-            </sphere>
-          </geometry>
-          <material>
-            <ambient>0.96 0.92 0.66 1</ambient>
-            <diffuse>0.96 0.92 0.66 1</diffuse>
-          </material>
-        </visual>
-        <collision name="delivery_box_collision">
-          <pose>-0.65 0 1.01 0 0 0</pose>
-          <geometry>
-            <box>
-              <size>0.51 0.55 0.48</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="delivery_box_visual">
-          <pose>-0.65 0 1.01 0 0 0</pose>
-          <geometry>
-            <box>
-              <size>0.51 0.55 0.48</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.2 0.23 0.25 1</ambient>
-            <diffuse>0.2 0.23 0.25 1</diffuse>
-          </material>
-        </visual>
-        <collision name="rider_torso_collision">
-          <pose>-0.12 0 1.12 0 -0.15 0</pose>
-          <geometry>
-            <box>
-              <size>0.33 0.39 0.43</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="rider_torso_visual">
-          <pose>-0.12 0 1.12 0 -0.15 0</pose>
-          <geometry>
-            <box>
-              <size>0.33 0.39 0.43</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.22 0.36 0.52 1</ambient>
-            <diffuse>0.22 0.36 0.52 1</diffuse>
-          </material>
-        </visual>
-        <collision name="helmet_collision">
-          <pose>-0.07 0 1.51 0 0 0</pose>
-          <geometry>
-            <sphere>
-              <radius>0.17</radius>
-            </sphere>
-          </geometry>
-        </collision>
-        <visual name="helmet_visual">
-          <pose>-0.07 0 1.51 0 0 0</pose>
-          <geometry>
-            <sphere>
-              <radius>0.17</radius>
-            </sphere>
-          </geometry>
-          <material>
-            <ambient>0.91 0.79 0.2 1</ambient>
-            <diffuse>0.91 0.79 0.2 1</diffuse>
-          </material>
-        </visual>
-        <visual name="visor_visual">
-          <pose>0.087 0 1.51 0 0 0</pose>
-          <geometry>
-            <box>
-              <size>0.045 0.23 0.1</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.13 0.17 0.2 1</ambient>
-            <diffuse>0.13 0.17 0.2 1</diffuse>
-          </material>
-        </visual>
-        <collision name="rider_leg_-1_collision">
-          <pose>-0.12 -0.28 0.75 0 0.4 0</pose>
-          <geometry>
-            <box>
-              <size>0.44 0.14 0.18</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="rider_leg_-1_visual">
-          <pose>-0.12 -0.28 0.75 0 0.4 0</pose>
-          <geometry>
-            <box>
-              <size>0.44 0.14 0.18</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.16 0.18 0.23 1</ambient>
-            <diffuse>0.16 0.18 0.23 1</diffuse>
-          </material>
-        </visual>
-        <collision name="rider_arm_-1_collision">
-          <pose>0.2 -0.23 1.12 0 0.1 0</pose>
-          <geometry>
-            <box>
-              <size>0.48 0.11 0.12</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="rider_arm_-1_visual">
-          <pose>0.2 -0.23 1.12 0 0.1 0</pose>
-          <geometry>
-            <box>
-              <size>0.48 0.11 0.12</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.22 0.36 0.52 1</ambient>
-            <diffuse>0.22 0.36 0.52 1</diffuse>
-          </material>
-        </visual>
-        <collision name="rider_leg_1_collision">
-          <pose>-0.12 0.28 0.75 0 0.4 0</pose>
-          <geometry>
-            <box>
-              <size>0.44 0.14 0.18</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="rider_leg_1_visual">
-          <pose>-0.12 0.28 0.75 0 0.4 0</pose>
-          <geometry>
-            <box>
-              <size>0.44 0.14 0.18</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.16 0.18 0.23 1</ambient>
-            <diffuse>0.16 0.18 0.23 1</diffuse>
-          </material>
-        </visual>
-        <collision name="rider_arm_1_collision">
-          <pose>0.2 0.23 1.12 0 0.1 0</pose>
-          <geometry>
-            <box>
-              <size>0.48 0.11 0.12</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="rider_arm_1_visual">
-          <pose>0.2 0.23 1.12 0 0.1 0</pose>
-          <geometry>
-            <box>
-              <size>0.48 0.11 0.12</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.22 0.36 0.52 1</ambient>
-            <diffuse>0.22 0.36 0.52 1</diffuse>
-          </material>
-        </visual>
-      </link>
-    </model>
-    <model name="traffic_motorcycle_2">
-      <static>true</static>
-      <pose>-3.75 5.8 0 0 0 -1.5708</pose>
-      <link name="body">
-        <collision name="tire_0_collision">
-          <pose>-0.61 0 0.25 1.5708 0 0</pose>
-          <geometry>
-            <cylinder>
-              <radius>0.25</radius>
-              <length>0.14</length>
-            </cylinder>
-          </geometry>
-        </collision>
-        <visual name="tire_0_visual">
-          <pose>-0.61 0 0.25 1.5708 0 0</pose>
-          <geometry>
-            <cylinder>
-              <radius>0.25</radius>
-              <length>0.14</length>
-            </cylinder>
-          </geometry>
-          <material>
-            <ambient>0.075 0.075 0.07 1</ambient>
-            <diffuse>0.075 0.075 0.07 1</diffuse>
-          </material>
-        </visual>
-        <visual name="hub_0_visual">
-          <pose>-0.61 0 0.25 1.5708 0 0</pose>
-          <geometry>
-            <cylinder>
-              <radius>0.13</radius>
-              <length>0.145</length>
-            </cylinder>
-          </geometry>
-          <material>
-            <ambient>0.57 0.59 0.6 1</ambient>
-            <diffuse>0.57 0.59 0.6 1</diffuse>
-          </material>
-        </visual>
-        <collision name="tire_1_collision">
-          <pose>0.62 0 0.25 1.5708 0 0</pose>
-          <geometry>
-            <cylinder>
-              <radius>0.25</radius>
-              <length>0.14</length>
-            </cylinder>
-          </geometry>
-        </collision>
-        <visual name="tire_1_visual">
-          <pose>0.62 0 0.25 1.5708 0 0</pose>
-          <geometry>
-            <cylinder>
-              <radius>0.25</radius>
-              <length>0.14</length>
-            </cylinder>
-          </geometry>
-          <material>
-            <ambient>0.075 0.075 0.07 1</ambient>
-            <diffuse>0.075 0.075 0.07 1</diffuse>
-          </material>
-        </visual>
-        <visual name="hub_1_visual">
-          <pose>0.62 0 0.25 1.5708 0 0</pose>
-          <geometry>
-            <cylinder>
-              <radius>0.13</radius>
-              <length>0.145</length>
-            </cylinder>
-          </geometry>
-          <material>
-            <ambient>0.57 0.59 0.6 1</ambient>
-            <diffuse>0.57 0.59 0.6 1</diffuse>
-          </material>
-        </visual>
-        <collision name="deck_collision">
-          <pose>0 0 0.33 0 0 0</pose>
-          <geometry>
-            <box>
-              <size>1.2 0.43 0.17</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="deck_visual">
-          <pose>0 0 0.33 0 0 0</pose>
-          <geometry>
-            <box>
-              <size>1.2 0.43 0.17</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.18 0.18 0.18 1</ambient>
-            <diffuse>0.18 0.18 0.18 1</diffuse>
-          </material>
-        </visual>
-        <collision name="rear_body_collision">
-          <pose>-0.36 0 0.59 0 0 0</pose>
-          <geometry>
-            <box>
-              <size>0.65 0.46 0.4</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="rear_body_visual">
-          <pose>-0.36 0 0.59 0 0 0</pose>
-          <geometry>
-            <box>
-              <size>0.65 0.46 0.4</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.19 0.39 0.7 1</ambient>
-            <diffuse>0.19 0.39 0.7 1</diffuse>
-          </material>
-        </visual>
-        <collision name="seat_collision">
-          <pose>-0.2 0 0.83 0 0 0</pose>
-          <geometry>
-            <box>
-              <size>0.8 0.4 0.12</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="seat_visual">
-          <pose>-0.2 0 0.83 0 0 0</pose>
-          <geometry>
-            <box>
-              <size>0.8 0.4 0.12</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.1 0.1 0.1 1</ambient>
-            <diffuse>0.1 0.1 0.1 1</diffuse>
-          </material>
-        </visual>
-        <collision name="front_fairing_collision">
-          <pose>0.53 0 0.69 0 -0.2 0</pose>
-          <geometry>
-            <box>
-              <size>0.23 0.43 0.69</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="front_fairing_visual">
-          <pose>0.53 0 0.69 0 -0.2 0</pose>
-          <geometry>
-            <box>
-              <size>0.23 0.43 0.69</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.19 0.39 0.7 1</ambient>
-            <diffuse>0.19 0.39 0.7 1</diffuse>
-          </material>
-        </visual>
-        <collision name="handlebar_collision">
-          <pose>0.56 0 1.12 1.5708 0 0</pose>
-          <geometry>
-            <cylinder>
-              <radius>0.035</radius>
-              <length>0.72</length>
-            </cylinder>
-          </geometry>
-        </collision>
-        <visual name="handlebar_visual">
-          <pose>0.56 0 1.12 1.5708 0 0</pose>
-          <geometry>
-            <cylinder>
-              <radius>0.035</radius>
-              <length>0.72</length>
-            </cylinder>
-          </geometry>
-          <material>
-            <ambient>0.18 0.18 0.18 1</ambient>
-            <diffuse>0.18 0.18 0.18 1</diffuse>
-          </material>
-        </visual>
-        <visual name="headlight_visual">
-          <pose>0.7 0 0.94 0 0 0</pose>
-          <geometry>
-            <sphere>
-              <radius>0.095</radius>
-            </sphere>
-          </geometry>
-          <material>
-            <ambient>0.96 0.92 0.66 1</ambient>
-            <diffuse>0.96 0.92 0.66 1</diffuse>
-          </material>
-        </visual>
-        <collision name="delivery_box_collision">
-          <pose>-0.65 0 1.01 0 0 0</pose>
-          <geometry>
-            <box>
-              <size>0.51 0.55 0.48</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="delivery_box_visual">
-          <pose>-0.65 0 1.01 0 0 0</pose>
-          <geometry>
-            <box>
-              <size>0.51 0.55 0.48</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.2 0.23 0.25 1</ambient>
-            <diffuse>0.2 0.23 0.25 1</diffuse>
-          </material>
-        </visual>
-        <collision name="rider_torso_collision">
-          <pose>-0.12 0 1.12 0 -0.15 0</pose>
-          <geometry>
-            <box>
-              <size>0.33 0.39 0.43</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="rider_torso_visual">
-          <pose>-0.12 0 1.12 0 -0.15 0</pose>
-          <geometry>
-            <box>
-              <size>0.33 0.39 0.43</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.22 0.36 0.52 1</ambient>
-            <diffuse>0.22 0.36 0.52 1</diffuse>
-          </material>
-        </visual>
-        <collision name="helmet_collision">
-          <pose>-0.07 0 1.51 0 0 0</pose>
-          <geometry>
-            <sphere>
-              <radius>0.17</radius>
-            </sphere>
-          </geometry>
-        </collision>
-        <visual name="helmet_visual">
-          <pose>-0.07 0 1.51 0 0 0</pose>
-          <geometry>
-            <sphere>
-              <radius>0.17</radius>
-            </sphere>
-          </geometry>
-          <material>
-            <ambient>0.91 0.79 0.2 1</ambient>
-            <diffuse>0.91 0.79 0.2 1</diffuse>
-          </material>
-        </visual>
-        <visual name="visor_visual">
-          <pose>0.087 0 1.51 0 0 0</pose>
-          <geometry>
-            <box>
-              <size>0.045 0.23 0.1</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.13 0.17 0.2 1</ambient>
-            <diffuse>0.13 0.17 0.2 1</diffuse>
-          </material>
-        </visual>
-        <collision name="rider_leg_-1_collision">
-          <pose>-0.12 -0.28 0.75 0 0.4 0</pose>
-          <geometry>
-            <box>
-              <size>0.44 0.14 0.18</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="rider_leg_-1_visual">
-          <pose>-0.12 -0.28 0.75 0 0.4 0</pose>
-          <geometry>
-            <box>
-              <size>0.44 0.14 0.18</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.16 0.18 0.23 1</ambient>
-            <diffuse>0.16 0.18 0.23 1</diffuse>
-          </material>
-        </visual>
-        <collision name="rider_arm_-1_collision">
-          <pose>0.2 -0.23 1.12 0 0.1 0</pose>
-          <geometry>
-            <box>
-              <size>0.48 0.11 0.12</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="rider_arm_-1_visual">
-          <pose>0.2 -0.23 1.12 0 0.1 0</pose>
-          <geometry>
-            <box>
-              <size>0.48 0.11 0.12</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.22 0.36 0.52 1</ambient>
-            <diffuse>0.22 0.36 0.52 1</diffuse>
-          </material>
-        </visual>
-        <collision name="rider_leg_1_collision">
-          <pose>-0.12 0.28 0.75 0 0.4 0</pose>
-          <geometry>
-            <box>
-              <size>0.44 0.14 0.18</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="rider_leg_1_visual">
-          <pose>-0.12 0.28 0.75 0 0.4 0</pose>
-          <geometry>
-            <box>
-              <size>0.44 0.14 0.18</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.16 0.18 0.23 1</ambient>
-            <diffuse>0.16 0.18 0.23 1</diffuse>
-          </material>
-        </visual>
-        <collision name="rider_arm_1_collision">
-          <pose>0.2 0.23 1.12 0 0.1 0</pose>
-          <geometry>
-            <box>
-              <size>0.48 0.11 0.12</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="rider_arm_1_visual">
-          <pose>0.2 0.23 1.12 0 0.1 0</pose>
-          <geometry>
-            <box>
-              <size>0.48 0.11 0.12</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.22 0.36 0.52 1</ambient>
-            <diffuse>0.22 0.36 0.52 1</diffuse>
-          </material>
-        </visual>
-      </link>
-    </model>
     <model name="stop_0_-0.7_0">
       <static>true</static>
-      <pose>7.2183 1.6947 0.009 0 0 0.48875</pose>
+      <pose>26.7183 1.6947 0.009 0 0 0.48875</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -26137,7 +24580,7 @@
     </model>
     <model name="stop_0_0.7_0">
       <static>true</static>
-      <pose>8.6746 2.409 0.009 0 0 0.38518</pose>
+      <pose>28.1746 2.409 0.009 0 0 0.38518</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -26155,7 +24598,7 @@
     </model>
     <model name="stop_0_0_-0.6">
       <static>true</static>
-      <pose>8.2 1.5312 0.009 0 0 0.46601</pose>
+      <pose>27.7 1.5312 0.009 0 0 0.46601</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -26173,7 +24616,7 @@
     </model>
     <model name="stop_0_0_0.6">
       <static>true</static>
-      <pose>7.6608 2.6032 0.009 0 0 0.46601</pose>
+      <pose>27.1608 2.6032 0.009 0 0 0.46601</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -26191,7 +24634,7 @@
     </model>
     <model name="stop_1_-0.7_0">
       <static>true</static>
-      <pose>26.659 -1.2728 0.009 0 0 0.35099</pose>
+      <pose>46.159 -1.2728 0.009 0 0 0.35099</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -26209,7 +24652,7 @@
     </model>
     <model name="stop_1_0.7_0">
       <static>true</static>
-      <pose>27.972 -0.65294 0.009 0 0 0.4879</pose>
+      <pose>47.472 -0.65294 0.009 0 0 0.4879</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -26227,7 +24670,7 @@
     </model>
     <model name="stop_1_0_-0.6">
       <static>true</static>
-      <pose>27.557 -1.5397 0.009 0 0 0.44903</pose>
+      <pose>47.057 -1.5397 0.009 0 0 0.44903</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -26245,7 +24688,7 @@
     </model>
     <model name="stop_1_0_0.6">
       <static>true</static>
-      <pose>27.036 -0.45861 0.009 0 0 0.44903</pose>
+      <pose>46.536 -0.45861 0.009 0 0 0.44903</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -26263,7 +24706,7 @@
     </model>
     <model name="stop_2_-0.7_0">
       <static>true</static>
-      <pose>32.3 -0.0068584 0.009 0 0 0.029174</pose>
+      <pose>51.8 -0.0068584 0.009 0 0 0.029174</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -26281,7 +24724,7 @@
     </model>
     <model name="stop_2_0.7_0">
       <static>true</static>
-      <pose>33.7 0 0.009 0 0 0</pose>
+      <pose>53.2 0 0.009 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -26299,7 +24742,7 @@
     </model>
     <model name="stop_2_0_-0.6">
       <static>true</static>
-      <pose>33 -0.6 0.009 0 0 0</pose>
+      <pose>52.5 -0.6 0.009 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -26317,7 +24760,7 @@
     </model>
     <model name="stop_2_0_0.6">
       <static>true</static>
-      <pose>33 0.6 0.009 0 0 0</pose>
+      <pose>52.5 0.6 0.009 0 0 0</pose>
       <link name="body">
         <visual name="box_visual">
           <pose>0 0 0 0 0 0</pose>
@@ -26335,19 +24778,19 @@
     </model>
     <model name="integration_parking_market_path">
       <static>true</static>
-      <pose>-14 0 -0.1 0 0 0</pose>
+      <pose>-21.75 0 -0.1 0 0 0</pose>
       <link name="body">
         <collision name="integration_parking_market_path_collision">
           <geometry>
             <box>
-              <size>12 3.4 0.2</size>
+              <size>0.5 3.4 0.2</size>
             </box>
           </geometry>
         </collision>
         <visual name="integration_parking_market_path_visual">
           <geometry>
             <box>
-              <size>12 3.4 0.2</size>
+              <size>0.5 3.4 0.2</size>
             </box>
           </geometry>
           <material>
@@ -26359,19 +24802,19 @@
     </model>
     <model name="integration_city_branch">
       <static>true</static>
-      <pose>-18.5 7.6 -0.1 0 0 0</pose>
+      <pose>10.7475031192 0 -0.05 0 0 0</pose>
       <link name="body">
         <collision name="integration_city_branch_collision">
           <geometry>
             <box>
-              <size>2 11.8 0.2</size>
+              <size>1.50187382959 3 0.1</size>
             </box>
           </geometry>
         </collision>
         <visual name="integration_city_branch_visual">
           <geometry>
             <box>
-              <size>2 11.8 0.2</size>
+              <size>1.50187382959 3 0.1</size>
             </box>
           </geometry>
           <material>
@@ -26383,19 +24826,19 @@
     </model>
     <model name="integration_city_access_ramp">
       <static>true</static>
-      <pose>-18.5 14.252496880847195 -0.012437616943892234 0.04995839572194276 0 0</pose>
+      <pose>-20.7475031192 0 -0.05 0 0 0</pose>
       <link name="body">
         <collision name="integration_city_access_ramp_collision">
           <geometry>
             <box>
-              <size>2 1.5018738295875589 0.1</size>
+              <size>1.50187382959 3 0.1</size>
             </box>
           </geometry>
         </collision>
         <visual name="integration_city_access_ramp_visual">
           <geometry>
             <box>
-              <size>2 1.5018738295875589 0.1</size>
+              <size>1.50187382959 3 0.1</size>
             </box>
           </geometry>
           <material>

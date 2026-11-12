@@ -1,0 +1,21 @@
+{
+  "repository": "UCLA-VAIL/Navigation-Model-Zoo-Public",
+  "revision": "af52d30827b32f694c08e6232abd7ca7c75a5969",
+  "files": {
+    "inference.py": {
+      "bytes": 5757,
+      "sha256": "2d7508590bf1833232fd6a32a20fb60ee28987e9f66e43c4ba8c4a3945f581b8",
+      "upstream_lfs_sha256": null
+    },
+    "model_info.yaml": {
+      "bytes": 591,
+      "sha256": "21b1d74ade8974662a09359c98f95d489caeb951640d2f86dd7fe96a5c24a9be",
+      "upstream_lfs_sha256": null
+    },
+    "mbra.onnx": {
+      "bytes": 253629409,
+      "sha256": "fc42919737964d9c4db9428d8a836ad9d95007f1a41fcf5cf95526e1042f17a5",
+      "upstream_lfs_sha256": "fc42919737964d9c4db9428d8a836ad9d95007f1a41fcf5cf95526e1042f17a5"
+    }
+  }
+}
